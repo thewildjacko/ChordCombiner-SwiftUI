@@ -9,7 +9,11 @@
 import Foundation
 
 extension Triad {
-  enum TriadType: String, QualProtocol, CaseIterable {
+  enum TriadType: String, QualProtocol, CaseIterable, Identifiable {
+    var id: Self {
+      return self
+    }
+    
     case ma, mi, aug, dim, sus4, sus2
     
     var quality: Suffix {

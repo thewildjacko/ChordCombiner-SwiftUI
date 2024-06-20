@@ -15,7 +15,11 @@ struct Triad: ChordProtocol, CustomStringConvertible {
     return "\(rootName)\(Suffix.LongUpper(type: self.type).quality) triad on the \(location) of \(root.noteName)"
   }
   
-  var type: TriadType
+  var type: TriadType {
+    didSet {
+      refresh()
+    }
+  }
   
   var chordName: String {
     return type.name
@@ -87,8 +91,18 @@ struct Triad: ChordProtocol, CustomStringConvertible {
   
   var convertedDegrees: [Int] = []
   
-  var letter: Letter
-  var accidental: RootAcc
+  var letter: Letter {
+    didSet {
+      refresh()
+    }
+  }
+  
+  var accidental: RootAcc {
+    didSet {
+      refresh()
+    }
+  }
+  
   var stats: (Letter, RootAcc, TriadType)
   
   init(rootNum: NoteNum = .zero, type: TriadType = .ma, enharm: Enharmonic = .flat, inversion: TriadInversion = .root) {
@@ -170,6 +184,10 @@ struct Triad: ChordProtocol, CustomStringConvertible {
         \tconvertedDegrees: \(convertedDegrees)
         \tnotes: \(noteNames.joined(separator: " "))
         """
+  }
+  
+  mutating func refresh() {
+    self = Triad(RootGen(letter, accidental), type, inversion: inversion as! Triad.TriadInversion)
   }
 }
 

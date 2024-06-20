@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25075E2C24CC0D001416AF /* LetterPicker.swift */; };
+		1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507612C24CC68001416AF /* AccidentalPicker.swift */; };
+		1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507632C24CCA8001416AF /* FNCTypePicker.swift */; };
+		1D2507662C24CCE0001416AF /* TriadTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507652C24CCE0001416AF /* TriadTypePicker.swift */; };
 		1D5F69DA2C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */; };
 		1D5F69DC2C2481E600193B58 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69DB2C2481E600193B58 /* ContentView.swift */; };
 		1D5F69DE2C2481E700193B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D5F69DD2C2481E700193B58 /* Assets.xcassets */; };
@@ -110,6 +114,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D25075E2C24CC0D001416AF /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
+		1D2507612C24CC68001416AF /* AccidentalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalPicker.swift; sourceTree = "<group>"; };
+		1D2507632C24CCA8001416AF /* FNCTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNCTypePicker.swift; sourceTree = "<group>"; };
+		1D2507652C24CCE0001416AF /* TriadTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriadTypePicker.swift; sourceTree = "<group>"; };
 		1D5F69D62C2481E600193B58 /* ChordCombiner-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ChordCombiner-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombiner_SwiftUIApp.swift; sourceTree = "<group>"; };
 		1D5F69DB2C2481E600193B58 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -224,6 +232,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D2507602C24CC11001416AF /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				1D25075E2C24CC0D001416AF /* LetterPicker.swift */,
+				1D2507652C24CCE0001416AF /* TriadTypePicker.swift */,
+				1D2507632C24CCA8001416AF /* FNCTypePicker.swift */,
+				1D2507612C24CC68001416AF /* AccidentalPicker.swift */,
+			);
+			path = Pickers;
+			sourceTree = "<group>";
+		};
 		1D5F69CD2C2481E600193B58 = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
+				1D2507602C24CC11001416AF /* Pickers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -719,6 +739,7 @@
 				1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */,
 				1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */,
 				1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */,
+				1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */,
 				1D5F6A792C24829500193B58 /* DetailChord.Dom7.swift in Sources */,
 				1D5F6A6B2C24829500193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift in Sources */,
 				1D5F6A662C24829500193B58 /* Interval.swift in Sources */,
@@ -734,16 +755,19 @@
 				1D5F6A7B2C24829500193B58 /* Maj6.swift in Sources */,
 				1D5F6A552C24829500193B58 /* Math Extensions.swift in Sources */,
 				1D5F6AC52C248A7200193B58 /* ComboChord.swift in Sources */,
+				1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */,
 				1D5F6A902C24829500193B58 /* ScaleDetails.swift in Sources */,
 				1D5F6A7D2C24829500193B58 /* KSwitch.swift in Sources */,
 				1D5F6A482C24829500193B58 /* HalfWholeDimFlat13Scale.swift in Sources */,
 				1D5F6A622C24829500193B58 /* DC.Min7.Min_Phrygian.swift in Sources */,
 				1D5F6A532C24829500193B58 /* P4.swift in Sources */,
+				1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */,
 				1D5F6A7C2C24829500193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift in Sources */,
 				1D5F6A822C24829500193B58 /* ChordDegrees.TCArray.swift in Sources */,
 				1D5F6A4F2C24829500193B58 /* Enharmonic.swift in Sources */,
 				1D5F6AA02C24829500193B58 /* Maj3.swift in Sources */,
 				1D5F6A942C24829500193B58 /* DC.Dom7.MelodicMinor_Chord.swift in Sources */,
+				1D2507662C24CCE0001416AF /* TriadTypePicker.swift in Sources */,
 				1D5F6A972C24829500193B58 /* SuffixGenerator.swift in Sources */,
 				1D5F6A582C24829500193B58 /* ChordProtocol.swift in Sources */,
 				1D5F6A7F2C24829500193B58 /* FourNoteChord.swift in Sources */,
@@ -933,7 +957,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUI-v1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -962,7 +986,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUI-v1";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

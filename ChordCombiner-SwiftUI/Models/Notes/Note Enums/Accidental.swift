@@ -9,14 +9,22 @@
 import Foundation
 
 /// the accidental of a note, key, or root, e.g. flat, sharp, natural, double flat or double sharp.
-enum Accidental: String, CaseIterable, CustomStringConvertible {
+enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable {
+  var id: Self {
+    return self
+  }
+  
   case flat = "♭", natural = "♮", sharp = "♯", dblFlat = "𝄫", dblSharp = "𝄪"
   
   var description: String {
     return self.rawValue
   }
   /// accidental enum limited to flats, naturals and sharps, specifically for initializing `Roots`
-  enum RootAcc: String, CaseIterable, CustomStringConvertible {
+  enum RootAcc: String, CaseIterable, CustomStringConvertible, Identifiable {
+    var id: Self {
+      return self
+    }
+    
     case flat = "♭", natural = "♮", sharp = "♯"
     
     var description: String {

@@ -9,7 +9,11 @@
 import Foundation
 
 struct FourNoteChord: ChordProtocol, CustomStringConvertible {
-  var type: FNCType
+  var type: FNCType {
+    didSet {
+      refresh()
+    }
+  }
   
   var chordName: String {
     return type.name
@@ -76,8 +80,19 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
   var allNotes: [Note] = []
   
   var convertedDegrees: [Int] = []
-  var letter: Letter
-  var accidental: RootAcc
+  
+  var letter: Letter {
+    didSet {
+      refresh()
+    }
+  }
+  
+  var accidental: RootAcc {
+    didSet {
+      refresh()
+    }
+  }
+  
   var stats: (Letter, RootAcc, FNCType)
   
   init(rootNum: NoteNum = .zero, type: FNCType = .dom7, enharm: Enharmonic = .flat, inversion: FNCInversion = .root) {
@@ -155,6 +170,10 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
   
   mutating func convertTo(type: FNCType) {
     self.type = type
+  }
+  
+  mutating func refresh() {
+    self = FourNoteChord(RootGen(letter, accidental), type, inversion: inversion as! FourNoteChord.FNCInversion)
   }
   
   var description: String {

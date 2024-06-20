@@ -9,7 +9,11 @@
 import Foundation
 
 extension FourNoteChord {
-  enum FNCType: String, QualProtocol, CaseIterable {
+  enum FNCType: String, QualProtocol, CaseIterable, Identifiable {
+    var id: Self {
+      return self
+    }
+    
     case ma7, dom7 = "7", mi7, mi7_b5 = "mi7(♭5)", dim7 = "˚7", ma6 = "6"
     
     var quality: Suffix {

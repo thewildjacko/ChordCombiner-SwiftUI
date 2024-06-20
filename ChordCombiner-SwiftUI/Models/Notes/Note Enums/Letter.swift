@@ -9,7 +9,11 @@
 import Foundation
 
 /// Enum to get the letter name of a note
-enum Letter: String, CaseIterable {
+enum Letter: String, CaseIterable, Identifiable {
+  var id: Self {
+    return self
+  }
+  
   case c = "C", d = "D" , e = "E", f = "F", g = "G", a = "A", b = "B"
   /// get Letter case from Int 0-6
   init(_ letterNum: Int) {
@@ -31,5 +35,11 @@ enum Letter: String, CaseIterable {
     default:
       self = .c
     }
+  }
+}
+
+extension Letter: Equatable {
+  static func == (lhs: Letter, rhs: Letter) -> Bool {
+    return lhs.rawValue == rhs.rawValue
   }
 }

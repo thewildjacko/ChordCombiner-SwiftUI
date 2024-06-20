@@ -12,9 +12,9 @@ import UIKit
 protocol ChordProtocol: ChordsAndScales, KSwitch {
   var noteCount: Int { get }
   var inversion: ChordInversion { get set }
-  var chordName: String {get}
+  var chordName: String { get }
   var qualSuffix: QualProtocol {get set}
-  var degSet: Set<Int> {get}
+  var degSet: Set<Int> { get }
   var convertedDegrees: [Int] {get set}
   
   func enharmSwapped() -> ChordProtocol
