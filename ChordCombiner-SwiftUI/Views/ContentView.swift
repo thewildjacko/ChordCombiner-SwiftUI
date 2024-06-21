@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var lowerChord = FourNoteChord()
+  @State private var lowerChord = FourNoteChord(.c, .dom7, inversion: .root)
   @State private var upperStructureTriad = Triad(.d, .ma, inversion: .root)
   @State private var resultChord = ResultChord(baseChord: FourNoteChord(), upStrctTriad: Triad(.d, .ma, inversion: .root))
   
@@ -16,33 +16,11 @@ struct ContentView: View {
     ResultChord(baseChord: lowerChord, upStrctTriad: upperStructureTriad)
   }
   
-  
   var body: some View {
-    VStack {
-      HStack {
-        VStack {
-          HStack {
-            LetterPicker(letter: $lowerChord.letter)
-//              .onChange(of: lowerChord) {
-//                print(result.baseChord.name)
-//              }
-            AccidentalPicker(accidental: $lowerChord.accidental)
-            FNCTypePicker(type: $lowerChord.type)
-          }
-          Text(lowerChord.name)
-        }
-        
-        Spacer()
-        
-        VStack {
-          HStack {
-            LetterPicker(letter: $upperStructureTriad.letter)
-            AccidentalPicker(accidental: $upperStructureTriad.accidental)
-            TriadTypePicker(type: $upperStructureTriad.type)
-          }
-          Text(upperStructureTriad.name)
-        }
-        .padding()
+    VStack(spacing: 175) {
+      HStack(spacing: 40) {
+        BaseChordMenu(lowerChord: $lowerChord)
+        USTMenu(upperStructureTriad: $upperStructureTriad)
       }
       .padding()
       

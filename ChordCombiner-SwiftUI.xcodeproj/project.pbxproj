@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D22141B2C251770003953BD /* BaseChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141A2C251770003953BD /* BaseChordMenu.swift */; };
+		1D22141D2C251780003953BD /* USTMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141C2C251780003953BD /* USTMenu.swift */; };
+		1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */; };
 		1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25075E2C24CC0D001416AF /* LetterPicker.swift */; };
 		1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507612C24CC68001416AF /* AccidentalPicker.swift */; };
 		1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507632C24CCA8001416AF /* FNCTypePicker.swift */; };
@@ -114,6 +117,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D22141A2C251770003953BD /* BaseChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChordMenu.swift; sourceTree = "<group>"; };
+		1D22141C2C251780003953BD /* USTMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTMenu.swift; sourceTree = "<group>"; };
+		1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerGeometryReader.swift; sourceTree = "<group>"; };
 		1D25075E2C24CC0D001416AF /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
 		1D2507612C24CC68001416AF /* AccidentalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalPicker.swift; sourceTree = "<group>"; };
 		1D2507632C24CCA8001416AF /* FNCTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNCTypePicker.swift; sourceTree = "<group>"; };
@@ -232,6 +238,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D2214192C251759003953BD /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				1D22141A2C251770003953BD /* BaseChordMenu.swift */,
+				1D22141C2C251780003953BD /* USTMenu.swift */,
+			);
+			path = Menus;
+			sourceTree = "<group>";
+		};
 		1D2507602C24CC11001416AF /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +279,7 @@
 			children = (
 				1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */,
 				1D5F6AA42C24830200193B58 /* Views */,
+				1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */,
 				1D5F6AA52C2483E700193B58 /* Models */,
 				1D5F6AA12C2482AD00193B58 /* Custom Extensions */,
 				1D5F69DD2C2481E700193B58 /* Assets.xcassets */,
@@ -295,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
+				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
 			);
 			path = Views;
@@ -734,6 +751,7 @@
 				1D5F6A6C2C24829500193B58 /* MelodicMinorScale.swift in Sources */,
 				1D5F6A762C24829500193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift in Sources */,
 				1D5F6A992C24829500193B58 /* Maj2.swift in Sources */,
+				1D22141B2C251770003953BD /* BaseChordMenu.swift in Sources */,
 				1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */,
 				1D5F6A5B2C24829500193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift in Sources */,
 				1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */,
@@ -797,7 +815,9 @@
 				1D5F6A952C24829500193B58 /* DC.Dim7.WholeHalfDim.swift in Sources */,
 				1D5F6A672C24829500193B58 /* DetailChord.swift in Sources */,
 				1D5F6A722C24829500193B58 /* NoteNum.swift in Sources */,
+				1D22141D2C251780003953BD /* USTMenu.swift in Sources */,
 				1D5F6A542C24829500193B58 /* KeyName.RootGen.swift in Sources */,
+				1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */,
 				1D5F6A8C2C24829500193B58 /* P5.swift in Sources */,
 				1D5F6A932C24829500193B58 /* DC.Dom7.LydianDom.swift in Sources */,
 				1D5F6A5F2C24829500193B58 /* DC.Dom7.Mixolydian.swift in Sources */,

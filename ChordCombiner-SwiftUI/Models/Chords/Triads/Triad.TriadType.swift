@@ -14,7 +14,7 @@ extension Triad {
       return self
     }
     
-    case ma, mi, aug, dim, sus4, sus2
+    case ma, mi, aug, dim, sus4 = "sus", sus2
     
     var quality: Suffix {
       switch self {
