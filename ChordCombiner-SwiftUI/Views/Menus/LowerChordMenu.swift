@@ -43,8 +43,6 @@ struct LowerChordMenu: View {
           print("lower chord is: \(lowerChord)")
         }
         .onAppear(perform: {
-//          let fnc = FourNoteChord()
-//          lowerChord = fnc
           lowerChord = chordStore.loadChordsJSON().lowerChord
           print("lower chord is: \(lowerChord)")
         })

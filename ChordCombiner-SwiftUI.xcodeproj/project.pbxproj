@@ -115,8 +115,6 @@
 		1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC72C248B2E00193B58 /* Dim7.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C302C25D410008DCBDF /* ChordStore.swift */; };
-		1DBE1C342C25D51B008DCBDF /* LowerChordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C332C25D51B008DCBDF /* LowerChordData.swift */; };
-		1DBE1C362C25D52A008DCBDF /* USTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C352C25D52A008DCBDF /* USTData.swift */; };
 		1DF5E4582C28D58F001DFB91 /* ChordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF5E4572C28D58F001DFB91 /* ChordData.swift */; };
 /* End PBXBuildFile section */
 
@@ -230,8 +228,6 @@
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1DBE1C302C25D410008DCBDF /* ChordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordStore.swift; sourceTree = "<group>"; };
-		1DBE1C332C25D51B008DCBDF /* LowerChordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerChordData.swift; sourceTree = "<group>"; };
-		1DBE1C352C25D52A008DCBDF /* USTData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTData.swift; sourceTree = "<group>"; };
 		1DF5E4572C28D58F001DFB91 /* ChordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -678,8 +674,6 @@
 			children = (
 				1DBE1C302C25D410008DCBDF /* ChordStore.swift */,
 				1DF5E4572C28D58F001DFB91 /* ChordData.swift */,
-				1DBE1C332C25D51B008DCBDF /* LowerChordData.swift */,
-				1DBE1C352C25D52A008DCBDF /* USTData.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -780,7 +774,6 @@
 				1D5F6A762C24829500193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift in Sources */,
 				1D5F6A992C24829500193B58 /* Maj2.swift in Sources */,
 				1D22141B2C251770003953BD /* LowerChordMenu.swift in Sources */,
-				1DBE1C342C25D51B008DCBDF /* LowerChordData.swift in Sources */,
 				1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */,
 				1D5F6A5B2C24829500193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift in Sources */,
 				1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */,
@@ -826,7 +819,6 @@
 				1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */,
 				1D5F6A4E2C24829500193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift in Sources */,
 				1D5F6A922C24829500193B58 /* DetailChord.Min7_b5.swift in Sources */,
-				1DBE1C362C25D52A008DCBDF /* USTData.swift in Sources */,
 				1D5F6A682C24829500193B58 /* Matchmaker.swift in Sources */,
 				1D5F6A812C24829500193B58 /* Mode.swift in Sources */,
 				1D5F6A6A2C24829500193B58 /* Min9.swift in Sources */,

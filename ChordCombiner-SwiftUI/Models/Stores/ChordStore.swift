@@ -9,21 +9,19 @@ import Foundation
 
 class ChordStore: ObservableObject {
   @Published var chordData = ChordData(
-//    lowerChordData: LowerChordData(letter: .c, accidental: .natural, type: .dom7, inversion: .root),
-//    ustData: USTData(letter: .d, accidental: .natural, type: .ma, inversion: .root),
-    triad: Triad(
-      RootGen(
-        .d,
-        .natural
-      ),
-      .ma,
-      inversion: .root
-    ), lowerChord: FourNoteChord(
+    lowerChord: FourNoteChord(
       RootGen(
         .c,
         .natural
       ),
       .dom7,
+      inversion: .root
+    ), triad: Triad(
+      RootGen(
+        .d,
+        .natural
+      ),
+      .ma,
       inversion: .root
     )
   ) {

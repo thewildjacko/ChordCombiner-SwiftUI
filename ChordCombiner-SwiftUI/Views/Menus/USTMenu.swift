@@ -43,8 +43,6 @@ struct USTMenu: View {
         print("triad is: \(upperStructureTriad)")
       }
       .onAppear(perform: {
-//        let triad = Triad()
-//        upperStructureTriad = triad
         upperStructureTriad = chordStore.loadChordsJSON().triad
         print("triad is: \(upperStructureTriad)")
       })
