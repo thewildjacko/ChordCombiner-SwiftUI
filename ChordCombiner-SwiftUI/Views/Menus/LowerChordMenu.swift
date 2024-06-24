@@ -39,21 +39,16 @@ struct LowerChordMenu: View {
         })
         .pickerStyle(.segmented)
         .onChange(of: lowerChord) {
-          chordStore.chordData.lowerChordData.letter = lowerChord.letter
-          chordStore.chordData.lowerChordData.accidental = lowerChord.accidental
-          chordStore.chordData.lowerChordData.type = lowerChord.type
-          chordStore.chordData.lowerChordData.inversion = lowerChord.chordInversion
+          chordStore.chordData.lowerChord = lowerChord
+          print("lower chord is: \(lowerChord)")
         }
         .onAppear(perform: {
-          let lowerChordData = chordStore.loadChordsJSON().lowerChordData
-          lowerChord = FourNoteChord(
-            RootGen(
-              lowerChordData.letter,
-              lowerChordData.accidental
-            ),
-            lowerChordData.type,
-            inversion: lowerChordData.inversion)
+//          let fnc = FourNoteChord()
+//          lowerChord = fnc
+          lowerChord = chordStore.loadChordsJSON().lowerChord
+          print("lower chord is: \(lowerChord)")
         })
+        
       }
     }
 }

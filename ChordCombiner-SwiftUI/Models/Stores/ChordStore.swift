@@ -9,15 +9,34 @@ import Foundation
 
 class ChordStore: ObservableObject {
   @Published var chordData = ChordData(
-    lowerChordData: LowerChordData(letter: .c, accidental: .natural, type: .dom7, inversion: .root),
-    ustData: USTData(letter: .d, accidental: .natural, type: .ma, inversion: .root)
+//    lowerChordData: LowerChordData(letter: .c, accidental: .natural, type: .dom7, inversion: .root),
+//    ustData: USTData(letter: .d, accidental: .natural, type: .ma, inversion: .root),
+    triad: Triad(
+      RootGen(
+        .d,
+        .natural
+      ),
+      .ma,
+      inversion: .root
+    ), lowerChord: FourNoteChord(
+      RootGen(
+        .c,
+        .natural
+      ),
+      .dom7,
+      inversion: .root
+    )
   ) {
     didSet {
       saveChordsJSON()
     }
   }
   
-  @Published var triad: Triad = Triad() {
+  @Published var triad: Triad = Triad(
+    RootGen(.d, .natural),
+    .ma,
+    inversion: .root
+  ) {
     didSet {
       saveChordsJSON()
     }
@@ -35,27 +54,12 @@ class ChordStore: ObservableObject {
   init() {
     chordData = loadChordsJSON()
     
-    triad = Triad(
-      RootGen(
-        self.chordData.ustData.letter,
-        self.chordData.ustData.accidental
-      ),
-      self.chordData.ustData.type,
-      inversion: self.chordData.ustData.inversion
-    )
-    
-    lowerChord = FourNoteChord(
-      RootGen(
-        self.chordData.lowerChordData.letter,
-        self.chordData.lowerChordData.accidental
-      ),
-      self.chordData.lowerChordData.type,
-      inversion: self.chordData.lowerChordData.inversion
-    )
+    triad = chordData.triad
+    lowerChord = chordData.lowerChord
   }
   
   func loadChordsJSON() -> ChordData {
-//    print(FileManager.documentsDirectoryURL)
+    print(FileManager.documentsDirectoryURL)
     
     guard Bundle.main.url(forResource: "chords", withExtension: "json") != nil else {
       
@@ -94,7 +98,7 @@ class ChordStore: ObservableObject {
 
 extension ChordStore: Equatable {
   static func == (lhs: ChordStore, rhs: ChordStore) -> Bool {
-    return lhs.chordData.ustData == rhs.chordData.ustData && lhs.chordData.lowerChordData == rhs.chordData.lowerChordData
+    return lhs.triad == rhs.triad && lhs.lowerChord == rhs.lowerChord // && lhs.chordData.ustData == rhs.chordData.ustData && lhs.chordData.lowerChordData == rhs.chordData.lowerChordData &&
   }
 }
 

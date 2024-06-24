@@ -39,21 +39,14 @@ struct USTMenu: View {
       })
       .pickerStyle(.segmented)
       .onChange(of: upperStructureTriad) {
-        chordStore.chordData.ustData.letter = upperStructureTriad.letter
-        chordStore.chordData.ustData.accidental = upperStructureTriad.accidental
-        chordStore.chordData.ustData.type = upperStructureTriad.type
-        chordStore.chordData.ustData.inversion = upperStructureTriad.chordInversion
+        chordStore.chordData.triad = upperStructureTriad
+        print("triad is: \(upperStructureTriad)")
       }
       .onAppear(perform: {
-        let ustData = chordStore.loadChordsJSON().ustData
-        upperStructureTriad = Triad(
-          RootGen(
-            ustData.letter,
-            ustData.accidental
-          ),
-          ustData.type,
-          inversion: ustData.inversion
-        )
+//        let triad = Triad()
+//        upperStructureTriad = triad
+        upperStructureTriad = chordStore.loadChordsJSON().triad
+        print("triad is: \(upperStructureTriad)")
       })
     }
     .padding()

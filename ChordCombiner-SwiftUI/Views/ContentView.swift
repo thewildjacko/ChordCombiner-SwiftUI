@@ -13,14 +13,16 @@ struct ContentView: View {
 //  @State var triad = Triad()
   
   var result: ResultChord {
-    ResultChord(baseChord: chordStore.lowerChord, upStrctTriad: chordStore.triad)
+    ResultChord(baseChord: chordStore.chordData.lowerChord, upStrctTriad: chordStore.chordData.triad)
   }
   
   var body: some View {
     VStack(spacing: 175) {
       HStack(spacing: 30) {
-        LowerChordMenu(lowerChord: $chordStore.lowerChord, chordStore: chordStore)
-        USTMenu(upperStructureTriad: $chordStore.triad, chordStore: chordStore)
+//        LowerChordMenu(lowerChord: $chordStore.lowerChord, chordStore: chordStore)
+//        USTMenu(upperStructureTriad: $chordStore.triad, chordStore: chordStore)
+        LowerChordMenu(lowerChord: $chordStore.chordData.lowerChord, chordStore: chordStore)
+        USTMenu(upperStructureTriad: $chordStore.chordData.triad, chordStore: chordStore)
       }
       .padding()
       

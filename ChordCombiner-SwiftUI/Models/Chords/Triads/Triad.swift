@@ -9,7 +9,31 @@
 import Foundation
 import UIKit
 
-struct Triad: ChordProtocol, CustomStringConvertible {
+struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+  enum CodingKeys: CodingKey {
+//    case letter, accidental, type, inversion, chordName, enharm, noteCount, chordInversion, qualSuffix, root, note1, note2, allNotes, convertedDegrees, description
+    case type, enharm, root, letter, accidental, chordInversion
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    
+    try container.encode(type, forKey: .type)
+    try container.encode(enharm, forKey: .enharm)
+    try container.encode(root, forKey: .root)
+    
+    try container.encode(letter, forKey: .letter)
+    try container.encode(accidental, forKey: .accidental)
+
+    try container.encode(chordInversion, forKey: .chordInversion)
+//    try container.encode(inversion, forKey: .inversion)
+//    try container.encode(qualSuffix, forKey: .qualSuffix)
+//    try container.encode(note1, forKey: .note1)
+//    try container.encode(note2, forKey: .note2)
+//    try container.encode(convertedDegrees, forKey: .convertedDegrees)
+//    try container.encode(description, forKey: .description)
+  }
+  
   var id = UUID()
   
   var type: TriadType {
@@ -100,8 +124,6 @@ struct Triad: ChordProtocol, CustomStringConvertible {
     }
   }
   
-  var stats: (Letter, RootAcc, TriadType)
-  
   var description: String {
     return """
         Triad:
@@ -112,6 +134,7 @@ struct Triad: ChordProtocol, CustomStringConvertible {
         \tkey: \(key)
         \ttype: \(type)
         \tname: \(name)
+        \tinversion: \(inversion)
         \tdegrees: \(degrees)
         \tconvertedDegrees: \(convertedDegrees)
         \tnotes: \(noteNames.joined(separator: " "))
@@ -125,7 +148,6 @@ struct Triad: ChordProtocol, CustomStringConvertible {
     
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
-    self.stats = (letter, accidental, type)
     
     self.chordInversion = inversion
     invertTo(inversion: inversion.num)
@@ -138,7 +160,6 @@ struct Triad: ChordProtocol, CustomStringConvertible {
     
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
-    self.stats = (letter, accidental, type)
     
     self.chordInversion = inversion
     invertTo(inversion: inversion.num)
@@ -195,5 +216,25 @@ struct Triad: ChordProtocol, CustomStringConvertible {
 extension Triad: Equatable {
   static func == (lhs: Triad, rhs: Triad) -> Bool {
     return lhs.type == rhs.type && lhs.root == rhs.root
+  }
+}
+
+extension Triad: Decodable {
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    
+    type = try container.decode(TriadType.self, forKey: .type)
+    enharm = try container.decode(Enharmonic.self, forKey: .enharm)
+    root = try container.decode(Root.self, forKey: .root)
+
+    letter = try container.decode(Letter.self, forKey: .letter)
+    accidental = try container.decode(RootAcc.self, forKey: .accidental)
+    
+    chordInversion = try container.decode(TriadInversion.self, forKey: .chordInversion)
+    
+    refresh()
+    invertTo(inversion: inversion.num)
+    
+//    inversion = try container.decode(TriadInversion.self, forKey: .inversion)
   }
 }

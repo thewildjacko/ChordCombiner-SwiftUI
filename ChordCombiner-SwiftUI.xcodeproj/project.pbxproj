@@ -108,7 +108,6 @@
 		1D5F6A9C2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3F2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift */; };
 		1D5F6A9D2C24829500193B58 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A402C24829500193B58 /* Suffix.swift */; };
 		1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A412C24829500193B58 /* Min6.swift */; };
-		1D5F6A9F2C24829500193B58 /* CVCStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A422C24829500193B58 /* CVCStats.swift */; };
 		1D5F6AA02C24829500193B58 /* Maj3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A432C24829500193B58 /* Maj3.swift */; };
 		1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AA22C2482D300193B58 /* Colors.swift */; };
 		1D5F6AC52C248A7200193B58 /* ComboChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC42C248A7200193B58 /* ComboChord.swift */; };
@@ -224,7 +223,6 @@
 		1D5F6A3F2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Slash_DorianP5Down.swift; sourceTree = "<group>"; };
 		1D5F6A402C24829500193B58 /* Suffix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suffix.swift; sourceTree = "<group>"; };
 		1D5F6A412C24829500193B58 /* Min6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min6.swift; sourceTree = "<group>"; };
-		1D5F6A422C24829500193B58 /* CVCStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCStats.swift; sourceTree = "<group>"; };
 		1D5F6A432C24829500193B58 /* Maj3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj3.swift; sourceTree = "<group>"; };
 		1D5F6AA22C2482D300193B58 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		1D5F6AC42C248A7200193B58 /* ComboChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComboChord.swift; sourceTree = "<group>"; };
@@ -340,7 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				1DBE1C322C25D4EB008DCBDF /* Stores */,
-				1D5F6A422C24829500193B58 /* CVCStats.swift */,
 				1D5F6AA62C2483EC00193B58 /* Chords */,
 				1D5F6AA72C2483F600193B58 /* Notes */,
 				1D5F6AA82C24841200193B58 /* Scales */,
@@ -860,7 +857,6 @@
 				1D5F6A8E2C24829500193B58 /* HexatonicSharp9Sharp11Scale.swift in Sources */,
 				1D5F69DA2C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift in Sources */,
 				1D5F6A832C24829500193B58 /* Typealiases.swift in Sources */,
-				1D5F6A9F2C24829500193B58 /* CVCStats.swift in Sources */,
 				1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */,
 				1D5F6A5E2C24829500193B58 /* Sh_9.swift in Sources */,
 				1D5F6A8F2C24829500193B58 /* RootKey.swift in Sources */,

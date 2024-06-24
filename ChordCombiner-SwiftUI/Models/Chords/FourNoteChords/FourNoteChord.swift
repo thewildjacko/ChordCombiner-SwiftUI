@@ -8,7 +8,26 @@
 
 import Foundation
 
-struct FourNoteChord: ChordProtocol, CustomStringConvertible {
+struct FourNoteChord: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+  enum CodingKeys: CodingKey {
+    case type, enharm, root, letter, accidental, chordInversion
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    
+    try container.encode(type, forKey: .type)
+    try container.encode(enharm, forKey: .enharm)
+    try container.encode(root, forKey: .root)
+    
+    try container.encode(letter, forKey: .letter)
+    try container.encode(accidental, forKey: .accidental)
+
+    try container.encode(chordInversion, forKey: .chordInversion)
+  }
+  
+  var id = UUID()
+  
   var type: FNCType {
     didSet {
       refresh()
@@ -93,8 +112,6 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
     }
   }
   
-  var stats: (Letter, RootAcc, FNCType)
-  
   init(rootNum: NoteNum = .zero, type: FNCType = .dom7, enharm: Enharmonic = .flat, inversion: FNCInversion = .root) {
     self.type = type
     if type == .mi7 && [2, 7, 9].contains(rootNum.num) {
@@ -106,7 +123,6 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
     
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
-    self.stats = (letter, accidental, type)
     
     self.chordInversion = inversion
     invertTo(inversion: inversion)
@@ -123,7 +139,6 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
     
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
-    self.stats = (letter, accidental, type)
     
     self.chordInversion = inversion
     invertTo(inversion: inversion)
@@ -186,6 +201,7 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
         \tkey: \(key)
         \ttype: \(type)
         \tname: \(name)
+        \tinversion: \(inversion)
         \tdegrees: \(degrees)
         \tconvertedDegrees: \(convertedDegrees)
         \tnotes: \(noteNames.joined(separator: " "))
@@ -196,5 +212,23 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible {
 extension FourNoteChord: Equatable {
   static func == (lhs: FourNoteChord, rhs: FourNoteChord) -> Bool {
     return lhs.type == rhs.type && lhs.root == rhs.root
+  }
+}
+
+extension FourNoteChord: Decodable {
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    
+    type = try container.decode(FNCType.self, forKey: .type)
+    enharm = try container.decode(Enharmonic.self, forKey: .enharm)
+    root = try container.decode(Root.self, forKey: .root)
+
+    letter = try container.decode(Letter.self, forKey: .letter)
+    accidental = try container.decode(RootAcc.self, forKey: .accidental)
+    
+    chordInversion = try container.decode(FNCInversion.self, forKey: .chordInversion)
+    
+    refresh()
+    invertTo(inversion: inversion.num)
   }
 }
