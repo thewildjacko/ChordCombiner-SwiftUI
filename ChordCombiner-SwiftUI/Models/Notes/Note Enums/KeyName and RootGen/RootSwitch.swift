@@ -9,7 +9,7 @@
 import Foundation
 
 /// selects flat or sharp version of RootGen based on enharm
-struct RootSwitch {
+struct RootSwitch: Codable {
   var enharm: Enharmonic
   func pickRoot(_ flatKey: KeyName, _ sharpKey: KeyName) -> RootGen {
     return enharm == .flat ? RootGen(flatKey) : RootGen(sharpKey)

@@ -9,7 +9,7 @@
 import Foundation
 
 /// used in chords & scales to define the Tonic
-struct Root: Note, CustomStringConvertible {
+struct Root: Note, CustomStringConvertible, Codable {
   var description: String {
     return "Root (\(noteName))"
   }

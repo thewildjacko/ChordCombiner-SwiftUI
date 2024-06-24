@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ChordInversion {
+protocol ChordInversion: Codable {
   var name: (short: String, long: String) { get }
   var num: FNCInversion { get }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// to enumerate modes for single-mode, 2-mode and 7-mode scales
-enum Mode {
+enum Mode: Codable {
   case seven, two, one
   
   /// for scales with no other common named modes

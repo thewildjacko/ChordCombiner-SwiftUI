@@ -9,7 +9,7 @@
 import Foundation
 
 extension FourNoteChord {
-  enum FNCType: String, QualProtocol, CaseIterable, Identifiable {
+  enum FNCType: String, QualProtocol, CaseIterable, Identifiable, Codable {
     var id: Self {
       return self
     }

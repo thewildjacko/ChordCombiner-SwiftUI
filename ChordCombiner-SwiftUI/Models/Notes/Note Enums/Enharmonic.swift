@@ -9,7 +9,7 @@
 import Foundation
 
 /// enum to determine whether a key is "flat" or "sharp"
-enum Enharmonic: Int, CaseIterable, CustomStringConvertible {
+enum Enharmonic: Int, CaseIterable, CustomStringConvertible, Codable {
   case flat = 0, sharp
   
   var description: String {
@@ -21,3 +21,5 @@ enum Enharmonic: Int, CaseIterable, CustomStringConvertible {
     }
   }
 }
+
+

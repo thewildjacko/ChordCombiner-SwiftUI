@@ -9,7 +9,7 @@
 import Foundation
 
 extension Triad {
-  enum TriadInversion: String, ChordInversion, CaseIterable {
+  enum TriadInversion: String, ChordInversion, CaseIterable, Codable {
     case root, first, second
     
     var name: (short: String, long: String) {
@@ -46,3 +46,5 @@ extension Triad {
     }
   }
 }
+
+let inv = TriadInversion(FNCInversion(rawValue: "root")!)

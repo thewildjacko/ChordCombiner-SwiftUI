@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol QualProtocol {
+protocol QualProtocol: Codable {
   var quality: Suffix { get }
   var qualStr: String { get }
   var name: String { get }

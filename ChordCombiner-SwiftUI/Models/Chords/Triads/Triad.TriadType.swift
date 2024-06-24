@@ -9,12 +9,12 @@
 import Foundation
 
 extension Triad {
-  enum TriadType: String, QualProtocol, CaseIterable, Identifiable {
+  enum TriadType: String, QualProtocol, CaseIterable, Identifiable, Codable {
     var id: Self {
       return self
     }
     
-    case ma, mi, aug, dim, sus4 = "sus", sus2
+    case ma, mi, aug, dim, sus4, sus2
     
     var quality: Suffix {
       switch self {
@@ -63,5 +63,4 @@ extension Triad {
       return TriadType.allCases.map {$0.rawValue}
     }
   }
-  
 }

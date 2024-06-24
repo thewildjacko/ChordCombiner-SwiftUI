@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Note Protocol
 
 /// Defines a single note to be used in a scale, mode, chord or pattern
-protocol Note {
+protocol Note: Codable {
   var noteNum: NoteNum { get set } // `NoteNum` enum case of the note
   var num: Int { get } // see extension below
   var enharm: Enharmonic { get set } // sets whether note belongs to sharp key or flat key

@@ -9,7 +9,7 @@
 import Foundation
 
 /// enum assigns 0-11 for C-B
-enum NoteNum: Int, CaseIterable, CustomStringConvertible {
+enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
   case zero = 0, one, two, three, four, five, six, seven, eight, nine, ten, eleven
   
   var num: Int { // shorthand for rawValue

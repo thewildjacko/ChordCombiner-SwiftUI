@@ -9,7 +9,7 @@
 import Foundation
 
 /// Use `KeyName` to initiate `RootGens`, which then can initiate `Notes`, `ScaleDetails`, `Triads` and `FourNoteChords`
-enum KeyName: String, CaseIterable {
+enum KeyName: String, CaseIterable, Codable {
   // natural white notes
   case c = "C"
   case d = "D"

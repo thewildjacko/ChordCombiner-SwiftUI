@@ -9,20 +9,20 @@
 import Foundation
 
 /// Giant enum to contain all suffixes for lower chords and upper structure triads
-enum Suffix: String, CustomStringConvertible {
+enum Suffix: String, CustomStringConvertible, Codable {
   var description: String {
     return self.rawValue
   }
   
   /// contains allCases arrays for lowerQualities, shorthand upper and longhand upper qualities
-  struct QualArray {
+  struct QualArray: Codable {
     static var lowerQualities: [String] = Lower.allCases.map { String($0.qualStr) }
     static var upperQualities: [String] = Upper.allCases.map { String($0.qualStr) }
     static var longUpperQualities: [String] = LongUpper.allCases.map { String($0.qualStr) }
   }
   
   /// not sure why this is here, seems redundant...
-  struct Blank: QualProtocol {
+  struct Blank: QualProtocol, Codable {
     var name: String = "blank"
     
     var quality: Suffix = .blank

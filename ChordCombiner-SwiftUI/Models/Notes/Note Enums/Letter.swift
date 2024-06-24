@@ -9,7 +9,7 @@
 import Foundation
 
 /// Enum to get the letter name of a note
-enum Letter: String, CaseIterable, Identifiable {
+enum Letter: String, CaseIterable, Identifiable, Codable {
   var id: Self {
     return self
   }
@@ -43,3 +43,4 @@ extension Letter: Equatable {
     return lhs.rawValue == rhs.rawValue
   }
 }
+

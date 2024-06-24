@@ -68,7 +68,7 @@ enum DegName {
     }
   }
   /// partly spelled-out degree names
-  enum Name: String {
+  enum Name: String, Codable {
     case root = "root"
     case min9 = "♭9"
     case maj2 = "maj9"
@@ -125,7 +125,7 @@ enum DegName {
     }
   }
   /// concise names (3 characters or less)
-  enum Short: String {
+  enum Short: String, Codable {
     case rt = "R"
     case mi9 = "♭9" // b9
     case ma2 = "9"
@@ -145,7 +145,7 @@ enum DegName {
     
   }
   /// enum to initialize DegNames
-  enum Deg: Int {
+  enum Deg: Int, Codable {
     case root = 0, min9, maj2, sh_9, min3, maj3, p4, sh_4, dim5, p5, sh_5, min6, maj6, dim7, min7, maj7
   }
 }

@@ -10,10 +10,7 @@ import Foundation
 import UIKit
 
 struct Triad: ChordProtocol, CustomStringConvertible {
-  
-  func locationInChord(rootName: String, at location: String, of root: Root) -> String {
-    return "\(rootName)\(Suffix.LongUpper(type: self.type).quality) triad on the \(location) of \(root.noteName)"
-  }
+  var id = UUID()
   
   var type: TriadType {
     didSet {
@@ -105,6 +102,22 @@ struct Triad: ChordProtocol, CustomStringConvertible {
   
   var stats: (Letter, RootAcc, TriadType)
   
+  var description: String {
+    return """
+        Triad:
+        \troot: \(root.noteName)
+        \tletter: \(rootKey.r.letter)
+        \taccidental: \(key.accidental)
+        \tenharmonic: \(root.enharm)
+        \tkey: \(key)
+        \ttype: \(type)
+        \tname: \(name)
+        \tdegrees: \(degrees)
+        \tconvertedDegrees: \(convertedDegrees)
+        \tnotes: \(noteNames.joined(separator: " "))
+        """
+  }
+  
   init(rootNum: NoteNum = .zero, type: TriadType = .ma, enharm: Enharmonic = .flat, inversion: TriadInversion = .root) {
     self.type = type
     self.enharm = enharm
@@ -129,6 +142,10 @@ struct Triad: ChordProtocol, CustomStringConvertible {
     
     self.chordInversion = inversion
     invertTo(inversion: inversion.num)
+  }
+  
+  func locationInChord(rootName: String, at location: String, of root: Root) -> String {
+    return "\(rootName)\(Suffix.LongUpper(type: self.type).quality) triad on the \(location) of \(root.noteName)"
   }
   
   func translated(by offset: Int) -> ChordProtocol {
@@ -168,22 +185,6 @@ struct Triad: ChordProtocol, CustomStringConvertible {
         }
       }
     }
-  }
-  
-  var description: String {
-    return """
-        Triad:
-        \troot: \(root.noteName)
-        \tletter: \(rootKey.r.letter)
-        \taccidental: \(key.accidental)
-        \tenharmonic: \(root.enharm)
-        \tkey: \(key)
-        \ttype: \(type)
-        \tname: \(name)
-        \tdegrees: \(degrees)
-        \tconvertedDegrees: \(convertedDegrees)
-        \tnotes: \(noteNames.joined(separator: " "))
-        """
   }
   
   mutating func refresh() {

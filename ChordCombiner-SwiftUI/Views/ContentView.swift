@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var lowerChord = FourNoteChord(.c, .dom7, inversion: .root)
-  @State private var upperStructureTriad = Triad(.d, .ma, inversion: .root)
-  @State private var resultChord = ResultChord(baseChord: FourNoteChord(), upStrctTriad: Triad(.d, .ma, inversion: .root))
+  @ObservedObject var chordStore = ChordStore()
+//  @State var lowerChord = FourNoteChord()
+//  @State var triad = Triad()
   
   var result: ResultChord {
-    ResultChord(baseChord: lowerChord, upStrctTriad: upperStructureTriad)
+    ResultChord(baseChord: chordStore.lowerChord, upStrctTriad: chordStore.triad)
   }
   
   var body: some View {
     VStack(spacing: 175) {
-      HStack(spacing: 40) {
-        BaseChordMenu(lowerChord: $lowerChord)
-        USTMenu(upperStructureTriad: $upperStructureTriad)
+      HStack(spacing: 30) {
+        LowerChordMenu(lowerChord: $chordStore.lowerChord, chordStore: chordStore)
+        USTMenu(upperStructureTriad: $chordStore.triad, chordStore: chordStore)
       }
       .padding()
       
-      Text(result.name)
+//      NavigationStack {
+//        NavigationLink(destination: Text(result.description)) {
+          Text(result.name)
+//        }
+//      }
     }
   }
 }

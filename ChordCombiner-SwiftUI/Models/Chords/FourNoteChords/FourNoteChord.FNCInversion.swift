@@ -9,7 +9,7 @@
 import Foundation
 
 extension FourNoteChord {
-  enum FNCInversion: String, ChordInversion, CaseIterable {
+  enum FNCInversion: String, ChordInversion, CaseIterable, Codable {
     case root, first, second, third
     
     var name: (short: String, long: String) {

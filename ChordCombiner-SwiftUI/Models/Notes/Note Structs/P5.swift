@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct P5: Note, CustomStringConvertible, KSwitch {
+struct P5: Note, CustomStringConvertible, KSwitch, Codable {
   var description: String {
     return "P5 (\(noteName))"
   }

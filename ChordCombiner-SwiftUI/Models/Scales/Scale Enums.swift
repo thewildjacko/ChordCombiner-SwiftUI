@@ -9,13 +9,13 @@
 import Foundation
 
 /// Interval enum for describing a scale's intervallic formula
-enum ScaleInterval: String {
+enum ScaleInterval: String, Codable {
   case halfStep = "H"
   case wholeStep = "W"
   case min3rd = "m3"
 }
 
 /// not sure why this is here, so far haven't used it...
-enum ScaleType {
+enum ScaleType: Codable {
   case major, melodicMinor, harmonicMinor, harmonicMajor, diminished, halfWholeDim_b13, hexaSh9Sh11, chromatic
 }
