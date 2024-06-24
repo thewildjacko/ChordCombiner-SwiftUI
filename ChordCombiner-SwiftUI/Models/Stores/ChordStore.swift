@@ -30,30 +30,11 @@ class ChordStore: ObservableObject {
     }
   }
   
-  @Published var triad: Triad = Triad(
-    RootGen(.d, .natural),
-    .ma,
-    inversion: .root
-  ) {
-    didSet {
-      saveChordsJSON()
-    }
-  }
-    
-  @Published var lowerChord: FourNoteChord = FourNoteChord() {
-    didSet {
-      saveChordsJSON()
-    }
-  }
-  
   let chordsJSONURL = URL(fileURLWithPath: "chords", relativeTo: FileManager.documentsDirectoryURL)
     .appendingPathExtension("json")
     
   init() {
     chordData = loadChordsJSON()
-    
-    triad = chordData.triad
-    lowerChord = chordData.lowerChord
   }
   
   func loadChordsJSON() -> ChordData {
@@ -96,7 +77,7 @@ class ChordStore: ObservableObject {
 
 extension ChordStore: Equatable {
   static func == (lhs: ChordStore, rhs: ChordStore) -> Bool {
-    return lhs.triad == rhs.triad && lhs.lowerChord == rhs.lowerChord // && lhs.chordData.ustData == rhs.chordData.ustData && lhs.chordData.lowerChordData == rhs.chordData.lowerChordData &&
+    return lhs.chordData.triad == rhs.chordData.triad && lhs.chordData.lowerChord == rhs.chordData.lowerChord
   }
 }
 
