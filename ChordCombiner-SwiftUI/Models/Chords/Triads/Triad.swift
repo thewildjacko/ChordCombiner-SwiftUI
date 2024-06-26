@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+struct Triad: ChordProtocol, InvertibleChord, CustomStringConvertible, Identifiable, Encodable {
   enum CodingKeys: CodingKey {
-//    case letter, accidental, type, inversion, chordName, enharm, noteCount, chordInversion, qualSuffix, root, note1, note2, allNotes, convertedDegrees, description
     case type, enharm, root, letter, accidental, chordInversion
   }
   
@@ -26,12 +25,6 @@ struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
     try container.encode(accidental, forKey: .accidental)
 
     try container.encode(chordInversion, forKey: .chordInversion)
-//    try container.encode(inversion, forKey: .inversion)
-//    try container.encode(qualSuffix, forKey: .qualSuffix)
-//    try container.encode(note1, forKey: .note1)
-//    try container.encode(note2, forKey: .note2)
-//    try container.encode(convertedDegrees, forKey: .convertedDegrees)
-//    try container.encode(description, forKey: .description)
   }
   
   var id = UUID()
@@ -234,7 +227,5 @@ extension Triad: Decodable {
     
     refresh()
     invertTo(inversion: inversion.num)
-    
-//    inversion = try container.decode(TriadInversion.self, forKey: .inversion)
   }
 }

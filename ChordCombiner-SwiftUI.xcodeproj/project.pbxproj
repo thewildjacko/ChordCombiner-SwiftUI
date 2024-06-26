@@ -114,6 +114,7 @@
 		1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC62C248B2E00193B58 /* Dim5.swift */; };
 		1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC72C248B2E00193B58 /* Dim7.swift */; };
 		1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */; };
+		1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37772C2C70670008DA9E /* InvertibleChord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C302C25D410008DCBDF /* ChordStore.swift */; };
 		1DF5E4582C28D58F001DFB91 /* ChordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF5E4572C28D58F001DFB91 /* ChordData.swift */; };
@@ -228,6 +229,7 @@
 		1D5F6AC62C248B2E00193B58 /* Dim5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim5.swift; sourceTree = "<group>"; };
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
 		1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactory.swift; sourceTree = "<group>"; };
+		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1DBE1C302C25D410008DCBDF /* ChordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordStore.swift; sourceTree = "<group>"; };
 		1DF5E4572C28D58F001DFB91 /* ChordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordData.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				1D5F6A322C24829400193B58 /* RootKey.swift */,
 				1D5F6A162C24829300193B58 /* ChordsAndScales.swift */,
 				1D5F69FB2C24829200193B58 /* ChordProtocol.swift */,
+				1DBB37772C2C70670008DA9E /* InvertibleChord.swift */,
 				1D5F6A102C24829300193B58 /* ChordInversion.swift */,
 				1D5F6A302C24829400193B58 /* QualProtocol.swift */,
 			);
@@ -660,13 +663,13 @@
 		1D5F6AC32C2488F400193B58 /* Scale Structs */ = {
 			isa = PBXGroup;
 			children = (
+				1D5F69E72C24829200193B58 /* MajorScale.swift */,
 				1D5F6A182C24829300193B58 /* ChromaticScale.swift */,
 				1D5F6A2D2C24829400193B58 /* DiminishedScale.swift */,
 				1D5F69EB2C24829200193B58 /* HalfWholeDimFlat13Scale.swift */,
 				1D5F6A062C24829300193B58 /* HarmonicMajorScale.swift */,
 				1D5F6A142C24829300193B58 /* HarmonicMinorScale.swift */,
 				1D5F6A312C24829400193B58 /* HexatonicSharp9Sharp11Scale.swift */,
-				1D5F69E72C24829200193B58 /* MajorScale.swift */,
 				1D5F6A0F2C24829300193B58 /* MelodicMinorScale.swift */,
 			);
 			path = "Scale Structs";
@@ -781,6 +784,7 @@
 				1D5F6A5B2C24829500193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift in Sources */,
 				1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */,
 				1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */,
+				1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */,
 				1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */,
 				1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */,
 				1D5F6A792C24829500193B58 /* DetailChord.Dom7.swift in Sources */,

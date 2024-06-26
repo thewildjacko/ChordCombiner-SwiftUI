@@ -85,17 +85,17 @@ struct DiminishedScale: ScaleDetails {
     }
   }
   
-  var scaleName: String {
+  var scaleName: (short: String, long: String) {
     switch shadowMode {
     case .one:
-      return "Half-whole diminished"
+      return (short: "Half-whole diminished", long: "Half-whole diminished")
     default:
-      return "Whole-half diminished"
+      return (short: "Whole-half diminished", long: "Whole-half diminished")
     }
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

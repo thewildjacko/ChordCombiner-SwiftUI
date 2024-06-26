@@ -16,7 +16,7 @@ struct ChromaticScale: ScaleDetails {
   var mode: Mode.SevenDeg = .one
   var enharm: Enharmonic
   
-  var scaleName: String = "Tension/Polychord"
+  var scaleName: (short: String, long: String) = (short: "Tension/Polychord", long: "Tension/Polychord")
   
   var name: String {
     if let rc = chromaticRC {

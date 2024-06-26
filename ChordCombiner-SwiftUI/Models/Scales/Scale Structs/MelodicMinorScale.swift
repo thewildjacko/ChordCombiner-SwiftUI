@@ -85,27 +85,27 @@ struct MelodicMinorScale: ScaleDetails {
     }
   }
   
-  var scaleName: String {
+  var scaleName: (short: String, long: String) {
     switch mode {
     case .one:
-      return "Melodic minor"
+      return (short: "Melodic minor", long: "Melodic minor")
     case .two:
-      return "Dorian ♭2"
+      return (short: "Dorian ♭2", long: "Dorian ♭2")
     case .three:
-      return "Lydian augmented"
+      return (short: "Lydian augmented", long: "Lydian augmented")
     case .four:
-      return "Lydian dominant"
+      return (short: "Lydian dominant", long: "Lydian dominant")
     case .five:
-      return "Mixolydian ♭6"
+      return (short: "Mixolydian ♭6", long: "Mixolydian ♭6")
     case .six:
-      return "Locrian ♯2"
+      return (short: "Locrian ♯2", long: "Locrian ♯2")
     case .seven:
-      return "Altered dominant"
+      return (short: "Altered dominant", long: "Altered dominant")
     }
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

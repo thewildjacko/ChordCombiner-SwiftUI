@@ -85,27 +85,27 @@ struct HarmonicMinorScale: ScaleDetails {
     }
   }
   
-  var scaleName: String {
+  var scaleName: (short: String, long: String) {
     switch mode {
     case .one:
-      return "Harmonic minor"
+      return (short: "Harmonic minor", long: "Harmonic minor")
     case .two:
-      return "Locrian (♯6)"
+      return (short: "Locrian (♯6)", long: "Locrian (♯6)")
     case .three:
-      return "Major (♯5)"
+      return (short: "Major (♯5)", long: "Major (♯5)")
     case .four:
-      return "Dorian (♯4)"
+      return (short: "Dorian (♯4)", long: "Dorian (♯4)")
     case .five:
-      return "Mixolydian (♭2♭13)"
+      return (short: "Mixolydian (♭2♭13)", long: "Mixolydian (♭2♭13)")
     case .six:
-      return "Lydian (♭2)"
+      return (short: "Lydian (♭2)", long: "Lydian (♭2)")
     case .seven:
-      return "Altered (˚7)"
+      return (short: "Altered (˚7)", long: "Altered (˚7)")
     }
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

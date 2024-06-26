@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FourNoteChord: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+struct FourNoteChord: ChordProtocol, InvertibleChord, CustomStringConvertible, Identifiable, Encodable {
   enum CodingKeys: CodingKey {
     case type, enharm, root, letter, accidental, chordInversion
   }

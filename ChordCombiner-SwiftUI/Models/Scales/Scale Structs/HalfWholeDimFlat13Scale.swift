@@ -47,12 +47,12 @@ struct HalfWholeDimFlat13Scale: ScaleDetails {
     return Min7(rootKey)
   }
   
-  var scaleName: String {
-    return "Half-whole diminished (♭13)"
+  var scaleName: (short: String, long: String) {
+    return (short: "Half-whole diminished (♭13)", long: "Half-whole diminished (♭13)")
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

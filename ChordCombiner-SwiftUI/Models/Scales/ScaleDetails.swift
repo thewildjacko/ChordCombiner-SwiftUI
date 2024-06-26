@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ScaleDetails: ChordsAndScales {
-  var scaleName: String { get }
+  var scaleName: (short: String, long: String) { get }
   var scaleType: ScaleType { get }
   var parentScale: ScaleDetails { get }
   var mode: Mode.SevenDeg { get }
