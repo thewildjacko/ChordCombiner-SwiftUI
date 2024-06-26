@@ -9,6 +9,10 @@
 import Foundation
 
 struct DiminishedScale: ScaleDetails {
+  static var roots: [RootGen] = RootGen.allCases
+  static var excludedRoots: [RootGen] = []
+  static let inAllKeys: [ScaleDetails] = roots.map { DiminishedScale($0) }
+  
   let scaleType = ScaleType.diminished
   
   var root: Root

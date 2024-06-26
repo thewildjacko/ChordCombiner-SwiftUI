@@ -8,25 +8,12 @@
 import Foundation
 
 struct ScaleFactory {
-  static let roots = RootGen.allCases
-  static let cMa = Triad()
-  
-  static var allMajorScales: [ScaleDetails] {
-    roots.map { MajorScale($0) }
-  }
-  
-  static var majorScaleNames: [String] {
-    allMajorScales.map {
-      $0.name
-    }
-  }
-  
-  static func containsTriad(triad: Triad) -> [ScaleDetails] {
+  static func containsTriad(triad: Triad) { // } -> [ScaleDetails] {
     var results: [ScaleDetails] = []
     var romanNums: [MajorScale.RomanNum] = []
     let triadDegSet = triad.degrees.toSet()
     
-    allMajorScales.forEach {
+    MajorScale.inAllKeys.forEach {
       let degSet = $0.degrees.toSet()
       if degSet.isSuperset(of: triadDegSet) {
         results.append($0)
@@ -38,24 +25,12 @@ struct ScaleFactory {
       }
     }
     
-    print("\(triad.name) is in the following major scales:")
+    print("\(triad.name) is in the following Major scales:")
     
     for (index, result) in results.enumerated() {
-      print("\(result.name). \(triad.name) is the \(romanNums[index]) of \(result.name)")
-//      for index in MajorScale.RomanNum.allCases.indices {
-//        if triad.root.key == result.allNotes[index].key {
-//          print("\(triad.name) is the \(MajorScale.RomanNum(deg: index))")
-//        }
-//      }
+      print("\t\(result.name). \(triad.name) is the \(romanNums[index]) of \(result.name)")
+//      print(triad.enharmSwapped().name)
     }
-    
-//    allMajorScales.forEach {
-//      let scaleDegSet = $0.degrees.toSet()
-//      print("\($0.name) contains \(triad.name) contains: \(scaleDegSet.isSuperset(of: triadDegSet))") // contains(triad.degrees))")
-//    }
-
-    
-    
-    return results
+//    return results
   }
 }

@@ -9,6 +9,10 @@
 import Foundation
 
 protocol ScaleDetails: ChordsAndScales {
+  static var roots: [RootGen] { get }
+  static var excludedRoots: [RootGen] { get }
+  static var inAllKeys: [ScaleDetails] { get }
+  
   var scaleName: (short: String, long: String) { get }
   var scaleType: ScaleType { get }
   var parentScale: ScaleDetails { get }

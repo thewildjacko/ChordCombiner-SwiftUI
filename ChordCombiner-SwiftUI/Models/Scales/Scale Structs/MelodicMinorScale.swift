@@ -11,6 +11,10 @@ import Foundation
 struct MelodicMinorScale: ScaleDetails {
   let scaleType = ScaleType.melodicMinor
   
+  static let roots = RootGen.minorRoots
+  static let excludedRoots = RootGen.minorExclusions
+  static let inAllKeys: [ScaleDetails] = roots.map { MelodicMinorScale($0) }
+  
   var root: Root
   var mode: Mode.SevenDeg
   var enharm: Enharmonic

@@ -29,8 +29,7 @@ struct ContentView: View {
 //      }
     }
     .onAppear {
-      print(FileManager.documentsDirectoryURL)
-//      print(ScaleFactory.majorScaleNames)
+      print("\(FileManager.documentsDirectoryURL)\n")
       ScaleFactory.containsTriad(triad: Triad())
     }
   }

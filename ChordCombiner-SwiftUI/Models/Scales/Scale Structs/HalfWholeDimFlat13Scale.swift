@@ -9,6 +9,10 @@
 import Foundation
 
 struct HalfWholeDimFlat13Scale: ScaleDetails {
+  static var roots: [RootGen] = RootGen.allCases
+  static var excludedRoots: [RootGen] = []
+  static let inAllKeys: [ScaleDetails] = roots.map { HalfWholeDimFlat13Scale($0) }
+  
   let scaleType = ScaleType.halfWholeDim_b13
   
   var root: Root

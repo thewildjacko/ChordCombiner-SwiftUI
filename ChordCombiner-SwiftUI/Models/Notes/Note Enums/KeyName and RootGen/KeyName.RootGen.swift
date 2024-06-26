@@ -19,10 +19,36 @@ extension KeyName {
    1. `KeyName` (single parameter init)
    2. `Letter` and `RootAcc`
    */
+  
   enum RootGen: CaseIterable, Codable {
     case c, d, e, f, g, a, b
     case cB, dB, eB, fB, gB, aB, bB
     case cSh, dSh, eSh, fSh, gSh, aSh, bSh
+  
+    
+    static var majorRoots: [RootGen] {
+      [.c,
+       .f, .bB, .eB, .aB, .dB, .gB, .cB,
+       .g, .d, .a, .e, .b, .fSh, .cSh]
+    }
+    
+    static var majorExclusions: [RootGen] {
+      [.fB, .gSh, .dSh, .aSh, .eSh, .bSh]
+    }
+    
+    // a d g c f Bb Eb Ab | Db Gb Cb Fb
+    // e b f# c# g# d# a# | e# b#
+    
+    static var minorRoots: [RootGen] {
+      [.a,
+       .d, .g, .c, .f, .bB, .eB, .aB,
+       .e, .b, .fSh, .cSh, .gSh, .dSh, .aSh]
+    }
+    
+    
+    static var minorExclusions: [RootGen] {
+      [.dB, .gB, .cB, .fB, .eSh, .bSh]
+    }
     
     /**
      

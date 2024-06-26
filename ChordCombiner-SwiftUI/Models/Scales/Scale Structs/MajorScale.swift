@@ -15,6 +15,18 @@ struct MajorScale: ScaleDetails {
   var mode: Mode.SevenDeg
   var enharm: Enharmonic
   
+//  static var flatKeys: [RootGen] {
+//    Array(majorRoots[1...7])
+//  }
+//  
+//  static var sharpKeys: [RootGen] {
+//    Array(majorRoots[8...14])
+//  }
+  
+  static let roots = RootGen.majorRoots
+  static let excludedRoots = RootGen.majorExclusions
+  static let inAllKeys: [ScaleDetails] = roots.map { MajorScale($0) }  
+  
   var note1: Note {
     switch mode {
     case .one, .two, .four, .five, .six:

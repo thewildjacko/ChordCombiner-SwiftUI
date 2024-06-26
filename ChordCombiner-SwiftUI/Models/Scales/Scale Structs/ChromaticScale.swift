@@ -9,6 +9,10 @@
 import Foundation
 
 struct ChromaticScale: ScaleDetails {
+  static var roots: [RootGen] = RootGen.allCases
+  static var excludedRoots: [RootGen] = []
+  static let inAllKeys: [ScaleDetails] = [.c].map { ChromaticScale($0, chromaticRC: ResultChord(baseChord: FourNoteChord(), upStrctTriad: Triad())) }
+  
   var chromaticRC: ResultChord?
   let scaleType: ScaleType = .chromatic
   var baseType: FNCType

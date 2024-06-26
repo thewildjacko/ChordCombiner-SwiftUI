@@ -11,6 +11,10 @@ import Foundation
 struct HexatonicSharp9Sharp11Scale: ScaleDetails {
   let scaleType = ScaleType.hexaSh9Sh11
   
+  static let roots = RootGen.majorRoots
+  static let excludedRoots = RootGen.majorExclusions
+  static let inAllKeys: [ScaleDetails] = roots.map { HexatonicSharp9Sharp11Scale($0) }
+  
   var root: Root
   var shadowMode: Mode.SingleDeg
   
