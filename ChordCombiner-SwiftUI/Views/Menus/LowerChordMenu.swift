@@ -40,11 +40,11 @@ struct LowerChordMenu: View {
         .pickerStyle(.segmented)
         .onChange(of: lowerChord) {
           chordStore.chordData.lowerChord = lowerChord
-          print("lower chord is: \(lowerChord)")
+//          print("lower chord is: \(lowerChord)")
         }
         .onAppear(perform: {
           lowerChord = chordStore.loadChordsJSON().lowerChord
-          print("lower chord is: \(lowerChord)")
+//          print("lower chord is: \(lowerChord)")
         })
         
       }

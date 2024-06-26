@@ -28,6 +28,11 @@ struct ContentView: View {
 //        }
 //      }
     }
+    .onAppear {
+      print(FileManager.documentsDirectoryURL)
+//      print(ScaleFactory.majorScaleNames)
+      ScaleFactory.containsTriad(triad: Triad())
+    }
   }
 }
 

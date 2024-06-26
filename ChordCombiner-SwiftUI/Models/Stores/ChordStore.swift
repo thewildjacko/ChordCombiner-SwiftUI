@@ -38,7 +38,6 @@ class ChordStore: ObservableObject {
   }
   
   func loadChordsJSON() -> ChordData {
-    print(FileManager.documentsDirectoryURL)
     
     guard Bundle.main.url(forResource: "chords", withExtension: "json") != nil else {
       
@@ -54,7 +53,6 @@ class ChordStore: ObservableObject {
         
         return chordData
       }
-      
       return chordData
     }
     return chordData
@@ -67,7 +65,6 @@ class ChordStore: ObservableObject {
     do {
       let data = try encoder.encode(chordData)
       try data.write(to: chordsJSONURL, options: .atomicWrite)
-//      print("triad is:\n\n\(triad.description)")
     } catch let error {
       print("encoding error")
       print(error)

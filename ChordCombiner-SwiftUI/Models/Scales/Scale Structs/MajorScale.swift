@@ -111,6 +111,31 @@ struct MajorScale: ScaleDetails {
     }
   }
   
+  enum RomanNum: String, CaseIterable {
+    case I, ii, iii, IV, V, vi, vii
+    
+    init(deg: Int) {
+      switch deg {
+      case 0:
+        self = .I
+      case 1:
+        self = .ii
+      case 2:
+        self = .iii
+      case 3:
+        self = .IV
+      case 4:
+        self = .V
+      case 5:
+        self = .vi
+      case 6:
+        self = .vii
+      default:
+        self = .I
+      }
+    }
+  }
+  
   var allNotes: [Note] {
     get {
       return [root, note1, note2, note3, note4, note5, note6]
@@ -196,3 +221,4 @@ struct MajorScale: ScaleDetails {
     return parentModes
   }
 }
+

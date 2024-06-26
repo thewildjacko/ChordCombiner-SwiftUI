@@ -40,11 +40,11 @@ struct USTMenu: View {
       .pickerStyle(.segmented)
       .onChange(of: upperStructureTriad) {
         chordStore.chordData.triad = upperStructureTriad
-        print("triad is: \(upperStructureTriad)")
+//        print("triad is: \(upperStructureTriad)")
       }
       .onAppear(perform: {
         upperStructureTriad = chordStore.loadChordsJSON().triad
-        print("triad is: \(upperStructureTriad)")
+//        print("triad is: \(upperStructureTriad)")
       })
     }
     .padding()

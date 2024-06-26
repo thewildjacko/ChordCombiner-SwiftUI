@@ -19,7 +19,7 @@ extension KeyName {
    1. `KeyName` (single parameter init)
    2. `Letter` and `RootAcc`
    */
-  enum RootGen: Codable {
+  enum RootGen: CaseIterable, Codable {
     case c, d, e, f, g, a, b
     case cB, dB, eB, fB, gB, aB, bB
     case cSh, dSh, eSh, fSh, gSh, aSh, bSh
