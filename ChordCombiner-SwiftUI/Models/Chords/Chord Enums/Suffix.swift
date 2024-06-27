@@ -171,8 +171,8 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case ma6_sh9sh11 = "6(♯9♯11)"
   case ma6_b9sh11 = "6(♭9♯11)"
   case ma6_sh11 = "6(♯11)"
-  case ma6_9 = "6/9"
-  case ma6_9sh11 = "6/9(♯11)"
+  case ma6_9 = "⁶/₉"
+  case ma6_9sh11 = "⁶/₉(♯11)"
   
   case b5 = "♭5"
   case sh5 = "♯5"

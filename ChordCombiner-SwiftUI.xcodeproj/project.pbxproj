@@ -230,6 +230,7 @@
 		1D5F6AC62C248B2E00193B58 /* Dim5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim5.swift; sourceTree = "<group>"; };
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
 		1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactory.swift; sourceTree = "<group>"; };
+		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
 		1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RomanNums.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		1D5F69D82C2481E600193B58 /* ChordCombiner-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1D84A53E2C2DC7900073F0C8 /* Playgrounds */,
 				1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */,
 				1D5F6AA42C24830200193B58 /* Views */,
 				1D5F6AA52C2483E700193B58 /* Models */,
@@ -676,6 +678,14 @@
 				1D5F6A0F2C24829300193B58 /* MelodicMinorScale.swift */,
 			);
 			path = "Scale Structs";
+			sourceTree = "<group>";
+		};
+		1D84A53E2C2DC7900073F0C8 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 		1DBE1C322C25D4EB008DCBDF /* Stores */ = {

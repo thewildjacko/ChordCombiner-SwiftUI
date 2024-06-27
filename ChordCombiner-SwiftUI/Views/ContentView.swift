@@ -28,10 +28,6 @@ struct ContentView: View {
 //        }
 //      }
     }
-    .onAppear {
-      print("\(FileManager.documentsDirectoryURL)\n")
-      ScaleFactory.containsTriad(triad: Triad())
-    }
   }
 }
 

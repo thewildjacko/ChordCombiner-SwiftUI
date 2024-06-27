@@ -129,18 +129,18 @@ struct Matchmaker {
   }
   
   /// runs every UST in all keys against every lower chord in one key, defined by parameter `RootGen`, listing lc name, ust name, verdict, isTension, and whether verdict and isTension match
-  func isTensionEqualsTension(root: RootGen) {
+  func isTensionEqualsTension(root: RootGen) -> [ResultChord] {
     let allRCChords = allRC_Chords().filter { $0.baseChord.root.rootKey == root }
-    for chord in allRCChords {
-      let verdict = chord.chordCategory.verdict
-      let isTension = chord.degSpecs.isTension
-      
-      print(chord.baseChord.name, chord.upStrctTriad.name, chord.name, verdict, isTension, separator: "\t\t")
-      if (verdict == .goodToGo && isTension == true) || (verdict == .tension && isTension == false) {
-        print("MISMATCH!")
-      }
-    }
-    //        return allRCChords
+//    for chord in allRCChords {
+//      let verdict = chord.chordCategory.verdict
+//      let isTension = chord.degSpecs.isTension
+//      
+//      print(chord.baseChord.name, chord.upStrctTriad.name, chord.name, verdict, isTension, chord.degrees, separator: "\t\t")
+//      if (verdict == .goodToGo && isTension == true) || (verdict == .tension && isTension == false) {
+//        print("MISMATCH!")
+//      }
+//    }
+    return allRCChords
   }
   
   func suffixEqualsQuality() -> Bool {

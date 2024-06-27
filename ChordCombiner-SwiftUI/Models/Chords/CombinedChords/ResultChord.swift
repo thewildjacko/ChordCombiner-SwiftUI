@@ -303,6 +303,10 @@ class ResultChord: CustomStringConvertible {
     return Set(degrees)
   }
   
+  var degSetUnconverted: Set<Int> {
+    return lowerDegs.combineSetFilter(upperDegs)
+  }
+  
   var degreesInKey: [Int] {
     return degrees.map {$0 + root.num}
   }
