@@ -127,5 +127,10 @@ extension Root: Equatable {
   static func == (lhs: Root, rhs: Root) -> Bool {
     return lhs.noteNum == rhs.noteNum
   }
-  
+}
+
+extension Root: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(noteNum)
+  }
 }

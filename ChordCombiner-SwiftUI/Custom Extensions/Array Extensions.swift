@@ -26,6 +26,10 @@ extension Array where Element == Int {
       self.append(value)
     }
   }
+  
+  func includes(_ otherArray: [Int]) -> Bool {
+    self.toSet().isSuperset(of: otherArray)
+  }
 }
 
 extension Array where Element: Hashable {

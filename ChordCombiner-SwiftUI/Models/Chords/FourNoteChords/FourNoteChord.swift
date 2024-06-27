@@ -215,6 +215,13 @@ extension FourNoteChord: Equatable {
   }
 }
 
+extension FourNoteChord: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(type)
+    hasher.combine(root)
+  }
+}
+
 extension FourNoteChord: Decodable {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)

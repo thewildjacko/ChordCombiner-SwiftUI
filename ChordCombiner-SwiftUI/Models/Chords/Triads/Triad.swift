@@ -212,6 +212,13 @@ extension Triad: Equatable {
   }
 }
 
+extension Triad: Hashable {
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(type)
+      hasher.combine(root)
+  }
+}
+
 extension Triad: Decodable {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)

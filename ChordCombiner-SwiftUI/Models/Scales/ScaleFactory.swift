@@ -11,11 +11,9 @@ struct ScaleFactory {
   static func containsTriad(triad: Triad) { // } -> [ScaleDetails] {
     var results: [ScaleDetails] = []
     var romanNums: [MajorScale.RomanNum] = []
-    let triadDegSet = triad.degrees.toSet()
     
     MajorScale.inAllKeys.forEach {
-      let degSet = $0.degrees.toSet()
-      if degSet.isSuperset(of: triadDegSet) {
+      if $0.degrees.includes(triad.degrees) {
         results.append($0)
         for index in MajorScale.RomanNum.allCases.indices {
           if triad.root.noteNum == $0.allNotes[index].noteNum {
