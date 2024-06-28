@@ -45,19 +45,19 @@ let csh: RootGen = RootGen(.f, .sharp)
 
 let fsh7 = ResultChord(baseChord: FourNoteChord(csh, .dom7, inversion: .root), upStrctTriad: Triad())
 
-let allRCChords = matchmaker.allRC_Chords()
+let roots: [RootGen] = [.c, .dB, .d, .eB, .fB, .f, .gB, .g, .aB, .a, .bB, .cB]
+let allRCChords = matchmaker.allRC_Chords(roots: roots)
 
 fsh7.noteNames
 fsh7.name
 
-let roots: [RootGen] = [.c, .dB, .d, .eB, .fB, .f, .gB, .g, .aB, .a, .bB, .cB]
 roots.forEach { root in
   chords += matchmaker.isTensionEqualsTension(root: root)
 }
 
 let c = Triad()
 var chordsWithC = chords.filter { $0.degSetUnconverted.isSuperset(of: c.degrees) }
-//  .filter { $0.chordCategory.verdict == .goodToGo /*&& $0.root == $0.lowerRoot */}
+  .filter { $0.chordCategory.verdict == .goodToGo /*&& $0.root == $0.lowerRoot */}
 
 var chordsWithCFiltered: [ResultChord] = []
 
@@ -90,15 +90,17 @@ var chordsWithCFiltered: [ResultChord] = []
 //}
 //
 
-//let chordsWithCUST = chordsWithCFiltered.filter {
-//  let triadDegs = Triad().degrees
-//  return $0.upperDegs == triadDegs && !$0.lowerDegs.includes(triadDegs)
-//}
-
-allRCChords.forEach {
-  let slashName = "\($0.upStrctTriad.name)/\($0.baseChord.name)"
-  print($0.name, slashName, separator: String(repeating: "\t", count: 10))
+let chordsWithCUST = chordsWithC.filter {
+  let triadDegs = Triad().degrees
+  return $0.upperDegs == triadDegs/* && !$0.lowerDegs.includes(triadDegs)*/
 }
+
+chordsWithCUST.forEach { print($0.name) }
+
+//allRCChords.forEach {
+//  let slashName = "\($0.upStrctTriad.name)/\($0.baseChord.name)"
+//  print($0.name, slashName, separator: String(repeating: "\t", count: 10))
+//}
 
 //chordsWithC.forEach {
 //  let slashName = "\($0.upStrctTriad.name)/\($0.baseChord.name)"
@@ -110,7 +112,7 @@ allRCChords.forEach {
 //  return $0.upperDegs == triadDegs && !$0.lowerDegs.includes(triadDegs)
 //}
 
-//chordsWithCUST.forEach { print($0.name) }
+
 
 
 //let chordsWithCBaseIsC = chordsWithCFiltered.filter { $0.lowerDegs.includes(c.degrees)

@@ -13,6 +13,8 @@ struct Matchmaker {
   
   var resultChord: ResultChord
   
+  let roots: [RootGen] = [.c, .dB, .d, .eB, .fB, .f, .gB, .g, .aB, .a, .bB, .cB]
+  
   init(resultChord: ResultChord) {
     self.resultChord = resultChord
   }
@@ -101,19 +103,28 @@ struct Matchmaker {
     return results
   }
   
-  func allRC_Chords() -> [ResultChord] {
+  func allRC_Chords(roots: [RootGen]) -> [ResultChord] {
     var rcChords: [ResultChord] = []
     var lowerChords: [FourNoteChord] = []
     var triads: [Triad] = []
     
-    for noteNum in NoteNum.allCases {
+    roots.forEach { root in
       for type in TriadType.allCases {
-        triads.append(Triad(rootNum: noteNum, type: type))
+        triads.append(Triad(root, type))
       }
       for type in FNCType.allCases {
-        lowerChords.append(FourNoteChord(rootNum: noteNum, type: type))
+        lowerChords.append(FourNoteChord(root, type))
       }
     }
+    
+//    for noteNum in NoteNum.allCases {
+//      for type in TriadType.allCases {
+//        triads.append(Triad(rootNum: noteNum, type: type))
+//      }
+//      for type in FNCType.allCases {
+//        lowerChords.append(FourNoteChord(rootNum: noteNum, type: type))
+//      }
+//    }
     
     for lowerChord in lowerChords {
       for triad in triads {
@@ -124,13 +135,13 @@ struct Matchmaker {
   }
   
   func allChordsContaining(_ deg1: Int, _ deg2: Int) -> [ResultChord] {
-    let allRCChords = allRC_Chords().filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
+    let allRCChords = allRC_Chords(roots: roots).filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
     return allRCChords
   }
   
   /// runs every UST in all keys against every lower chord in one key, defined by parameter `RootGen`, listing lc name, ust name, verdict, isTension, and whether verdict and isTension match
   func isTensionEqualsTension(root: RootGen) -> [ResultChord] {
-    let allRCChords = allRC_Chords().filter { $0.baseChord.root.rootKey == root }
+    let allRCChords = allRC_Chords(roots: roots).filter { $0.baseChord.root.rootKey == root }
 //    for chord in allRCChords {
 //      let verdict = chord.chordCategory.verdict
 //      let isTension = chord.degSpecs.isTension
@@ -144,7 +155,7 @@ struct Matchmaker {
   }
   
   func suffixEqualsQuality() -> Bool {
-    let rcChords = allRC_Chords()
+    let rcChords = allRC_Chords(roots: roots)
     
     let okChords = rcChords.filter {$0.type != .ma6 && $0.chordCategory.verdict == .goodToGo}
     return okChords.allSatisfy {
@@ -153,7 +164,7 @@ struct Matchmaker {
   }
   
   func ustDegsEqualsUpperStructureNotes() -> Bool {
-    let rcChords = allRC_Chords()
+    let rcChords = allRC_Chords(roots: roots)
     
     let okChords = rcChords.filter {$0.type != .ma6
       && $0.chordCategory.verdict == .goodToGo
