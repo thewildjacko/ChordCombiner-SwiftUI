@@ -22,6 +22,7 @@ protocol ChordsAndScales: RootKey {
   var degNamesByNoteNum: (names: [NoteNum:String], short: [NoteNum:String], long: [NoteNum:String]) { get }
   
   mutating func swapEnharm()
+  mutating func switchEnharm(to: Enharmonic)
 }
 
 extension ChordsAndScales {
@@ -58,7 +59,17 @@ extension ChordsAndScales {
   }
   
   mutating func swapEnharm() {
-    enharm = enharm == .flat ? .sharp : .flat
+    switch enharm {
+    case .flat, .sharp:
+      enharm = enharm == .flat ? .sharp : .flat
+    case .blackKeyFlats, .blackKeySharps:
+      enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+    }
     root.swapEnharm()
+  }
+  
+  mutating func switchEnharm(to enharm: Enharmonic) {
+    self.enharm = enharm
+    root.switchEnharm(to: enharm)
   }
 }

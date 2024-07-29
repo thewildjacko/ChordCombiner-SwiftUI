@@ -13,7 +13,7 @@ struct Matchmaker {
   
   var resultChord: ResultChord
   
-  let roots: [RootGen] = [.c, .dB, .d, .eB, .fB, .f, .gB, .g, .aB, .a, .bB, .cB]
+  let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
   
   init(resultChord: ResultChord) {
     self.resultChord = resultChord
@@ -103,17 +103,21 @@ struct Matchmaker {
     return results
   }
   
-  func allRC_Chords(roots: [RootGen]) -> [ResultChord] {
+  func allRC_Chords(roots: [RootGen], enharm: Enharmonic) -> [ResultChord] {
     var rcChords: [ResultChord] = []
     var lowerChords: [FourNoteChord] = []
     var triads: [Triad] = []
     
     roots.forEach { root in
       for type in TriadType.allCases {
-        triads.append(Triad(root, type))
+        var triad = Triad(root, type)
+        triad.switchEnharm(to: enharm)
+        triads.append(triad)
       }
       for type in FNCType.allCases {
-        lowerChords.append(FourNoteChord(root, type))
+        var lowerChord = FourNoteChord(root, type)
+        lowerChord.switchEnharm(to: enharm)
+        lowerChords.append(lowerChord)
       }
     }
     
@@ -128,20 +132,35 @@ struct Matchmaker {
     
     for lowerChord in lowerChords {
       for triad in triads {
-        rcChords.append(ResultChord(baseChord: lowerChord, upStrctTriad: triad))
+        let result = ResultChord(baseChord: lowerChord, upStrctTriad: triad)
+        result.baseChord.switchEnharm(to: enharm)
+        result.upStrctTriad.switchEnharm(to: enharm)
+        result.enharm = enharm
+//        print(result.baseChord.root.key.name)
+        rcChords.append(result)
       }
     }
     return rcChords
   }
   
   func allChordsContaining(_ deg1: Int, _ deg2: Int) -> [ResultChord] {
-    let allRCChords = allRC_Chords(roots: roots).filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
+    let allRCChords = allRC_Chords(roots: roots, enharm: resultChord.enharm).filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
     return allRCChords
   }
   
   /// runs every UST in all keys against every lower chord in one key, defined by parameter `RootGen`, listing lc name, ust name, verdict, isTension, and whether verdict and isTension match
   func isTensionEqualsTension(root: RootGen) -> [ResultChord] {
-    let allRCChords = allRC_Chords(roots: roots).filter { $0.baseChord.root.rootKey == root }
+    var allRCChords = allRC_Chords(roots: roots, enharm: .blackKeyFlats)
+//    allRCChords.forEach { chord in
+//      if chord.baseChord.root.rootKey == root {
+//        print("\(chord.name)", "root: \(root.r.name)", "base chord root: \(chord.baseChord.root.rootKey.r.name)", "included", separator: String(repeating: "\t", count: 10))
+//      } else {
+//        print("\(chord.name)", "root: \(root.r.name)", "base chord root: \(chord.baseChord.root.rootKey.r.name)", "EXCLUDED", separator: String(repeating: "\t", count: 10))
+//      }
+//    }
+      
+    allRCChords = allRCChords.filter {
+      $0.baseChord.root.rootKey == root }
 //    for chord in allRCChords {
 //      let verdict = chord.chordCategory.verdict
 //      let isTension = chord.degSpecs.isTension
@@ -151,11 +170,13 @@ struct Matchmaker {
 //        print("MISMATCH!")
 //      }
 //    }
+    
+//    print(String(repeating: "-", count: 40))
     return allRCChords
   }
   
   func suffixEqualsQuality() -> Bool {
-    let rcChords = allRC_Chords(roots: roots)
+    let rcChords = allRC_Chords(roots: roots, enharm: resultChord.enharm)
     
     let okChords = rcChords.filter {$0.type != .ma6 && $0.chordCategory.verdict == .goodToGo}
     return okChords.allSatisfy {
@@ -164,7 +185,7 @@ struct Matchmaker {
   }
   
   func ustDegsEqualsUpperStructureNotes() -> Bool {
-    let rcChords = allRC_Chords(roots: roots)
+    let rcChords = allRC_Chords(roots: roots, enharm: resultChord.enharm)
     
     let okChords = rcChords.filter {$0.type != .ma6
       && $0.chordCategory.verdict == .goodToGo

@@ -167,7 +167,16 @@ struct Triad: ChordProtocol, InvertibleChord, CustomStringConvertible, Identifia
   }
   
   func enharmSwapped() -> ChordProtocol {
-    return Triad(rootNum: root.noteNum, type: type, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Triad(rootNum: root.noteNum, type: type, enharm: newEnharm)
   }
   
   mutating func invertTo(inversion: FNCInversion) {

@@ -149,7 +149,16 @@ struct FourNoteChord: ChordProtocol, InvertibleChord, CustomStringConvertible, I
   }
   
   func enharmSwapped() -> ChordProtocol {
-    return FourNoteChord(rootNum: root.noteNum, type: type, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return FourNoteChord(rootNum: root.noteNum, type: type, enharm: newEnharm)
   }
   
   mutating func getAndSetInversion() {

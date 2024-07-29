@@ -10,7 +10,7 @@ import Foundation
 
 /// enum to determine whether a key is "flat" or "sharp"
 enum Enharmonic: Int, CaseIterable, CustomStringConvertible, Codable {
-  case flat = 0, sharp
+  case flat = 0, sharp, blackKeyFlats, blackKeySharps
   
   var description: String {
     switch self {
@@ -18,6 +18,10 @@ enum Enharmonic: Int, CaseIterable, CustomStringConvertible, Codable {
       return "♭"
     case .sharp:
       return "♯"
+    case .blackKeyFlats:
+      return "black key ♭'s, white key ♮'s"
+    case .blackKeySharps:
+      return "black key ♯'s, white key ♮'s"
     }
   }
 }

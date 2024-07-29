@@ -614,6 +614,9 @@
 		1D5F6ABF2C2488C600193B58 /* Note Protocols and Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1D5F6A232C24829400193B58 /* KeyName.swift */,
+				1D5F69F72C24829200193B58 /* KeyName.RootGen.swift */,
+				1D5F69FD2C24829300193B58 /* RootSwitch.swift */,
 				1D5F6A002C24829300193B58 /* Note.swift */,
 				1D5F6A202C24829400193B58 /* KSwitch.swift */,
 			);
@@ -646,23 +649,12 @@
 		1D5F6AC12C2488DF00193B58 /* Note Enums */ = {
 			isa = PBXGroup;
 			children = (
-				1D5F6AC22C2488EA00193B58 /* KeyName and RootGen */,
 				1D5F6A1D2C24829400193B58 /* Accidental.swift */,
 				1D5F69F22C24829200193B58 /* Enharmonic.swift */,
 				1D5F69FF2C24829300193B58 /* Letter.swift */,
 				1D5F6A152C24829300193B58 /* NoteNum.swift */,
 			);
 			path = "Note Enums";
-			sourceTree = "<group>";
-		};
-		1D5F6AC22C2488EA00193B58 /* KeyName and RootGen */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A232C24829400193B58 /* KeyName.swift */,
-				1D5F69F72C24829200193B58 /* KeyName.RootGen.swift */,
-				1D5F69FD2C24829300193B58 /* RootSwitch.swift */,
-			);
-			path = "KeyName and RootGen";
 			sourceTree = "<group>";
 		};
 		1D5F6AC32C2488F400193B58 /* Scale Structs */ = {
