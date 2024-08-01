@@ -50,8 +50,8 @@ struct Root: Note, CustomStringConvertible, Codable {
       self.key = ks.pickKey(.eB, .dSh, .eB, .dSh)
       self.rootKey = rs.pickRoot(.eB, .dSh, .eB, .dSh)
     case .four:
-      self.key = ks.pickKey(.fB, .e, .fB, .e)
-      self.rootKey = rs.pickRoot(.fB, .e, .fB, .e)
+      self.key = ks.pickKey(.fB, .e, .e, .e)
+      self.rootKey = rs.pickRoot(.fB, .e, .e, .e)
     case .five:
       self.key = ks.pickKey(.f, .eSh, .f, .f)
       self.rootKey = rs.pickRoot(.f, .eSh, .f, .f)

@@ -4,6 +4,71 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
+var cMajTriad = Chord(rootNum: .zero, type: .ma)
+
+
+cMajTriad.degrees
+cMajTriad.degSet
+var BbAugTriad = Chord(rootNum: .ten, type: .aug)
+BbAugTriad.degrees
+cMajTriad.degSet.union(BbAugTriad.degSet)
+
+var CAugTriad = Chord(rootNum: .zero, type: .aug)
+//print(CAugTriad.allNotes.map {$0.noteName})
+var CMaj13sh11 = Chord(rootNum: .zero, type: .ma13_sh11)
+//print(CMaj13sh11.allNotes.map {$0.noteName})
+
+let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
+
+var allChords: [Chord] = []
+
+for root in roots {
+  for type in ChordType.allCases {
+    allChords.append(Chord(root, type))
+  }
+}
+
+var cSus4Triad = Chord(rootNum: .zero, type: .sus4)
+
+//for chord in allChords {
+//  if cSus4Triad.degSet == chord.degSet && chord != cSus4Triad {
+//    chordMatches.append(chord)
+//  }
+//}
+
+var Cma9 = Chord(rootNum: .zero, type: .ma9)
+
+func chordsIn(_ root: RootGen, _ type: ChordType) -> [Chord] {
+  var chordMatches: [Chord] = []
+  let testChord = Chord(root, type)
+  
+  let notesbyNoteNum = testChord.notesByNoteNum
+  let enharms = testChord.notesByNoteNum.map { $0.value.enharmByKey }
+  
+  for chord in allChords {
+    let chordNum = chord.root.noteNum
+    
+    if testChord.degrees.includes(chord.degrees) && chord.name != testChord.name {
+      if let noteNum = notesbyNoteNum.first(where: { $0.key == chordNum }) {
+        let enharmByKey = noteNum.value.enharmByKey
+        chordMatches.append(Chord(rootNum: chordNum, type: chord.type, enharm: enharmByKey))
+      }
+    }
+  }
+  
+  return chordMatches
+}
+
+//let chordsInCma9 = chordsIn(.c, .ma9)
+
+//print(chordsInCma9.map { $0.name } )
+let chordsInCma13sh11 = CMaj13sh11.containingChords()
+for chord in chordsInCma13sh11 {
+  print(chord.name)
+}
+
+
+/*
 var chordArray = ["| [[Cma9]] | [[Csus2/Cma7]] |", "| [[C9]] | [[Csus2/C7]] |", "| [[Cmi9]] | [[Csus2/Cmi7]] |", "| [[C6_9]] | [[Csus2/C6]] |", "| [[E13]] | [[Csus2/E6]] |", "| [[Fma13]] | [[Csus2/Fma7]] |", "| [[F13]] | [[Csus2/F7]] |", "| [[Fmi13]] | [[Csus2/Fmi7]] |", "| [[G♭ locrian]] | [[Csus2/G♭mi7(♭5)]] |", "| [[B7alt]] | [[Csus2/G♭˚7]] |", "| [[A♭ma7(♯11)]] | [[Csus2/A♭ma7]] |", "| [[Ami11]] | [[Csus2/Ami7]] |", "| [[Ami11(♭5)]] | [[Csus2/Ami7(♭5)]] |", "| [[A13]] | [[Csus2/A6]] |", "| [[B7alt]] | [[Csus2/B7]] |", "| [[Bmi7(♭9♭13)]] | [[Csus2/Bmi7]] |"]
 
 chordArray.sort()
@@ -89,3 +154,4 @@ let chordsWithCUST = chordsWithCFiltered.filter { $0.upperDegs == c.degrees && !
 //  let slashName = "\(chord.upStrctTriad.name)/\(chord.baseChord.name)"
 //  print("| [[", chord.name, "]] | [[", slashName, "]] |", separator: "")
 //}
+*/

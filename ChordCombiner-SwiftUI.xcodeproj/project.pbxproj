@@ -116,9 +116,11 @@
 		1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */; };
 		1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37772C2C70670008DA9E /* InvertibleChord.swift */; };
 		1DBB377A2C2CAF1C0008DA9E /* RomanNums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */; };
+		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C302C25D410008DCBDF /* ChordStore.swift */; };
 		1DF5E4582C28D58F001DFB91 /* ChordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF5E4572C28D58F001DFB91 /* ChordData.swift */; };
+		1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD9D4E2C5AA4330006333D /* ChordType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -233,9 +235,11 @@
 		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
 		1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RomanNums.swift; sourceTree = "<group>"; };
+		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1DBE1C302C25D410008DCBDF /* ChordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordStore.swift; sourceTree = "<group>"; };
 		1DF5E4572C28D58F001DFB91 /* ChordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordData.swift; sourceTree = "<group>"; };
+		1DFD9D4E2C5AA4330006333D /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +356,8 @@
 		1D5F6AA62C2483EC00193B58 /* Chords */ = {
 			isa = PBXGroup;
 			children = (
+				1DBD4C5F2C58364A00F4015C /* Chord.swift */,
+				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
 				1D5F6AAD2C24847600193B58 /* Chord Enums */,
 				1D5F6AAC2C24846700193B58 /* Chord Protocols */,
 				1D5F6AAB2C24845F00193B58 /* CombinedChords */,
@@ -828,6 +834,7 @@
 				1D5F6A7F2C24829500193B58 /* FourNoteChord.swift in Sources */,
 				1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */,
 				1D5F6A632C24829500193B58 /* HarmonicMajorScale.swift in Sources */,
+				1DBD4C602C58364A00F4015C /* Chord.swift in Sources */,
 				1D5F6A652C24829500193B58 /* DC.Min7.Min_Dorian_Chord.swift in Sources */,
 				1D5F6A872C24829500193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift in Sources */,
 				1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */,
@@ -850,6 +857,7 @@
 				1D5F6A642C24829500193B58 /* DC.Maj7.Maj_Lydian_Chord.swift in Sources */,
 				1D5F6A7E2C24829500193B58 /* Sh_5.swift in Sources */,
 				1D5F6A512C24829500193B58 /* ChordCategory.swift in Sources */,
+				1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */,
 				1D5F6A5D2C24829500193B58 /* Note.swift in Sources */,
 				1D5F6A952C24829500193B58 /* DC.Dim7.WholeHalfDim.swift in Sources */,
 				1D5F6A672C24829500193B58 /* DetailChord.swift in Sources */,

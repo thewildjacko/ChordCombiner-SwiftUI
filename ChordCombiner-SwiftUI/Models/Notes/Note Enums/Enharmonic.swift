@@ -19,9 +19,9 @@ enum Enharmonic: Int, CaseIterable, CustomStringConvertible, Codable {
     case .sharp:
       return "♯"
     case .blackKeyFlats:
-      return "black key ♭'s, white key ♮'s"
+      return "black key ♭'s / white key ♮'s"
     case .blackKeySharps:
-      return "black key ♯'s, white key ♮'s"
+      return "black key ♯'s / white key ♮'s"
     }
   }
 }

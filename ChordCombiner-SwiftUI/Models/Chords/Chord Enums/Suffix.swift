@@ -164,7 +164,9 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case dimSymb = "˚"
   case sus4
   case sus2
+  // done
   
+  // MARK: Major 6
   case ma6 = "6"
   case ma6_sh9 = "6(♯9)"
   case ma6_b9 = "6(♭9)"
@@ -211,20 +213,32 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case ma7
   case ma9
   case ma13
+  case ma13_no9
   case ma7_sh11 = "ma7(♯11)"
   case ma9_sh11 = "ma9(♯11)"
   case ma13_sh11 = "ma13(♯11)"
+  case ma13_sh11_no9
+  // done
   
   case mi7
-  case mi7_b9 = "mi7(♭9)"
-  case mi7_b9b13  = "mi7(♭9♭13)"
   case mi9
   case mi11
+  case mi11_no9
+  case mi13
+  case mi13_no9
+  case mi13_no11
+  case mi13_no9_no11
+  //done
+  
+  // MARK: Phrygian
+  case mi7_b9 = "mi7(♭9)"
+  case mi7_b9b13  = "mi7(♭9♭13)"
   case mi11_b9 = "mi11(♭9)"
   case mi11_b9b13 = "mi11(♭9♭13)"
-  case mi13
   case mi13_b9 = "mi13(♭9)"
   
+  
+  // MARK: mi7(b5)
   case mi7_b5 = "mi7(♭5)"
   case b5_noCloseParen = "(♭5"
   case mi7_b5b9 = "mi7(♭5♭9)"
@@ -236,6 +250,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case mi11_b5b13 = "mi11(♭5♭13)"
   case locrian = " locrian"
   
+  // MARK: diminished
   case dim7 = "˚7"
   case dim7_b13 = "˚7(♭13)"
   case dim7_add_ma7 = "˚7(add∆7)"
@@ -341,22 +356,22 @@ enum Suffix: String, CustomStringConvertible, Codable {
       self = .ma7
     case "ma9":
       self = .ma9
-    case "ma13":
+    case "ma13", "ma13_no9":
       self = .ma13
     case "ma7(♯11)":
       self = .ma7_sh11
     case "ma9(♯11)":
       self = .ma9_sh11
-    case "ma13(♯11)":
+    case "ma13(♯11)", "ma13_sh11_no9":
       self = .ma13_sh11
       
     case "mi7":
       self = .mi7
     case "mi9":
       self = .mi9
-    case "mi11":
+    case "mi11", "mi11_no9":
       self = .mi11
-    case "mi13":
+    case "mi13", "mi13_no9", "mi13_no11", "mi13_no9_no11":
       self = .mi13
       
     case "mi7(♭5)":

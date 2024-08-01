@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @ObservedObject var chordStore = ChordStore()
-  
+    
   var result: ResultChord {
     ResultChord(baseChord: chordStore.chordData.lowerChord, upStrctTriad: chordStore.chordData.triad)
   }
