@@ -8,6 +8,7 @@ var cMajTriad = Chord(rootNum: .zero, type: .ma)
 
 
 cMajTriad.degrees
+cMajTriad.noteCount
 cMajTriad.degSet
 var BbAugTriad = Chord(rootNum: .ten, type: .aug)
 BbAugTriad.degrees
@@ -16,6 +17,7 @@ cMajTriad.degSet.union(BbAugTriad.degSet)
 var CAugTriad = Chord(rootNum: .zero, type: .aug)
 //print(CAugTriad.allNotes.map {$0.noteName})
 var CMaj13sh11 = Chord(rootNum: .zero, type: .ma13_sh11)
+CMaj13sh11.noteCount
 //print(CMaj13sh11.allNotes.map {$0.noteName})
 
 let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]

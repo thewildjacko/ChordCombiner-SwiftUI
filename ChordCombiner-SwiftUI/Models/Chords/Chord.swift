@@ -7,47 +7,14 @@
 
 import Foundation
 
-struct Chord: ChordsAndScales, RootKey {
-  static var allChords: [Chord] {
-    var chords: [Chord] = []
-    let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
-
-
-    for root in roots {
-      for type in ChordType.allCases {
-        chords.append(Chord(root, type))
-      }
-    }
-    
-    return chords
-  }
-  
-  
-  static func chordsIn(_ testChord: Chord) -> [Chord] {
-    return testChord.containingChords()
-  }
-  
+struct Chord: ChordProtocol {
+  //  MARK: instance properties
   var root: Root
-  
   var type: ChordType
   var enharm: Enharmonic
   var accidental: RootAcc
-  
   var letter: Letter
   
-  var allNotes: [Note] = []
-  
-  var degrees: [Int] {
-    return allNotes.map {$0.num}
-  }
-  
-  var noteNums: [NoteNum] {
-    return degrees.map { NoteNum($0) }
-  }
-  
-  var degSet: Set<Int> {
-    return Set(degrees)
-  }
   
   var chordName: String {
     return type.name
@@ -57,6 +24,33 @@ struct Chord: ChordsAndScales, RootKey {
     root.noteName + chordName
   }
   
+  var qualSuffix: QualProtocol {
+    get {
+      return type
+    }
+    set {
+      type = newValue as! ChordType
+    }
+  }
+  
+  var allNotes: [Note] = []
+  var noteCount: Int = 0
+  
+  var degrees: [Int] {
+    return allNotes.map {$0.num}
+  }
+  
+  var degSet: Set<Int> {
+    return Set(degrees)
+  }
+  
+  var convertedDegrees: [Int] = []
+  
+  var noteNums: [NoteNum] {
+    return degrees.map { NoteNum($0) }
+  }
+  
+  //  MARK: initializers
   init(rootNum: NoteNum = .zero, type: ChordType, enharm: Enharmonic = .flat) {
     self.type = type
     self.enharm = enharm
@@ -77,6 +71,11 @@ struct Chord: ChordsAndScales, RootKey {
     self.accidental = RootAcc(root.key.accidental)
     
     setNotesAndEnharms()
+  }
+  
+  //  MARK: instance methods
+  func translated(by offset: Int) -> any ChordProtocol {
+    return Chord(rootNum: NoteNum(root.num.plusDeg(offset)), type: type, enharm: enharm)
   }
   
   mutating func setNotesAndEnharms() {
@@ -131,7 +130,7 @@ struct Chord: ChordsAndScales, RootKey {
     case .mi13_no9_no11:
       self.allNotes = [root, Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
     }
-
+    self.noteCount = allNotes.count
   }
   
   func containingChords() -> [Chord] {
@@ -152,9 +151,42 @@ struct Chord: ChordsAndScales, RootKey {
     
     return chordMatches
   }
+
+  //  MARK: static properties
+  static var allChords: [Chord] {
+    var chords: [Chord] = []
+    let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
+
+
+    for root in roots {
+      for type in ChordType.allCases {
+        chords.append(Chord(root, type))
+      }
+    }
+    
+    return chords
+  }
+  
+  //  MARK: static methods
+  func enharmSwapped() -> ChordProtocol {
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Chord(rootNum: root.noteNum, type: type, enharm: newEnharm)
+  }
+  
+  static func chordsIn(_ testChord: Chord) -> [Chord] {
+    return testChord.containingChords()
+  }
+
+  
 }
-
-
 
 extension Chord: Equatable {
   static func == (lhs: Chord, rhs: Chord) -> Bool {
