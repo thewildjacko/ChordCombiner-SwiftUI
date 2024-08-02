@@ -11,11 +11,12 @@ struct LetterPicker: View {
   @Binding var letter: Letter
   
   var body: some View {
-    Picker(selection: $letter, label: Text("Letter")) {
+    Picker(selection: $letter, label: Text("")) {
       ForEach(Letter.allCases) { letter in
         Text(letter.rawValue).tag(letter)
       }
     }
+    .pickerStyle(.segmented)
   }
 }
 

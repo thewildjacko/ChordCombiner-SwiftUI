@@ -7,7 +7,15 @@
 
 import Foundation
 
-enum ChordType: String, CaseIterable, QualProtocol {
+enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
+  static func < (lhs: ChordType, rhs: ChordType) -> Bool {
+    return lhs.name < rhs.name
+  }
+  
+  var id: Self {
+    return self
+  }
+  
   // MARK: Triads
   case ma
   case mi
@@ -171,6 +179,60 @@ enum ChordType: String, CaseIterable, QualProtocol {
       return "mi11"
     case .mi13_no9, .mi13_no11, .mi13_no9_no11:
       return "mi13"
+    }
+  }
+  
+  func setNotesAndEnharms(root: Root, rootKey: RootGen) -> [Note] {
+    switch self {
+      // MARK: Triads
+    case .ma:
+      return [root, Maj3(rootKey), P5(rootKey)]
+    case .mi:
+      return [root, Min3(rootKey), P5(rootKey)]
+    case .aug:
+      return [root, Maj3(rootKey), Sh_5(rootKey)]
+    case .dim:
+      return [root, Min3(rootKey), Dim5(rootKey)]
+    case .sus4:
+      return [root, P4(rootKey), P5(rootKey)]
+    case .sus2:
+      return [root, Maj2(rootKey), P5(rootKey)]
+      
+      // MARK: Major Lydian 7th Chords
+    case .ma7:
+      return [root, Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
+    case .ma9:
+      return [root, Maj2(rootKey), Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
+    case .ma13:
+      return [root, Maj2(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
+    case .ma13_no9:
+      return [root, Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
+    case .ma7_sh11:
+      return [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
+    case .ma9_sh11:
+      return [root, Maj2(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
+    case .ma13_sh11:
+      return [root, Maj2(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
+    case .ma13_sh11_no9:
+      return [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
+      
+      // MARK: Minor Dorian 7th Chords
+    case .mi7:
+      return [root, Min3(rootKey), P5(rootKey), Min7(rootKey)]
+    case .mi9:
+      return [root, Maj2(rootKey), Min3(rootKey), P5(rootKey), Min7(rootKey)]
+    case .mi11:
+      return [root, Maj2(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
+    case .mi11_no9:
+      return [root, Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
+    case .mi13:
+      return [root, Maj2(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+    case .mi13_no9:
+      return [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+    case .mi13_no11:
+      return [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+    case .mi13_no9_no11:
+      return [root, Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
     }
   }
   

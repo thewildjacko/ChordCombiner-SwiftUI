@@ -10,11 +10,25 @@ import Foundation
 struct Chord: ChordProtocol {
   //  MARK: instance properties
   var root: Root
-  var type: ChordType
-  var enharm: Enharmonic
-  var accidental: RootAcc
-  var letter: Letter
+  var type: ChordType {
+    didSet {
+      refresh()
+    }
+  }
   
+  var enharm: Enharmonic
+  
+  var accidental: RootAcc {
+    didSet {
+      refresh()
+    }
+  }
+  
+  var letter: Letter {
+    didSet {
+      refresh()
+    }
+  }
   
   var chordName: String {
     return type.name
@@ -30,6 +44,7 @@ struct Chord: ChordProtocol {
     }
     set {
       type = newValue as! ChordType
+      refresh()
     }
   }
   
@@ -79,58 +94,12 @@ struct Chord: ChordProtocol {
   }
   
   mutating func setNotesAndEnharms() {
-    switch type {
-      // MARK: Triads
-    case .ma:
-      self.allNotes = [root, Maj3(rootKey), P5(rootKey)]
-    case .mi:
-      self.allNotes = [root, Min3(rootKey), P5(rootKey)]
-    case .aug:
-      self.allNotes = [root, Maj3(rootKey), Sh_5(rootKey)]
-    case .dim:
-      self.allNotes = [root, Min3(rootKey), Dim5(rootKey)]
-    case .sus4:
-      self.allNotes = [root, P4(rootKey), P5(rootKey)]
-    case .sus2:
-      self.allNotes = [root, Maj2(rootKey), P5(rootKey)]
-      
-      // MARK: Major Lydian 7th Chords
-    case .ma7:
-      self.allNotes = [root, Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma9:
-      self.allNotes = [root, Maj2(rootKey), Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma13:
-      self.allNotes = [root, Maj2(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma13_no9:
-      self.allNotes = [root, Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma7_sh11:
-      self.allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma9_sh11:
-      self.allNotes = [root, Maj2(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma13_sh11:
-      self.allNotes = [root, Maj2(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma13_sh11_no9:
-      self.allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-      
-      // MARK: Minor Dorian 7th Chords
-    case .mi7:
-      self.allNotes = [root, Min3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi9:
-      self.allNotes = [root, Maj2(rootKey), Min3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi11:
-      self.allNotes = [root, Maj2(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi11_no9:
-      self.allNotes = [root, Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi13:
-      self.allNotes = [root, Maj2(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_no9:
-      self.allNotes = [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_no11:
-      self.allNotes = [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_no9_no11:
-      self.allNotes = [root, Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    }
+    self.allNotes = type.setNotesAndEnharms(root: root, rootKey: rootKey)
     self.noteCount = allNotes.count
+  }
+  
+  mutating func refresh() {
+    self = Chord(RootGen(letter, accidental), type)
   }
   
   func containingChords() -> [Chord] {
@@ -138,7 +107,7 @@ struct Chord: ChordProtocol {
     
     let notesbyNoteNum = self.notesByNoteNum
     
-    for chord in Chord.allChords {
+    for chord in ChordFactory.allChords {
       let chordNum = chord.root.noteNum
       
       if self.degrees.includes(chord.degrees) && chord.name != self.name {
@@ -150,21 +119,6 @@ struct Chord: ChordProtocol {
     }
     
     return chordMatches
-  }
-
-  //  MARK: static properties
-  static var allChords: [Chord] {
-    var chords: [Chord] = []
-    let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
-
-
-    for root in roots {
-      for type in ChordType.allCases {
-        chords.append(Chord(root, type))
-      }
-    }
-    
-    return chords
   }
   
   //  MARK: static methods
@@ -181,15 +135,17 @@ struct Chord: ChordProtocol {
     return Chord(rootNum: root.noteNum, type: type, enharm: newEnharm)
   }
   
-  static func chordsIn(_ testChord: Chord) -> [Chord] {
-    return testChord.containingChords()
-  }
-
-  
 }
 
 extension Chord: Equatable {
   static func == (lhs: Chord, rhs: Chord) -> Bool {
     return lhs.type == rhs.type && lhs.root == rhs.root
+  }
+}
+
+extension Chord: Hashable {
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(type)
+      hasher.combine(root)
   }
 }

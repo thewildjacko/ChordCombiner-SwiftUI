@@ -34,6 +34,10 @@ extension Array where Element == Int {
   func includes(_ otherArray: [Int]) -> Bool {
     self.toSet().isSuperset(of: otherArray)
   }
+  
+  func convert(to root: NoteNum) -> [Int] {
+    self.map { $0.minusDeg(root.num)}
+  }  
 }
 
 extension Array where Element: Hashable {

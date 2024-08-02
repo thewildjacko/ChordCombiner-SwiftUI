@@ -37,7 +37,7 @@ struct LowerChordMenu: View {
           Text("\(lowerChord.name)")
             .fixedSize(horizontal: true, vertical: true)
         })
-        .pickerStyle(.segmented)
+        .pickerStyle(.menu)
         .onChange(of: lowerChord) {
           chordStore.chordData.lowerChord = lowerChord
 //          print("lower chord is: \(lowerChord)")

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */; };
+		1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919492C5C43F200B0C932 /* ChordMenu.swift */; };
 		1D22141B2C251770003953BD /* LowerChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141A2C251770003953BD /* LowerChordMenu.swift */; };
 		1D22141D2C251780003953BD /* USTMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141C2C251780003953BD /* USTMenu.swift */; };
 		1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */; };
@@ -113,6 +115,8 @@
 		1D5F6AC52C248A7200193B58 /* ComboChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC42C248A7200193B58 /* ComboChord.swift */; };
 		1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC62C248B2E00193B58 /* Dim5.swift */; };
 		1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC72C248B2E00193B58 /* Dim7.swift */; };
+		1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */; };
+		1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */; };
 		1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */; };
 		1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37772C2C70670008DA9E /* InvertibleChord.swift */; };
 		1DBB377A2C2CAF1C0008DA9E /* RomanNums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */; };
@@ -124,6 +128,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTypePicker.swift; sourceTree = "<group>"; };
+		1D1919492C5C43F200B0C932 /* ChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordMenu.swift; sourceTree = "<group>"; };
 		1D22141A2C251770003953BD /* LowerChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerChordMenu.swift; sourceTree = "<group>"; };
 		1D22141C2C251780003953BD /* USTMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTMenu.swift; sourceTree = "<group>"; };
 		1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerGeometryReader.swift; sourceTree = "<group>"; };
@@ -231,6 +237,8 @@
 		1D5F6AC42C248A7200193B58 /* ComboChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComboChord.swift; sourceTree = "<group>"; };
 		1D5F6AC62C248B2E00193B58 /* Dim5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim5.swift; sourceTree = "<group>"; };
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
+		1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTestView.swift; sourceTree = "<group>"; };
+		1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordFactory.swift; sourceTree = "<group>"; };
 		1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactory.swift; sourceTree = "<group>"; };
 		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
@@ -258,6 +266,7 @@
 			children = (
 				1D22141A2C251770003953BD /* LowerChordMenu.swift */,
 				1D22141C2C251780003953BD /* USTMenu.swift */,
+				1D1919492C5C43F200B0C932 /* ChordMenu.swift */,
 			);
 			path = Menus;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 			children = (
 				1D25075E2C24CC0D001416AF /* LetterPicker.swift */,
 				1D2507652C24CCE0001416AF /* TriadTypePicker.swift */,
+				1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */,
 				1D2507632C24CCA8001416AF /* FNCTypePicker.swift */,
 				1D2507612C24CC68001416AF /* AccidentalPicker.swift */,
 			);
@@ -336,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
+				1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
 			);
@@ -357,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				1DBD4C5F2C58364A00F4015C /* Chord.swift */,
+				1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */,
 				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
 				1D5F6AAD2C24847600193B58 /* Chord Enums */,
 				1D5F6AAC2C24846700193B58 /* Chord Protocols */,
@@ -776,6 +788,7 @@
 				1D5F6A852C24829500193B58 /* FourNoteChord.FNCInversion.swift in Sources */,
 				1D5F6A522C24829500193B58 /* DC.Maj6.Maj6_MajorScale.swift in Sources */,
 				1D5F6A502C24829500193B58 /* ChordDegrees.swift in Sources */,
+				1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */,
 				1D5F6A8D2C24829500193B58 /* QualProtocol.swift in Sources */,
 				1D5F6A862C24829500193B58 /* Maj7.swift in Sources */,
 				1D5F6A4D2C24829500193B58 /* Triad.swift in Sources */,
@@ -797,6 +810,7 @@
 				1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */,
 				1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */,
 				1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */,
+				1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */,
 				1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */,
 				1D5F6A792C24829500193B58 /* DetailChord.Dom7.swift in Sources */,
 				1D5F6A6B2C24829500193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift in Sources */,
@@ -836,6 +850,7 @@
 				1D5F6A632C24829500193B58 /* HarmonicMajorScale.swift in Sources */,
 				1DBD4C602C58364A00F4015C /* Chord.swift in Sources */,
 				1D5F6A652C24829500193B58 /* DC.Min7.Min_Dorian_Chord.swift in Sources */,
+				1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */,
 				1D5F6A872C24829500193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift in Sources */,
 				1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */,
 				1D5F6A4E2C24829500193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift in Sources */,
@@ -865,6 +880,7 @@
 				1D22141D2C251780003953BD /* USTMenu.swift in Sources */,
 				1D5F6A542C24829500193B58 /* KeyName.RootGen.swift in Sources */,
 				1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */,
+				1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */,
 				1D5F6A8C2C24829500193B58 /* P5.swift in Sources */,
 				1D5F6A932C24829500193B58 /* DC.Dom7.LydianDom.swift in Sources */,
 				1D5F6A5F2C24829500193B58 /* DC.Dom7.Mixolydian.swift in Sources */,
