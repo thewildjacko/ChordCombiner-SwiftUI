@@ -19,7 +19,7 @@ struct ChordMenu: View {
         Menu(content: {
           LetterPicker(letter: $chord.letter)
           AccidentalPicker(accidental: $chord.accidental)
-          ChordTypePicker(type: $chord.type)
+          ChordTypePicker(chord: $chord, type: $chord.type)
         }, label: {
           Text("\(chord.name)")
             .fixedSize(horizontal: true, vertical: true)

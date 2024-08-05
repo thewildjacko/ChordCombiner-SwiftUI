@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ChordTypePicker: View {
+  @Binding var chord: Chord
   @Binding var type: ChordType
   
   var body: some View {
     Picker(selection: $type, label: Text("Chord Type")) {
       ForEach(ChordType.allCases.sorted()) { type in
-        Text(type.name).tag(type)
+        Text("\(chord.root.noteName)\(type.name)").tag(type)
       }
     }
     .pickerStyle(.menu)
@@ -21,5 +22,5 @@ struct ChordTypePicker: View {
 }
 
 #Preview {
-  ChordTypePicker(type: Binding.constant(.ma))
+  ChordTypePicker(chord: Binding.constant(Chord(type: .ma)), type: Binding.constant(.ma))
 }

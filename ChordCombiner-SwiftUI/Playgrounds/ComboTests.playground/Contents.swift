@@ -4,6 +4,11 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
+print(Chord(.c, .ma).degrees.toSet().subtracting(Chord(.c, .mi7).degrees.toSet()))
+print(Chord(.c, .mi7).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
+print(Chord(.c, .mi).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
+print(Chord(.c, .ma7).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
+
 var cMajTriad = Chord(rootNum: .zero, type: .ma)
 
 var Dma7 = Chord(.d, .ma7)

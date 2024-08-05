@@ -20,7 +20,7 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
   case ma
   case mi
   case aug
-  case dim
+  case dim = "˚"
   case sus4
   case sus2
   // MARK: Major Lydian 7th Chords
@@ -28,9 +28,9 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
   case ma9
   case ma13
   case ma13_no9
-  case ma7_sh11
-  case ma9_sh11
-  case ma13_sh11
+  case ma7_sh11 = "ma7(♯11)"
+  case ma9_sh11 = "ma9(♯11)"
+  case ma13_sh11 = "ma13(♯11)"
   case ma13_sh11_no9
   // MARK: Minor Dorian 7th Chords
   case mi7
@@ -41,7 +41,12 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
   case mi13_no9
   case mi13_no11
   case mi13_no9_no11
-  
+  // MARK: Min7(b13)
+  case mi_b6 = "mi(♭6)"
+  case mi7_b13 = "mi7(♭13)"
+  case mi9_b13 = "mi9(♭13)"
+  case mi11_b13 = "mi11(♭13)"
+
   var degs: [Int] {
     switch self {
       // MARK: Triads
@@ -91,6 +96,15 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
       [0, 2, 3, 7, 9, 10]
     case .mi13_no9_no11:
       [0, 3, 7, 9, 10]
+      // MARK: Min7(b13)
+    case .mi_b6:
+      [0, 3, 7, 8]
+    case .mi7_b13:
+      [0, 3, 7, 8, 10]
+    case .mi9_b13:
+      [0, 2, 3, 7, 8, 10]
+    case .mi11_b13:
+      [0, 2, 3, 5, 7, 8, 10]
     }
   }
   
@@ -143,6 +157,15 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
       return .mi13_no11
     case .mi13_no9_no11:
       return .mi13_no9_no11
+      // MARK: Min(b13)
+    case .mi_b6:
+      return .mi_b6
+    case .mi7_b13:
+      return .mi7_b13
+    case .mi9_b13:
+      return .mi9_b13
+    case .mi11_b13:
+      return .mi11_b13
     }
   }
   
@@ -166,7 +189,12 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
         .mi7,
         .mi9,
         .mi11,
-        .mi13:
+        .mi13,
+      // minor (♭13)
+        .mi_b6,
+        .mi7_b13,
+        .mi9_b13,
+        .mi11_b13:
       return qualStr
       // MARK: special or redundant cases
     case .dim:
@@ -233,6 +261,16 @@ enum ChordType: String, CaseIterable, QualProtocol, Identifiable, Comparable {
       return [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
     case .mi13_no9_no11:
       return [root, Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+      
+      // MARK: Min(b13)
+    case .mi_b6:
+      return [root, Min3(rootKey), P5(rootKey), Min6(rootKey)]
+    case .mi7_b13:
+      return [root, Min3(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
+    case .mi9_b13:
+      return [root, Maj2(rootKey), Min3(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
+    case .mi11_b13:
+      return [root, Maj2(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
     }
   }
   

@@ -210,6 +210,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   
   case eleven = "11"
   
+  // MARK: Major Lydian 7th Chords
   case ma7
   case ma9
   case ma13
@@ -220,6 +221,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case ma13_sh11_no9
   // done
   
+  // MARK: Minor Dorian 7th Chords
   case mi7
   case mi9
   case mi11
@@ -229,6 +231,12 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case mi13_no11
   case mi13_no9_no11
   //done
+  
+  // MARK: Min(b13)
+  case mi_b6 = "mi(♭6)"
+  case mi7_b13 = "mi7(♭13)"
+  case mi9_b13 = "mi9(♭13)"
+  case mi11_b13 = "mi11(♭13)"
   
   // MARK: Phrygian
   case mi7_b9 = "mi7(♭9)"
@@ -301,8 +309,6 @@ enum Suffix: String, CustomStringConvertible, Codable {
       self = .ma6_9
     case "6/9(♯11)":
       self = .ma6_9sh11
-      
-      
       
     case "7":
       self = .sev

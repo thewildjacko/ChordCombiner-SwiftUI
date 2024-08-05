@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Chord: ChordProtocol {
+struct Chord: ChordProtocol, Identifiable {
+  var id = UUID()
+  
   //  MARK: instance properties
   var root: Root
   var type: ChordType {
