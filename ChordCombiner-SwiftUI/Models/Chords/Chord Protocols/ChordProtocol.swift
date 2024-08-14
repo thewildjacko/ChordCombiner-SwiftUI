@@ -12,7 +12,7 @@ import UIKit
 protocol ChordProtocol: ChordsAndScales, KSwitch {
   var noteCount: Int { get }
   var chordName: String { get }
-  var qualSuffix: QualProtocol {get set}
+//  var qualSuffix: QualProtocol {get set}
   var degSet: Set<Int> { get }
   var convertedDegrees: [Int] {get set}
   

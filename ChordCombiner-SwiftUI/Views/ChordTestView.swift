@@ -52,7 +52,7 @@ struct ChordTestView: View {
       
       if let resultChord = resultChord {
         deltaChords = ChordFactory.deltaChords(resultChord, delta: 1)
-        print(deltaChords.map { $0.name} )
+//        print(deltaChords.map { $0.name} )
       }
     })
     .onChange(of: lowerChord) { oldValue, newValue in
@@ -60,7 +60,7 @@ struct ChordTestView: View {
       equivalentChords = ChordFactory.combineChords(lowerChord, upperChord).equivalentChords
       if let resultChord = resultChord {
         deltaChords = ChordFactory.deltaChords(resultChord, delta: 1)
-        print(deltaChords.map { $0.name} )
+//        print(deltaChords.map { $0.name} )
       }
 //      print(equivalentChords)
     }
@@ -69,7 +69,7 @@ struct ChordTestView: View {
       equivalentChords = ChordFactory.combineChords(lowerChord, upperChord).equivalentChords
       if let resultChord = resultChord {
         deltaChords = ChordFactory.deltaChords(resultChord, delta: 1)
-        print(deltaChords.map { $0.name} )
+//        print(deltaChords.map { $0.name} )
       }
 //      print(equivalentChords)
     }

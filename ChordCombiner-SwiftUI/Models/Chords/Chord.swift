@@ -33,22 +33,22 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   var chordName: String {
-    return type.name
+    return type.rawValue /*type.name*/
   }
   
   var name: String {
     root.noteName + chordName
   }
   
-  var qualSuffix: QualProtocol {
-    get {
-      return type
-    }
-    set {
-      type = newValue as! ChordType
-      refresh()
-    }
-  }
+//  var qualSuffix: QualProtocol {
+//    get {
+//      return type
+//    }
+//    set {
+//      type = newValue as! ChordType
+//      refresh()
+//    }
+//  }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0

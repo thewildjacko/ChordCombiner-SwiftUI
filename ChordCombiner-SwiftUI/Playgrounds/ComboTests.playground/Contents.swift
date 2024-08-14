@@ -23,8 +23,6 @@ Emaj.convertDegrees(to: Dma7.root.noteNum)
 Dma7.convertedDegrees
 Emaj.convertedDegrees
 
-
-
 cMajTriad.degrees
 cMajTriad.noteCount
 cMajTriad.degSet
