@@ -175,6 +175,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case ma6_sh11 = "6(♯11)"
   case ma6_9 = "⁶/₉"
   case ma6_9sh11 = "⁶/₉(♯11)"
+  // done
   
   case b5 = "♭5"
   case sh5 = "♯5"
@@ -184,6 +185,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case sh11 = "♯11"
   case b13 = "♭13"
   
+  // MARK: Dominant 7th Chords
   case sev = "7"
   case sev_b9 = "7(♭9)"
   case sev_sh9 = "7(♯9)"
@@ -237,6 +239,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case mi7_b13 = "mi7(♭13)"
   case mi9_b13 = "mi9(♭13)"
   case mi11_b13 = "mi11(♭13)"
+  // done
   
   // MARK: Phrygian
   case mi7_b9 = "mi7(♭9)"
