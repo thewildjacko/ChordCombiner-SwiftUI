@@ -11,6 +11,10 @@ import Foundation
 struct HarmonicMajorScale: ScaleDetails {
   let scaleType = ScaleType.harmonicMajor
   
+  static let roots = RootGen.majorRoots
+  static let excludedRoots = RootGen.majorExclusions
+  static let inAllKeys: [ScaleDetails] = roots.map { HarmonicMajorScale($0) }
+  
   var root: Root
   var mode: Mode.SevenDeg
   var enharm: Enharmonic
@@ -88,27 +92,27 @@ struct HarmonicMajorScale: ScaleDetails {
     }
   }
   
-  var scaleName: String {
+  var scaleName: (short: String, long: String) {
     switch mode {
     case .one:
-      return "Harmonic major"
+      return (short: "Harmonic major", long: "Harmonic major")
     case .two:
-      return "Dorian (♭5)"
+      return (short: "Dorian (♭5)", long: "Dorian (♭5)")
     case .three:
-      return "Altered (P5)"
+      return (short: "Altered (P5)", long: "Altered (P5)")
     case .four:
-      return "Melodic minor (♯4)"
+      return (short: "Melodic minor (♯4)", long: "Melodic minor (♯4)")
     case .five:
-      return "Mixolydian (♭2)"
+      return (short: "Mixolydian (♭2)", long: "Mixolydian (♭2)")
     case .six:
-      return "Lydian augmented (♭2)"
+      return (short: "Lydian augmented (♭2)", long: "Lydian augmented (♭2)")
     case .seven:
-      return "Locrian (˚7)"
+      return (short: "Locrian (˚7)", long: "Locrian (˚7)")
     }
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

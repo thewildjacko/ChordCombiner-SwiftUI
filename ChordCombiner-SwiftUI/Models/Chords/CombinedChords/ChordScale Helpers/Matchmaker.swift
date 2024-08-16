@@ -13,6 +13,8 @@ struct Matchmaker {
   
   var resultChord: ResultChord
   
+  let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
+  
   init(resultChord: ResultChord) {
     self.resultChord = resultChord
   }
@@ -101,50 +103,80 @@ struct Matchmaker {
     return results
   }
   
-  func allRC_Chords() -> [ResultChord] {
+  func allRC_Chords(roots: [RootGen], enharm: Enharmonic) -> [ResultChord] {
     var rcChords: [ResultChord] = []
     var lowerChords: [FourNoteChord] = []
     var triads: [Triad] = []
     
-    for noteNum in NoteNum.allCases {
+    roots.forEach { root in
       for type in TriadType.allCases {
-        triads.append(Triad(rootNum: noteNum, type: type))
+        var triad = Triad(root, type)
+        triad.switchEnharm(to: enharm)
+        triads.append(triad)
       }
       for type in FNCType.allCases {
-        lowerChords.append(FourNoteChord(rootNum: noteNum, type: type))
+        var lowerChord = FourNoteChord(root, type)
+        lowerChord.switchEnharm(to: enharm)
+        lowerChords.append(lowerChord)
       }
     }
     
+//    for noteNum in NoteNum.allCases {
+//      for type in TriadType.allCases {
+//        triads.append(Triad(rootNum: noteNum, type: type))
+//      }
+//      for type in FNCType.allCases {
+//        lowerChords.append(FourNoteChord(rootNum: noteNum, type: type))
+//      }
+//    }
+    
     for lowerChord in lowerChords {
       for triad in triads {
-        rcChords.append(ResultChord(baseChord: lowerChord, upStrctTriad: triad))
+        let result = ResultChord(baseChord: lowerChord, upStrctTriad: triad)
+        result.baseChord.switchEnharm(to: enharm)
+        result.upStrctTriad.switchEnharm(to: enharm)
+        result.enharm = enharm
+//        print(result.baseChord.root.key.name)
+        rcChords.append(result)
       }
     }
     return rcChords
   }
   
   func allChordsContaining(_ deg1: Int, _ deg2: Int) -> [ResultChord] {
-    let allRCChords = allRC_Chords().filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
+    let allRCChords = allRC_Chords(roots: roots, enharm: resultChord.enharm).filter {$0.root.rootKey == .c && ($0.baseChord.type == .dom7 || ($0.baseChord.type == .ma6 && $0.degrees.contains(10))) && ($0.degrees.contains(deg1) || $0.degrees.contains(deg2) || $0.degSet.isSuperset(of: [5, 11]))}
     return allRCChords
   }
   
   /// runs every UST in all keys against every lower chord in one key, defined by parameter `RootGen`, listing lc name, ust name, verdict, isTension, and whether verdict and isTension match
-  func isTensionEqualsTension(root: RootGen) {
-    let allRCChords = allRC_Chords().filter { $0.baseChord.root.rootKey == root }
-    for chord in allRCChords {
-      let verdict = chord.chordCategory.verdict
-      let isTension = chord.degSpecs.isTension
+  func isTensionEqualsTension(root: RootGen) -> [ResultChord] {
+    var allRCChords = allRC_Chords(roots: roots, enharm: .blackKeyFlats)
+//    allRCChords.forEach { chord in
+//      if chord.baseChord.root.rootKey == root {
+//        print("\(chord.name)", "root: \(root.r.name)", "base chord root: \(chord.baseChord.root.rootKey.r.name)", "included", separator: String(repeating: "\t", count: 10))
+//      } else {
+//        print("\(chord.name)", "root: \(root.r.name)", "base chord root: \(chord.baseChord.root.rootKey.r.name)", "EXCLUDED", separator: String(repeating: "\t", count: 10))
+//      }
+//    }
       
-      print(chord.baseChord.name, chord.upStrctTriad.name, chord.name, verdict, isTension, separator: "\t\t")
-      if (verdict == .goodToGo && isTension == true) || (verdict == .tension && isTension == false) {
-        print("MISMATCH!")
-      }
-    }
-    //        return allRCChords
+    allRCChords = allRCChords.filter {
+      $0.baseChord.root.rootKey == root }
+//    for chord in allRCChords {
+//      let verdict = chord.chordCategory.verdict
+//      let isTension = chord.degSpecs.isTension
+//      
+//      print(chord.baseChord.name, chord.upStrctTriad.name, chord.name, verdict, isTension, chord.degrees, separator: "\t\t")
+//      if (verdict == .goodToGo && isTension == true) || (verdict == .tension && isTension == false) {
+//        print("MISMATCH!")
+//      }
+//    }
+    
+//    print(String(repeating: "-", count: 40))
+    return allRCChords
   }
   
   func suffixEqualsQuality() -> Bool {
-    let rcChords = allRC_Chords()
+    let rcChords = allRC_Chords(roots: roots, enharm: resultChord.enharm)
     
     let okChords = rcChords.filter {$0.type != .ma6 && $0.chordCategory.verdict == .goodToGo}
     return okChords.allSatisfy {
@@ -153,7 +185,7 @@ struct Matchmaker {
   }
   
   func ustDegsEqualsUpperStructureNotes() -> Bool {
-    let rcChords = allRC_Chords()
+    let rcChords = allRC_Chords(roots: roots, enharm: resultChord.enharm)
     
     let okChords = rcChords.filter {$0.type != .ma6
       && $0.chordCategory.verdict == .goodToGo

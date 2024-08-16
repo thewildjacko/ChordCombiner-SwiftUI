@@ -11,11 +11,12 @@ struct AccidentalPicker: View {
   @Binding var accidental: RootAcc
   
   var body: some View {
-    Picker(selection: $accidental, label: Text("Accidental")) {
+    Picker(selection: $accidental, label: Text("")) {
       ForEach(Accidental.RootAcc.allCases) { accidental in
         Text(accidental.rawValue).tag(accidental)
       }
     }
+    .pickerStyle(.segmented)
   }
 }
 

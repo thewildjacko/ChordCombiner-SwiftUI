@@ -13,6 +13,10 @@ extension Array where Element == Int {
     return Set(self).union(otherArray).sorted()
   }
   
+  func combineSetFilter(_ otherArray: [Int]) -> Set<Int> {
+    return Set(self).union(otherArray)
+  }
+  
   func combineAndFilter(_ otherArray: [Int]) -> [Int] {
     return self + otherArray.filter { !self.contains($0) }
   }
@@ -26,6 +30,14 @@ extension Array where Element == Int {
       self.append(value)
     }
   }
+  
+  func includes(_ otherArray: [Int]) -> Bool {
+    self.toSet().isSuperset(of: otherArray)
+  }
+  
+  func convert(to root: NoteNum) -> [Int] {
+    self.map { $0.minusDeg(root.num)}
+  }  
 }
 
 extension Array where Element: Hashable {

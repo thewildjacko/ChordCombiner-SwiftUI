@@ -9,6 +9,10 @@
 import Foundation
 
 struct ChromaticScale: ScaleDetails {
+  static var roots: [RootGen] = RootGen.allCases
+  static var excludedRoots: [RootGen] = []
+  static let inAllKeys: [ScaleDetails] = [.c].map { ChromaticScale($0, chromaticRC: ResultChord(baseChord: FourNoteChord(), upStrctTriad: Triad())) }
+  
   var chromaticRC: ResultChord?
   let scaleType: ScaleType = .chromatic
   var baseType: FNCType
@@ -16,7 +20,7 @@ struct ChromaticScale: ScaleDetails {
   var mode: Mode.SevenDeg = .one
   var enharm: Enharmonic
   
-  var scaleName: String = "Tension/Polychord"
+  var scaleName: (short: String, long: String) = (short: "Tension/Polychord", long: "Tension/Polychord")
   
   var name: String {
     if let rc = chromaticRC {

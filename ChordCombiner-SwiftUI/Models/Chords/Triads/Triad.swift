@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 
-struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+struct Triad: ChordProtocol, InvertibleChord, CustomStringConvertible, Identifiable, Encodable {
   enum CodingKeys: CodingKey {
-//    case letter, accidental, type, inversion, chordName, enharm, noteCount, chordInversion, qualSuffix, root, note1, note2, allNotes, convertedDegrees, description
     case type, enharm, root, letter, accidental, chordInversion
   }
   
@@ -26,12 +25,6 @@ struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
     try container.encode(accidental, forKey: .accidental)
 
     try container.encode(chordInversion, forKey: .chordInversion)
-//    try container.encode(inversion, forKey: .inversion)
-//    try container.encode(qualSuffix, forKey: .qualSuffix)
-//    try container.encode(note1, forKey: .note1)
-//    try container.encode(note2, forKey: .note2)
-//    try container.encode(convertedDegrees, forKey: .convertedDegrees)
-//    try container.encode(description, forKey: .description)
   }
   
   var id = UUID()
@@ -174,7 +167,16 @@ struct Triad: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
   }
   
   func enharmSwapped() -> ChordProtocol {
-    return Triad(rootNum: root.noteNum, type: type, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Triad(rootNum: root.noteNum, type: type, enharm: newEnharm)
   }
   
   mutating func invertTo(inversion: FNCInversion) {
@@ -219,6 +221,13 @@ extension Triad: Equatable {
   }
 }
 
+extension Triad: Hashable {
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(type)
+      hasher.combine(root)
+  }
+}
+
 extension Triad: Decodable {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -234,7 +243,5 @@ extension Triad: Decodable {
     
     refresh()
     invertTo(inversion: inversion.num)
-    
-//    inversion = try container.decode(TriadInversion.self, forKey: .inversion)
   }
 }

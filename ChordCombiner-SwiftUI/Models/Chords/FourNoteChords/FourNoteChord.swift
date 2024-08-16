@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FourNoteChord: ChordProtocol, CustomStringConvertible, Identifiable, Encodable {
+struct FourNoteChord: ChordProtocol, InvertibleChord, CustomStringConvertible, Identifiable, Encodable {
   enum CodingKeys: CodingKey {
     case type, enharm, root, letter, accidental, chordInversion
   }
@@ -149,7 +149,16 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible, Identifiable, Enco
   }
   
   func enharmSwapped() -> ChordProtocol {
-    return FourNoteChord(rootNum: root.noteNum, type: type, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return FourNoteChord(rootNum: root.noteNum, type: type, enharm: newEnharm)
   }
   
   mutating func getAndSetInversion() {
@@ -212,6 +221,13 @@ struct FourNoteChord: ChordProtocol, CustomStringConvertible, Identifiable, Enco
 extension FourNoteChord: Equatable {
   static func == (lhs: FourNoteChord, rhs: FourNoteChord) -> Bool {
     return lhs.type == rhs.type && lhs.root == rhs.root
+  }
+}
+
+extension FourNoteChord: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(type)
+    hasher.combine(root)
   }
 }
 

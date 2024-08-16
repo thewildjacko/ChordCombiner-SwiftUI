@@ -32,29 +32,29 @@ struct P4: Note, CustomStringConvertible, KSwitch, Codable {
   var key: KeyName {
     switch rootNum {
     case .zero:
-      return ks.pickKey(.f, .eSh)
+      return ks.pickKey(.f, .eSh, .f, .f)
     case .one:
-      return ks.pickKey(.gB, .fSh)
+      return ks.pickKey(.gB, .fSh, .gB, .fSh)
     case .two:
       return .g
     case .three:
-      return ks.pickKey(.aB, .gSh)
+      return ks.pickKey(.aB, .gSh, .aB, .gSh)
     case .four:
-      return ks.pickKey(.b_bb, .a)
+      return ks.pickKey(.b_bb, .a, .a, .a)
     case .five:
-      return ks.pickKey(.bB, .aSh)
+      return ks.pickKey(.bB, .aSh, .bB, .aSh)
     case .six:
-      return ks.pickKey(.cB, .b)
+      return ks.pickKey(.cB, .b, .b, .b)
     case .seven:
       return .c
     case .eight:
-      return ks.pickKey(.dB, .cSh)
+      return ks.pickKey(.dB, .cSh, .dB, .cSh)
     case .nine:
       return .d
     case .ten:
-      return ks.pickKey(.eB, .dSh)
+      return ks.pickKey(.eB, .dSh, .eB, .dSh)
     case .eleven:
-      return ks.pickKey(.fB, .e)
+      return ks.pickKey(.fB, .e, .e, .e)
     }
   }
   
@@ -68,11 +68,16 @@ struct P4: Note, CustomStringConvertible, KSwitch, Codable {
     self.enharm = root.r.enharm
   }
   
-  mutating func swapEnharm() {
-    enharm = enharm == .flat ? .sharp : .flat
-  }
-  
   func enharmSwapped() -> Note {
-    return P4(rootNum: noteNum, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return P4(rootNum: noteNum, enharm: newEnharm)
   }
 }

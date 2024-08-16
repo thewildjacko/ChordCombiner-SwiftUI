@@ -9,6 +9,10 @@
 import Foundation
 
 struct HalfWholeDimFlat13Scale: ScaleDetails {
+  static var roots: [RootGen] = RootGen.allCases
+  static var excludedRoots: [RootGen] = []
+  static let inAllKeys: [ScaleDetails] = roots.map { HalfWholeDimFlat13Scale($0) }
+  
   let scaleType = ScaleType.halfWholeDim_b13
   
   var root: Root
@@ -47,12 +51,12 @@ struct HalfWholeDimFlat13Scale: ScaleDetails {
     return Min7(rootKey)
   }
   
-  var scaleName: String {
-    return "Half-whole diminished (♭13)"
+  var scaleName: (short: String, long: String) {
+    return (short: "Half-whole diminished (♭13)", long: "Half-whole diminished (♭13)")
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

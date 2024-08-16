@@ -11,9 +11,8 @@ import UIKit
 
 protocol ChordProtocol: ChordsAndScales, KSwitch {
   var noteCount: Int { get }
-  var inversion: ChordInversion { get set }
   var chordName: String { get }
-  var qualSuffix: QualProtocol {get set}
+//  var qualSuffix: QualProtocol {get set}
   var degSet: Set<Int> { get }
   var convertedDegrees: [Int] {get set}
   
@@ -22,19 +21,11 @@ protocol ChordProtocol: ChordsAndScales, KSwitch {
   
   mutating func convertDegrees(to root: NoteNum)
   mutating func convertDegsToOwnRoot()
-  mutating func invertTo(inversion: FNCInversion)
-  mutating func invert(times: Int)
-  
-  mutating func getAndSetInversion()
 }
 
 extension ChordProtocol {
   var name: String {
     return root.noteName + chordName
-  }
-  
-  var inversionName: (short: String, long: String) {
-    return inversion.name
   }
   
   var noteNums: [NoteNum] {
@@ -51,25 +42,5 @@ extension ChordProtocol {
   
   mutating func convertDegsToOwnRoot() {
     convertedDegrees = degrees.map { $0.minusDeg(root.num) }
-  }
-  
-  mutating func invert(times: Int) {
-    switch times {
-    case let t where t > 0:
-      for _ in 1...times {
-        if let _ = allNotes.first {
-          allNotes.insert(allNotes.removeFirst(), at: noteCount - 1)
-        }
-      }
-    case let t where t < 0:
-      for _ in 1...abs(times) {
-        if let _ = allNotes.last {
-          allNotes.insert(allNotes.removeLast(), at: 0)
-        }
-      }
-    default:
-      ()
-    }
-    getAndSetInversion()
   }
 }

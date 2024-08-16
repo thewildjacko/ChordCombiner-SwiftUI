@@ -11,8 +11,17 @@ import Foundation
 /// selects flat or sharp version of KeyName based on enharm
 struct KeySwitch: Codable {
   var enharm: Enharmonic
-  func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName) -> KeyName {
-    return enharm == .flat ? flatKey : sharpKey
+  func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName, _ blackKeyFlats: KeyName, _ blackKeySharps: KeyName) -> KeyName {
+    switch enharm {
+    case .flat:
+      return flatKey
+    case .sharp:
+      return sharpKey
+    case .blackKeyFlats:
+      return blackKeyFlats
+    case .blackKeySharps:
+      return blackKeySharps
+    }
   }
 }
 

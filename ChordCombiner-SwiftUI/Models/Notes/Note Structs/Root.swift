@@ -38,41 +38,41 @@ struct Root: Note, CustomStringConvertible, Codable {
     
     switch noteNum {
     case .zero:
-      self.key = ks.pickKey(.c, .bSh)
-      self.rootKey = rs.pickRoot(.c, .bSh)
+      self.key = ks.pickKey(.c, .bSh, .c, .c)
+      self.rootKey = rs.pickRoot(.c, .bSh, .c, .c)
     case .one:
-      self.key = ks.pickKey(.dB, .cSh)
-      self.rootKey = rs.pickRoot(.dB, .cSh)
+      self.key = ks.pickKey(.dB, .cSh, .dB, .cSh)
+      self.rootKey = rs.pickRoot(.dB, .cSh, .dB, .cSh)
     case .two:
       self.key = .d
       self.rootKey = .d
     case .three:
-      self.key = ks.pickKey(.eB, .dSh)
-      self.rootKey = rs.pickRoot(.eB, .dSh)
+      self.key = ks.pickKey(.eB, .dSh, .eB, .dSh)
+      self.rootKey = rs.pickRoot(.eB, .dSh, .eB, .dSh)
     case .four:
-      self.key = ks.pickKey(.fB, .e)
-      self.rootKey = rs.pickRoot(.fB, .e)
+      self.key = ks.pickKey(.fB, .e, .e, .e)
+      self.rootKey = rs.pickRoot(.fB, .e, .e, .e)
     case .five:
-      self.key = ks.pickKey(.f, .eSh)
-      self.rootKey = rs.pickRoot(.f, .eSh)
+      self.key = ks.pickKey(.f, .eSh, .f, .f)
+      self.rootKey = rs.pickRoot(.f, .eSh, .f, .f)
     case .six:
-      self.key = ks.pickKey(.gB, .fSh)
-      self.rootKey = rs.pickRoot(.gB, .fSh)
+      self.key = ks.pickKey(.gB, .fSh, .gB, .fSh)
+      self.rootKey = rs.pickRoot(.gB, .fSh, .gB, .fSh)
     case .seven:
       self.key = .g
       self.rootKey = .g
     case .eight:
-      self.key = ks.pickKey(.aB, .gSh)
-      self.rootKey = rs.pickRoot(.aB, .gSh)
+      self.key = ks.pickKey(.aB, .gSh, .aB, .gSh)
+      self.rootKey = rs.pickRoot(.aB, .gSh, .aB, .gSh)
     case .nine:
       self.key = .a
       self.rootKey = .a
     case .ten:
-      self.key = ks.pickKey(.bB, .aSh)
-      self.rootKey = rs.pickRoot(.bB, .aSh)
+      self.key = ks.pickKey(.bB, .aSh, .bB, .aSh)
+      self.rootKey = rs.pickRoot(.bB, .aSh, .bB, .aSh)
     case .eleven:
-      self.key = ks.pickKey(.cB, .b)
-      self.rootKey = rs.pickRoot(.cB, .b)
+      self.key = ks.pickKey(.cB, .b, .b, .b)
+      self.rootKey = rs.pickRoot(.cB, .b, .b, .b)
     }
   }
   
@@ -86,40 +86,58 @@ struct Root: Note, CustomStringConvertible, Codable {
   mutating func kSW(ks: KeySwitch) {
     switch noteNum {
     case .zero:
-      self.key = ks.pickKey(.c, .bSh)
+      self.key = ks.pickKey(.c, .bSh, .c, .c)
     case .one:
-      self.key = ks.pickKey(.dB, .cSh)
+      self.key = ks.pickKey(.dB, .cSh, .dB, .cSh)
     case .two:
       self.key = .d
     case .three:
-      self.key = ks.pickKey(.eB, .dSh)
+      self.key = ks.pickKey(.eB, .dSh, .eB, .dSh)
     case .four:
-      self.key = ks.pickKey(.fB, .e)
+      self.key = ks.pickKey(.fB, .e, .fB, .e)
     case .five:
-      self.key = ks.pickKey(.f, .eSh)
+      self.key = ks.pickKey(.f, .eSh, .f, .f)
     case .six:
-      self.key = ks.pickKey(.gB, .fSh)
+      self.key = ks.pickKey(.gB, .fSh, .gB, .fSh)
     case .seven:
       self.key = .g
     case .eight:
-      self.key = ks.pickKey(.aB, .gSh)
+      self.key = ks.pickKey(.aB, .gSh, .aB, .gSh)
     case .nine:
       self.key = .a
     case .ten:
-      self.key = ks.pickKey(.bB, .aSh)
+      self.key = ks.pickKey(.bB, .aSh, .bB, .aSh)
     case .eleven:
-      self.key = ks.pickKey(.cB, .b)
+      self.key = ks.pickKey(.cB, .b, .b, .b)
     }
   }
   
   mutating func swapEnharm() {
-    enharm = enharm == .flat ? .sharp : .flat
+    switch enharm {
+    case .flat, .sharp:
+      enharm = enharm == .flat ? .sharp : .flat
+    case .blackKeyFlats, .blackKeySharps:
+      enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+    }
     kSW(ks: KeySwitch(enharm: enharm))
     rootKey = RootGen(key)
   }
   
   func enharmSwapped() -> Note {
-    return Root(noteNum: noteNum, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Root(noteNum: noteNum, enharm: newEnharm)
+  }
+  
+  mutating func switchEnharm(to enharm: Enharmonic) {
+    self.enharm = enharm
   }
 }
 
@@ -127,5 +145,10 @@ extension Root: Equatable {
   static func == (lhs: Root, rhs: Root) -> Bool {
     return lhs.noteNum == rhs.noteNum
   }
-  
+}
+
+extension Root: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(noteNum)
+  }
 }

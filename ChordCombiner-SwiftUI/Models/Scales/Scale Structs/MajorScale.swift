@@ -15,6 +15,18 @@ struct MajorScale: ScaleDetails {
   var mode: Mode.SevenDeg
   var enharm: Enharmonic
   
+//  static var flatKeys: [RootGen] {
+//    Array(majorRoots[1...7])
+//  }
+//  
+//  static var sharpKeys: [RootGen] {
+//    Array(majorRoots[8...14])
+//  }
+  
+  static let roots = RootGen.majorRoots
+  static let excludedRoots = RootGen.majorExclusions
+  static let inAllKeys: [ScaleDetails] = roots.map { MajorScale($0) }  
+  
   var note1: Note {
     switch mode {
     case .one, .two, .four, .five, .six:
@@ -69,27 +81,27 @@ struct MajorScale: ScaleDetails {
     }
   }
   
-  var scaleName: String {
+  var scaleName: (short: String, long: String) {
     switch mode {
     case .one:
-      return "Major (ionian)"
+      return (short: "Major", long: "Major (ionian)")
     case .two:
-      return "Dorian"
+      return (short: "Dorian", long: "Dorian")
     case .three:
-      return "Phrygian"
+      return (short: "Phrygian", long: "Phrygian")
     case .four:
-      return "Lydian"
+      return (short: "Lydian", long: "Lydian")
     case .five:
-      return "Mixolydian"
+      return (short: "Mixolydian", long: "Mixolydian")
     case .six:
-      return "Natural minor (aeolian)"
+      return (short: "Minor", long: "Natural minor (aeolian)")
     case .seven:
-      return "Locrian"
+      return (short: "Locrian", long: "Locrian")
     }
   }
   
   var name: String {
-    return root.noteName + " " + scaleName
+    return root.noteName + " " + scaleName.short
   }
   
   var romanNum: String {

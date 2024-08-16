@@ -45,7 +45,8 @@ extension Int: Mathable {
   }
   
   func isTritone(from otherDeg: Int) -> Bool {
-    return otherDeg - self == 6 ? true : false
+//    return otherDeg - self == 6 ? true : false // why is this not abs?
+    return abs(otherDeg - self) == 6 ? true : false
   }
   
   func isHalfStep(from otherDeg: Int) -> Bool {

@@ -32,29 +32,29 @@ struct Maj3: Note, CustomStringConvertible, KSwitch, Codable {
   var key: KeyName {
     switch rootNum {
     case .zero:
-      return ks.pickKey(.e, .dX)
+      return ks.pickKey(.e, .dX, .e, .e)
     case .one:
-      return ks.pickKey(.f, .eSh)
+      return ks.pickKey(.f, .eSh, .f, .f)
     case .two:
       return .fSh
     case .three:
-      return ks.pickKey(.g, .fX)
+      return ks.pickKey(.g, .fX, .g, .g)
     case .four:
-      return ks.pickKey(.aB, .gSh)
+      return ks.pickKey(.aB, .gSh, .aB, .gSh)
     case .five:
-      return ks.pickKey(.a, .gX)
+      return ks.pickKey(.a, .gX, .a, .a)
     case .six:
-      return ks.pickKey(.bB, .aSh)
+      return ks.pickKey(.bB, .aSh, .bB, .aSh)
     case .seven:
       return .b
     case .eight:
-      return ks.pickKey(.c, .bSh)
+      return ks.pickKey(.c, .bSh, .c, .c)
     case .nine:
       return .cSh
     case .ten:
-      return ks.pickKey(.d, .cX)
+      return ks.pickKey(.d, .cX, .d, .d)
     case .eleven:
-      return ks.pickKey(.eB, .dSh)
+      return ks.pickKey(.eB, .dSh, .eB, .dSh)
     }
   }
   
@@ -68,11 +68,16 @@ struct Maj3: Note, CustomStringConvertible, KSwitch, Codable {
     self.enharm = root.r.enharm
   }
   
-  mutating func swapEnharm() {
-    enharm = enharm == .flat ? .sharp : .flat
-  }
-  
   func enharmSwapped() -> Note {
-    return Maj3(rootNum: noteNum, enharm: enharm == .flat ? .sharp : .flat)
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Maj3(rootNum: noteNum, enharm: newEnharm)
   }
 }
