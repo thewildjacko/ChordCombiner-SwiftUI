@@ -247,7 +247,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case mi11_b9 = "mi11(♭9)"
   case mi11_b9b13 = "mi11(♭9♭13)"
   case mi13_b9 = "mi13(♭9)"
-  
+  // done
   
   // MARK: mi7(b5)
   case mi7_b5 = "mi7(♭5)"
@@ -260,6 +260,7 @@ enum Suffix: String, CustomStringConvertible, Codable {
   case mi11_b5b9 = "mi11(♭5♭9)"
   case mi11_b5b13 = "mi11(♭5♭13)"
   case locrian = " locrian"
+  // done
   
   // MARK: diminished
   case dim7 = "˚7"
