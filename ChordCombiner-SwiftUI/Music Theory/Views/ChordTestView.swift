@@ -13,11 +13,11 @@ struct ChordTestView: View {
   @State var resultChord: Chord?
   @State var equivalentChords: [Chord] = []
   @State var deltaChords: [Chord] = []
+  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, keyCount: 36, initialKey: .F, startingOctave: 4)
   
   var body: some View {
     VStack(spacing: 75) {
-      Spacer()
-      Spacer()
+      
       Spacer()
       
       HStack(spacing: 90) {
@@ -28,10 +28,14 @@ struct ChordTestView: View {
       
       List {
         Section(header: Text("Combined Chord")) {
-          if let resultChord = resultChord {
-            Text(resultChord.name)
-          } else {
-            Text("\(upperChord.name)/\(lowerChord.name)")
+          VStack {
+//            if let resultChord = resultChord {
+//              Text(resultChord.name)
+//            } else {
+//              Text("\(upperChord.name)/\(lowerChord.name)")
+//            }
+            
+            kb3
           }
         }
         
@@ -47,6 +51,7 @@ struct ChordTestView: View {
       Spacer()
     }
     .onAppear(perform: {
+      
       resultChord = ChordFactory.combineChords(lowerChord, upperChord).resultChord
       equivalentChords = ChordFactory.combineChords(lowerChord, upperChord).equivalentChords
       
@@ -54,6 +59,11 @@ struct ChordTestView: View {
         deltaChords = ChordFactory.deltaChords(resultChord, delta: 1)
 //        print(deltaChords.map { $0.name} )
       }
+      
+      let degs1 = [0, 4, 7, 10].map { $0.toPitch(startingOctave: kb3.startingOctave) }
+      let degs2 = [2, 6, 9].map { $0.toPitch(startingOctave: kb3.startingOctave) }
+      
+      kb3.highlightKeys(degs: degs1, degs2: degs2.map({ $0 + 12 }), color: .cyan, color2: .orange)
     })
     .onChange(of: lowerChord) { oldValue, newValue in
       resultChord = ChordFactory.combineChords(lowerChord, upperChord).resultChord
