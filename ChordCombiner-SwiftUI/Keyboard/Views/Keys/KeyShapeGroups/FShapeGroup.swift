@@ -12,21 +12,28 @@ struct FShapeGroup: View, KeyShapeGroup {
   var keyShape: NoteShape { FandBShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
 
+  var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
-  var fill: Color
+  var fill: any ShapeStyle
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-      keyShape.path(
-        in: keyRect)
-      .fill(fill)
+            if fill is Color {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! Color)
+      } else {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! LinearGradient)
+      }
       
       keyShape.path(
         in: keyRect)
@@ -40,5 +47,5 @@ struct FShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  FShapeGroup(width: 24, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
+  FShapeGroup(octaves: 1, width: 24, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
 }

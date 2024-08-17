@@ -142,6 +142,7 @@
 		1D73AFFA2C6FD64400308356 /* GandAShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE52C6FD64400308356 /* GandAShape.swift */; };
 		1D73AFFB2C6FD64400308356 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE72C6FD64400308356 /* Key.swift */; };
 		1D73AFFD2C6FD74800308356 /* KeyboardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */; };
+		1D73AFFF2C700A5100308356 /* AlignmentTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */; };
 		1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */; };
 		1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37772C2C70670008DA9E /* InvertibleChord.swift */; };
 		1DBB377A2C2CAF1C0008DA9E /* RomanNums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */; };
@@ -289,6 +290,7 @@
 		1D73AFE52C6FD64400308356 /* GandAShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GandAShape.swift; sourceTree = "<group>"; };
 		1D73AFE72C6FD64400308356 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTest.swift; sourceTree = "<group>"; };
+		1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentTestView.swift; sourceTree = "<group>"; };
 		1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactory.swift; sourceTree = "<group>"; };
 		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			children = (
 				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
 				1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */,
+				1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
 			);
@@ -1026,6 +1029,7 @@
 				1D5F6A5C2C24829500193B58 /* Letter.swift in Sources */,
 				1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */,
 				1D5F6A9B2C24829500193B58 /* DetailChord.Maj7.swift in Sources */,
+				1D73AFFF2C700A5100308356 /* AlignmentTestView.swift in Sources */,
 				1D5F6A982C24829500193B58 /* Triad.TriadType.swift in Sources */,
 				1D73AFF32C6FD64400308356 /* FShapeGroup.swift in Sources */,
 				1D5F6A702C24829500193B58 /* FourNoteChord.FNCType.swift in Sources */,

@@ -12,21 +12,28 @@ struct BlackKeyShapeGroup: View, KeyShapeGroup {
   var keyShape: NoteShape { BlackKeyShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
   
+  var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
-  var fill: Color
+  var fill: any ShapeStyle
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-      keyShape.path(
-        in: keyRect)
-      .fill(fill)
+            if fill is Color {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! Color)
+      } else {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! LinearGradient)
+      }
       
       keyShape.path(
         in: keyRect)
@@ -39,5 +46,5 @@ struct BlackKeyShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  BlackKeyShapeGroup(width: 14, height: 52, radius: 1.2, widthMultiplier: 1, position: 200, fill: .black, stroke: .black, lineWidth: 1, z_Index: 1)
+  BlackKeyShapeGroup(octaves: 1, width: 14, height: 52, radius: 1.2, widthMultiplier: 1, position: 200, fill: .black, stroke: .black, lineWidth: 1, z_Index: 1)
 }

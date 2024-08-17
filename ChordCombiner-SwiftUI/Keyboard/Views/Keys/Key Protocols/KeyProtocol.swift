@@ -12,6 +12,7 @@ protocol KeyProtocol {
   var id: UUID { get set }
   var pitch: Int { get set }
   var type: KeyType { get set }
+  var octaves: CGFloat { get set}
   var geoWidth: CGFloat { get set }
   var widthMod: CGFloat { get set }
   var initialKey: Bool { get set }
@@ -21,12 +22,12 @@ protocol KeyProtocol {
   var radius: CGFloat { get }
   var width: CGFloat { get }
   var height: CGFloat { get }
-  var fill: Color { get set }
+  var fill: any ShapeStyle { get set }
   var stroke: Color { get set }
   var lineWidth: CGFloat { get set }
   var z_Index: Double { get }
   
-  init(pitch: Int, type: KeyType, geoWidth: CGFloat, widthMod: CGFloat, fill: Color, stroke: Color, lineWidth: CGFloat)
+  init(pitch: Int, type: KeyType, octaves: CGFloat, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color, lineWidth: CGFloat)
 }
 
 extension KeyProtocol {
@@ -61,7 +62,7 @@ extension KeyProtocol {
     }
   }
   
-  var fill: Color {
+  var fill: any ShapeStyle {
     switch type {
     case .C, .D, .E, .F, .G, .A, .B, .endingC, .endingE:
       return .white
@@ -85,8 +86,8 @@ extension KeyProtocol {
   
   var KeyWidthAddend: CGFloat { Width.getAddend(type) }
   
-  init(pitch: Int, _ type: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat = 23, fill: Color, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, keyPosition: CGFloat = 0) {
-    self.init(pitch: pitch, type: type, geoWidth: geoWidth, widthMod: widthMod, fill: fill, stroke: stroke, lineWidth: lineWidth)
+  init(pitch: Int, _ type: KeyType = .C, octaves: CGFloat = 1, geoWidth: CGFloat, widthMod: CGFloat = 23, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, keyPosition: CGFloat = 0) {
+    self.init(pitch: pitch, type: type, octaves: octaves, geoWidth: geoWidth, widthMod: widthMod, fill: fill, stroke: stroke, lineWidth: lineWidth)
     
     self.initialKey = initialKey
     self.keyPosition = keyPosition

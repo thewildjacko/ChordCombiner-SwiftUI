@@ -58,6 +58,22 @@ extension Int: Mathable {
     let type = KeyType(rawValue: self) ?? .C
     return type.pitchNumber + (startingOctave + 1) * 12
   }
+  
+  func raiseAbove(pitch: Int, degs: [Int]?) -> Int {
+    if let degs = degs {
+      if self < pitch && !degs.contains(self) {
+        return self + 12
+      } else {
+        return self
+      }
+    } else {
+      if self < pitch {
+        return self + 12
+      } else {
+        return self
+      }
+    }
+  }
 }
 
 /// for comparing chord/scale degrees
@@ -68,10 +84,10 @@ enum ComparisonOutcome {
 }
 
 extension Array where Element == Int {
-  func highlightIfSelected(keys: inout [Key], color: Color) {
+  func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
     for deg in self {
       if let index = keys.firstIndex(where: { $0.pitch == deg }) {
-        keys[index].fill = color
+        keys[index].toggleHighlight(color: color)
       }
     }
   }

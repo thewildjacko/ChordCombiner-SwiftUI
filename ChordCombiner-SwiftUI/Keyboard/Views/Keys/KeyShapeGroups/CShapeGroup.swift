@@ -12,21 +12,32 @@ struct CShapeGroup: View, KeyShapeGroup {
   var keyShape: NoteShape { CandEShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
   
+  var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
-  var fill: Color
+  var fill: any ShapeStyle
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
   
+  func getFill<T: ShapeStyle>(color: T) -> T {
+    return color
+  }
+  
   var body: some View {
     ZStack(alignment: .topLeading) {
-      keyShape.path(
-        in: keyRect)
-      .fill(fill)
+      if fill is Color {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! Color)
+      } else {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! LinearGradient)
+      }
       
       keyShape.path(
         in: keyRect)
@@ -39,5 +50,5 @@ struct CShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  CShapeGroup(width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
+  CShapeGroup(octaves: 1, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
 }
