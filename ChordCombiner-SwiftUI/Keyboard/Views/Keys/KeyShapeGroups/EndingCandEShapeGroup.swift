@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct EndingCandEShapeGroup: View, KeyShapeGroup {
+  var finalKey: Bool
   typealias NoteShape = EndingCandEShape
-  var keyShape: NoteShape { EndingCandEShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
+  var keyShape: NoteShape { EndingCandEShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
   
   var octaves: CGFloat
@@ -47,5 +48,5 @@ struct EndingCandEShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  EndingCandEShapeGroup(octaves: 1, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
+  EndingCandEShapeGroup(finalKey: false, octaves: 1, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
 }

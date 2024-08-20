@@ -72,7 +72,7 @@ struct Keyboard: View, Identifiable {
   mutating func setWidthAndHeight() {
     for (index, type) in keyTypes.enumerated() {
       switch type {
-      case .C, .E, .G, .A, .endingC, .endingE:
+      case .C, .E, .G, .A:
         widthMod += index == 0 ? Width.whiteKeyCEGA.rawValue : Width.getAddend(type)
       case .D, .F, .B:
         widthMod += index == 0 ? Width.whiteKeyDFB.rawValue : Width.getAddend(type)
@@ -86,20 +86,15 @@ struct Keyboard: View, Identifiable {
   }
   
   mutating func addKeyTypes(count: Int, nextKey: inout KeyType) {
-    for i in 1...count {
-      if i == count && (nextKey == .C || nextKey == .E)  {
-        nextKey == .C ? keyTypes.append(.endingC) : keyTypes.append(.endingE)
-        nextKey = nextKey.nextKey
-      } else {
-        keyTypes.append(nextKey)
-        nextKey = nextKey.nextKey
-      }
+    for _ in 1...count {
+      keyTypes.append(nextKey)
+      nextKey = nextKey.nextKey
     }
   }
   
   mutating func setFill(type: KeyType) -> Color {
     switch type {
-    case .C, .D, .E, .F, .G, .A, .B, .endingC, .endingE:
+    case .C, .D, .E, .F, .G, .A, .B:
       return .white
     case .Db, .Eb, .Gb, .Ab, .Bb:
       return .black
@@ -125,7 +120,7 @@ struct Keyboard: View, Identifiable {
         )
         keyPosition += type.initialKeyPosition + type.nextKeyPosition
         pitch += 1
-      } else {
+      } else if index < keyTypes.count - 1 {
         keys.append(
           Key(
             pitch: pitch,
@@ -139,8 +134,20 @@ struct Keyboard: View, Identifiable {
         )
         keyPosition += type.nextKeyPosition
         pitch += 1
+      } else if index == keyTypes.count - 1 {
+        keys.append(
+          Key(
+            pitch: pitch,
+            type,
+            octaves: CGFloat(octaves ?? 1),
+            geoWidth: geoWidth,
+            widthMod: widthMod,
+            fill: setFill(type: type),
+            stroke: .black,
+            finalKey: true,
+            keyPosition: keyPosition)
+        )
       }
-      
     }
   }
   

@@ -20,7 +20,7 @@ struct ChordTestView: View {
   
   @State var equivalentChords: [Chord] = []
   @State var deltaChords: [Chord] = []
-  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
+  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .E,  startingOctave: 4, octaves: 3)
   
   func highlightResult(startingOctave: Int, lowerChord: Chord, upperChord: Chord, result: Chord?) {
     let lowerPitch = lowerChord.root.num.toPitch(startingOctave: startingOctave)
@@ -117,12 +117,21 @@ struct ChordTestView: View {
     }
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
+//      print(lowerChord.degrees, lowerChord.type.degreesInC)
+//      for key in kb3.keys {
+//        print(key.finalKey)
+//      }
     })
     .onChange(of: lowerChord) { oldLower, newLower in
       setAndHighlightChords(initial: false)
+//      print(lowerChord.degrees, lowerChord.type.degreesInC)
+//      for key in kb3.keys {
+//        print(key.finalKey)
+//      }
     }
     .onChange(of: upperChord) { oldUpper, newUpper in
       setAndHighlightChords(initial: false)
+//      print(lowerChord.degrees, lowerChord.type.degreesInC)
     }
   }
 }

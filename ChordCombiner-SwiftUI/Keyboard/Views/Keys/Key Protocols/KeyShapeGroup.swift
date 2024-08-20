@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 protocol KeyShapeGroup {
+  var finalKey: Bool { get set }
   associatedtype NoteShape where NoteShape: Shape
   var keyShape: NoteShape { get }
   var keyRect: CGRect { get }

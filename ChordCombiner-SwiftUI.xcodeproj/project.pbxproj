@@ -130,14 +130,12 @@
 		1D73AFEE2C6FD64400308356 /* BShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFD82C6FD64400308356 /* BShapeGroup.swift */; };
 		1D73AFEF2C6FD64400308356 /* CShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFD92C6FD64400308356 /* CShapeGroup.swift */; };
 		1D73AFF02C6FD64400308356 /* DShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFDA2C6FD64400308356 /* DShapeGroup.swift */; };
-		1D73AFF12C6FD64400308356 /* EndingCandEShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFDB2C6FD64400308356 /* EndingCandEShapeGroup.swift */; };
 		1D73AFF22C6FD64400308356 /* EShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFDC2C6FD64400308356 /* EShapeGroup.swift */; };
 		1D73AFF32C6FD64400308356 /* FShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFDD2C6FD64400308356 /* FShapeGroup.swift */; };
 		1D73AFF42C6FD64400308356 /* GShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFDE2C6FD64400308356 /* GShapeGroup.swift */; };
 		1D73AFF52C6FD64400308356 /* BlackKeyShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE02C6FD64400308356 /* BlackKeyShape.swift */; };
 		1D73AFF62C6FD64400308356 /* CandEShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE12C6FD64400308356 /* CandEShape.swift */; };
 		1D73AFF72C6FD64400308356 /* DShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE22C6FD64400308356 /* DShape.swift */; };
-		1D73AFF82C6FD64400308356 /* EndingCandEShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE32C6FD64400308356 /* EndingCandEShape.swift */; };
 		1D73AFF92C6FD64400308356 /* FandBShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE42C6FD64400308356 /* FandBShape.swift */; };
 		1D73AFFA2C6FD64400308356 /* GandAShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE52C6FD64400308356 /* GandAShape.swift */; };
 		1D73AFFB2C6FD64400308356 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE72C6FD64400308356 /* Key.swift */; };
@@ -278,14 +276,12 @@
 		1D73AFD82C6FD64400308356 /* BShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFD92C6FD64400308356 /* CShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFDA2C6FD64400308356 /* DShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DShapeGroup.swift; sourceTree = "<group>"; };
-		1D73AFDB2C6FD64400308356 /* EndingCandEShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndingCandEShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFDC2C6FD64400308356 /* EShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFDD2C6FD64400308356 /* FShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFDE2C6FD64400308356 /* GShapeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GShapeGroup.swift; sourceTree = "<group>"; };
 		1D73AFE02C6FD64400308356 /* BlackKeyShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackKeyShape.swift; sourceTree = "<group>"; };
 		1D73AFE12C6FD64400308356 /* CandEShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandEShape.swift; sourceTree = "<group>"; };
 		1D73AFE22C6FD64400308356 /* DShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DShape.swift; sourceTree = "<group>"; };
-		1D73AFE32C6FD64400308356 /* EndingCandEShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndingCandEShape.swift; sourceTree = "<group>"; };
 		1D73AFE42C6FD64400308356 /* FandBShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FandBShape.swift; sourceTree = "<group>"; };
 		1D73AFE52C6FD64400308356 /* GandAShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GandAShape.swift; sourceTree = "<group>"; };
 		1D73AFE72C6FD64400308356 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -746,8 +742,8 @@
 		1D73AFBC2C6FD2FE00308356 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1D73AFBD2C6FD37400308356 /* Keyboard.swift */,
 				1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */,
+				1D73AFBD2C6FD37400308356 /* Keyboard.swift */,
 				1D73AFE82C6FD64400308356 /* Keys */,
 			);
 			path = Views;
@@ -800,7 +796,6 @@
 				1D73AFD82C6FD64400308356 /* BShapeGroup.swift */,
 				1D73AFD92C6FD64400308356 /* CShapeGroup.swift */,
 				1D73AFDA2C6FD64400308356 /* DShapeGroup.swift */,
-				1D73AFDB2C6FD64400308356 /* EndingCandEShapeGroup.swift */,
 				1D73AFDC2C6FD64400308356 /* EShapeGroup.swift */,
 				1D73AFDD2C6FD64400308356 /* FShapeGroup.swift */,
 				1D73AFDE2C6FD64400308356 /* GShapeGroup.swift */,
@@ -814,7 +809,6 @@
 				1D73AFE02C6FD64400308356 /* BlackKeyShape.swift */,
 				1D73AFE12C6FD64400308356 /* CandEShape.swift */,
 				1D73AFE22C6FD64400308356 /* DShape.swift */,
-				1D73AFE32C6FD64400308356 /* EndingCandEShape.swift */,
 				1D73AFE42C6FD64400308356 /* FandBShape.swift */,
 				1D73AFE52C6FD64400308356 /* GandAShape.swift */,
 			);
@@ -956,7 +950,6 @@
 				1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */,
 				1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */,
 				1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */,
-				1D73AFF12C6FD64400308356 /* EndingCandEShapeGroup.swift in Sources */,
 				1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */,
 				1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */,
 				1D73AFEA2C6FD64400308356 /* KeyShape.swift in Sources */,
@@ -1049,7 +1042,6 @@
 				1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */,
 				1D73AFF42C6FD64400308356 /* GShapeGroup.swift in Sources */,
 				1D5F6A8C2C24829500193B58 /* P5.swift in Sources */,
-				1D73AFF82C6FD64400308356 /* EndingCandEShape.swift in Sources */,
 				1D5F6A932C24829500193B58 /* DC.Dom7.LydianDom.swift in Sources */,
 				1D5F6A5F2C24829500193B58 /* DC.Dom7.Mixolydian.swift in Sources */,
 				1D5F6A8E2C24829500193B58 /* HexatonicSharp9Sharp11Scale.swift in Sources */,

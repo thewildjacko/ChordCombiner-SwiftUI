@@ -15,6 +15,7 @@ struct Key: View, KeyProtocol, Identifiable {
   var geoWidth: CGFloat
   var widthMod: CGFloat
   var initialKey: Bool = false
+  var finalKey: Bool = false
   var keyPosition: CGFloat = 0
   var lineWidth: CGFloat = 1
   var stroke: Color = .black
@@ -22,7 +23,7 @@ struct Key: View, KeyProtocol, Identifiable {
   
   mutating func toggleHighlight<T: ShapeStyle>(color: T) {
     switch type {
-    case .C, .D, .E, .F, .G, .A, .B, .endingC, .endingE:
+    case .C, .D, .E, .F, .G, .A, .B:
       if fill is Color && fill as! Color == .white  {
         fill = color
       } else {
@@ -40,23 +41,21 @@ struct Key: View, KeyProtocol, Identifiable {
   var body: some View {
     switch type {
     case .C:
-      CShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      CShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .D:
-      DShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      DShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .E:
-      EShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      EShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .F:
-      FShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      FShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .G:
-      GShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      GShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .A:
-      AShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      AShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .B:
-      BShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      BShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      BlackKeyShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
-    case .endingC, .endingE:
-      EndingCandEShapeGroup(octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
+      BlackKeyShapeGroup(finalKey: finalKey, octaves: octaves, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, position: position, fill: fill, stroke: stroke, lineWidth: lineWidth, z_Index: z_Index)
     }
   }
 }

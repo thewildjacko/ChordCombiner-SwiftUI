@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct FShapeGroup: View, KeyShapeGroup {
+  var finalKey: Bool
   typealias NoteShape = FandBShape
-  var keyShape: NoteShape { FandBShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
+  var keyShape: NoteShape { FandBShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
 
   var octaves: CGFloat
@@ -47,5 +48,5 @@ struct FShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  FShapeGroup(octaves: 1, width: 24, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
+  FShapeGroup(finalKey: false, octaves: 1, width: 24, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
 }
