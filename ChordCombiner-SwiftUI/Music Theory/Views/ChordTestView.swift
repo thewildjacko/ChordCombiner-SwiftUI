@@ -117,21 +117,12 @@ struct ChordTestView: View {
     }
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
-//      print(lowerChord.degrees, lowerChord.type.degreesInC)
-//      for key in kb3.keys {
-//        print(key.finalKey)
-//      }
     })
     .onChange(of: lowerChord) { oldLower, newLower in
       setAndHighlightChords(initial: false)
-//      print(lowerChord.degrees, lowerChord.type.degreesInC)
-//      for key in kb3.keys {
-//        print(key.finalKey)
-//      }
     }
     .onChange(of: upperChord) { oldUpper, newUpper in
       setAndHighlightChords(initial: false)
-//      print(lowerChord.degrees, lowerChord.type.degreesInC)
     }
   }
 }
