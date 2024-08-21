@@ -17,8 +17,12 @@ struct Keyboard: View, Identifiable {
   //  MARK: instance properties
   
   var keyCount: Int?
-  var initialKey: KeyType = .C
+  var initialKeyType: KeyType = .C
   var startingOctave: Int = 4
+  var startingPitch: Int {
+    initialKeyType.toPitch(startingOctave: startingOctave)
+  }
+  
   var keyTypes: [KeyType] = []
   var octaves: Int?
   var keys: [Key] = []
@@ -32,7 +36,7 @@ struct Keyboard: View, Identifiable {
     self.keyCount = keyCount
     self.geoWidth = geoWidth
     self.startingOctave = startingOctave
-    self.initialKey = initialKey
+    self.initialKeyType = initialKey
     self.keyTypes.append(initialKey)
     self.octaves = octaves
     
@@ -43,7 +47,7 @@ struct Keyboard: View, Identifiable {
   
   //  MARK: initializer methods
   mutating func keyTypesByCount() {
-    var nextKey = initialKey.nextKey
+    var nextKey = initialKeyType.nextKey
     
     if let count = keyCount {
       self.keyCount = count
@@ -106,7 +110,7 @@ struct Keyboard: View, Identifiable {
     var pitch = 0
     for (index, type) in keyTypes.enumerated() {
       if index == 0 {
-        pitch = type.toPitch(startingOctave: startingOctave)
+        pitch = startingPitch
         keys.append(
           Key(
             pitch: pitch,
@@ -159,7 +163,7 @@ struct Keyboard: View, Identifiable {
   }
   
   mutating func resize(geoWidth: CGFloat) -> Keyboard {
-    return Keyboard(title: title, geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKey, startingOctave: startingOctave, octaves: octaves)
+    return Keyboard(title: title, geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKeyType, startingOctave: startingOctave, octaves: octaves)
   }
   
   mutating func highlightKeys<T: ShapeStyle>(degs: [Int], degs2: [Int]? = nil, color: T, color2: T? = nil) {
