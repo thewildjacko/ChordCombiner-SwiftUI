@@ -23,15 +23,15 @@ struct ChordTestView: View {
   @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
   
   func highlightResult(startingOctave: Int, lowerChord: Chord, upperChord: Chord, result: Chord?) {
-    print("starting pitch:", kb3.startingPitch)
+//    print("starting pitch:", kb3.startingPitch)
     let lowerPitch = lowerChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
-    print("lower pitch:", lowerPitch)
+//    print("lower pitch:", lowerPitch)
     
     var upperPitch: Int
     
     if let _ = result {
       upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
-      print("upper pitch:", upperPitch)
+//      print("upper pitch:", upperPitch)
       
       let lowerDegs = lowerChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
@@ -57,15 +57,12 @@ struct ChordTestView: View {
         .raiseAbove(pitch: lowerPitch, degs: nil)
       }
       let lowerDegsMax = lowerDegs.max() ?? 0
-      print("lower degs:", lowerDegs, "lowerDegsMax:", lowerDegsMax)
+//      print("lower degs:", lowerDegs, "lowerDegsMax:", lowerDegsMax)
        
       var upper = upperChord.root.num.toPitch(startingOctave: startingOctave)
-      print(upper)
-      upper = upper.raiseAbove(pitch: lowerDegsMax, degs: nil)
-      print("upper is: \(upper)")
       
       upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: lowerDegsMax, degs: nil)
-     print("upper pitch:", upperPitch)
+//     print("upper pitch:", upperPitch)
       
       let upperDegs = upperChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
@@ -133,12 +130,18 @@ struct ChordTestView: View {
     }
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
+      print(lowerChord.type.baseChord.degreesInC)
+      print(upperChord.type.baseChord)
     })
     .onChange(of: lowerChord) { oldLower, newLower in
       setAndHighlightChords(initial: false)
+      print(lowerChord.type.baseChord.degreesInC)
+      print(upperChord.type.baseChord.degreesInC)
     }
     .onChange(of: upperChord) { oldUpper, newUpper in
       setAndHighlightChords(initial: false)
+      print(lowerChord.type.baseChord.degreesInC)
+      print(upperChord.type.baseChord.degreesInC)
     }
   }
 }

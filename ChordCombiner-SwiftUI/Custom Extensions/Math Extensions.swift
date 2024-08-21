@@ -74,17 +74,11 @@ extension Int: Mathable {
         
         while raisedPitch < pitch {
           raisedPitch += 12
-          print("raised pitch is \(raisedPitch)")
+//          print("raised pitch is \(raisedPitch)")
         }
         
         return raisedPitch
       }
-//
-//      if self < pitch {
-//        return self + 12
-//      } else {
-//        return self
-//      }
     }
   }
 }

@@ -78,6 +78,26 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case mi7_b5b13 = "mi7(♭5♭13)"
   case locrian = " locrian" // mi11(♭5♭9♭13)
   
+  func baseChord(root: Root) -> Chord {
+    switch self {
+      // Triads and unextended + unaltered 7th and 6th chords
+    case .ma, .mi, .aug, .dim, .sus4, .sus2, .ma7, .ma6, .mi7, .mi7_b5, .mi_b6:
+      return Chord(RootGen(root.key), self)
+      // Extended Major 7th chords
+    case .ma9, .ma13, .ma13_omit9, .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_no9:
+      return Chord(RootGen(root.key), .ma7)
+      // Extended Major 6th chords
+    case .ma6_sh9, .ma6_b9, .ma6_sh9sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9, .ma6_9sh11:
+      return Chord(RootGen(root.key), .ma6)
+      // Extended Minor 7th chords
+    case .mi9, .mi11, .mi11_omit9, .mi13, .mi13_omit9, .mi13_omit11, .mi7_add13, .mi7_b9, .mi7_b9b13, .mi11_b9, .mi11_b9b13, .mi13_b9, .mi7_b13, .mi9_b13, .mi11_b13:
+      return Chord(RootGen(root.key), .mi7)
+      // Extended Min7(♭5) chords
+    case .mi9_b5, .mi7_b5add11, .mi11_b5, .mi11_b5b13, .mi7_b5b9, .mi11_b5b9, .mi7_b5b13, .locrian:
+      return Chord(RootGen(root.key), .mi7_b5)
+    }
+  }
+  
   func setNotesAndEnharms(root: Root, rootKey: RootGen) -> [Note] {
     switch self {
       // MARK: Triads
