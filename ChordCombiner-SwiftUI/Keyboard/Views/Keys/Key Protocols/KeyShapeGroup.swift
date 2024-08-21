@@ -14,6 +14,7 @@ protocol KeyShapeGroup {
   var keyShape: NoteShape { get }
   var keyRect: CGRect { get }
   var octaves: CGFloat { get set }
+
   var width: CGFloat { get set }
   var height: CGFloat { get set }
   var radius: CGFloat { get set }

@@ -95,6 +95,7 @@ struct Keyboard: View, Identifiable {
   mutating func setFill(type: KeyType) -> Color {
     switch type {
     case .C, .D, .E, .F, .G, .A, .B:
+
       return .white
     case .Db, .Eb, .Gb, .Ab, .Bb:
       return .black
