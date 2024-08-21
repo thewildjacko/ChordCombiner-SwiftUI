@@ -67,11 +67,24 @@ extension Int: Mathable {
         return self
       }
     } else {
-      if self < pitch {
-        return self + 12
-      } else {
+      if self >= pitch {
         return self
+      } else {
+        var raisedPitch = self
+        
+        while raisedPitch < pitch {
+          raisedPitch += 12
+          print("raised pitch is \(raisedPitch)")
+        }
+        
+        return raisedPitch
       }
+//
+//      if self < pitch {
+//        return self + 12
+//      } else {
+//        return self
+//      }
     }
   }
 }

@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ChordTestView: View {
   @State var lowerChord: Chord = Chord(.c, .ma7)
-  @State var upperChord: Chord = Chord(.f, .ma)
+  @State var upperChord: Chord = Chord(.e, .mi)
   @State var resultChord: Chord?
   @State var oldLowerChord: Chord = Chord(.c, .ma7)
-  @State var oldUpperChord: Chord = Chord(.f, .ma7)
+  @State var oldUpperChord: Chord = Chord(.e, .mi)
   @State var oldResultChord: Chord?
   @State var onlyInLower: [Int] = []
   @State var onlyInUpper: [Int] = []
@@ -23,10 +23,16 @@ struct ChordTestView: View {
   @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
   
   func highlightResult(startingOctave: Int, lowerChord: Chord, upperChord: Chord, result: Chord?) {
-    let lowerPitch = lowerChord.root.num.toPitch(startingOctave: startingOctave)
-    let upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave)
+    print("starting pitch:", kb3.startingPitch)
+    let lowerPitch = lowerChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
+    print("lower pitch:", lowerPitch)
+    
+    var upperPitch: Int
     
     if let _ = result {
+      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
+      print("upper pitch:", upperPitch)
+      
       let lowerDegs = lowerChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
         .raiseAbove(pitch: lowerPitch, degs: nil)
@@ -51,13 +57,23 @@ struct ChordTestView: View {
         .raiseAbove(pitch: lowerPitch, degs: nil)
       }
       let lowerDegsMax = lowerDegs.max() ?? 0
+      print("lower degs:", lowerDegs, "lowerDegsMax:", lowerDegsMax)
        
+      var upper = upperChord.root.num.toPitch(startingOctave: startingOctave)
+      print(upper)
+      upper = upper.raiseAbove(pitch: lowerDegsMax, degs: nil)
+      print("upper is: \(upper)")
+      
+      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: lowerDegsMax, degs: nil)
+     print("upper pitch:", upperPitch)
+      
       let upperDegs = upperChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
           .raiseAbove(pitch: upperPitch, degs: nil)
-      }.map {
-        ($0 + 12).raiseAbove(pitch: lowerDegsMax, degs: lowerDegs)
       }
+//        .map {
+//        ($0 + 12).raiseAbove(pitch: lowerDegsMax, degs: lowerDegs)
+//      }
       
       kb3.highlightKeys(degs: lowerDegs, color: .yellow)
       kb3.highlightKeys(degs: upperDegs, color: .cyan)
