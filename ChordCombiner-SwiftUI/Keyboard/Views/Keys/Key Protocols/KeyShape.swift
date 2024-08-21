@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 protocol KeyShape: Shape {
-  var width: CGFloat  { get set }
-  var height: CGFloat  { get set }
-  var radius: CGFloat  { get set }
-  var widthMultiplier: CGFloat  { get set }
+  var finalKey: Bool { get set }
+  var width: CGFloat { get set }
+  var height: CGFloat { get set }
+  var radius: CGFloat { get set }
+  var widthMultiplier: CGFloat { get set }
 }

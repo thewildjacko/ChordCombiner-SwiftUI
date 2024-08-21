@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EndingCandEShape: Shape, KeyShape {
+  var finalKey: Bool
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat

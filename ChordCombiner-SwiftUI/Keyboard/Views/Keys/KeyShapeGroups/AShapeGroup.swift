@@ -8,25 +8,33 @@
 import SwiftUI
 
 struct AShapeGroup: View, KeyShapeGroup {
+  var finalKey: Bool
   typealias NoteShape = GandAShape
-  var keyShape: NoteShape { GandAShape(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
+  var keyShape: NoteShape { GandAShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
   
+  var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
-  var fill: Color
+  var fill: any ShapeStyle
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-      keyShape.path(
-        in: keyRect)
-      .fill(fill)
+      if fill is Color {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! Color)
+      } else {
+        keyShape.path(
+          in: keyRect)
+        .fill(fill as! LinearGradient)
+      }
       
       keyShape.path(
         in: keyRect)
@@ -44,5 +52,5 @@ struct AShapeGroup: View, KeyShapeGroup {
 }
 
 #Preview {
-  AShapeGroup(width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
+  AShapeGroup(finalKey: false, octaves: 1, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0)
 }

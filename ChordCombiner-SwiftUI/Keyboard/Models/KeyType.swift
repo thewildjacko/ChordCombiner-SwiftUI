@@ -8,11 +8,11 @@
 import Foundation
 
 enum KeyType: Int {
-  case C = 0, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B, endingC, endingE = 16
+  case C = 0, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
   
   var initialKeyPosition: CGFloat {
     switch self {
-    case .C, .E, .G, .A, .endingC, .endingE:
+    case .C, .E, .G, .A:
       return 11.5
     case .D, .F, .B:
       return 12
@@ -47,14 +47,12 @@ enum KeyType: Int {
       return 7.5
     case .B:
       return 24
-    case .endingC, .endingE:
-      return 9.5
     }
   }
   
   var nextKey: KeyType {
     switch self {
-    case .C, .endingC:
+    case .C:
       return .Db
     case .Db:
       return .D
@@ -62,7 +60,7 @@ enum KeyType: Int {
       return .Eb
     case .Eb:
       return .E
-    case .E, .endingE:
+    case .E:
       return .F
     case .F:
       return .Gb
@@ -82,12 +80,7 @@ enum KeyType: Int {
   }
   
   var pitchNumber: Int {
-    switch self {
-    case .endingC, .endingE:
-      return self.rawValue - 12
-    default:
-      return self.rawValue
-    }
+    return self.rawValue
   }
   
   func toPitch(startingOctave: Int) -> Int {

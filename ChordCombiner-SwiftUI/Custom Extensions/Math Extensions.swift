@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol Summable { static func +(lhs: Self, rhs: Self) -> Self }
 protocol Subtractable { static func -(lhs: Self, rhs: Self) -> Self }
@@ -52,6 +53,27 @@ extension Int: Mathable {
   func isHalfStep(from otherDeg: Int) -> Bool {
     return abs(otherDeg - self) == 1 ? true : false
   }
+  
+  func toPitch(startingOctave: Int) -> Int {
+    let type = KeyType(rawValue: self) ?? .C
+    return type.pitchNumber + (startingOctave + 1) * 12
+  }
+  
+  func raiseAbove(pitch: Int, degs: [Int]?) -> Int {
+    if let degs = degs {
+      if self < pitch && !degs.contains(self) {
+        return self + 12
+      } else {
+        return self
+      }
+    } else {
+      if self < pitch {
+        return self + 12
+      } else {
+        return self
+      }
+    }
+  }
 }
 
 /// for comparing chord/scale degrees
@@ -59,4 +81,20 @@ enum ComparisonOutcome {
   case equal
   case greater
   case less
+}
+
+extension Array where Element == Int {
+  func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
+    for deg in self {
+      if let index = keys.firstIndex(where: { $0.pitch == deg }) {
+        keys[index].toggleHighlight(color: color)
+      }
+    }
+  }
+}
+
+extension CGFloat {
+  func getKeyPosition(position: CGFloat, widthMod: CGFloat) -> CGFloat {
+    return self * position / widthMod
+  }
 }

@@ -10,8 +10,7 @@ import SwiftUI
 struct Keyboard: View, Identifiable {
   var id: UUID = UUID()
   //  MARK: @State properties
-  @State var fWidth: CGFloat = 351
-  @State var height: CGFloat = 0
+  var height: CGFloat = 0
   @State var geoWidth: CGFloat
   var title: String
   
@@ -73,7 +72,7 @@ struct Keyboard: View, Identifiable {
   mutating func setWidthAndHeight() {
     for (index, type) in keyTypes.enumerated() {
       switch type {
-      case .C, .E, .G, .A, .endingC, .endingE:
+      case .C, .E, .G, .A:
         widthMod += index == 0 ? Width.whiteKeyCEGA.rawValue : Width.getAddend(type)
       case .D, .F, .B:
         widthMod += index == 0 ? Width.whiteKeyDFB.rawValue : Width.getAddend(type)
@@ -82,25 +81,21 @@ struct Keyboard: View, Identifiable {
       }
     }
     
-    widthMultiplier = geoWidth/widthMod
-    height = Height.whiteKey.rawValue * widthMultiplier
+    self.widthMultiplier = geoWidth/widthMod
+    self.height = Height.whiteKey.rawValue * widthMultiplier
   }
   
   mutating func addKeyTypes(count: Int, nextKey: inout KeyType) {
-    for i in 1...count {
-      if i == count && (nextKey == .C || nextKey == .E)  {
-        nextKey == .C ? keyTypes.append(.endingC) : keyTypes.append(.endingE)
-        nextKey = nextKey.nextKey
-      } else {
-        keyTypes.append(nextKey)
-        nextKey = nextKey.nextKey
-      }
+    for _ in 1...count {
+      keyTypes.append(nextKey)
+      nextKey = nextKey.nextKey
     }
   }
   
   mutating func setFill(type: KeyType) -> Color {
     switch type {
-    case .C, .D, .E, .F, .G, .A, .B, .endingC, .endingE:
+    case .C, .D, .E, .F, .G, .A, .B:
+
       return .white
     case .Db, .Eb, .Gb, .Ab, .Bb:
       return .black
@@ -116,6 +111,7 @@ struct Keyboard: View, Identifiable {
           Key(
             pitch: pitch,
             type,
+            octaves: CGFloat(octaves ?? 1),
             geoWidth: geoWidth,
             widthMod: widthMod,
             fill: setFill(type: type),
@@ -125,11 +121,12 @@ struct Keyboard: View, Identifiable {
         )
         keyPosition += type.initialKeyPosition + type.nextKeyPosition
         pitch += 1
-      } else {
+      } else if index < keyTypes.count - 1 {
         keys.append(
           Key(
             pitch: pitch,
             type,
+            octaves: CGFloat(octaves ?? 1),
             geoWidth: geoWidth,
             widthMod: widthMod,
             fill: setFill(type: type),
@@ -138,6 +135,19 @@ struct Keyboard: View, Identifiable {
         )
         keyPosition += type.nextKeyPosition
         pitch += 1
+      } else if index == keyTypes.count - 1 {
+        keys.append(
+          Key(
+            pitch: pitch,
+            type,
+            octaves: CGFloat(octaves ?? 1),
+            geoWidth: geoWidth,
+            widthMod: widthMod,
+            fill: setFill(type: type),
+            stroke: .black,
+            finalKey: true,
+            keyPosition: keyPosition)
+        )
       }
     }
   }
@@ -152,19 +162,19 @@ struct Keyboard: View, Identifiable {
     return Keyboard(title: title, geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKey, startingOctave: startingOctave, octaves: octaves)
   }
   
-  mutating func highlightKeys(degs: [Int], degs2: [Int]? = nil, color: Color, color2: Color? = nil) {
+  mutating func highlightKeys<T: ShapeStyle>(degs: [Int], degs2: [Int]? = nil, color: T, color2: T? = nil) {
     if degs2 == nil {
-      degs.highlightIfSelected(keys: &keys, color: color)
+      degs.toggleHighlightIfSelected(keys: &keys, color: color)
     } else if color2 == nil {
-      degs.highlightIfSelected(keys: &keys, color: color)
+      degs.toggleHighlightIfSelected(keys: &keys, color: color)
       
       if let degs2 = degs2 {
-        degs2.highlightIfSelected(keys: &keys, color: color)
+        degs2.toggleHighlightIfSelected(keys: &keys, color: color)
       }
     } else {
       if let degs2 = degs2, let color2 = color2 {
-        degs.highlightIfSelected(keys: &keys, color: color)
-        degs2.highlightIfSelected(keys: &keys, color: color2)
+        degs.toggleHighlightIfSelected(keys: &keys, color: color)
+        degs2.toggleHighlightIfSelected(keys: &keys, color: color2)
       }
     }
   }
@@ -183,7 +193,7 @@ struct Keyboard: View, Identifiable {
           }
         }
         .frame(width: geoWidth, height: height)
-        .position(x: geoWidth/2)
+//        .position(x: geoWidth/2)
       }
     }
   }
