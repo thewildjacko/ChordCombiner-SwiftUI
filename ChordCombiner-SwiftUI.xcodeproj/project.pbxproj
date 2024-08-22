@@ -12,6 +12,7 @@
 		1D22141B2C251770003953BD /* LowerChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141A2C251770003953BD /* LowerChordMenu.swift */; };
 		1D22141D2C251780003953BD /* USTMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141C2C251780003953BD /* USTMenu.swift */; };
 		1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */; };
+		1D2235C42C76BE2800172B53 /* MultiChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2235C32C76BE2800172B53 /* MultiChord.swift */; };
 		1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25075E2C24CC0D001416AF /* LetterPicker.swift */; };
 		1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507612C24CC68001416AF /* AccidentalPicker.swift */; };
 		1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507632C24CCA8001416AF /* FNCTypePicker.swift */; };
@@ -157,6 +158,7 @@
 		1D22141A2C251770003953BD /* LowerChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerChordMenu.swift; sourceTree = "<group>"; };
 		1D22141C2C251780003953BD /* USTMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTMenu.swift; sourceTree = "<group>"; };
 		1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerGeometryReader.swift; sourceTree = "<group>"; };
+		1D2235C32C76BE2800172B53 /* MultiChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChord.swift; sourceTree = "<group>"; };
 		1D25075E2C24CC0D001416AF /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
 		1D2507612C24CC68001416AF /* AccidentalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalPicker.swift; sourceTree = "<group>"; };
 		1D2507632C24CCA8001416AF /* FNCTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNCTypePicker.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				1DBD4C5F2C58364A00F4015C /* Chord.swift */,
+				1D2235C32C76BE2800172B53 /* MultiChord.swift */,
 				1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */,
 				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
 				1D5F6AAD2C24847600193B58 /* Chord Enums */,
@@ -929,6 +932,7 @@
 				1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */,
 				1D5F6A8D2C24829500193B58 /* QualProtocol.swift in Sources */,
 				1D5F6A862C24829500193B58 /* Maj7.swift in Sources */,
+				1D2235C42C76BE2800172B53 /* MultiChord.swift in Sources */,
 				1D5F6A4D2C24829500193B58 /* Triad.swift in Sources */,
 				1D5F6A882C24829500193B58 /* All_C_Triads.swift in Sources */,
 				1D5F6A842C24829500193B58 /* DC.Maj6.HalfWholeDim.swift in Sources */,
