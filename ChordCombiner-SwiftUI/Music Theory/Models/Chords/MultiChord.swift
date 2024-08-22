@@ -15,4 +15,16 @@ struct MultiChord {
   var lowerRoot: {
     lowerChord.root
   }
+
+  var upperRoot: {
+    upperChord.root
+  }
+
+  var lowerDegrees: {
+    lowerChord.degrees
+  }
+
+  var upperDegrees: {
+    upperChord.degrees
+  }
 }
