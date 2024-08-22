@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ChordTestView: View {
+  @State var multiChord = MultiChord(
+    lowerChord: Chord(.c, .ma7),
+    upperChord: Chord(.d, .ma)
+  )
+  
   @State var lowerChord: Chord = Chord(.c, .ma13_sh11)
   @State var upperChord: Chord = Chord(.a, .ma13_sh11)
   @State var resultChord: Chord?

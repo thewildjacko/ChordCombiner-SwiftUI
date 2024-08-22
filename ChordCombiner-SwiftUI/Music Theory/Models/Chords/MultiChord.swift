@@ -7,12 +7,8 @@
 
 import SwiftUI
 
-struct MultiChord: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    MultiChord()
+struct MultiChord {
+  var lowerChord: Chord
+  var upperChord: Chord?
+  var resultChord: Chord?
 }
