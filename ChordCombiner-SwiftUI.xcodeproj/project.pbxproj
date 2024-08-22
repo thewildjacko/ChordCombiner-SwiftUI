@@ -362,8 +362,8 @@
 			children = (
 				1D84A53E2C2DC7900073F0C8 /* Playgrounds */,
 				1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */,
-				1D73AFC32C6FD52200308356 /* Music Theory */,
-				1D73AFC22C6FD50E00308356 /* Keyboard */,
+				1D5F6AA42C24830200193B58 /* Views */,
+				1D5F6AA52C2483E700193B58 /* Models */,
 				1D5F6AA12C2482AD00193B58 /* Custom Extensions */,
 				1D2214202C2544D7003953BD /* Scratch */,
 				1D5F69DD2C2481E700193B58 /* Assets.xcassets */,
@@ -397,7 +397,9 @@
 			children = (
 				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
 				1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */,
+				1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */,
 				1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */,
+				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
 			);
@@ -407,10 +409,8 @@
 		1D5F6AA52C2483E700193B58 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1DBE1C322C25D4EB008DCBDF /* Stores */,
-				1D5F6AA62C2483EC00193B58 /* Chords */,
-				1D5F6AA72C2483F600193B58 /* Notes */,
-				1D5F6AA82C24841200193B58 /* Scales */,
+				1DB6EC382C778F80008A23BC /* Keyboard Models */,
+				1DB6EC392C778FA1008A23BC /* Music Theory Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -742,45 +742,6 @@
 			path = "Scale Structs";
 			sourceTree = "<group>";
 		};
-		1D73AFBC2C6FD2FE00308356 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */,
-				1D73AFBD2C6FD37400308356 /* Keyboard.swift */,
-				1D73AFE82C6FD64400308356 /* Keys */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		1D73AFC22C6FD50E00308356 /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				1D73AFBC2C6FD2FE00308356 /* Views */,
-				1D73AFCC2C6FD63300308356 /* Models */,
-			);
-			path = Keyboard;
-			sourceTree = "<group>";
-		};
-		1D73AFC32C6FD52200308356 /* Music Theory */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6AA42C24830200193B58 /* Views */,
-				1D5F6AA52C2483E700193B58 /* Models */,
-			);
-			path = "Music Theory";
-			sourceTree = "<group>";
-		};
-		1D73AFCC2C6FD63300308356 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				1D73AFC72C6FD63300308356 /* Constants.swift */,
-				1D73AFC92C6FD63300308356 /* DeviceRotationViewModifier.swift */,
-				1D73AFCA2C6FD63300308356 /* KeyType.swift */,
-				1D73AFCB2C6FD63300308356 /* TypeAliases.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		1D73AFD52C6FD64400308356 /* Key Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -835,6 +796,37 @@
 				1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */,
 			);
 			path = Playgrounds;
+			sourceTree = "<group>";
+		};
+		1DB6EC382C778F80008A23BC /* Keyboard Models */ = {
+			isa = PBXGroup;
+			children = (
+				1D73AFC72C6FD63300308356 /* Constants.swift */,
+				1D73AFC92C6FD63300308356 /* DeviceRotationViewModifier.swift */,
+				1D73AFCA2C6FD63300308356 /* KeyType.swift */,
+				1D73AFCB2C6FD63300308356 /* TypeAliases.swift */,
+			);
+			path = "Keyboard Models";
+			sourceTree = "<group>";
+		};
+		1DB6EC392C778FA1008A23BC /* Music Theory Models */ = {
+			isa = PBXGroup;
+			children = (
+				1DBE1C322C25D4EB008DCBDF /* Stores */,
+				1D5F6AA62C2483EC00193B58 /* Chords */,
+				1D5F6AA72C2483F600193B58 /* Notes */,
+				1D5F6AA82C24841200193B58 /* Scales */,
+			);
+			path = "Music Theory Models";
+			sourceTree = "<group>";
+		};
+		1DB6EC3A2C778FDB008A23BC /* Keyboard Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D73AFBD2C6FD37400308356 /* Keyboard.swift */,
+				1D73AFE82C6FD64400308356 /* Keys */,
+			);
+			path = "Keyboard Views";
 			sourceTree = "<group>";
 		};
 		1DBE1C322C25D4EB008DCBDF /* Stores */ = {
