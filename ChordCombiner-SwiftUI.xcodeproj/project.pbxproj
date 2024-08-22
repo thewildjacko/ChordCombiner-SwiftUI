@@ -51,7 +51,7 @@
 		1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AA22C2482D300193B58 /* Colors.swift */; };
 		1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC62C248B2E00193B58 /* Dim5.swift */; };
 		1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC72C248B2E00193B58 /* Dim7.swift */; };
-		1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */; };
+		1D65C9612C5BF84100DB7E3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9602C5BF84100DB7E3A /* ContentView.swift */; };
 		1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */; };
 		1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFBD2C6FD37400308356 /* Keyboard.swift */; };
 		1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFC72C6FD63300308356 /* Constants.swift */; };
@@ -125,7 +125,7 @@
 		1D5F6AA22C2482D300193B58 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		1D5F6AC62C248B2E00193B58 /* Dim5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim5.swift; sourceTree = "<group>"; };
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
-		1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTestView.swift; sourceTree = "<group>"; };
+		1D65C9602C5BF84100DB7E3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordFactory.swift; sourceTree = "<group>"; };
 		1D73AFBD2C6FD37400308356 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		1D73AFC72C6FD63300308356 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		1D5F6AA42C24830200193B58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */,
+				1D65C9602C5BF84100DB7E3A /* ContentView.swift */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
@@ -540,7 +540,7 @@
 				1D5F6A582C24829500193B58 /* ChordProtocol.swift in Sources */,
 				1D73AFF92C6FD64400308356 /* FandBShape.swift in Sources */,
 				1DBD4C602C58364A00F4015C /* Chord.swift in Sources */,
-				1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */,
+				1D65C9612C5BF84100DB7E3A /* ContentView.swift in Sources */,
 				1D73AFE92C6FD64400308356 /* KeyProtocol.swift in Sources */,
 				1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */,
 				1D73AFD12C6FD63300308356 /* TypeAliases.swift in Sources */,
