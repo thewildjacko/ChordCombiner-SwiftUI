@@ -12,19 +12,19 @@ struct MultiChord {
   var upperChord: Chord
   var resultChord: Chord?
   
-  var lowerRoot: {
+  var lowerRoot: Root {
     lowerChord.root
   }
 
-  var upperRoot: {
+  var upperRoot: Root {
     upperChord.root
   }
 
-  var lowerDegrees: {
+  var lowerDegrees: [Int] {
     lowerChord.degrees
   }
 
-  var upperDegrees: {
+  var upperDegrees: [Int] {
     upperChord.degrees
   }
 }
