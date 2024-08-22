@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChordTestView: View {
+struct ContentView: View {
   @State var multiChord = MultiChord(
     lowerChord: Chord(.c, .ma7),
     upperChord: Chord(.d, .ma)
@@ -202,5 +202,5 @@ struct ChordTestView: View {
 
 
 #Preview {
-  ChordTestView()
+  ContentView()
 }

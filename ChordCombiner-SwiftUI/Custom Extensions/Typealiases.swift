@@ -8,17 +8,9 @@
 
 import Foundation
 
-typealias ChordStats = (letter: Letter, accidental: RootAcc, type: QualProtocol)
-
 typealias GetComboChordAndScale = (RootGen, Set<Int>, Int)
 typealias RootGen = KeyName.RootGen
 typealias RootAcc = Accidental.RootAcc
-
-typealias TriadType = Triad.TriadType
-typealias FNCType = FourNoteChord.FNCType
-typealias TriadInversion = Triad.TriadInversion
-typealias FNCInversion = FourNoteChord.FNCInversion
-
 
 typealias Alterations = ChordDegrees.Alterations
 typealias Extensions = ChordDegrees.Extensions

@@ -9,118 +9,52 @@
 /* Begin PBXBuildFile section */
 		1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */; };
 		1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919492C5C43F200B0C932 /* ChordMenu.swift */; };
-		1D22141B2C251770003953BD /* LowerChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141A2C251770003953BD /* LowerChordMenu.swift */; };
-		1D22141D2C251780003953BD /* USTMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141C2C251780003953BD /* USTMenu.swift */; };
-		1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */; };
 		1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25075E2C24CC0D001416AF /* LetterPicker.swift */; };
 		1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507612C24CC68001416AF /* AccidentalPicker.swift */; };
-		1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507632C24CCA8001416AF /* FNCTypePicker.swift */; };
-		1D2507662C24CCE0001416AF /* TriadTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2507652C24CCE0001416AF /* TriadTypePicker.swift */; };
 		1D350EF82C779358007D8F85 /* MultiChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D350EF72C779358007D8F85 /* MultiChord.swift */; };
 		1D5F69DA2C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */; };
-		1D5F69DC2C2481E600193B58 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69DB2C2481E600193B58 /* ContentView.swift */; };
 		1D5F69DE2C2481E700193B58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D5F69DD2C2481E700193B58 /* Assets.xcassets */; };
 		1D5F69E12C2481E700193B58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D5F69E02C2481E700193B58 /* Preview Assets.xcassets */; };
-		1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69E72C24829200193B58 /* MajorScale.swift */; };
-		1D5F6A452C24829500193B58 /* DC.Dom7.AltP5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69E82C24829200193B58 /* DC.Dom7.AltP5.swift */; };
 		1D5F6A462C24829500193B58 /* Sh_4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69E92C24829200193B58 /* Sh_4.swift */; };
-		1D5F6A472C24829500193B58 /* ChordCategoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69EA2C24829200193B58 /* ChordCategoryFactory.swift */; };
-		1D5F6A482C24829500193B58 /* HalfWholeDimFlat13Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69EB2C24829200193B58 /* HalfWholeDimFlat13Scale.swift */; };
 		1D5F6A492C24829500193B58 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69EC2C24829200193B58 /* Root.swift */; };
-		1D5F6A4A2C24829500193B58 /* ResultChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69ED2C24829200193B58 /* ResultChord.swift */; };
-		1D5F6A4B2C24829500193B58 /* DetailChord.Maj6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69EE2C24829200193B58 /* DetailChord.Maj6.swift */; };
-		1D5F6A4C2C24829500193B58 /* DC.Dim7.Sev_Alt_P5Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69EF2C24829200193B58 /* DC.Dim7.Sev_Alt_P5Down.swift */; };
-		1D5F6A4D2C24829500193B58 /* Triad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F02C24829200193B58 /* Triad.swift */; };
-		1D5F6A4E2C24829500193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F12C24829200193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift */; };
 		1D5F6A4F2C24829500193B58 /* Enharmonic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F22C24829200193B58 /* Enharmonic.swift */; };
 		1D5F6A502C24829500193B58 /* ChordDegrees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F32C24829200193B58 /* ChordDegrees.swift */; };
-		1D5F6A512C24829500193B58 /* ChordCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F42C24829200193B58 /* ChordCategory.swift */; };
-		1D5F6A522C24829500193B58 /* DC.Maj6.Maj6_MajorScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F52C24829200193B58 /* DC.Maj6.Maj6_MajorScale.swift */; };
 		1D5F6A532C24829500193B58 /* P4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F62C24829200193B58 /* P4.swift */; };
 		1D5F6A542C24829500193B58 /* KeyName.RootGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F72C24829200193B58 /* KeyName.RootGen.swift */; };
 		1D5F6A552C24829500193B58 /* Math Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F82C24829200193B58 /* Math Extensions.swift */; };
 		1D5F6A562C24829500193B58 /* Min7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69F92C24829200193B58 /* Min7.swift */; };
-		1D5F6A572C24829500193B58 /* Triad.TriadInversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FA2C24829200193B58 /* Triad.TriadInversion.swift */; };
 		1D5F6A582C24829500193B58 /* ChordProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FB2C24829200193B58 /* ChordProtocol.swift */; };
-		1D5F6A592C24829500193B58 /* DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FC2C24829300193B58 /* DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift */; };
 		1D5F6A5A2C24829500193B58 /* RootSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FD2C24829300193B58 /* RootSwitch.swift */; };
-		1D5F6A5B2C24829500193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FE2C24829300193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift */; };
 		1D5F6A5C2C24829500193B58 /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F69FF2C24829300193B58 /* Letter.swift */; };
 		1D5F6A5D2C24829500193B58 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A002C24829300193B58 /* Note.swift */; };
 		1D5F6A5E2C24829500193B58 /* Sh_9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A012C24829300193B58 /* Sh_9.swift */; };
-		1D5F6A5F2C24829500193B58 /* DC.Dom7.Mixolydian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A022C24829300193B58 /* DC.Dom7.Mixolydian.swift */; };
-		1D5F6A602C24829500193B58 /* DetailChord.Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A032C24829300193B58 /* DetailChord.Dim7.swift */; };
-		1D5F6A612C24829500193B58 /* DC.Dom7.HalfWholeDim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A042C24829300193B58 /* DC.Dom7.HalfWholeDim.swift */; };
-		1D5F6A622C24829500193B58 /* DC.Min7.Min_Phrygian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A052C24829300193B58 /* DC.Min7.Min_Phrygian.swift */; };
-		1D5F6A632C24829500193B58 /* HarmonicMajorScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A062C24829300193B58 /* HarmonicMajorScale.swift */; };
-		1D5F6A642C24829500193B58 /* DC.Maj7.Maj_Lydian_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A072C24829300193B58 /* DC.Maj7.Maj_Lydian_Chord.swift */; };
-		1D5F6A652C24829500193B58 /* DC.Min7.Min_Dorian_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A082C24829300193B58 /* DC.Min7.Min_Dorian_Chord.swift */; };
 		1D5F6A662C24829500193B58 /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A092C24829300193B58 /* Interval.swift */; };
-		1D5F6A672C24829500193B58 /* DetailChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0A2C24829300193B58 /* DetailChord.swift */; };
-		1D5F6A682C24829500193B58 /* Matchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0B2C24829300193B58 /* Matchmaker.swift */; };
 		1D5F6A692C24829500193B58 /* Min3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0C2C24829300193B58 /* Min3.swift */; };
 		1D5F6A6A2C24829500193B58 /* Min9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0D2C24829300193B58 /* Min9.swift */; };
-		1D5F6A6B2C24829500193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0E2C24829300193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift */; };
-		1D5F6A6C2C24829500193B58 /* MelodicMinorScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A0F2C24829300193B58 /* MelodicMinorScale.swift */; };
-		1D5F6A6D2C24829500193B58 /* ChordInversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A102C24829300193B58 /* ChordInversion.swift */; };
-		1D5F6A6E2C24829500193B58 /* Scale Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A112C24829300193B58 /* Scale Enums.swift */; };
-		1D5F6A6F2C24829500193B58 /* TensionChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A122C24829300193B58 /* TensionChord.swift */; };
-		1D5F6A702C24829500193B58 /* FourNoteChord.FNCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A132C24829300193B58 /* FourNoteChord.FNCType.swift */; };
-		1D5F6A712C24829500193B58 /* HarmonicMinorScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A142C24829300193B58 /* HarmonicMinorScale.swift */; };
 		1D5F6A722C24829500193B58 /* NoteNum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A152C24829300193B58 /* NoteNum.swift */; };
 		1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A162C24829300193B58 /* ChordsAndScales.swift */; };
-		1D5F6A752C24829500193B58 /* ChromaticScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A182C24829300193B58 /* ChromaticScale.swift */; };
-		1D5F6A762C24829500193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A192C24829300193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift */; };
-		1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1A2C24829400193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift */; };
 		1D5F6A782C24829500193B58 /* Array Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1B2C24829400193B58 /* Array Extensions.swift */; };
-		1D5F6A792C24829500193B58 /* DetailChord.Dom7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1C2C24829400193B58 /* DetailChord.Dom7.swift */; };
 		1D5F6A7A2C24829500193B58 /* Accidental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1D2C24829400193B58 /* Accidental.swift */; };
 		1D5F6A7B2C24829500193B58 /* Maj6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1E2C24829400193B58 /* Maj6.swift */; };
-		1D5F6A7C2C24829500193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A1F2C24829400193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift */; };
 		1D5F6A7D2C24829500193B58 /* KSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A202C24829400193B58 /* KSwitch.swift */; };
 		1D5F6A7E2C24829500193B58 /* Sh_5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A212C24829400193B58 /* Sh_5.swift */; };
-		1D5F6A7F2C24829500193B58 /* FourNoteChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A222C24829400193B58 /* FourNoteChord.swift */; };
 		1D5F6A802C24829500193B58 /* KeyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A232C24829400193B58 /* KeyName.swift */; };
-		1D5F6A812C24829500193B58 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A242C24829400193B58 /* Mode.swift */; };
 		1D5F6A822C24829500193B58 /* ChordDegrees.TCArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A252C24829400193B58 /* ChordDegrees.TCArray.swift */; };
 		1D5F6A832C24829500193B58 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A262C24829400193B58 /* Typealiases.swift */; };
-		1D5F6A842C24829500193B58 /* DC.Maj6.HalfWholeDim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A272C24829400193B58 /* DC.Maj6.HalfWholeDim.swift */; };
-		1D5F6A852C24829500193B58 /* FourNoteChord.FNCInversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A282C24829400193B58 /* FourNoteChord.FNCInversion.swift */; };
 		1D5F6A862C24829500193B58 /* Maj7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A292C24829400193B58 /* Maj7.swift */; };
-		1D5F6A872C24829500193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2A2C24829400193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift */; };
-		1D5F6A882C24829500193B58 /* All_C_Triads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2B2C24829400193B58 /* All_C_Triads.swift */; };
-		1D5F6A892C24829500193B58 /* DC.Maj6.Maj6_Lydian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2C2C24829400193B58 /* DC.Maj6.Maj6_Lydian.swift */; };
-		1D5F6A8A2C24829500193B58 /* DiminishedScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2D2C24829400193B58 /* DiminishedScale.swift */; };
-		1D5F6A8B2C24829500193B58 /* DetailChord.Min7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2E2C24829400193B58 /* DetailChord.Min7.swift */; };
 		1D5F6A8C2C24829500193B58 /* P5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2F2C24829400193B58 /* P5.swift */; };
-		1D5F6A8D2C24829500193B58 /* QualProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A302C24829400193B58 /* QualProtocol.swift */; };
-		1D5F6A8E2C24829500193B58 /* HexatonicSharp9Sharp11Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A312C24829400193B58 /* HexatonicSharp9Sharp11Scale.swift */; };
 		1D5F6A8F2C24829500193B58 /* RootKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A322C24829400193B58 /* RootKey.swift */; };
-		1D5F6A902C24829500193B58 /* ScaleDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A332C24829400193B58 /* ScaleDetails.swift */; };
 		1D5F6A912C24829500193B58 /* DegName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A342C24829400193B58 /* DegName.swift */; };
-		1D5F6A922C24829500193B58 /* DetailChord.Min7_b5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A352C24829400193B58 /* DetailChord.Min7_b5.swift */; };
-		1D5F6A932C24829500193B58 /* DC.Dom7.LydianDom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A362C24829400193B58 /* DC.Dom7.LydianDom.swift */; };
-		1D5F6A942C24829500193B58 /* DC.Dom7.MelodicMinor_Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A372C24829400193B58 /* DC.Dom7.MelodicMinor_Chord.swift */; };
-		1D5F6A952C24829500193B58 /* DC.Dim7.WholeHalfDim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A382C24829400193B58 /* DC.Dim7.WholeHalfDim.swift */; };
-		1D5F6A962C24829500193B58 /* DegSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A392C24829500193B58 /* DegSpecs.swift */; };
-		1D5F6A972C24829500193B58 /* SuffixGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3A2C24829500193B58 /* SuffixGenerator.swift */; };
-		1D5F6A982C24829500193B58 /* Triad.TriadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3B2C24829500193B58 /* Triad.TriadType.swift */; };
 		1D5F6A992C24829500193B58 /* Maj2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3C2C24829500193B58 /* Maj2.swift */; };
-		1D5F6A9A2C24829500193B58 /* Verdict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3D2C24829500193B58 /* Verdict.swift */; };
-		1D5F6A9B2C24829500193B58 /* DetailChord.Maj7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3E2C24829500193B58 /* DetailChord.Maj7.swift */; };
-		1D5F6A9C2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3F2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift */; };
-		1D5F6A9D2C24829500193B58 /* Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A402C24829500193B58 /* Suffix.swift */; };
 		1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A412C24829500193B58 /* Min6.swift */; };
 		1D5F6AA02C24829500193B58 /* Maj3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A432C24829500193B58 /* Maj3.swift */; };
 		1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AA22C2482D300193B58 /* Colors.swift */; };
-		1D5F6AC52C248A7200193B58 /* ComboChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC42C248A7200193B58 /* ComboChord.swift */; };
 		1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC62C248B2E00193B58 /* Dim5.swift */; };
 		1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6AC72C248B2E00193B58 /* Dim7.swift */; };
 		1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */; };
 		1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */; };
 		1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFBD2C6FD37400308356 /* Keyboard.swift */; };
 		1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFC72C6FD63300308356 /* Constants.swift */; };
-		1D73AFCF2C6FD63300308356 /* DeviceRotationViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFC92C6FD63300308356 /* DeviceRotationViewModifier.swift */; };
 		1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFCA2C6FD63300308356 /* KeyType.swift */; };
 		1D73AFD12C6FD63300308356 /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFCB2C6FD63300308356 /* TypeAliases.swift */; };
 		1D73AFE92C6FD64400308356 /* KeyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFD22C6FD64400308356 /* KeyProtocol.swift */; };
@@ -140,134 +74,61 @@
 		1D73AFF92C6FD64400308356 /* FandBShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE42C6FD64400308356 /* FandBShape.swift */; };
 		1D73AFFA2C6FD64400308356 /* GandAShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE52C6FD64400308356 /* GandAShape.swift */; };
 		1D73AFFB2C6FD64400308356 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE72C6FD64400308356 /* Key.swift */; };
-		1D73AFFD2C6FD74800308356 /* KeyboardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */; };
-		1D73AFFF2C700A5100308356 /* AlignmentTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */; };
-		1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */; };
-		1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37772C2C70670008DA9E /* InvertibleChord.swift */; };
-		1DBB377A2C2CAF1C0008DA9E /* RomanNums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */; };
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
-		1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C302C25D410008DCBDF /* ChordStore.swift */; };
-		1DF5E4582C28D58F001DFB91 /* ChordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF5E4572C28D58F001DFB91 /* ChordData.swift */; };
 		1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD9D4E2C5AA4330006333D /* ChordType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTypePicker.swift; sourceTree = "<group>"; };
 		1D1919492C5C43F200B0C932 /* ChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordMenu.swift; sourceTree = "<group>"; };
-		1D22141A2C251770003953BD /* LowerChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerChordMenu.swift; sourceTree = "<group>"; };
-		1D22141C2C251780003953BD /* USTMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTMenu.swift; sourceTree = "<group>"; };
-		1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerGeometryReader.swift; sourceTree = "<group>"; };
 		1D25075E2C24CC0D001416AF /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
 		1D2507612C24CC68001416AF /* AccidentalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalPicker.swift; sourceTree = "<group>"; };
-		1D2507632C24CCA8001416AF /* FNCTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNCTypePicker.swift; sourceTree = "<group>"; };
-		1D2507652C24CCE0001416AF /* TriadTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriadTypePicker.swift; sourceTree = "<group>"; };
 		1D350EF72C779358007D8F85 /* MultiChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChord.swift; sourceTree = "<group>"; };
 		1D5F69D62C2481E600193B58 /* ChordCombiner-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ChordCombiner-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D5F69D92C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombiner_SwiftUIApp.swift; sourceTree = "<group>"; };
-		1D5F69DB2C2481E600193B58 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1D5F69DD2C2481E700193B58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D5F69E02C2481E700193B58 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1D5F69E72C24829200193B58 /* MajorScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MajorScale.swift; sourceTree = "<group>"; };
-		1D5F69E82C24829200193B58 /* DC.Dom7.AltP5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.AltP5.swift; sourceTree = "<group>"; };
 		1D5F69E92C24829200193B58 /* Sh_4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sh_4.swift; sourceTree = "<group>"; };
-		1D5F69EA2C24829200193B58 /* ChordCategoryFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordCategoryFactory.swift; sourceTree = "<group>"; };
-		1D5F69EB2C24829200193B58 /* HalfWholeDimFlat13Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfWholeDimFlat13Scale.swift; sourceTree = "<group>"; };
 		1D5F69EC2C24829200193B58 /* Root.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
-		1D5F69ED2C24829200193B58 /* ResultChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultChord.swift; sourceTree = "<group>"; };
-		1D5F69EE2C24829200193B58 /* DetailChord.Maj6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Maj6.swift; sourceTree = "<group>"; };
-		1D5F69EF2C24829200193B58 /* DC.Dim7.Sev_Alt_P5Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dim7.Sev_Alt_P5Down.swift; sourceTree = "<group>"; };
-		1D5F69F02C24829200193B58 /* Triad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triad.swift; sourceTree = "<group>"; };
-		1D5F69F12C24829200193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift; sourceTree = "<group>"; };
 		1D5F69F22C24829200193B58 /* Enharmonic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enharmonic.swift; sourceTree = "<group>"; };
 		1D5F69F32C24829200193B58 /* ChordDegrees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordDegrees.swift; sourceTree = "<group>"; };
-		1D5F69F42C24829200193B58 /* ChordCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordCategory.swift; sourceTree = "<group>"; };
-		1D5F69F52C24829200193B58 /* DC.Maj6.Maj6_MajorScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.Maj6_MajorScale.swift; sourceTree = "<group>"; };
 		1D5F69F62C24829200193B58 /* P4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = P4.swift; sourceTree = "<group>"; };
 		1D5F69F72C24829200193B58 /* KeyName.RootGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyName.RootGen.swift; sourceTree = "<group>"; };
 		1D5F69F82C24829200193B58 /* Math Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Math Extensions.swift"; sourceTree = "<group>"; };
 		1D5F69F92C24829200193B58 /* Min7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min7.swift; sourceTree = "<group>"; };
-		1D5F69FA2C24829200193B58 /* Triad.TriadInversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triad.TriadInversion.swift; sourceTree = "<group>"; };
 		1D5F69FB2C24829200193B58 /* ChordProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProtocol.swift; sourceTree = "<group>"; };
-		1D5F69FC2C24829300193B58 /* DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift; sourceTree = "<group>"; };
 		1D5F69FD2C24829300193B58 /* RootSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootSwitch.swift; sourceTree = "<group>"; };
-		1D5F69FE2C24829300193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7_b5.Min7b5_Locrian_Chord.swift; sourceTree = "<group>"; };
 		1D5F69FF2C24829300193B58 /* Letter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
 		1D5F6A002C24829300193B58 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		1D5F6A012C24829300193B58 /* Sh_9.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sh_9.swift; sourceTree = "<group>"; };
-		1D5F6A022C24829300193B58 /* DC.Dom7.Mixolydian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.Mixolydian.swift; sourceTree = "<group>"; };
-		1D5F6A032C24829300193B58 /* DetailChord.Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Dim7.swift; sourceTree = "<group>"; };
-		1D5F6A042C24829300193B58 /* DC.Dom7.HalfWholeDim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.HalfWholeDim.swift; sourceTree = "<group>"; };
-		1D5F6A052C24829300193B58 /* DC.Min7.Min_Phrygian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Phrygian.swift; sourceTree = "<group>"; };
-		1D5F6A062C24829300193B58 /* HarmonicMajorScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarmonicMajorScale.swift; sourceTree = "<group>"; };
-		1D5F6A072C24829300193B58 /* DC.Maj7.Maj_Lydian_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj7.Maj_Lydian_Chord.swift; sourceTree = "<group>"; };
-		1D5F6A082C24829300193B58 /* DC.Min7.Min_Dorian_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Dorian_Chord.swift; sourceTree = "<group>"; };
 		1D5F6A092C24829300193B58 /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
-		1D5F6A0A2C24829300193B58 /* DetailChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.swift; sourceTree = "<group>"; };
-		1D5F6A0B2C24829300193B58 /* Matchmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matchmaker.swift; sourceTree = "<group>"; };
 		1D5F6A0C2C24829300193B58 /* Min3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min3.swift; sourceTree = "<group>"; };
 		1D5F6A0D2C24829300193B58 /* Min9.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min9.swift; sourceTree = "<group>"; };
-		1D5F6A0E2C24829300193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift; sourceTree = "<group>"; };
-		1D5F6A0F2C24829300193B58 /* MelodicMinorScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelodicMinorScale.swift; sourceTree = "<group>"; };
-		1D5F6A102C24829300193B58 /* ChordInversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordInversion.swift; sourceTree = "<group>"; };
-		1D5F6A112C24829300193B58 /* Scale Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scale Enums.swift"; sourceTree = "<group>"; };
-		1D5F6A122C24829300193B58 /* TensionChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TensionChord.swift; sourceTree = "<group>"; };
-		1D5F6A132C24829300193B58 /* FourNoteChord.FNCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourNoteChord.FNCType.swift; sourceTree = "<group>"; };
-		1D5F6A142C24829300193B58 /* HarmonicMinorScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarmonicMinorScale.swift; sourceTree = "<group>"; };
 		1D5F6A152C24829300193B58 /* NoteNum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteNum.swift; sourceTree = "<group>"; };
 		1D5F6A162C24829300193B58 /* ChordsAndScales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsAndScales.swift; sourceTree = "<group>"; };
-		1D5F6A182C24829300193B58 /* ChromaticScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaticScale.swift; sourceTree = "<group>"; };
-		1D5F6A192C24829300193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Slash_LydianMaj3rdDown.swift; sourceTree = "<group>"; };
-		1D5F6A1A2C24829400193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift; sourceTree = "<group>"; };
 		1D5F6A1B2C24829400193B58 /* Array Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array Extensions.swift"; sourceTree = "<group>"; };
-		1D5F6A1C2C24829400193B58 /* DetailChord.Dom7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Dom7.swift; sourceTree = "<group>"; };
 		1D5F6A1D2C24829400193B58 /* Accidental.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accidental.swift; sourceTree = "<group>"; };
 		1D5F6A1E2C24829400193B58 /* Maj6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj6.swift; sourceTree = "<group>"; };
-		1D5F6A1F2C24829400193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.HexatonicSh9Sh11_Chord.swift; sourceTree = "<group>"; };
 		1D5F6A202C24829400193B58 /* KSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSwitch.swift; sourceTree = "<group>"; };
 		1D5F6A212C24829400193B58 /* Sh_5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sh_5.swift; sourceTree = "<group>"; };
-		1D5F6A222C24829400193B58 /* FourNoteChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourNoteChord.swift; sourceTree = "<group>"; };
 		1D5F6A232C24829400193B58 /* KeyName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyName.swift; sourceTree = "<group>"; };
-		1D5F6A242C24829400193B58 /* Mode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		1D5F6A252C24829400193B58 /* ChordDegrees.TCArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordDegrees.TCArray.swift; sourceTree = "<group>"; };
 		1D5F6A262C24829400193B58 /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
-		1D5F6A272C24829400193B58 /* DC.Maj6.HalfWholeDim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.HalfWholeDim.swift; sourceTree = "<group>"; };
-		1D5F6A282C24829400193B58 /* FourNoteChord.FNCInversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FourNoteChord.FNCInversion.swift; sourceTree = "<group>"; };
 		1D5F6A292C24829400193B58 /* Maj7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj7.swift; sourceTree = "<group>"; };
-		1D5F6A2A2C24829400193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift; sourceTree = "<group>"; };
-		1D5F6A2B2C24829400193B58 /* All_C_Triads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = All_C_Triads.swift; sourceTree = "<group>"; };
-		1D5F6A2C2C24829400193B58 /* DC.Maj6.Maj6_Lydian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Maj6.Maj6_Lydian.swift; sourceTree = "<group>"; };
-		1D5F6A2D2C24829400193B58 /* DiminishedScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiminishedScale.swift; sourceTree = "<group>"; };
-		1D5F6A2E2C24829400193B58 /* DetailChord.Min7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Min7.swift; sourceTree = "<group>"; };
 		1D5F6A2F2C24829400193B58 /* P5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = P5.swift; sourceTree = "<group>"; };
-		1D5F6A302C24829400193B58 /* QualProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QualProtocol.swift; sourceTree = "<group>"; };
-		1D5F6A312C24829400193B58 /* HexatonicSharp9Sharp11Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexatonicSharp9Sharp11Scale.swift; sourceTree = "<group>"; };
 		1D5F6A322C24829400193B58 /* RootKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootKey.swift; sourceTree = "<group>"; };
-		1D5F6A332C24829400193B58 /* ScaleDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleDetails.swift; sourceTree = "<group>"; };
 		1D5F6A342C24829400193B58 /* DegName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DegName.swift; sourceTree = "<group>"; };
-		1D5F6A352C24829400193B58 /* DetailChord.Min7_b5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Min7_b5.swift; sourceTree = "<group>"; };
-		1D5F6A362C24829400193B58 /* DC.Dom7.LydianDom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.LydianDom.swift; sourceTree = "<group>"; };
-		1D5F6A372C24829400193B58 /* DC.Dom7.MelodicMinor_Chord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dom7.MelodicMinor_Chord.swift; sourceTree = "<group>"; };
-		1D5F6A382C24829400193B58 /* DC.Dim7.WholeHalfDim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Dim7.WholeHalfDim.swift; sourceTree = "<group>"; };
-		1D5F6A392C24829500193B58 /* DegSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DegSpecs.swift; sourceTree = "<group>"; };
-		1D5F6A3A2C24829500193B58 /* SuffixGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuffixGenerator.swift; sourceTree = "<group>"; };
-		1D5F6A3B2C24829500193B58 /* Triad.TriadType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triad.TriadType.swift; sourceTree = "<group>"; };
 		1D5F6A3C2C24829500193B58 /* Maj2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj2.swift; sourceTree = "<group>"; };
-		1D5F6A3D2C24829500193B58 /* Verdict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verdict.swift; sourceTree = "<group>"; };
-		1D5F6A3E2C24829500193B58 /* DetailChord.Maj7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailChord.Maj7.swift; sourceTree = "<group>"; };
-		1D5F6A3F2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DC.Min7.Min_Slash_DorianP5Down.swift; sourceTree = "<group>"; };
-		1D5F6A402C24829500193B58 /* Suffix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suffix.swift; sourceTree = "<group>"; };
 		1D5F6A412C24829500193B58 /* Min6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min6.swift; sourceTree = "<group>"; };
 		1D5F6A432C24829500193B58 /* Maj3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj3.swift; sourceTree = "<group>"; };
 		1D5F6AA22C2482D300193B58 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		1D5F6AC42C248A7200193B58 /* ComboChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComboChord.swift; sourceTree = "<group>"; };
 		1D5F6AC62C248B2E00193B58 /* Dim5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim5.swift; sourceTree = "<group>"; };
 		1D5F6AC72C248B2E00193B58 /* Dim7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dim7.swift; sourceTree = "<group>"; };
 		1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTestView.swift; sourceTree = "<group>"; };
 		1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordFactory.swift; sourceTree = "<group>"; };
 		1D73AFBD2C6FD37400308356 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		1D73AFC72C6FD63300308356 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		1D73AFC92C6FD63300308356 /* DeviceRotationViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationViewModifier.swift; sourceTree = "<group>"; };
 		1D73AFCA2C6FD63300308356 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyType.swift; sourceTree = "<group>"; };
 		1D73AFCB2C6FD63300308356 /* TypeAliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeAliases.swift; sourceTree = "<group>"; };
 		1D73AFD22C6FD64400308356 /* KeyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyProtocol.swift; sourceTree = "<group>"; };
@@ -287,16 +148,9 @@
 		1D73AFE42C6FD64400308356 /* FandBShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FandBShape.swift; sourceTree = "<group>"; };
 		1D73AFE52C6FD64400308356 /* GandAShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GandAShape.swift; sourceTree = "<group>"; };
 		1D73AFE72C6FD64400308356 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
-		1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTest.swift; sourceTree = "<group>"; };
-		1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentTestView.swift; sourceTree = "<group>"; };
-		1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactory.swift; sourceTree = "<group>"; };
 		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		1DBB37772C2C70670008DA9E /* InvertibleChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertibleChord.swift; sourceTree = "<group>"; };
-		1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RomanNums.swift; sourceTree = "<group>"; };
 		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		1DBE1C302C25D410008DCBDF /* ChordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordStore.swift; sourceTree = "<group>"; };
-		1DF5E4572C28D58F001DFB91 /* ChordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordData.swift; sourceTree = "<group>"; };
 		1DFD9D4E2C5AA4330006333D /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,28 +168,16 @@
 		1D2214192C251759003953BD /* Menus */ = {
 			isa = PBXGroup;
 			children = (
-				1D22141A2C251770003953BD /* LowerChordMenu.swift */,
-				1D22141C2C251780003953BD /* USTMenu.swift */,
 				1D1919492C5C43F200B0C932 /* ChordMenu.swift */,
 			);
 			path = Menus;
-			sourceTree = "<group>";
-		};
-		1D2214202C2544D7003953BD /* Scratch */ = {
-			isa = PBXGroup;
-			children = (
-				1D22141E2C2518D5003953BD /* PickerGeometryReader.swift */,
-			);
-			path = Scratch;
 			sourceTree = "<group>";
 		};
 		1D2507602C24CC11001416AF /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
 				1D25075E2C24CC0D001416AF /* LetterPicker.swift */,
-				1D2507652C24CCE0001416AF /* TriadTypePicker.swift */,
 				1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */,
-				1D2507632C24CCA8001416AF /* FNCTypePicker.swift */,
 				1D2507612C24CC68001416AF /* AccidentalPicker.swift */,
 			);
 			path = Pickers;
@@ -365,7 +207,6 @@
 				1D5F6AA42C24830200193B58 /* Views */,
 				1D5F6AA52C2483E700193B58 /* Models */,
 				1D5F6AA12C2482AD00193B58 /* Custom Extensions */,
-				1D2214202C2544D7003953BD /* Scratch */,
 				1D5F69DD2C2481E700193B58 /* Assets.xcassets */,
 				1D5F69DF2C2481E700193B58 /* Preview Content */,
 			);
@@ -395,10 +236,7 @@
 		1D5F6AA42C24830200193B58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1D5F69DB2C2481E600193B58 /* ContentView.swift */,
 				1D65C9602C5BF84100DB7E3A /* ChordTestView.swift */,
-				1D73AFFC2C6FD74800308356 /* KeyboardTest.swift */,
-				1D73AFFE2C700A5100308356 /* AlignmentTestView.swift */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
@@ -424,9 +262,6 @@
 				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
 				1D5F6AAD2C24847600193B58 /* Chord Enums */,
 				1D5F6AAC2C24846700193B58 /* Chord Protocols */,
-				1D5F6AAB2C24845F00193B58 /* CombinedChords */,
-				1D5F6AAA2C24844800193B58 /* FourNoteChords */,
-				1D5F6AA92C24844100193B58 /* Triads */,
 			);
 			path = Chords;
 			sourceTree = "<group>";
@@ -441,59 +276,12 @@
 			path = Notes;
 			sourceTree = "<group>";
 		};
-		1D5F6AA82C24841200193B58 /* Scales */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6AC32C2488F400193B58 /* Scale Structs */,
-				1D5F6A242C24829400193B58 /* Mode.swift */,
-				1DBB37792C2CAF1C0008DA9E /* RomanNums.swift */,
-				1D5F6A332C24829400193B58 /* ScaleDetails.swift */,
-				1D5F6A112C24829300193B58 /* Scale Enums.swift */,
-				1D74DA072C2B16E8004ED9F4 /* ScaleFactory.swift */,
-			);
-			path = Scales;
-			sourceTree = "<group>";
-		};
-		1D5F6AA92C24844100193B58 /* Triads */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69F02C24829200193B58 /* Triad.swift */,
-				1D5F6A3B2C24829500193B58 /* Triad.TriadType.swift */,
-				1D5F69FA2C24829200193B58 /* Triad.TriadInversion.swift */,
-				1D5F6A2B2C24829400193B58 /* All_C_Triads.swift */,
-			);
-			path = Triads;
-			sourceTree = "<group>";
-		};
-		1D5F6AAA2C24844800193B58 /* FourNoteChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A222C24829400193B58 /* FourNoteChord.swift */,
-				1D5F6A132C24829300193B58 /* FourNoteChord.FNCType.swift */,
-				1D5F6A282C24829400193B58 /* FourNoteChord.FNCInversion.swift */,
-			);
-			path = FourNoteChords;
-			sourceTree = "<group>";
-		};
-		1D5F6AAB2C24845F00193B58 /* CombinedChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69ED2C24829200193B58 /* ResultChord.swift */,
-				1D5F6AAF2C2484EB00193B58 /* DetailChord */,
-				1D5F6AB02C2484F300193B58 /* ChordScale Helpers */,
-			);
-			path = CombinedChords;
-			sourceTree = "<group>";
-		};
 		1D5F6AAC2C24846700193B58 /* Chord Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				1D5F6A322C24829400193B58 /* RootKey.swift */,
 				1D5F6A162C24829300193B58 /* ChordsAndScales.swift */,
 				1D5F69FB2C24829200193B58 /* ChordProtocol.swift */,
-				1DBB37772C2C70670008DA9E /* InvertibleChord.swift */,
-				1D5F6A102C24829300193B58 /* ChordInversion.swift */,
-				1D5F6A302C24829400193B58 /* QualProtocol.swift */,
 			);
 			path = "Chord Protocols";
 			sourceTree = "<group>";
@@ -504,7 +292,6 @@
 				1D5F6A342C24829400193B58 /* DegName.swift */,
 				1D5F6A092C24829300193B58 /* Interval.swift */,
 				1D5F6AAE2C2484B100193B58 /* ChordDegrees */,
-				1D5F6A402C24829500193B58 /* Suffix.swift */,
 			);
 			path = "Chord Enums";
 			sourceTree = "<group>";
@@ -516,169 +303,6 @@
 				1D5F6A252C24829400193B58 /* ChordDegrees.TCArray.swift */,
 			);
 			path = ChordDegrees;
-			sourceTree = "<group>";
-		};
-		1D5F6AAF2C2484EB00193B58 /* DetailChord */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A0A2C24829300193B58 /* DetailChord.swift */,
-				1D5F6AB12C24853D00193B58 /* ChordCategory */,
-				1D5F6A3D2C24829500193B58 /* Verdict.swift */,
-			);
-			path = DetailChord;
-			sourceTree = "<group>";
-		};
-		1D5F6AB02C2484F300193B58 /* ChordScale Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A392C24829500193B58 /* DegSpecs.swift */,
-				1D5F6A0B2C24829300193B58 /* Matchmaker.swift */,
-				1D5F6A3A2C24829500193B58 /* SuffixGenerator.swift */,
-			);
-			path = "ChordScale Helpers";
-			sourceTree = "<group>";
-		};
-		1D5F6AB12C24853D00193B58 /* ChordCategory */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6AB82C2485CA00193B58 /* ChordCategory.Protocols */,
-				1D5F69EA2C24829200193B58 /* ChordCategoryFactory.swift */,
-				1D5F6AB72C2485AF00193B58 /* Dom7 */,
-				1D5F6AB62C24859C00193B58 /* Maj7 */,
-				1D5F6AB52C24858E00193B58 /* Min7 */,
-				1D5F6AB42C24857700193B58 /* Min7_b5 */,
-				1D5F6AB32C24856100193B58 /* Dim7 */,
-				1D5F6AB22C24855000193B58 /* Maj6 */,
-				1D5F6A122C24829300193B58 /* TensionChord.swift */,
-			);
-			path = ChordCategory;
-			sourceTree = "<group>";
-		};
-		1D5F6AB22C24855000193B58 /* Maj6 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69EE2C24829200193B58 /* DetailChord.Maj6.swift */,
-				1D5F6ABE2C24881000193B58 /* Maj6.ComboChords */,
-			);
-			path = Maj6;
-			sourceTree = "<group>";
-		};
-		1D5F6AB32C24856100193B58 /* Dim7 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A032C24829300193B58 /* DetailChord.Dim7.swift */,
-				1D5F6ABD2C24865400193B58 /* Dim7.ComboChords */,
-			);
-			path = Dim7;
-			sourceTree = "<group>";
-		};
-		1D5F6AB42C24857700193B58 /* Min7_b5 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A352C24829400193B58 /* DetailChord.Min7_b5.swift */,
-				1D5F6ABC2C24863F00193B58 /* Min7_b5.ComboChords */,
-			);
-			path = Min7_b5;
-			sourceTree = "<group>";
-		};
-		1D5F6AB52C24858E00193B58 /* Min7 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A2E2C24829400193B58 /* DetailChord.Min7.swift */,
-				1D5F6ABB2C24863A00193B58 /* Min7.ComboChords */,
-			);
-			path = Min7;
-			sourceTree = "<group>";
-		};
-		1D5F6AB62C24859C00193B58 /* Maj7 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A3E2C24829500193B58 /* DetailChord.Maj7.swift */,
-				1D5F6ABA2C24861B00193B58 /* Maj7.ComboChords */,
-			);
-			path = Maj7;
-			sourceTree = "<group>";
-		};
-		1D5F6AB72C2485AF00193B58 /* Dom7 */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A1C2C24829400193B58 /* DetailChord.Dom7.swift */,
-				1D5F6AB92C24860300193B58 /* Dom7.ComboChords */,
-			);
-			path = Dom7;
-			sourceTree = "<group>";
-		};
-		1D5F6AB82C2485CA00193B58 /* ChordCategory.Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69F42C24829200193B58 /* ChordCategory.swift */,
-				1D5F6AC42C248A7200193B58 /* ComboChord.swift */,
-			);
-			path = ChordCategory.Protocols;
-			sourceTree = "<group>";
-		};
-		1D5F6AB92C24860300193B58 /* Dom7.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A022C24829300193B58 /* DC.Dom7.Mixolydian.swift */,
-				1D5F6A362C24829400193B58 /* DC.Dom7.LydianDom.swift */,
-				1D5F6A042C24829300193B58 /* DC.Dom7.HalfWholeDim.swift */,
-				1D5F69E82C24829200193B58 /* DC.Dom7.AltP5.swift */,
-				1D5F6A372C24829400193B58 /* DC.Dom7.MelodicMinor_Chord.swift */,
-				1D5F6A1F2C24829400193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift */,
-			);
-			path = Dom7.ComboChords;
-			sourceTree = "<group>";
-		};
-		1D5F6ABA2C24861B00193B58 /* Maj7.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A072C24829300193B58 /* DC.Maj7.Maj_Lydian_Chord.swift */,
-			);
-			path = Maj7.ComboChords;
-			sourceTree = "<group>";
-		};
-		1D5F6ABB2C24863A00193B58 /* Min7.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A082C24829300193B58 /* DC.Min7.Min_Dorian_Chord.swift */,
-				1D5F6A192C24829300193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift */,
-				1D5F6A3F2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift */,
-				1D5F6A0E2C24829300193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift */,
-				1D5F6A052C24829300193B58 /* DC.Min7.Min_Phrygian.swift */,
-			);
-			path = Min7.ComboChords;
-			sourceTree = "<group>";
-		};
-		1D5F6ABC2C24863F00193B58 /* Min7_b5.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69FE2C24829300193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift */,
-				1D5F69F12C24829200193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift */,
-			);
-			path = Min7_b5.ComboChords;
-			sourceTree = "<group>";
-		};
-		1D5F6ABD2C24865400193B58 /* Dim7.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F6A382C24829400193B58 /* DC.Dim7.WholeHalfDim.swift */,
-				1D5F69EF2C24829200193B58 /* DC.Dim7.Sev_Alt_P5Down.swift */,
-			);
-			path = Dim7.ComboChords;
-			sourceTree = "<group>";
-		};
-		1D5F6ABE2C24881000193B58 /* Maj6.ComboChords */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69F52C24829200193B58 /* DC.Maj6.Maj6_MajorScale.swift */,
-				1D5F6A2C2C24829400193B58 /* DC.Maj6.Maj6_Lydian.swift */,
-				1D5F6A272C24829400193B58 /* DC.Maj6.HalfWholeDim.swift */,
-				1D5F6A2A2C24829400193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift */,
-				1D5F69FC2C24829300193B58 /* DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift */,
-				1D5F6A1A2C24829400193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift */,
-			);
-			path = Maj6.ComboChords;
 			sourceTree = "<group>";
 		};
 		1D5F6ABF2C2488C600193B58 /* Note Protocols and Helpers */ = {
@@ -725,21 +349,6 @@
 				1D5F6A152C24829300193B58 /* NoteNum.swift */,
 			);
 			path = "Note Enums";
-			sourceTree = "<group>";
-		};
-		1D5F6AC32C2488F400193B58 /* Scale Structs */ = {
-			isa = PBXGroup;
-			children = (
-				1D5F69E72C24829200193B58 /* MajorScale.swift */,
-				1D5F6A182C24829300193B58 /* ChromaticScale.swift */,
-				1D5F6A2D2C24829400193B58 /* DiminishedScale.swift */,
-				1D5F69EB2C24829200193B58 /* HalfWholeDimFlat13Scale.swift */,
-				1D5F6A062C24829300193B58 /* HarmonicMajorScale.swift */,
-				1D5F6A142C24829300193B58 /* HarmonicMinorScale.swift */,
-				1D5F6A312C24829400193B58 /* HexatonicSharp9Sharp11Scale.swift */,
-				1D5F6A0F2C24829300193B58 /* MelodicMinorScale.swift */,
-			);
-			path = "Scale Structs";
 			sourceTree = "<group>";
 		};
 		1D73AFD52C6FD64400308356 /* Key Protocols */ = {
@@ -802,7 +411,6 @@
 			isa = PBXGroup;
 			children = (
 				1D73AFC72C6FD63300308356 /* Constants.swift */,
-				1D73AFC92C6FD63300308356 /* DeviceRotationViewModifier.swift */,
 				1D73AFCA2C6FD63300308356 /* KeyType.swift */,
 				1D73AFCB2C6FD63300308356 /* TypeAliases.swift */,
 			);
@@ -812,10 +420,8 @@
 		1DB6EC392C778FA1008A23BC /* Music Theory Models */ = {
 			isa = PBXGroup;
 			children = (
-				1DBE1C322C25D4EB008DCBDF /* Stores */,
 				1D5F6AA62C2483EC00193B58 /* Chords */,
 				1D5F6AA72C2483F600193B58 /* Notes */,
-				1D5F6AA82C24841200193B58 /* Scales */,
 			);
 			path = "Music Theory Models";
 			sourceTree = "<group>";
@@ -827,15 +433,6 @@
 				1D73AFE82C6FD64400308356 /* Keys */,
 			);
 			path = "Keyboard Views";
-			sourceTree = "<group>";
-		};
-		1DBE1C322C25D4EB008DCBDF /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-				1DBE1C302C25D410008DCBDF /* ChordStore.swift */,
-				1DF5E4572C28D58F001DFB91 /* ChordData.swift */,
-			);
-			path = Stores;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -908,104 +505,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D5F6A572C24829500193B58 /* Triad.TriadInversion.swift in Sources */,
-				1D5F6A602C24829500193B58 /* DetailChord.Dim7.swift in Sources */,
-				1D5F6A8A2C24829500193B58 /* DiminishedScale.swift in Sources */,
-				1D73AFFD2C6FD74800308356 /* KeyboardTest.swift in Sources */,
-				1D5F69DC2C2481E600193B58 /* ContentView.swift in Sources */,
 				1D5F6A782C24829500193B58 /* Array Extensions.swift in Sources */,
-				1D5F6A612C24829500193B58 /* DC.Dom7.HalfWholeDim.swift in Sources */,
-				1D5F6A9C2C24829500193B58 /* DC.Min7.Min_Slash_DorianP5Down.swift in Sources */,
-				1D5F6A4C2C24829500193B58 /* DC.Dim7.Sev_Alt_P5Down.swift in Sources */,
-				1D5F6A852C24829500193B58 /* FourNoteChord.FNCInversion.swift in Sources */,
-				1D5F6A522C24829500193B58 /* DC.Maj6.Maj6_MajorScale.swift in Sources */,
 				1D73AFF52C6FD64400308356 /* BlackKeyShape.swift in Sources */,
 				1D5F6A502C24829500193B58 /* ChordDegrees.swift in Sources */,
 				1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */,
-				1D5F6A8D2C24829500193B58 /* QualProtocol.swift in Sources */,
 				1D5F6A862C24829500193B58 /* Maj7.swift in Sources */,
 				1D350EF82C779358007D8F85 /* MultiChord.swift in Sources */,
-				1D5F6A4D2C24829500193B58 /* Triad.swift in Sources */,
-				1D5F6A882C24829500193B58 /* All_C_Triads.swift in Sources */,
-				1D5F6A842C24829500193B58 /* DC.Maj6.HalfWholeDim.swift in Sources */,
 				1D5F6A492C24829500193B58 /* Root.swift in Sources */,
-				1D5F6A752C24829500193B58 /* ChromaticScale.swift in Sources */,
 				1D5F6A7A2C24829500193B58 /* Accidental.swift in Sources */,
 				1D5F6A802C24829500193B58 /* KeyName.swift in Sources */,
-				1D5F6A4A2C24829500193B58 /* ResultChord.swift in Sources */,
 				1D73AFFB2C6FD64400308356 /* Key.swift in Sources */,
-				1D5F6A8B2C24829500193B58 /* DetailChord.Min7.swift in Sources */,
-				1D5F6A6C2C24829500193B58 /* MelodicMinorScale.swift in Sources */,
-				1D5F6A762C24829500193B58 /* DC.Min7.Min_Slash_LydianMaj3rdDown.swift in Sources */,
 				1D5F6A992C24829500193B58 /* Maj2.swift in Sources */,
-				1D22141B2C251770003953BD /* LowerChordMenu.swift in Sources */,
 				1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */,
-				1D5F6A5B2C24829500193B58 /* DC.Min7_b5.Min7b5_Locrian_Chord.swift in Sources */,
-				1D5F6A772C24829500193B58 /* DC.Maj6.Maj6_Slash_Lydian_P5_Down.swift in Sources */,
 				1D73AFFA2C6FD64400308356 /* GandAShape.swift in Sources */,
-				1D5F6A442C24829500193B58 /* MajorScale.swift in Sources */,
 				1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */,
-				1DBB37782C2C70670008DA9E /* InvertibleChord.swift in Sources */,
 				1D5F6AC82C248B2F00193B58 /* Dim5.swift in Sources */,
 				1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */,
 				1D73AFEA2C6FD64400308356 /* KeyShape.swift in Sources */,
-				1D2507642C24CCA8001416AF /* FNCTypePicker.swift in Sources */,
-				1D5F6A792C24829500193B58 /* DetailChord.Dom7.swift in Sources */,
 				1D73AFEB2C6FD64400308356 /* KeyShapeGroup.swift in Sources */,
-				1D5F6A6B2C24829500193B58 /* DC.Min7.Min_Slash_LydianDom_Maj6thDown.swift in Sources */,
 				1D5F6A662C24829500193B58 /* Interval.swift in Sources */,
-				1D5F6A452C24829500193B58 /* DC.Dom7.AltP5.swift in Sources */,
-				1D5F6A962C24829500193B58 /* DegSpecs.swift in Sources */,
-				1D5F6A9D2C24829500193B58 /* Suffix.swift in Sources */,
 				1D73AFEE2C6FD64400308356 /* BShapeGroup.swift in Sources */,
-				1D5F6A892C24829500193B58 /* DC.Maj6.Maj6_Lydian.swift in Sources */,
 				1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */,
-				1D5F6A472C24829500193B58 /* ChordCategoryFactory.swift in Sources */,
-				1D5F6A712C24829500193B58 /* HarmonicMinorScale.swift in Sources */,
-				1D5F6A6E2C24829500193B58 /* Scale Enums.swift in Sources */,
-				1D5F6A592C24829500193B58 /* DC.Maj6.Maj6_Slash_HalfWholeDim_Min3_Down.swift in Sources */,
-				1D5F6A6F2C24829500193B58 /* TensionChord.swift in Sources */,
 				1D5F6A7B2C24829500193B58 /* Maj6.swift in Sources */,
 				1D73AFF62C6FD64400308356 /* CandEShape.swift in Sources */,
 				1D5F6A552C24829500193B58 /* Math Extensions.swift in Sources */,
-				1D5F6AC52C248A7200193B58 /* ComboChord.swift in Sources */,
 				1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */,
-				1D5F6A902C24829500193B58 /* ScaleDetails.swift in Sources */,
 				1D5F6A7D2C24829500193B58 /* KSwitch.swift in Sources */,
-				1D5F6A482C24829500193B58 /* HalfWholeDimFlat13Scale.swift in Sources */,
-				1D5F6A622C24829500193B58 /* DC.Min7.Min_Phrygian.swift in Sources */,
 				1D73AFEF2C6FD64400308356 /* CShapeGroup.swift in Sources */,
 				1D5F6A532C24829500193B58 /* P4.swift in Sources */,
-				1D73AFCF2C6FD63300308356 /* DeviceRotationViewModifier.swift in Sources */,
 				1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */,
-				1D5F6A7C2C24829500193B58 /* DC.Dom7.HexatonicSh9Sh11_Chord.swift in Sources */,
 				1D5F6A822C24829500193B58 /* ChordDegrees.TCArray.swift in Sources */,
-				1DBB377A2C2CAF1C0008DA9E /* RomanNums.swift in Sources */,
 				1D5F6A4F2C24829500193B58 /* Enharmonic.swift in Sources */,
 				1D5F6AA02C24829500193B58 /* Maj3.swift in Sources */,
-				1D5F6A942C24829500193B58 /* DC.Dom7.MelodicMinor_Chord.swift in Sources */,
-				1D2507662C24CCE0001416AF /* TriadTypePicker.swift in Sources */,
-				1DF5E4582C28D58F001DFB91 /* ChordData.swift in Sources */,
-				1D5F6A972C24829500193B58 /* SuffixGenerator.swift in Sources */,
 				1D5F6A582C24829500193B58 /* ChordProtocol.swift in Sources */,
-				1D5F6A7F2C24829500193B58 /* FourNoteChord.swift in Sources */,
-				1D74DA082C2B16E8004ED9F4 /* ScaleFactory.swift in Sources */,
-				1D5F6A632C24829500193B58 /* HarmonicMajorScale.swift in Sources */,
 				1D73AFF92C6FD64400308356 /* FandBShape.swift in Sources */,
 				1DBD4C602C58364A00F4015C /* Chord.swift in Sources */,
-				1D5F6A652C24829500193B58 /* DC.Min7.Min_Dorian_Chord.swift in Sources */,
 				1D65C9612C5BF84100DB7E3A /* ChordTestView.swift in Sources */,
-				1D5F6A872C24829500193B58 /* DC.Maj6.Maj6_Slash_AltP5_Min3_Down.swift in Sources */,
 				1D73AFE92C6FD64400308356 /* KeyProtocol.swift in Sources */,
 				1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */,
 				1D73AFD12C6FD63300308356 /* TypeAliases.swift in Sources */,
 				1D73AFF72C6FD64400308356 /* DShape.swift in Sources */,
 				1D73AFF02C6FD64400308356 /* DShapeGroup.swift in Sources */,
 				1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */,
-				1D5F6A4E2C24829500193B58 /* DC.Min7_b5.Min7b5_LocrianSharp2_Chord.swift in Sources */,
-				1D5F6A922C24829500193B58 /* DetailChord.Min7_b5.swift in Sources */,
-				1D5F6A682C24829500193B58 /* Matchmaker.swift in Sources */,
-				1D5F6A812C24829500193B58 /* Mode.swift in Sources */,
 				1D5F6A6A2C24829500193B58 /* Min9.swift in Sources */,
 				1D5F6A5A2C24829500193B58 /* RootSwitch.swift in Sources */,
 				1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */,
@@ -1014,41 +555,24 @@
 				1D5F6A562C24829500193B58 /* Min7.swift in Sources */,
 				1D5F6A692C24829500193B58 /* Min3.swift in Sources */,
 				1D73AFED2C6FD64400308356 /* BlackKeyShapeGroup.swift in Sources */,
-				1D5F6A6D2C24829500193B58 /* ChordInversion.swift in Sources */,
 				1D5F6A5C2C24829500193B58 /* Letter.swift in Sources */,
-				1DBE1C312C25D410008DCBDF /* ChordStore.swift in Sources */,
-				1D5F6A9B2C24829500193B58 /* DetailChord.Maj7.swift in Sources */,
-				1D73AFFF2C700A5100308356 /* AlignmentTestView.swift in Sources */,
-				1D5F6A982C24829500193B58 /* Triad.TriadType.swift in Sources */,
 				1D73AFF32C6FD64400308356 /* FShapeGroup.swift in Sources */,
-				1D5F6A702C24829500193B58 /* FourNoteChord.FNCType.swift in Sources */,
-				1D5F6A642C24829500193B58 /* DC.Maj7.Maj_Lydian_Chord.swift in Sources */,
 				1D73AFF22C6FD64400308356 /* EShapeGroup.swift in Sources */,
 				1D5F6A7E2C24829500193B58 /* Sh_5.swift in Sources */,
 				1D73AFEC2C6FD64400308356 /* AShapeGroup.swift in Sources */,
-				1D5F6A512C24829500193B58 /* ChordCategory.swift in Sources */,
 				1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */,
 				1D5F6A5D2C24829500193B58 /* Note.swift in Sources */,
-				1D5F6A952C24829500193B58 /* DC.Dim7.WholeHalfDim.swift in Sources */,
-				1D5F6A672C24829500193B58 /* DetailChord.swift in Sources */,
 				1D5F6A722C24829500193B58 /* NoteNum.swift in Sources */,
-				1D22141D2C251780003953BD /* USTMenu.swift in Sources */,
 				1D5F6A542C24829500193B58 /* KeyName.RootGen.swift in Sources */,
-				1D22141F2C2518D5003953BD /* PickerGeometryReader.swift in Sources */,
 				1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */,
 				1D73AFF42C6FD64400308356 /* GShapeGroup.swift in Sources */,
 				1D5F6A8C2C24829500193B58 /* P5.swift in Sources */,
-				1D5F6A932C24829500193B58 /* DC.Dom7.LydianDom.swift in Sources */,
-				1D5F6A5F2C24829500193B58 /* DC.Dom7.Mixolydian.swift in Sources */,
-				1D5F6A8E2C24829500193B58 /* HexatonicSharp9Sharp11Scale.swift in Sources */,
 				1D5F69DA2C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift in Sources */,
 				1D5F6A832C24829500193B58 /* Typealiases.swift in Sources */,
 				1D5F6AC92C248B2F00193B58 /* Dim7.swift in Sources */,
 				1D5F6A5E2C24829500193B58 /* Sh_9.swift in Sources */,
 				1D5F6A8F2C24829500193B58 /* RootKey.swift in Sources */,
-				1D5F6A4B2C24829500193B58 /* DetailChord.Maj6.swift in Sources */,
 				1D5F6A462C24829500193B58 /* Sh_4.swift in Sources */,
-				1D5F6A9A2C24829500193B58 /* Verdict.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
