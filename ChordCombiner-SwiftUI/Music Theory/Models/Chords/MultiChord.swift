@@ -9,6 +9,6 @@ import SwiftUI
 
 struct MultiChord {
   var lowerChord: Chord
-  var upperChord: Chord?
+  var upperChord: Chord
   var resultChord: Chord?
 }
