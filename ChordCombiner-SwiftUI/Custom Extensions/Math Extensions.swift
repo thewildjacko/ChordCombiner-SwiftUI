@@ -59,6 +59,10 @@ extension Int: Mathable {
     return type.pitchNumber + (startingOctave + 1) * 12
   }
   
+  func raiseAboveDegreesIfAbsent(_ degs: [Int]) -> Int {
+    degs.contains(self) ? self : self + 12
+  }
+  
   func raiseAbove(pitch: Int, degs: [Int]?) -> Int {
     if let degs = degs {
       if self < pitch && !degs.contains(self) {
@@ -70,6 +74,7 @@ extension Int: Mathable {
       if self >= pitch {
         return self
       } else {
+//        print("pitch is \(self)")
         var raisedPitch = self
         
         while raisedPitch < pitch {

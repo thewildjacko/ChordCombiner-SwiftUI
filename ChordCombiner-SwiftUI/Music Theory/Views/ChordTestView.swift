@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ChordTestView: View {
-  @State var lowerChord: Chord = Chord(.c, .ma7)
-  @State var upperChord: Chord = Chord(.e, .mi)
+  @State var lowerChord: Chord = Chord(.c, .ma13_sh11)
+  @State var upperChord: Chord = Chord(.a, .ma13_sh11)
   @State var resultChord: Chord?
-  @State var oldLowerChord: Chord = Chord(.c, .ma7)
-  @State var oldUpperChord: Chord = Chord(.e, .mi)
+  @State var oldLowerChord: Chord = Chord(.c, .ma13_sh11)
+  @State var oldUpperChord: Chord = Chord(.a, .ma13_sh11)
   @State var oldResultChord: Chord?
   @State var onlyInLower: [Int] = []
   @State var onlyInUpper: [Int] = []
@@ -20,23 +20,35 @@ struct ChordTestView: View {
   
   @State var equivalentChords: [Chord] = []
   @State var deltaChords: [Chord] = []
-  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
+  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
   
   func highlightResult(startingOctave: Int, lowerChord: Chord, upperChord: Chord, result: Chord?) {
-//    print("starting pitch:", kb3.startingPitch)
-    let lowerPitch = lowerChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
-//    print("lower pitch:", lowerPitch)
+    let startingPitch = kb3.startingPitch
+    let lowerRoot = lowerChord.root
+    let upperRoot = upperChord.root
+    
+    let lowerPitch = lowerRoot.num.toPitch(startingOctave: startingOctave)
+      .raiseAbove(pitch: startingPitch, degs: nil)
+    
+    let lowerBaseChordDegs = lowerChord.type.baseChord(root: lowerRoot).degrees.map {
+      $0.toPitch(startingOctave: startingOctave)
+        .raiseAbove(pitch: startingPitch, degs: nil)
+    }
     
     var upperPitch: Int
     
     if let _ = result {
-      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: kb3.startingPitch, degs: nil)
-//      print("upper pitch:", upperPitch)
+      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: startingPitch, degs: nil)
       
-      let lowerDegs = lowerChord.degrees.map {
+      var lowerDegs = lowerChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
         .raiseAbove(pitch: lowerPitch, degs: nil)
       }
+      
+      lowerDegs = lowerDegs.map {
+        $0.raiseAboveDegreesIfAbsent(lowerBaseChordDegs)
+      }
+      
       let lowerDegsMax = lowerDegs.max() ?? 0
       
       let upperDegs = upperChord.degrees.map {
@@ -52,22 +64,59 @@ struct ChordTestView: View {
       kb3.highlightKeys(degs: onlyInUpper, color: .cyan)
       kb3.highlightKeys(degs: commonToneDegs, color: LinearGradient.commonTone(.cyan, .yellow))
     } else {
-      let lowerDegs = lowerChord.degrees.map {
+      
+      var lowerDegs = lowerChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
         .raiseAbove(pitch: lowerPitch, degs: nil)
       }
+      
+      lowerDegs = lowerDegs.map {
+        $0.raiseAboveDegreesIfAbsent(lowerBaseChordDegs)
+      }
+      
       let lowerDegsMax = lowerDegs.max() ?? 0
 //      print("lower degs:", lowerDegs, "lowerDegsMax:", lowerDegsMax)
-       
-      var upper = upperChord.root.num.toPitch(startingOctave: startingOctave)
-      
+             
       upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: lowerDegsMax, degs: nil)
 //     print("upper pitch:", upperPitch)
       
-      let upperDegs = upperChord.degrees.map {
+      var upperDegs = upperChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
-          .raiseAbove(pitch: upperPitch, degs: nil)
       }
+//      print(upperDegs)
+      
+      upperDegs = upperDegs.map {
+        $0.raiseAbove(pitch: upperPitch, degs: nil)
+      }
+      
+      let upperDegsMin = upperDegs.min() ?? 0
+      let upperDegsMax = upperDegs.max() ?? 0
+      
+      var upperBaseChordDegs: [Int] = []
+//      print(upperDegs)
+      if upperDegsMin == lowerDegsMax {
+//        print("raising again!")
+        upperDegs = upperDegs.map {
+          $0.raiseAbove(pitch: upperDegsMax + 1, degs: nil)
+        }
+        
+        upperBaseChordDegs = upperChord.type.baseChord(root: upperRoot).degrees.map {
+          $0.toPitch(startingOctave: startingOctave)
+            .raiseAbove(pitch: upperPitch, degs: nil)
+            .raiseAbove(pitch: upperDegsMax + 1, degs: nil)
+        }
+        
+      } else {
+        upperBaseChordDegs = upperChord.type.baseChord(root: upperRoot).degrees.map {
+          $0.toPitch(startingOctave: startingOctave)
+            .raiseAbove(pitch: upperPitch, degs: nil)
+        }
+      }
+      
+      upperDegs = upperDegs.map {
+        $0.raiseAboveDegreesIfAbsent(upperBaseChordDegs)
+      }
+
 //        .map {
 //        ($0 + 12).raiseAbove(pitch: lowerDegsMax, degs: lowerDegs)
 //      }
@@ -130,18 +179,18 @@ struct ChordTestView: View {
     }
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
-      print(lowerChord.type.baseChord.degreesInC)
-      print(upperChord.type.baseChord)
+//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
+//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
     })
     .onChange(of: lowerChord) { oldLower, newLower in
       setAndHighlightChords(initial: false)
-      print(lowerChord.type.baseChord.degreesInC)
-      print(upperChord.type.baseChord.degreesInC)
+//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
+//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
     }
     .onChange(of: upperChord) { oldUpper, newUpper in
       setAndHighlightChords(initial: false)
-      print(lowerChord.type.baseChord.degreesInC)
-      print(upperChord.type.baseChord.degreesInC)
+//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
+//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
     }
   }
 }
