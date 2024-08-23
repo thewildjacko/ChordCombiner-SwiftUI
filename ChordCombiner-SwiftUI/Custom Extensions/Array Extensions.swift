@@ -25,6 +25,28 @@ extension Array where Element == Int {
     return self.filter { !otherArray.contains($0) }
   }
   
+  func includeIfSameNote(_ otherArray: [Int]) -> [Int] {
+    var result: [Int] = []
+    
+    for raisedPitch in self {
+      for pitch in otherArray {
+        if (raisedPitch - pitch) % 12 == 0 {
+          result.append(raisedPitch)
+        }
+      }
+    }
+    
+    return result
+  }
+  
+  func subtracting(_ otherArray: [Int]) -> [Int] {
+    Array(self.toSet().subtracting(otherArray))
+  }
+  
+  func intersection(_ otherArray: [Int]) -> [Int] {
+    Array(self.toSet().intersection(otherArray))
+  }
+  
   mutating func appendIfDoesNotContain(_ value: Int) {
     if !self.contains(value) {
       self.append(value)
@@ -36,7 +58,7 @@ extension Array where Element == Int {
   }
   
   func convert(to root: NoteNum) -> [Int] {
-    self.map { $0.minusDeg(root.num)}
+    self.map { $0.minusDeg(root.basePitchNum)}
   }  
 }
 

@@ -77,7 +77,7 @@ struct Root: Note, CustomStringConvertible, Codable {
   }
   
   init(_ key: RootGen) {
-    self.key = key.r
+    self.key = key.keyName
     self.rootKey = key
     self.noteNum = self.key.noteNum
     self.enharm = self.key.enharm

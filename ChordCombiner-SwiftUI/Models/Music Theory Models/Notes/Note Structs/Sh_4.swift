@@ -16,7 +16,7 @@ struct Sh_4: Note, CustomStringConvertible, KSwitch, Codable {
   let rootNum: NoteNum
   var noteNum: NoteNum {
     get {
-      return NoteNum(rootNum.num.plusDeg(6))
+      return NoteNum(rootNum.basePitchNum.plusDeg(6))
     }
     set {
       
@@ -64,8 +64,8 @@ struct Sh_4: Note, CustomStringConvertible, KSwitch, Codable {
   }
   
   init(_ root: RootGen) {
-    self.rootNum = root.r.noteNum
-    self.enharm = root.r.enharm
+    self.rootNum = root.keyName.noteNum
+    self.enharm = root.keyName.enharm
   }
   
   func enharmSwapped() -> Note {

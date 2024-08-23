@@ -15,6 +15,10 @@ struct ChordMenu: View {
   var body: some View {
       VStack {
         Text(text)
+          .font(.headline)
+          .fontWeight(.heavy)
+          .fixedSize()
+          .foregroundStyle(Color("titleColor"))
         
         Menu(content: {
           LetterPicker(letter: $chord.letter)

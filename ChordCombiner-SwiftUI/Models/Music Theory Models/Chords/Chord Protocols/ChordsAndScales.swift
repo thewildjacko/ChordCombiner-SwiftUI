@@ -12,10 +12,14 @@ protocol ChordsAndScales: RootKey {
   var key: KeyName { get }
   var keys: [KeyName] { get }
   var enharm: Enharmonic { get set }
+  var startingOctave: Int { get set }
+  var startingPitch: Int { get }
   var name: String { get }
   var allNotes: [Note] { get set }
   var noteNames: [String] {get}
   var noteNums: [NoteNum] { get }
+  var raisedPitches: [Int] { get }
+  var raisedRoot: Int { get }
   var notesByNoteNum: [NoteNum:Note] { get }
   var degrees: [Int] { get }
   var degNames: (names: [String], short: [String], long: [String]) { get }
@@ -27,23 +31,41 @@ protocol ChordsAndScales: RootKey {
 
 extension ChordsAndScales {
   var key: KeyName {
-    return rootKey.r
+    return rootKey.keyName
   }
   
   var keys: [KeyName] {
     return allNotes.map { $0.key }
   }
   
+  var startingPitch: Int {
+    key.basePitchNum.toPitch(startingOctave: startingOctave)
+  }
+  
   var noteNames: [String] {
     return allNotes.map { $0.noteName }
   }
   
-  var degrees: [Int] {
-    return allNotes.map {$0.num}
-  }
-  
   var notesByNoteNum: [NoteNum:Note] {
     return Dictionary(uniqueKeysWithValues: zip(noteNums, allNotes))
+  }
+  
+  var degrees: [Int] {
+    return allNotes.map {$0.basePitchNum}
+  }
+  
+  var raisedPitches: [Int] {
+//    print("raisedPitches")
+    return degrees.map { $0.toPitch(startingOctave: startingOctave) }
+  }
+  
+  var raisedRoot: Int { root.basePitchNum.toPitch(startingOctave: startingOctave) }
+  
+  var pitchesRaisedAboveRoot: [Int] {
+//    print("pitchesRaisedAboveRoot")
+    return raisedPitches.map {
+      $0.raiseAbove(pitch: raisedRoot, degs: nil)
+    }
   }
   
   var degNames: (names: [String], short: [String], long: [String]) {

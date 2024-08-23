@@ -13,7 +13,7 @@ import Foundation
 /// Defines a single note to be used in a scale, mode, chord or pattern
 protocol Note: Codable {
   var noteNum: NoteNum { get set } // `NoteNum` enum case of the note
-  var num: Int { get } // see extension below
+  var basePitchNum: Int { get } // see extension below
   var enharm: Enharmonic { get set } // sets whether note belongs to sharp key or flat key
   var noteName: String { get } // see extension below
   var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) { get } // degree of the chord or scale
@@ -23,12 +23,13 @@ protocol Note: Codable {
 }
 
 extension Note {
+  /// Returns raw Int value of the note, 0-11
+  var basePitchNum: Int {return noteNum.basePitchNum}
+  
   /// Returns letter value of the note in raw string form
   var noteName: String {
     return key.name
   }
-  /// Returns raw Int value of the note, 0-11
-  var num: Int {return noteNum.num}
   
   var enharmByKey: Enharmonic { key.enharm }
 }

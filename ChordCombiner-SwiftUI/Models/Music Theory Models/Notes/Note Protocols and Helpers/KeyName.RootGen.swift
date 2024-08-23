@@ -167,7 +167,7 @@ extension KeyName {
     }
     
     /// The `KeyName` of the root; use to initiate other roots or scale/chord degrees
-    var r: KeyName {
+    var keyName: KeyName {
       switch self {
       case .c:
         return .c

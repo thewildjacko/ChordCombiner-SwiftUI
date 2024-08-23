@@ -12,7 +12,7 @@ struct Keyboard: View, Identifiable {
   //  MARK: @State properties
   var height: CGFloat = 0
   @State var geoWidth: CGFloat
-  var title: String
+//  var title: String
   
   //  MARK: instance properties
   
@@ -31,8 +31,8 @@ struct Keyboard: View, Identifiable {
   var widthMultiplier: CGFloat = 0
   
   //  MARK: initializers
-  init(title: String, geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 3, octaves: Int? = nil) {
-    self.title = title
+  init(/*title: String, */geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil) {
+//    self.title = title
     self.keyCount = keyCount
     self.geoWidth = geoWidth
     self.startingOctave = startingOctave
@@ -163,7 +163,7 @@ struct Keyboard: View, Identifiable {
   }
   
   mutating func resize(geoWidth: CGFloat) -> Keyboard {
-    return Keyboard(title: title, geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKeyType, startingOctave: startingOctave, octaves: octaves)
+    return Keyboard(/*title: title, */geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKeyType, startingOctave: startingOctave, octaves: octaves)
   }
   
   mutating func highlightKeys<T: ShapeStyle>(degs: [Int], degs2: [Int]? = nil, color: T, color2: T? = nil) {
@@ -187,10 +187,10 @@ struct Keyboard: View, Identifiable {
   var body: some View {
     ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
-        Text(title)
-          .font(.title)
-          .fontWeight(.heavy)
-          .foregroundStyle(.white)
+//        Text(title)
+//          .font(.title)
+//          .fontWeight(.heavy)
+//          .foregroundStyle(Color("titleColor"))
         ZStack {
           ForEach(keys) { key in
             key
@@ -205,7 +205,7 @@ struct Keyboard: View, Identifiable {
 
 #Preview {
   VStack {
-    Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C, startingOctave: 3, octaves: 3)
+    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 3, octaves: 3)
       .position(x: 220, y: 600)
   }
 }

@@ -12,7 +12,7 @@ import Foundation
 enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
   case zero = 0, one, two, three, four, five, six, seven, eight, nine, ten, eleven
   
-  var num: Int { // shorthand for rawValue
+  var basePitchNum: Int { // shorthand for rawValue
     return self.rawValue
   }
   

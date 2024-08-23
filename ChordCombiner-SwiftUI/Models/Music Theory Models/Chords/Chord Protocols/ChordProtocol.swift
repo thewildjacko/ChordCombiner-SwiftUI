@@ -12,8 +12,9 @@ import UIKit
 protocol ChordProtocol: ChordsAndScales, KSwitch {
   var noteCount: Int { get }
   var chordName: String { get }
-//  var qualSuffix: QualProtocol {get set}
   var degSet: Set<Int> { get }
+  var stackedPitches: [Int] { get }
+  
   var convertedDegrees: [Int] {get set}
   
   func enharmSwapped() -> ChordProtocol
@@ -37,10 +38,10 @@ extension ChordProtocol {
   }
   
   mutating func convertDegrees(to root: NoteNum) {
-    convertedDegrees = degrees.map { $0.minusDeg(root.num)}
+    convertedDegrees = degrees.map { $0.minusDeg(root.basePitchNum)}
   }
   
   mutating func convertDegsToOwnRoot() {
-    convertedDegrees = degrees.map { $0.minusDeg(root.num) }
+    convertedDegrees = degrees.map { $0.minusDeg(root.basePitchNum) }
   }
 }

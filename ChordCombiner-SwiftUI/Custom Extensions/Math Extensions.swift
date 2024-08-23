@@ -60,26 +60,34 @@ extension Int: Mathable {
   }
   
   func raiseAboveDegreesIfAbsent(_ degs: [Int]) -> Int {
-    degs.contains(self) ? self : self + 12
+    // print("raiseAboveDegreesIfAbsent: degs = \(degs)")
+    return degs.contains(self) ? self : self + 12
   }
   
   func raiseAbove(pitch: Int, degs: [Int]?) -> Int {
+    // print("raise above: \(self) above \(pitch)")
     if let degs = degs {
+      // print("degs: \(degs)")
       if self < pitch && !degs.contains(self) {
+        // print("self < pitch and not in degs")
         return self + 12
       } else {
+        // print("self < pitch and is in degs")
         return self
       }
     } else {
+      // print("no degs")
       if self >= pitch {
+        // print("self >= pitch")
         return self
       } else {
-//        print("pitch is \(self)")
+        // print("pitch > self")
         var raisedPitch = self
         
         while raisedPitch < pitch {
+          // print("\(raisedPitch) < \(pitch)")
           raisedPitch += 12
-//          print("raised pitch is \(raisedPitch)")
+          // print("raised pitch is \(raisedPitch)")
         }
         
         return raisedPitch

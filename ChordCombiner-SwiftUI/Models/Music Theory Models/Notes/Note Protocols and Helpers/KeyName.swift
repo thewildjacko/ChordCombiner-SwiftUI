@@ -87,11 +87,6 @@ enum KeyName: String, CaseIterable, Codable {
     }
   }
   
-  /// The KeyName's integer value 0-11
-  var num: Int {
-    return noteNum.num
-  }
-  
   /// The KeyName's Letter
   var letter: Letter {
     switch self {
@@ -147,8 +142,13 @@ enum KeyName: String, CaseIterable, Codable {
     }
   }
   
+  /// The KeyName's integer value 0-11
+  var basePitchNum: Int {
+    return noteNum.basePitchNum
+  }
+  
   ///Prints the KeyName's `name`, `Letter`, `Accidental`, `Enharmonic` and `num` to the console
   func keyStats() {
-    print(name, "(\(letter))", accidental.rawValue, enharm, num)
+    print(name, "(\(letter))", accidental.rawValue, enharm, basePitchNum)
   }
 }

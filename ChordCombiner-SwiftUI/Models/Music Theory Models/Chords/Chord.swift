@@ -20,6 +20,8 @@ struct Chord: ChordProtocol, Identifiable {
   
   var enharm: Enharmonic
   
+  var startingOctave: Int = 4
+  
   var accidental: RootAcc {
     didSet {
       refresh()
@@ -33,28 +35,18 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   var chordName: String {
-    return type.rawValue /*type.name*/
+    return type.rawValue
   }
   
   var name: String {
     root.noteName + chordName
   }
   
-//  var qualSuffix: QualProtocol {
-//    get {
-//      return type
-//    }
-//    set {
-//      type = newValue as! ChordType
-//      refresh()
-//    }
-//  }
-  
   var allNotes: [Note] = []
   var noteCount: Int = 0
   
   var degrees: [Int] {
-    return allNotes.map {$0.num}
+    return allNotes.map {$0.basePitchNum}
   }
   
   var degSet: Set<Int> {
@@ -63,14 +55,23 @@ struct Chord: ChordProtocol, Identifiable {
   
   var convertedDegrees: [Int] = []
   
+  var stackedPitches: [Int] {
+//    print("stacked Pitches")
+    return pitchesRaisedAboveRoot.map {
+//      print("pitch: \($0)")
+      return $0.raiseAboveDegreesIfAbsent(type.baseChord(root: root).pitchesRaisedAboveRoot)
+    }
+  }
+  
   var noteNums: [NoteNum] {
     return degrees.map { NoteNum($0) }
   }
   
   //  MARK: initializers
-  init(rootNum: NoteNum = .zero, type: ChordType, enharm: Enharmonic = .flat) {
+  init(rootNum: NoteNum = .zero, type: ChordType, enharm: Enharmonic = .flat, startingOctave: Int = 4) {
     self.type = type
     self.enharm = enharm
+    self.startingOctave = startingOctave
     self.root = Root(noteNum: rootNum, enharm: enharm)
     
     self.letter = root.key.letter
@@ -79,9 +80,10 @@ struct Chord: ChordProtocol, Identifiable {
     setNotesAndEnharms()
   }
   
-  init(_ rootKey: RootGen, _ type: ChordType) {
+  init(_ rootKey: RootGen, _ type: ChordType, startingOctave: Int = 4) {
     self.type = type
-    self.enharm = rootKey.r.enharm
+    self.enharm = rootKey.keyName.enharm
+    self.startingOctave = startingOctave
     self.root = Root(rootKey)
     
     self.letter = root.key.letter
@@ -92,7 +94,7 @@ struct Chord: ChordProtocol, Identifiable {
   
   //  MARK: instance methods
   func translated(by offset: Int) -> any ChordProtocol {
-    return Chord(rootNum: NoteNum(root.num.plusDeg(offset)), type: type, enharm: enharm)
+    return Chord(rootNum: NoteNum(root.basePitchNum.plusDeg(offset)), type: type, enharm: enharm)
   }
   
   mutating func setNotesAndEnharms() {

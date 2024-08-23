@@ -9,30 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
   @State var multiChord = MultiChord(
-    lowerChord: Chord(.c, .ma7),
-    upperChord: Chord(.d, .ma)
+    lowerChord: Chord(.c, .ma7, startingOctave: 4),
+    upperChord: Chord(.d, .ma, startingOctave: 4)
   )
   
-  @State var lowerChord: Chord = Chord(.c, .ma13_sh11)
-  @State var upperChord: Chord = Chord(.a, .ma13_sh11)
-  @State var resultChord: Chord?
-  @State var oldLowerChord: Chord = Chord(.c, .ma13_sh11)
-  @State var oldUpperChord: Chord = Chord(.a, .ma13_sh11)
-  @State var oldResultChord: Chord?
+  @State var oldMultiChord = MultiChord(
+    lowerChord: Chord(.c, .ma7, startingOctave: 4),
+    upperChord: Chord(.d, .ma, startingOctave: 4)
+  )
+  
   @State var onlyInLower: [Int] = []
   @State var onlyInUpper: [Int] = []
   @State var commonToneDegs: [Int] = []
   
   @State var equivalentChords: [Chord] = []
   @State var deltaChords: [Chord] = []
-  @State var kb3: Keyboard = Keyboard(title: "Combined Chord", geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
+  @State var kb3: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
   
   func highlightResult(startingOctave: Int, lowerChord: Chord, upperChord: Chord, result: Chord?) {
     let startingPitch = kb3.startingPitch
     let lowerRoot = lowerChord.root
     let upperRoot = upperChord.root
     
-    let lowerPitch = lowerRoot.num.toPitch(startingOctave: startingOctave)
+    let lowerPitch = lowerRoot.basePitchNum.toPitch(startingOctave: startingOctave)
       .raiseAbove(pitch: startingPitch, degs: nil)
     
     let lowerBaseChordDegs = lowerChord.type.baseChord(root: lowerRoot).degrees.map {
@@ -43,7 +42,7 @@ struct ContentView: View {
     var upperPitch: Int
     
     if let _ = result {
-      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: startingPitch, degs: nil)
+      upperPitch = upperChord.root.basePitchNum.toPitch(startingOctave: startingOctave).raiseAbove(pitch: startingPitch, degs: nil)
       
       var lowerDegs = lowerChord.degrees.map {
         $0.toPitch(startingOctave: startingOctave)
@@ -82,7 +81,7 @@ struct ContentView: View {
       let lowerDegsMax = lowerDegs.max() ?? 0
 //      print("lower degs:", lowerDegs, "lowerDegsMax:", lowerDegsMax)
              
-      upperPitch = upperChord.root.num.toPitch(startingOctave: startingOctave).raiseAbove(pitch: lowerDegsMax, degs: nil)
+      upperPitch = upperChord.root.basePitchNum.toPitch(startingOctave: startingOctave).raiseAbove(pitch: lowerDegsMax, degs: nil)
 //     print("upper pitch:", upperPitch)
       
       var upperDegs = upperChord.degrees.map {
@@ -132,19 +131,19 @@ struct ContentView: View {
   }
   
   func setAndHighlightChords(initial: Bool) {
-    resultChord = ChordFactory.combineChords(lowerChord, upperChord).resultChord
-    equivalentChords = ChordFactory.combineChords(lowerChord, upperChord).equivalentChords
+    multiChord.resultChord = ChordFactory.combineChords(multiChord.lowerChord, multiChord.upperChord).resultChord
+    equivalentChords = ChordFactory.combineChords(multiChord.lowerChord, multiChord.upperChord).equivalentChords
     
     if initial {
-      highlightResult(startingOctave: kb3.startingOctave, lowerChord: lowerChord, upperChord: upperChord, result: resultChord)
+      highlightResult(startingOctave: kb3.startingOctave, lowerChord: multiChord.lowerChord, upperChord: multiChord.upperChord, result: multiChord.resultChord)
     } else {
-      highlightResult(startingOctave: kb3.startingOctave, lowerChord: oldLowerChord, upperChord: oldUpperChord, result: oldResultChord)
-      highlightResult(startingOctave: kb3.startingOctave, lowerChord: lowerChord, upperChord: upperChord, result: resultChord)
+      highlightResult(startingOctave: kb3.startingOctave, lowerChord: oldMultiChord.lowerChord, upperChord: oldMultiChord.upperChord, result: oldMultiChord.resultChord)
+      highlightResult(startingOctave: kb3.startingOctave, lowerChord: multiChord.lowerChord, upperChord: multiChord.upperChord, result: multiChord.resultChord)
     }
     
-    oldLowerChord = lowerChord
-    oldUpperChord = upperChord
-    oldResultChord = resultChord
+    oldMultiChord.lowerChord = multiChord.lowerChord
+    oldMultiChord.upperChord = multiChord.upperChord
+    oldMultiChord.resultChord = multiChord.resultChord
   }
   
   var body: some View {
@@ -153,18 +152,18 @@ struct ContentView: View {
       Spacer()
       
       HStack(spacing: 90) {
-        ChordMenu(text: "Lower Chord", chord: $lowerChord)
-        ChordMenu(text: "Upper Chord", chord: $upperChord)
+        ChordMenu(text: "Lower Chord", chord: $multiChord.lowerChord)
+        ChordMenu(text: "Upper Chord", chord: $multiChord.upperChord)
       }
       .padding()
       
       List {
         Section(header: Text("Combined Chord")) {
           VStack {
-            if let resultChord = resultChord {
+            if let resultChord = multiChord.resultChord {
               Text(resultChord.name)
             } else {
-              Text("\(upperChord.name)/\(lowerChord.name)")
+              Text("\(multiChord.upperChord.name)/\(multiChord.lowerChord.name)")
             }
             
             kb3
@@ -184,18 +183,27 @@ struct ContentView: View {
     }
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
-//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
-//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
+      print("degrees", multiChord.lowerChord.degrees, "degrees in C", multiChord.lowerChord.type.degreesInC)
+      print(multiChord.lowerChord.startingPitch, kb3.startingPitch)
+      print(multiChord.lowerChord.raisedPitches)
+      print(multiChord.lowerChord.raisedRoot)
+      print(multiChord.stackedChord(degrees: multiChord.lowerChord.raisedPitches))
     })
-    .onChange(of: lowerChord) { oldLower, newLower in
+    .onChange(of: multiChord.lowerChord) { oldLower, newLower in
       setAndHighlightChords(initial: false)
-//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
-//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
+      print("degrees", multiChord.lowerChord.degrees, "degrees in C", multiChord.lowerChord.type.degreesInC)
+      print(multiChord.lowerChord.startingPitch, kb3.startingPitch)
+      print(multiChord.lowerChord.raisedPitches)
+      print(multiChord.lowerChord.raisedRoot)
+      print(multiChord.stackedChord(degrees: multiChord.lowerChord.raisedPitches))
     }
-    .onChange(of: upperChord) { oldUpper, newUpper in
+    .onChange(of: multiChord.upperChord) { oldUpper, newUpper in
       setAndHighlightChords(initial: false)
-//      print(lowerChord.type.baseChord(root: lowerChord.root).degrees)
-//      print(upperChord.type.baseChord(root: upperChord.root).degrees)
+      print("degrees", multiChord.lowerChord.degrees, "degrees in C", multiChord.lowerChord.type.degreesInC)
+      print(multiChord.lowerChord.startingPitch, kb3.startingPitch)
+      print(multiChord.lowerChord.raisedPitches)
+      print(multiChord.lowerChord.raisedRoot)
+      print(multiChord.stackedChord(degrees: multiChord.lowerChord.raisedPitches))
     }
   }
 }

@@ -11,7 +11,17 @@ import SwiftUI
 struct ChordCombiner_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          MultiChordKeyboardView(
+            multiChord: MultiChord(
+              lowerChord: Chord(.c, .ma7, startingOctave: 4),
+              upperChord: Chord(.d, .ma, startingOctave: 4)
+            ),
+            oldMultiChord: MultiChord(
+              lowerChord: Chord(.c, .ma7, startingOctave: 4),
+              upperChord: Chord(.d, .ma, startingOctave: 4)
+            ),
+            keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
+          )
         }
     }
 }

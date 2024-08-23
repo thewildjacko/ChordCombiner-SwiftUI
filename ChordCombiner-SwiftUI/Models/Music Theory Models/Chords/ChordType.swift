@@ -260,7 +260,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   
   var degreesInC: [Int] {
     let root = Root(.c)
-    return setNotesAndEnharms(root: root, rootKey: root.rootKey).map { $0.num }
+    return setNotesAndEnharms(root: root, rootKey: root.rootKey).map { $0.basePitchNum }
   }
 }
 
