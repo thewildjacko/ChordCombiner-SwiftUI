@@ -10,36 +10,18 @@ import SwiftUI
 struct SingleChordKeyboardView: View {
   var text: String
   @Binding var multiChord: MultiChord
-  @Binding var oldMultiChord: MultiChord
-  
-  @State var keyboard: Keyboard
+  @Binding var keyboard: Keyboard
   var color: Color
+  var isLower: Bool
     
   var body: some View {
     VStack(spacing: 20) {
       ChordMenu(
         text: text,
-        chord: $multiChord.upperChord
+        chord: isLower ? $multiChord.lowerChord : $multiChord.upperChord,
+        keyboard: $keyboard
       )
-      keyboard
-    }
-    .onAppear(perform: {
-      ChordHighlighter.highlightStacked(
-        chord: &multiChord.upperChord,
-        oldChord: &oldMultiChord.upperChord,
-        keyboard: &keyboard,
-        initial: true,
-        color: color
-      )
-    })
-    .onChange(of: multiChord.upperChord) {
-      ChordHighlighter.highlightStacked(
-        chord: &multiChord.upperChord,
-        oldChord: &oldMultiChord.upperChord,
-        keyboard: &keyboard,
-        initial: false,
-        color: color
-      )
+//      keyboard
     }
     
   }
@@ -54,13 +36,8 @@ struct SingleChordKeyboardView: View {
         upperChord: Chord(.d, .ma, startingOctave: 4)
       )
     ),
-      oldMultiChord: Binding.constant(
-        MultiChord(
-          lowerChord: Chord(.c, .ma7, startingOctave: 4),
-          upperChord: Chord(.d, .ma, startingOctave: 4)
-        )
-      ),
-    keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5),
-    color: .yellow
+    keyboard: Binding.constant(Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2)),
+    color: .yellow,
+    isLower: true
   )
 }

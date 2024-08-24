@@ -10,6 +10,7 @@ import SwiftUI
 struct ChordMenu: View {
   var text: String
   @Binding var chord: Chord
+  @Binding var keyboard: Keyboard
 //  var chordStore: ChordStore
   
   var body: some View {
@@ -25,8 +26,11 @@ struct ChordMenu: View {
           AccidentalPicker(accidental: $chord.accidental)
           ChordTypePicker(chord: $chord, type: $chord.type)
         }, label: {
-          Text("\(chord.name)")
-            .fixedSize(horizontal: true, vertical: true)
+          VStack {
+            Text("\(chord.name)")
+              .fixedSize(horizontal: true, vertical: true)
+            keyboard
+          }
         })
 //        .onChange(of: chord) {
 //          chordStore.chordData.chord = chord
@@ -41,5 +45,6 @@ struct ChordMenu: View {
 }
 
 #Preview {
-  ChordMenu(text: "Lower Chord", chord: Binding.constant(Chord(.c, .ma13_sh11))/*, chordStore: ChordStore()*/)
+  ChordMenu(text: "Lower Chord", chord: Binding.constant(Chord(.c, .ma13_sh11)),
+            keyboard: Binding.constant(Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2))/*, chordStore: ChordStore()*/)
 }

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct LowerChordKeyboardView: View {
   var text: String
-//  @Binding var chord: Chord
-//  @State var oldChord: Chord
   @Binding var multiChord: MultiChord
   @Binding var oldMultiChord: MultiChord
   

@@ -56,43 +56,77 @@ struct MultiChord {
     upperChord.raisedRoot
   }
   
-  func stackedChord(degrees: [Int]) -> [Int] {
-    print("raising pitches!")
-    var pitches: [Int] = degrees
-    print("pitches:", pitches)
-    pitches = pitches.map {
-      $0.raiseAbove(pitch: lowerRaisedRoot, degs: nil)
-    }
-    print("pitches:", pitches)
-    return pitches
-  }
-  
-  mutating func setAndHighlightChords(initial: Bool, keyboard: inout Keyboard, oldMultiChord: inout MultiChord, color: Color, secondColor: Color) {
-    self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
-    
-    if initial {
-      self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
-      ChordHighlighter.highlightStackedCombinedOrSplit(
-        multiChord: &self,
-        keyboard: &keyboard,
-        color: color,
-        secondColor: secondColor
-      )
-    } else {
-      ChordHighlighter.highlightStackedCombinedOrSplit(
-        multiChord: &oldMultiChord,
-        keyboard: &keyboard,
-        color: color,
-        secondColor: secondColor
-      )
-      ChordHighlighter.highlightStackedCombinedOrSplit(
-        multiChord: &self,
-        keyboard: &keyboard,
-        color: color,
-        secondColor: secondColor
-      )
-    }
-    
-    oldMultiChord = self
-  }
+//  mutating func setAndHighlightChords(initial: Bool, lowerKeyboard: inout Keyboard, upperKeyboard: inout Keyboard, combinedKeyboard: inout Keyboard, multiChord: inout MultiChord, color: Color, secondColor: Color) {
+//    self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
+//    
+//    if initial {
+//      self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
+//      ChordHighlighter.highlightStacked(
+//        multiChord: multiChord,
+//        keyboard: &lowerKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: true
+//      )
+//      ChordHighlighter.highlightStacked(
+//        multiChord: multiChord,
+//        keyboard: &upperKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: false
+//      )
+//      
+//      ChordHighlighter.highlightStackedCombinedOrSplit(
+//        multiChord: self,
+//        keyboard: &combinedKeyboard,
+//        color: color,
+//        secondColor: secondColor
+//      )
+//    } else {
+//      ChordHighlighter.highlightStacked(
+//        multiChord: multiChord,
+//        keyboard: &lowerKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: true
+//      )
+//      ChordHighlighter.highlightStacked(
+//        multiChord: multiChord,
+//        keyboard: &upperKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: false
+//      )
+//      
+//      ChordHighlighter.highlightStacked(
+//        multiChord: self,
+//        keyboard: &lowerKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: true
+//      )
+//      ChordHighlighter.highlightStacked(
+//        multiChord: self,
+//        keyboard: &upperKeyboard,
+//        color: color,
+//        secondColor: secondColor,
+//        isLower: false
+//      )
+//      
+//      ChordHighlighter.highlightStackedCombinedOrSplit(
+//        multiChord: multiChord,
+//        keyboard: &combinedKeyboard,
+//        color: color,
+//        secondColor: secondColor
+//      )
+//      ChordHighlighter.highlightStackedCombinedOrSplit(
+//        multiChord: self,
+//        keyboard: &combinedKeyboard,
+//        color: color,
+//        secondColor: secondColor
+//      )
+//    }
+//    
+//    multiChord = self
+//  }
 }

@@ -10,10 +10,7 @@ import SwiftUI
 struct DualChordKeyboardView: View {
   var text: String
   @Binding var multiChord: MultiChord
-  @Binding var oldMultiChord: MultiChord
   @Binding var keyboard: Keyboard
-  var color: Color
-  var secondColor: Color
   
   var body: some View {
     VStack(spacing: 20) {
@@ -29,11 +26,11 @@ struct DualChordKeyboardView: View {
 //        Text("Highlight Split")
 //      }
       
-      Text(text)
-        .font(.headline)
-        .fontWeight(.heavy)
-        .fixedSize()
-        .foregroundStyle(Color("titleColor"))
+//      Text(text)
+//        .font(.headline)
+//        .fontWeight(.heavy)
+//        .fixedSize()
+//        .foregroundStyle(Color("titleColor"))
       
       if let resultChord = multiChord.resultChord {
         Text(resultChord.name)
@@ -64,15 +61,6 @@ struct DualChordKeyboardView: View {
         resultChord: ChordFactory.combineChords(Chord(.d, .ma7, startingOctave: 4), Chord(.e, .ma, startingOctave: 4)).resultChord
       )
     ),
-    oldMultiChord: Binding.constant(
-      MultiChord(
-        lowerChord: Chord(.d, .ma7, startingOctave: 4),
-        upperChord: Chord(.e, .ma, startingOctave: 4),
-        resultChord: ChordFactory.combineChords(Chord(.d, .ma7, startingOctave: 4), Chord(.e, .ma, startingOctave: 4)).resultChord
-      )
-    ),
-    keyboard: Binding.constant(Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)),
-    color: .yellow,
-    secondColor: .cyan
+    keyboard: Binding.constant(Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5))
   )
 }

@@ -8,29 +8,115 @@
 import SwiftUI
 
 struct MultiChordKeyboardView: View {
-  @State var multiChord: MultiChord
-  @State var oldMultiChord: MultiChord
-  @State var keyboard: Keyboard
+//  MARK: @State and instance variables
+  @State var multiChord: MultiChord = MultiChord(
+    lowerChord: Chord(.c, .ma7, startingOctave: 4),
+    upperChord: Chord(.d, .ma, startingOctave: 4)
+  )
+  @State var oldMultiChord: MultiChord = MultiChord(
+    lowerChord: Chord(.c, .ma7, startingOctave: 4),
+    upperChord: Chord(.d, .ma, startingOctave: 4)
+  )
+  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2)
+  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2)
+  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
   
   var color: Color = .yellow
   var secondColor: Color = .cyan
   
+//  MARK: instance methods
+  func setAndHighlightChords(initial: Bool) {
+    multiChord.resultChord = ChordFactory.combineChords(multiChord.lowerChord, multiChord.upperChord).resultChord
+    
+    if initial {
+      multiChord.resultChord = ChordFactory.combineChords(multiChord.lowerChord, multiChord.upperChord).resultChord
+      ChordHighlighter.highlightStacked(
+        multiChord: multiChord,
+        keyboard: &lowerKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: true
+      )
+      ChordHighlighter.highlightStacked(
+        multiChord: multiChord,
+        keyboard: &upperKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: false
+      )
+      
+      ChordHighlighter.highlightStackedCombinedOrSplit(
+        multiChord: multiChord,
+        keyboard: &combinedKeyboard,
+        color: color,
+        secondColor: secondColor
+      )
+    } else {
+      ChordHighlighter.highlightStacked(
+        multiChord: oldMultiChord,
+        keyboard: &lowerKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: true
+      )
+      ChordHighlighter.highlightStacked(
+        multiChord: oldMultiChord,
+        keyboard: &upperKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: false
+      )
+      
+      ChordHighlighter.highlightStacked(
+        multiChord: multiChord,
+        keyboard: &lowerKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: true
+      )
+      ChordHighlighter.highlightStacked(
+        multiChord: multiChord,
+        keyboard: &upperKeyboard,
+        color: color,
+        secondColor: secondColor,
+        isLower: false
+      )
+      
+      ChordHighlighter.highlightStackedCombinedOrSplit(
+        multiChord: oldMultiChord,
+        keyboard: &combinedKeyboard,
+        color: color,
+        secondColor: secondColor
+      )
+      ChordHighlighter.highlightStackedCombinedOrSplit(
+        multiChord: multiChord,
+        keyboard: &combinedKeyboard,
+        color: color,
+        secondColor: secondColor
+      )
+    }
+    
+    oldMultiChord = multiChord
+  }
+  
   var body: some View {
     VStack() {
       
-      ForEach((1...10), id: \.self ) { _ in
+      ForEach((1...7), id: \.self ) { _ in
         Spacer()
       }
       
       HStack {
-        LowerChordKeyboardView(
+        Spacer()
+        
+        SingleChordKeyboardView(
           text: "Lower Chord",
           multiChord: $multiChord,
-          oldMultiChord: $oldMultiChord,
-          keyboard: Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2),
-          color: color
+          keyboard: $lowerKeyboard,
+          color: color,
+          isLower: true
         )
-        
+                
         Spacer()
         
         Text("+")
@@ -41,15 +127,20 @@ struct MultiChordKeyboardView: View {
         
         Spacer()
         
-        UpperChordKeyboardView(
+        SingleChordKeyboardView(
           text: "Upper Chord",
           multiChord: $multiChord,
-          oldMultiChord: $oldMultiChord,
-          keyboard: Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2),
-          color: secondColor
+          keyboard: $upperKeyboard,
+          color: secondColor,
+          isLower: false
         )
+    
+        Spacer()
       }
-      Spacer()
+
+      ForEach((1...8), id: \.self ) { _ in
+        Spacer()
+      }
       
       Text("=")
         .font(.title2)
@@ -61,30 +152,29 @@ struct MultiChordKeyboardView: View {
       DualChordKeyboardView(
         text: "Combined Chord",
         multiChord: $multiChord,
-        oldMultiChord: $oldMultiChord,
-        keyboard: $keyboard,
-        color: color,
-        secondColor: secondColor
+        keyboard: $combinedKeyboard
       )
       
-      ForEach((1...10), id: \.self ) { _ in
+      ForEach((1...6), id: \.self ) { _ in
         Spacer()
       }
       
     }
+    // MARK: modifiers
     .padding()
     .onAppear(perform: {
-      multiChord.setAndHighlightChords(initial: true, keyboard: &keyboard, oldMultiChord: &oldMultiChord, color: color, secondColor: secondColor)
+      setAndHighlightChords(initial: true)
     })
     .onChange(of: multiChord.lowerChord) {
-      multiChord.setAndHighlightChords(initial: false, keyboard: &keyboard, oldMultiChord: &oldMultiChord, color: color, secondColor: secondColor)
+      setAndHighlightChords(initial: false)
     }
     .onChange(of: multiChord.upperChord) {
-      multiChord.setAndHighlightChords(initial: false, keyboard: &keyboard, oldMultiChord: &oldMultiChord, color: color, secondColor: secondColor)
+      setAndHighlightChords(initial: false)
     }
   }
 }
 
+//  MARK: Preview
 #Preview {
   MultiChordKeyboardView(
     multiChord: MultiChord(
@@ -95,6 +185,6 @@ struct MultiChordKeyboardView: View {
       lowerChord: Chord(.c, .ma7, startingOctave: 4),
       upperChord: Chord(.d, .ma, startingOctave: 4)
     ),
-    keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
+    combinedKeyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
   )
 }
