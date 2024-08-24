@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D036C402C7A71AC0088ACD4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D036C3F2C7A71AC0088ACD4 /* ContentView.swift */; };
 		1D1919482C5C434A00B0C932 /* ChordTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */; };
 		1D19194A2C5C43F200B0C932 /* ChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1919492C5C43F200B0C932 /* ChordMenu.swift */; };
 		1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D25075E2C24CC0D001416AF /* LetterPicker.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D036C3F2C7A71AC0088ACD4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTypePicker.swift; sourceTree = "<group>"; };
 		1D1919492C5C43F200B0C932 /* ChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordMenu.swift; sourceTree = "<group>"; };
 		1D25075E2C24CC0D001416AF /* LetterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterPicker.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		1D5F6AA42C24830200193B58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D036C3F2C7A71AC0088ACD4 /* ContentView.swift */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
@@ -564,6 +567,7 @@
 				1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */,
 				1D5F6A912C24829500193B58 /* DegName.swift in Sources */,
 				1D5F6A562C24829500193B58 /* Min7.swift in Sources */,
+				1D036C402C7A71AC0088ACD4 /* ContentView.swift in Sources */,
 				1D5F6A692C24829500193B58 /* Min3.swift in Sources */,
 				1D73AFED2C6FD64400308356 /* BlackKeyShapeGroup.swift in Sources */,
 				1D5F6A5C2C24829500193B58 /* Letter.swift in Sources */,
