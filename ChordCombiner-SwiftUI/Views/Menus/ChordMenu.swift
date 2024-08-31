@@ -17,6 +17,7 @@ struct ChordMenu: View {
       VStack {
         Text(text)
           .font(.headline)
+//          .font(.title)
           .fontWeight(.heavy)
           .fixedSize()
           .foregroundStyle(Color("titleColor"))
@@ -28,6 +29,9 @@ struct ChordMenu: View {
         }, label: {
           VStack {
             Text("\(chord.name)")
+              .font(.headline)
+//              .font(.title)
+              .fontWeight(.heavy)
               .fixedSize(horizontal: true, vertical: true)
             keyboard
           }

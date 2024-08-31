@@ -20,6 +20,9 @@ struct MultiChordKeyboardView: View {
   @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 160, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
+//  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 350, initialKey: .C,  startingOctave: 4, octaves: 2)
+//  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 350, initialKey: .C,  startingOctave: 4, octaves: 2)
+//  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 900, initialKey: .C,  startingOctave: 4, octaves: 5)
   
   var color: Color = .yellow
   var secondColor: Color = .cyan
@@ -176,15 +179,5 @@ struct MultiChordKeyboardView: View {
 
 //  MARK: Preview
 #Preview {
-  MultiChordKeyboardView(
-    multiChord: MultiChord(
-      lowerChord: Chord(.c, .ma7, startingOctave: 4),
-      upperChord: Chord(.d, .ma, startingOctave: 4)
-    ),
-    oldMultiChord: MultiChord(
-      lowerChord: Chord(.c, .ma7, startingOctave: 4),
-      upperChord: Chord(.d, .ma, startingOctave: 4)
-    ),
-    combinedKeyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
-  )
+  MultiChordKeyboardView()
 }

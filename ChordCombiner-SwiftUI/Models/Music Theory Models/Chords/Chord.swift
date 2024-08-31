@@ -59,7 +59,9 @@ struct Chord: ChordProtocol, Identifiable {
 //    print("stacked Pitches")
     return pitchesRaisedAboveRoot.map {
 //      print("pitch: \($0)")
-      return $0.raiseAboveDegreesIfAbsent(type.baseChord(root: root).pitchesRaisedAboveRoot)
+//      return $0.raiseAboveDegreesIfAbsent(type.getBaseChord(root: root).pitchesRaisedAboveRoot)
+      return $0.raiseAboveDegreesIfAbsent(getBaseChord().pitchesRaisedAboveRoot)
+
     }
   }
   
@@ -77,7 +79,7 @@ struct Chord: ChordProtocol, Identifiable {
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
     
-    setNotesAndEnharms()
+    setNotesAndNoteCount()
   }
   
   init(_ rootKey: RootGen, _ type: ChordType, startingOctave: Int = 4) {
@@ -89,7 +91,7 @@ struct Chord: ChordProtocol, Identifiable {
     self.letter = root.key.letter
     self.accidental = RootAcc(root.key.accidental)
     
-    setNotesAndEnharms()
+    setNotesAndNoteCount()
   }
   
   //  MARK: instance methods
@@ -97,13 +99,17 @@ struct Chord: ChordProtocol, Identifiable {
     return Chord(rootNum: NoteNum(root.basePitchNum.plusDeg(offset)), type: type, enharm: enharm)
   }
   
-  mutating func setNotesAndEnharms() {
-    self.allNotes = type.setNotesAndEnharms(root: root, rootKey: rootKey)
+  mutating func setNotesAndNoteCount() {
+    self.allNotes = type.setNotes(root: root, rootKey: rootKey)
     self.noteCount = allNotes.count
   }
   
   mutating func refresh() {
     self = Chord(RootGen(letter, accidental), type)
+  }
+  
+  func getBaseChord() -> Chord {
+    return Chord(rootKey, type.baseChordType)
   }
   
   func containingChords() -> [Chord] {

@@ -1,5 +1,5 @@
 //
-//  Maj2.swift
+//  Maj9.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 2/4/22.
