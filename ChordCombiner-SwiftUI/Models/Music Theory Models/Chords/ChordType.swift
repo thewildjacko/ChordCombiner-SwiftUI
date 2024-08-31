@@ -75,7 +75,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case mi11_b5b13 = "mi11(♭5♭13)"          // [0, 2, 3, 5, 6, 8, 10] (locrian ♯2)
   case mi7_b5b9 = "mi7(♭5♭9)"              // [0, 1, 3, 6, 10]
   case mi11_b5b9 = "mi11(♭5♭9)"            // [0, 1, 3, 5, 6, 10]
-  case mi7_b5b13 = "mi7(♭5♭13)"            // [0, 1, 3, 6, 8, 10]
+  case mi7_b5b13 = "mi7(♭5♭13)"            // [0, 3, 6, 8, 10]
   case locrian = " locrian"                // [0, 1, 3, 5, 6, 8, 10] (mi11(♭5♭9♭13))
   case mi13_b5 = "mi13(♭5)"                // [0, 2, 3, 5, 6, 9, 10] (dorian ♭5 / 2nd mode harmonic major)
   case mi13_b5_omit9 = "mi13(♭5 omit9)"    // [0, 3, 5, 6, 9, 10]
@@ -94,7 +94,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case dim11 = "˚11"                                    // [0, 2, 3, 5, 6, 9]
   case dim7_add11 = "˚7(add11)"                         // [0, 3, 5, 6, 9]
   case dim11_b13 = "˚11(♭13)"                           // [0, 2, 3, 5, 6, 8, 9]
-  case dim11_b13_omit9 = "˚11(♭13 omit9)"               // [0, 2, 3, 5, 6, 8, 9]
+  case dim11_b13_omit9 = "˚11(♭13 omit9)"               // [0, 3, 5, 6, 8, 9]
   case dim11_add_ma7 = "˚11(add∆7)"                     // [0, 2, 3, 5, 6, 9, 11]
   case dim11_add_ma7_omit9 = "˚11(add∆7 omit9)"         // [0, 3, 5, 6, 9, 11]
   case dim11_b13_add_ma7 = "˚11(♭13add∆7)"              // [0, 2, 3, 5, 6, 8, 9, 11]
@@ -603,7 +603,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey)]
     case .dim11_b13: // [0, 2, 3, 5, 6, 8, 9]
       return [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
-    case .dim11_b13_omit9: // [0, 2, 3, 5, 6, 8, 9]
+    case .dim11_b13_omit9: // [0, 3, 5, 6, 8, 9]
       return [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
     case .dim11_add_ma7: // [0, 2, 3, 5, 6, 9, 11]
       return [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey), Maj7(rootKey)]
