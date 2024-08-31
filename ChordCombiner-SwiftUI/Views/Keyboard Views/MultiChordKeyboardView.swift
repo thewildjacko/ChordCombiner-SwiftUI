@@ -167,9 +167,13 @@ struct MultiChordKeyboardView: View {
     .padding()
     .onAppear(perform: {
       setAndHighlightChords(initial: true)
+      ChordFactory.compareDegreesInC()
     })
     .onChange(of: multiChord.lowerChord) {
       setAndHighlightChords(initial: false)
+//      print("allNotes: ", multiChord.lowerChord.allNotes)
+//      multiChord.lowerChord.setNotesByDegree()
+//      print(multiChord.lowerChord.allNotesByDegree)
     }
     .onChange(of: multiChord.upperChord) {
       setAndHighlightChords(initial: false)

@@ -26,6 +26,17 @@ struct ChordFactory {
     return chords
   }
   
+  static var allChordsInC: [Chord] {
+    var chords: [Chord] = []
+    let root: RootGen = .c
+    
+    for type in ChordType.allCases {
+      chords.append(Chord(root, type))
+    }
+    
+    return chords
+  }
+  
   //  MARK: static methods
   static func combineChords(_ lowerChord: Chord, _ upperChord: Chord) -> (resultChord: Chord?, equivalentChords: [Chord]) {
     var degrees: [Int] {
@@ -48,6 +59,25 @@ struct ChordFactory {
     
     return (resultChord, chords)
     
+  }
+  
+  static func compareDegreesInC() {
+    var count = 0
+    for chord in allChordsInC {
+      let allNotesByDegree = chord.allNotesByDegree.map { $0.basePitchNum }
+      if chord.degrees != allNotesByDegree {
+        count += 1
+        print(count)
+        print(chord.name)
+        print(chord.type.degreeTags.map { $0.rawValue } )
+        print("all notes: ", chord.allNotes)
+        print(chord.degrees)
+        print("all notes by Degree: ", chord.allNotesByDegree)
+        print(allNotesByDegree)
+        print("----------")
+      }
+    }
+    print(count)
   }
   
   static func deltaChords(_ chord: Chord, delta: Int) -> [Chord] {

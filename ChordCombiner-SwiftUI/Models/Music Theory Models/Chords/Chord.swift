@@ -43,6 +43,7 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   var allNotes: [Note] = []
+  var allNotesByDegree: [Note] = []
   var noteCount: Int = 0
   
   var degrees: [Int] {
@@ -101,7 +102,13 @@ struct Chord: ChordProtocol, Identifiable {
   
   mutating func setNotesAndNoteCount() {
     self.allNotes = type.setNotes(root: root, rootKey: rootKey)
+    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
     self.noteCount = allNotes.count
+  }
+  
+  mutating func setNotesByDegree() {
+    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
+//    print("notesByDegree: ", allNotesByDegree)
   }
   
   mutating func refresh() {

@@ -4,6 +4,12 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
+
+
+let ma = ChordType.ma
+ma.degreeTags
+ma.setNotesByDegree(root: Root(.c), rootKey: RootGen(.c))
+/*
 print(Chord(.c, .ma).degrees.toSet().subtracting(Chord(.c, .mi7).degrees.toSet()))
 print(Chord(.c, .mi7).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
 print(Chord(.c, .mi).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
@@ -176,4 +182,5 @@ let chordsWithCUST = chordsWithCFiltered.filter { $0.upperDegs == c.degrees && !
 //  let slashName = "\(chord.upStrctTriad.name)/\(chord.baseChord.name)"
 //  print("| [[", chord.name, "]] | [[", slashName, "]] |", separator: "")
 //}
+*/
 */
