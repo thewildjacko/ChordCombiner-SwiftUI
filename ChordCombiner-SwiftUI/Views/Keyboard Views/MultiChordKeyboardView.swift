@@ -171,9 +171,9 @@ struct MultiChordKeyboardView: View {
     })
     .onChange(of: multiChord.lowerChord) {
       setAndHighlightChords(initial: false)
-//      print("allNotes: ", multiChord.lowerChord.allNotes)
-//      multiChord.lowerChord.setNotesByDegree()
-//      print(multiChord.lowerChord.allNotesByDegree)
+      print("allNotes: ", multiChord.lowerChord.allNotes)
+      multiChord.lowerChord.setNotesByDegree()
+      print(multiChord.lowerChord.allNotesByDegree)
     }
     .onChange(of: multiChord.upperChord) {
       setAndHighlightChords(initial: false)
