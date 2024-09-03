@@ -4,8 +4,6 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
-
-
 let ma = ChordType.ma
 ma.degreeTags
 ma.setNotesByDegree(root: Root(.c), rootKey: RootGen(.c))

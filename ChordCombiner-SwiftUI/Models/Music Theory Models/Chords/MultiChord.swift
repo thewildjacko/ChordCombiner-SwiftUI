@@ -7,10 +7,17 @@
 
 import SwiftUI
 
-struct MultiChord {
-  var lowerChord: Chord
-  var upperChord: Chord
-  var resultChord: Chord?
+class MultiChord: ObservableObject {
+  @Published var lowerChord: Chord
+  @Published var upperChord: Chord
+  @Published var resultChord: Chord?
+  
+  init(lowerChord: Chord, upperChord: Chord, resultChord: Chord? = nil) {
+//    print("initializing MultiChord (lowerChord: \(lowerChord.name), upperChord: \(upperChord.name))")
+    self.lowerChord = lowerChord
+    self.upperChord = upperChord
+    self.resultChord = resultChord
+  }
   
   var lowerRoot: Root {
     lowerChord.root
@@ -56,77 +63,11 @@ struct MultiChord {
     upperChord.raisedRoot
   }
   
-//  mutating func setAndHighlightChords(initial: Bool, lowerKeyboard: inout Keyboard, upperKeyboard: inout Keyboard, combinedKeyboard: inout Keyboard, multiChord: inout MultiChord, color: Color, secondColor: Color) {
-//    self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
-//    
-//    if initial {
-//      self.resultChord = ChordFactory.combineChords(self.lowerChord, self.upperChord).resultChord
-//      ChordHighlighter.highlightStacked(
-//        multiChord: multiChord,
-//        keyboard: &lowerKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: true
-//      )
-//      ChordHighlighter.highlightStacked(
-//        multiChord: multiChord,
-//        keyboard: &upperKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: false
-//      )
-//      
-//      ChordHighlighter.highlightStackedCombinedOrSplit(
-//        multiChord: self,
-//        keyboard: &combinedKeyboard,
-//        color: color,
-//        secondColor: secondColor
-//      )
-//    } else {
-//      ChordHighlighter.highlightStacked(
-//        multiChord: multiChord,
-//        keyboard: &lowerKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: true
-//      )
-//      ChordHighlighter.highlightStacked(
-//        multiChord: multiChord,
-//        keyboard: &upperKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: false
-//      )
-//      
-//      ChordHighlighter.highlightStacked(
-//        multiChord: self,
-//        keyboard: &lowerKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: true
-//      )
-//      ChordHighlighter.highlightStacked(
-//        multiChord: self,
-//        keyboard: &upperKeyboard,
-//        color: color,
-//        secondColor: secondColor,
-//        isLower: false
-//      )
-//      
-//      ChordHighlighter.highlightStackedCombinedOrSplit(
-//        multiChord: multiChord,
-//        keyboard: &combinedKeyboard,
-//        color: color,
-//        secondColor: secondColor
-//      )
-//      ChordHighlighter.highlightStackedCombinedOrSplit(
-//        multiChord: self,
-//        keyboard: &combinedKeyboard,
-//        color: color,
-//        secondColor: secondColor
-//      )
-//    }
-//    
-//    multiChord = self
-//  }
+  var lowerStackedPitches: [Int] {
+    lowerChord.stackedPitches
+  }
+  
+  var upperStackedPitches: [Int] {
+    upperChord.stackedPitches
+  }
 }

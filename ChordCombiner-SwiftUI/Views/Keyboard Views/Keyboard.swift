@@ -163,34 +163,60 @@ struct Keyboard: View, Identifiable {
   }
   
   mutating func resize(geoWidth: CGFloat) -> Keyboard {
-    return Keyboard(/*title: title, */geoWidth: geoWidth, keyCount: keyCount, initialKey: initialKeyType, startingOctave: startingOctave, octaves: octaves)
+    return Keyboard(
+      geoWidth: geoWidth,
+      keyCount: keyCount,
+      initialKey: initialKeyType,
+      startingOctave: startingOctave,
+      octaves: octaves
+    )
   }
   
-  mutating func highlightKeys<T: ShapeStyle>(degs: [Int], degs2: [Int]? = nil, color: T, color2: T? = nil) {
-    if degs2 == nil {
-      degs.toggleHighlightIfSelected(keys: &keys, color: color)
-    } else if color2 == nil {
-      degs.toggleHighlightIfSelected(keys: &keys, color: color)
-      
-      if let degs2 = degs2 {
-        degs2.toggleHighlightIfSelected(keys: &keys, color: color)
-      }
+  mutating func highlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
+    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+  }
+  
+  mutating func highlightKeysSplit<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T, secondColor: T) {
+    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+    secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
+  }
+  
+  mutating func highlightKeysSplit_SameColor<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T) {
+    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+    secondDegs.toggleHighlightIfSelected(keys: &keys, color: color)
+  }
+  
+  mutating func highlightKeysCombined(degs: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
+    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+    secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
+    commonToneDegs.toggleHighlightIfSelected(keys: &keys, color: LinearGradient.commonTone(secondColor, color))
+  }
+  
+  mutating func highlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, color: Color, secondColor: Color) {
+    if resultChordExists {
+      highlightKeysCombined(
+        degs: onlyInLower,
+        secondDegs: onlyInUpper,
+        commonToneDegs: commonTones,
+        color: color,
+        secondColor: secondColor
+      )
     } else {
-      if let degs2 = degs2, let color2 = color2 {
-        degs.toggleHighlightIfSelected(keys: &keys, color: color)
-        degs2.toggleHighlightIfSelected(keys: &keys, color: color2)
-      }
+      let (lowerPitches, upperPitches) = VoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
+      highlightKeysSplit(
+        degs: lowerPitches,
+        secondDegs: upperPitches,
+        color: color,
+        secondColor: secondColor
+      )
     }
   }
+
   
   //  MARK: body
   var body: some View {
     ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
-//        Text(title)
-//          .font(.title)
-//          .fontWeight(.heavy)
-//          .foregroundStyle(Color("titleColor"))
         ZStack {
           ForEach(keys) { key in
             key

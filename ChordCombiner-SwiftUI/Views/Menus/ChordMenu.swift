@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChordMenu: View {
+  @EnvironmentObject var multiChord: MultiChord
   var text: String
   @Binding var chord: Chord
   @Binding var keyboard: Keyboard
@@ -49,6 +50,22 @@ struct ChordMenu: View {
 }
 
 #Preview {
-  ChordMenu(text: "Lower Chord", chord: Binding.constant(Chord(.c, .ma13_sh11)),
-            keyboard: Binding.constant(Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2))/*, chordStore: ChordStore()*/)
+  ChordMenu(
+    text: "Lower Chord",
+    chord: Binding.constant(Chord(.c, .ma13_sh11)),
+    keyboard: Binding.constant(
+      Keyboard(
+        geoWidth: 187,
+        initialKey: .C,
+        startingOctave: 4,
+        octaves: 2)
+    )
+    /*, chordStore: ChordStore()*/
+  )
+  .environmentObject(
+    MultiChord(
+      lowerChord: Chord(.c, .ma7, startingOctave: 4),
+      upperChord: Chord(.d, .ma, startingOctave: 4)
+    )
+  )
 }

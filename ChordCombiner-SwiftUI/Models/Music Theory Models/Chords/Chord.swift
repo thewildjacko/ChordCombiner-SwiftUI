@@ -57,12 +57,9 @@ struct Chord: ChordProtocol, Identifiable {
   var convertedDegrees: [Int] = []
   
   var stackedPitches: [Int] {
-//    print("stacked Pitches")
     return pitchesRaisedAboveRoot.map {
-//      print("pitch: \($0)")
-//      return $0.raiseAboveDegreesIfAbsent(type.getBaseChord(root: root).pitchesRaisedAboveRoot)
-      return $0.raiseAboveDegreesIfAbsent(getBaseChord().pitchesRaisedAboveRoot)
-
+       $0.raiseAboveDegreesIfAbsent(getBaseChord()
+        .pitchesRaisedAboveRoot)
     }
   }
   
@@ -105,11 +102,13 @@ struct Chord: ChordProtocol, Identifiable {
 //    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
     self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
     self.noteCount = allNotes.count
+    
+//    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
     self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
-    print("notesByDegree: ", allNotesByDegree)
+//    print("notesByDegree: ", allNotesByDegree)
   }
   
   mutating func refresh() {

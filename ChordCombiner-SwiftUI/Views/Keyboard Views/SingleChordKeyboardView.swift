@@ -9,19 +9,18 @@ import SwiftUI
 
 struct SingleChordKeyboardView: View {
   var text: String
-  @Binding var multiChord: MultiChord
+  @Binding var chord: Chord
   @Binding var keyboard: Keyboard
   var color: Color
-  var isLower: Bool
+  
     
   var body: some View {
     VStack(spacing: 20) {
       ChordMenu(
         text: text,
-        chord: isLower ? $multiChord.lowerChord : $multiChord.upperChord,
+        chord: $chord,
         keyboard: $keyboard
       )
-//      keyboard
     }
     
   }
@@ -30,14 +29,9 @@ struct SingleChordKeyboardView: View {
 #Preview {
   SingleChordKeyboardView(
     text: "Select Chord:",
-    multiChord: Binding.constant(
-      MultiChord(
-        lowerChord: Chord(.c, .ma7, startingOctave: 4),
-        upperChord: Chord(.d, .ma, startingOctave: 4)
-      )
-    ),
+    chord: Binding.constant(Chord(.c, .ma)),
     keyboard: Binding.constant(Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2)),
-    color: .yellow,
-    isLower: true
+    color: .yellow
   )
+  
 }

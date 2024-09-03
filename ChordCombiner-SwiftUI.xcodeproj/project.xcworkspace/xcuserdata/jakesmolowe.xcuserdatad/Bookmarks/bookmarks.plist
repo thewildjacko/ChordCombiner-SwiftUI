@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>41</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>40</string>
+					<key>Timestamp</key>
+					<string>746989266.464846</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>  // TODO: add more dominant chords
+</string>
+				<key>leading</key>
+				<string>  case dominant13_sh11 = "13(♯11)"                       // [0, 2, 4, 6, 7, 9, 10]
+  case dominant13_sh11_omit9 = "13(♯11 omit9)"           // [0, 4, 6, 7, 9, 10]
+</string>
+				<key>trailing</key>
+				<string>  
+  // MARK: Major 6
+  case ma6 = "6"                           // [0, 4, 7, 9]
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>393</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>392</string>
+					<key>Timestamp</key>
+					<string>746989332.61537</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>      // TODO: add dominant baseChordTypes
+</string>
+				<key>leading</key>
+				<string>      return .ma7
+      // Extended Dominant 7th Chords
+</string>
+				<key>trailing</key>
+				<string>    case .dominant9, .dominant13, .dominant7_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9:
+      return .dominant7
+      // Extended Major 6th chords
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>781</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>780</string>
+					<key>Timestamp</key>
+					<string>746989332.6154211</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>      // TODO: add dominant allNotes
+</string>
+				<key>leading</key>
+				<string>      // [0, 2, 4, 7, 9, 10]
+      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+</string>
+				<key>trailing</key>
+				<string>    case .dominant13_sh11:
+      // [0, 2, 4, 6, 7, 9, 10]
+      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>429</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>428</string>
+					<key>Timestamp</key>
+					<string>746989332.61543</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>  // TODO: add dominant degree tags
+</string>
+				<key>leading</key>
+				<string>  }
+  
+</string>
+				<key>trailing</key>
+				<string>  var hasMinor9th: HasDegree? {
+    switch self {
+    case .ma6_b9, .mi7_b9, .mi11_b9, .mi13_b9, .mi7_b9b13, .ma6_b9sh11, .mi11_b9b13, .mi7_b5b9, .mi11_b5b9, .locrian:
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>75</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>74</string>
+					<key>Timestamp</key>
+					<string>746989266.464782</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>  // TODO: add mi11_b13(omit9)             // [0, 3, 5, 7, 8, 10]
+</string>
+				<key>leading</key>
+				<string>  case mi9_b13 = "mi9(♭13)"                // [0, 2, 3, 7, 8, 10]
+  case mi11_b13 = "mi11(♭13)"              // [0, 2, 3, 5, 7, 8, 10]
+</string>
+				<key>trailing</key>
+				<string>  
+  // MARK: mi7(♭5)
+  case mi7_b5 = "mi7(♭5)"                  // [0, 3, 6, 10]
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>

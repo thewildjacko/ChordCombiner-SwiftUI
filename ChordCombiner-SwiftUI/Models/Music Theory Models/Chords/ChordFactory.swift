@@ -39,9 +39,7 @@ struct ChordFactory {
   
   //  MARK: static methods
   static func combineChords(_ lowerChord: Chord, _ upperChord: Chord) -> (resultChord: Chord?, equivalentChords: [Chord]) {
-    var degrees: [Int] {
-      return lowerChord.degrees + upperChord.degrees
-    }
+    let degrees: [Int] = lowerChord.degrees + upperChord.degrees
     
     var resultChord: Chord? = nil
     
@@ -58,23 +56,40 @@ struct ChordFactory {
     }
     
     return (resultChord, chords)
+  }
+  
+  static func combineChordDegrees(_ lowerChordDegrees: [Int], _ upperChordDegrees: [Int], lowerRoot: Root, upperRoot: Root) -> Chord? {
+//    print("Combining degrees")
+    let degrees: [Int] = lowerChordDegrees + upperChordDegrees
+    let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.basePitchNum) }.sorted()
     
+//    print(lowerChordDegrees, upperChordDegrees, degrees, degreesInC)
+    
+    let type = ChordType.getChordTypeByDegrees(degrees: degreesInC)
+    if let type = type {
+      return Chord(lowerRoot.rootKey, type)
+    } else {
+      return nil
+    }
   }
   
   static func compareDegreesInC() {
     var count = 0
     for chord in allChordsInC {
-      let allNotesByDegree = chord.allNotesByDegree.map { $0.basePitchNum }
-      if chord.degrees != allNotesByDegree {
+//      let allNotesByDegree = chord.allNotesByDegree.map { $0.basePitchNum }
+//      if chord.degrees != allNotesByDegree {
+      if chord.type.degrees != chord.type.degreesInC {
         count += 1
         print(count)
         print(chord.name)
-        print(chord.type.degreeTags.map { $0.rawValue } )
-        print("all notes: ", chord.allNotes)
-        print(chord.degrees)
-        print("all notes by Degree: ", chord.allNotesByDegree)
-        print(allNotesByDegree)
-        print("----------")
+        print("degrees:", chord.type.degrees)
+        print("degrees in C:", chord.type.degreesInC)
+//        print(chord.type.degreeTags.map { $0.rawValue } )
+//        print("all notes: ", chord.allNotes)
+//        print(chord.degrees)
+//        print("all notes by Degree: ", chord.allNotesByDegree)
+//        print(allNotesByDegree)
+//        print("----------")
       }
     }
     print(count)
