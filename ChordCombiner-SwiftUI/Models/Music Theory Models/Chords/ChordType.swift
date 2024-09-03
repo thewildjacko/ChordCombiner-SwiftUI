@@ -8,10 +8,6 @@
 import Foundation
 
 enum ChordType: String, CaseIterable, Identifiable, Comparable {
-  static func < (lhs: ChordType, rhs: ChordType) -> Bool {
-    return lhs.rawValue < rhs.rawValue
-  }
-  
   var id: Self {
     return self
   }
@@ -35,12 +31,14 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case ma13_sh11_omit9 = "ma13(♯11 omit9)"   // [0, 4, 6, 7, 9, 11]
   
   // MARK: Dominant 7th Chords
-  case dominant7 = "7"                       // [0, 4, 7, 10]
-  case dominant7_sh11 = "7(♯11)"             // [0, 4, 6, 7, 10]
-  case dominant9 = "9"                       // [0, 2, 4, 7, 10]
-  case dominant9_sh11 = "9(♯11)"             // [0, 2, 4, 6, 7, 10]
-  case dominant13 = "13"                     // [0, 2, 4, 7, 9, 10]
-  case dominant13_sh11 = "13(♯11)"           // [0, 2, 4, 6, 7, 9, 10]
+  case dominant7 = "7"                                   // [0, 4, 7, 10]
+  case dominant7_sh11 = "7(♯11)"                         // [0, 4, 6, 7, 10]
+  case dominant9 = "9"                                   // [0, 2, 4, 7, 10]
+  case dominant9_sh11 = "9(♯11)"                         // [0, 2, 4, 6, 7, 10]
+  case dominant13 = "13"                                 // [0, 2, 4, 7, 9, 10]
+  case dominant13_sh11 = "13(♯11)"                       // [0, 2, 4, 6, 7, 9, 10]
+  case dominant13_sh11_omit9 = "13(♯11 omit9)"           // [0, 4, 6, 7, 9, 10]
+  // TODO: add more dominant chords
   
   // MARK: Major 6
   case ma6 = "6"                           // [0, 4, 7, 9]
@@ -74,6 +72,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case mi7_b13 = "mi7(♭13)"                // [0, 3, 7, 8, 10]
   case mi9_b13 = "mi9(♭13)"                // [0, 2, 3, 7, 8, 10]
   case mi11_b13 = "mi11(♭13)"              // [0, 2, 3, 5, 7, 8, 10]
+  // TODO: add mi11_b13(omit9)             // [0, 3, 5, 7, 8, 10]
   
   // MARK: mi7(♭5)
   case mi7_b5 = "mi7(♭5)"                  // [0, 3, 6, 10]
@@ -108,6 +107,280 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   case dim11_b13_add_ma7 = "˚11(♭13add∆7)"              // [0, 2, 3, 5, 6, 8, 9, 11]
   case dim11_b13_add_ma7_omit9 = "˚11(♭13add∆7 omit9)"  // [0, 3, 5, 6, 8, 9, 11]
   
+  var degrees: [Int] {
+    switch self {
+    case .ma:                              [0, 4, 7]
+    case .mi:                              [0, 3, 7]
+    case .aug:                             [0, 4, 8]
+    case .dim:                             [0, 3, 6]
+    case .sus4:                            [0, 5, 7]
+    case .sus2:                            [0, 2, 7]
+    
+    // MARK: Major Lydian 7th Chords
+    case .ma7:                             [0, 4, 7, 11]
+    case .ma9:                             [0, 2, 4, 7, 11]
+    case .ma13:                            [0, 2, 4, 7, 9, 11]
+    case .ma13_omit9:                      [0, 4, 7, 9, 11]
+    case .ma7_sh11:                        [0, 4, 6, 7, 11]
+    case .ma9_sh11:                        [0, 2, 4, 6, 7, 11]
+    case .ma13_sh11:                       [0, 2, 4, 6, 7, 9, 11]
+    case .ma13_sh11_omit9:                 [0, 4, 6, 7, 9, 11]
+    
+    // MARK: Dominant 7th Chords
+    case .dominant7:                       [0, 4, 7, 10]
+    case .dominant7_sh11:                  [0, 4, 6, 7, 10]
+    case .dominant9:                       [0, 2, 4, 7, 10]
+    case .dominant9_sh11:                  [0, 2, 4, 6, 7, 10]
+    case .dominant13:                      [0, 2, 4, 7, 9, 10]
+    case .dominant13_sh11:                 [0, 2, 4, 6, 7, 9, 10]
+    case .dominant13_sh11_omit9:           [0, 4, 6, 7, 9, 10]
+    // TODO: add more dominant chords
+    
+    // MARK: Major 6
+    case .ma6:                             [0, 4, 7, 9]
+    case .ma6_sh9:                         [0, 3, 4, 7, 9]
+    case .ma6_b9:                          [0, 1, 4, 7, 9]
+    case .ma6_sh9sh11:                     [0, 3, 4, 6, 7, 9]
+    case .ma6_b9sh11:                      [0, 1, 4, 6, 7, 9]
+    case .ma6_sh11:                        [0, 4, 6, 7, 9]
+    case .ma6_9:                           [0, 2, 4, 7, 9]
+    case .ma6_9sh11:                       [0, 2, 4, 6, 7, 9]
+    
+    // MARK: Minor Dorian 7th Chords
+    case .mi7:                             [0, 3, 7, 10]
+    case .mi9:                             [0, 2, 3, 7, 10]
+    case .mi11:                            [0, 2, 3, 5, 7, 10]
+    case .mi11_omit9:                      [0, 3, 5, 7, 10]
+    case .mi13:                            [0, 2, 3, 5, 7, 9, 10]
+    case .mi13_omit9:                      [0, 3, 5, 7, 9, 10]
+    case .mi13_omit11:                     [0, 2, 3, 7, 9, 10]
+    case .mi7_add13:                       [0, 3, 7, 9, 10]
+    
+    // MARK: Phrygian
+    case .mi7_b9:                          [0, 1, 3, 7, 10]
+    case .mi7_b9b13:                       [0, 1, 3, 7, 8, 10]
+    case .mi11_b9:                         [0, 1, 3, 5, 7, 10]
+    case .mi11_b9b13:                      [0, 1, 3, 5, 7, 8, 10]
+    case .mi13_b9:                         [0, 1, 3, 5, 7, 9, 10]
+    
+    // MARK: Min(♭13)
+    case .mi_b6:                           [0, 3, 7, 8]
+    case .mi7_b13:                         [0, 3, 7, 8, 10]
+    case .mi9_b13:                         [0, 2, 3, 7, 8, 10]
+    case .mi11_b13:                        [0, 2, 3, 5, 7, 8, 10]
+    // TODO: add mi11_b13(omit9         // [0, 3, 5, 7, 8, 10]
+    
+    // MARK: mi7(♭5)
+    case .mi7_b5:                          [0, 3, 6, 10]
+    case .mi9_b5:                          [0, 2, 3, 6, 10]
+    case .mi7_b5add11:                     [0, 3, 5, 6, 10]
+    case .mi11_b5:                         [0, 2, 3, 5, 6, 10]
+    case .mi11_b5b13:                      [0, 2, 3, 5, 6, 8, 10]
+    case .mi7_b5b9:                        [0, 1, 3, 6, 10]
+    case .mi11_b5b9:                       [0, 1, 3, 5, 6, 10]
+    case .mi7_b5b13:                       [0, 3, 6, 8, 10]
+    case .locrian:                         [0, 1, 3, 5, 6, 8, 10]
+    case .mi13_b5:                         [0, 2, 3, 5, 6, 9, 10]
+    case .mi13_b5_omit9:                   [0, 3, 5, 6, 9, 10]
+    case .mi13_b5_omit11:                  [0, 2, 3, 6, 9, 10]
+    case .mi7_b5add13:                     [0, 3, 6, 9, 10]
+    
+    // MARK: diminished
+    case .dim7:                            [0, 3, 6, 9]
+    case .dim7_b13:                        [0, 3, 6, 8, 9]
+    case .dim7_add_ma7:                    [0, 3, 6, 9, 11]
+    case .dim7_b13_add_ma7:                [0, 3, 6, 8, 9, 11]
+    case .dim9:                            [0, 2, 3, 6, 9]
+    case .dim9_add_ma7:                    [0, 2, 3, 6, 9, 11]
+    case .dim9_b13:                        [0, 2, 3, 6, 8, 9]
+    case .dim9_b13_add_ma7:                [0, 2, 3, 6, 8, 9, 11]
+    case .dim11:                           [0, 2, 3, 5, 6, 9]
+    case .dim7_add11:                      [0, 3, 5, 6, 9]
+    case .dim11_b13:                       [0, 2, 3, 5, 6, 8, 9]
+    case .dim11_b13_omit9:                 [0, 3, 5, 6, 8, 9]
+    case .dim11_add_ma7:                   [0, 2, 3, 5, 6, 9, 11]
+    case .dim11_add_ma7_omit9:             [0, 3, 5, 6, 9, 11]
+    case .dim11_b13_add_ma7:               [0, 2, 3, 5, 6, 8, 9, 11]
+    case .dim11_b13_add_ma7_omit9:         [0, 3, 5, 6, 8, 9, 11]
+    }
+  }
+  
+  init(degrees: [Int]) {
+    switch degrees {
+    case [0, 4, 7]:
+     self = .ma
+    case [0, 3, 7]:
+     self = .mi
+    case [0, 4, 8]:
+     self = .aug
+    case [0, 3, 6]:
+     self = .dim
+    case [0, 5, 7]:
+     self = .sus4
+    case [0, 2, 7]:
+     self = .sus2
+    
+    // MARK: Major Lydian 7th Chords
+    case [0, 4, 7, 11]:
+     self = .ma7
+    case [0, 2, 4, 7, 11]:
+     self = .ma9
+    case [0, 2, 4, 7, 9, 11]:
+     self = .ma13
+    case [0, 4, 7, 9, 11]:
+     self = .ma13_omit9
+    case [0, 4, 6, 7, 11]:
+     self = .ma7_sh11
+    case [0, 2, 4, 6, 7, 11]:
+     self = .ma9_sh11
+    case [0, 2, 4, 6, 7, 9, 11]:
+     self = .ma13_sh11
+    case [0, 4, 6, 7, 9, 11]:
+     self = .ma13_sh11_omit9
+    
+    // MARK: Dominant 7th Chords
+    case [0, 4, 7, 10]:
+     self = .dominant7
+    case [0, 4, 6, 7, 10]:
+     self = .dominant7_sh11
+    case [0, 2, 4, 7, 10]:
+     self = .dominant9
+    case [0, 2, 4, 6, 7, 10]:
+     self = .dominant9_sh11
+    case [0, 2, 4, 7, 9, 10]:
+     self = .dominant13
+    case [0, 2, 4, 6, 7, 9, 10]:
+     self = .dominant13_sh11
+    case [0, 4, 6, 7, 9, 10]:
+     self = .dominant13_sh11_omit9
+    // TODO: add more dominant chords
+    
+    // MARK: Major 6
+    case [0, 4, 7, 9]:
+     self = .ma6
+    case [0, 3, 4, 7, 9]:
+     self = .ma6_sh9
+    case [0, 1, 4, 7, 9]:
+     self = .ma6_b9
+    case [0, 3, 4, 6, 7, 9]:
+     self = .ma6_sh9sh11
+    case [0, 1, 4, 6, 7, 9]:
+     self = .ma6_b9sh11
+    case [0, 4, 6, 7, 9]:
+     self = .ma6_sh11
+    case [0, 2, 4, 7, 9]:
+     self = .ma6_9
+    case [0, 2, 4, 6, 7, 9]:
+     self = .ma6_9sh11
+    
+    // MARK: Minor Dorian 7th Chords
+    case [0, 3, 7, 10]:
+     self = .mi7
+    case [0, 2, 3, 7, 10]:
+     self = .mi9
+    case [0, 2, 3, 5, 7, 10]:
+     self = .mi11
+    case [0, 3, 5, 7, 10]:
+     self = .mi11_omit9
+    case [0, 2, 3, 5, 7, 9, 10]:
+     self = .mi13
+    case [0, 3, 5, 7, 9, 10]:
+     self = .mi13_omit9
+    case [0, 2, 3, 7, 9, 10]:
+     self = .mi13_omit11
+    case [0, 3, 7, 9, 10]:
+     self = .mi7_add13
+    
+    // MARK: Phrygian
+    case [0, 1, 3, 7, 10]:
+     self = .mi7_b9
+    case [0, 1, 3, 7, 8, 10]:
+     self = .mi7_b9b13
+    case [0, 1, 3, 5, 7, 10]:
+     self = .mi11_b9
+    case [0, 1, 3, 5, 7, 8, 10]:
+     self = .mi11_b9b13
+    case [0, 1, 3, 5, 7, 9, 10]:
+     self = .mi13_b9
+    
+    // MARK: Min(♭13)
+    case [0, 3, 7, 8]:
+     self = .mi_b6
+    case [0, 3, 7, 8, 10]:
+     self = .mi7_b13
+    case [0, 2, 3, 7, 8, 10]:
+     self = .mi9_b13
+    case [0, 2, 3, 5, 7, 8, 10]:
+     self = .mi11_b13
+    // TODO: add mi11_b13(omit9         // [0, 3, 5, 7, 8, 10]
+    
+    // MARK: mi7(♭5)
+    case [0, 3, 6, 10]:
+     self = .mi7_b5
+    case [0, 2, 3, 6, 10]:
+     self = .mi9_b5
+    case [0, 3, 5, 6, 10]:
+     self = .mi7_b5add11
+    case [0, 2, 3, 5, 6, 10]:
+     self = .mi11_b5
+    case [0, 2, 3, 5, 6, 8, 10]:
+     self = .mi11_b5b13
+    case [0, 1, 3, 6, 10]:
+     self = .mi7_b5b9
+    case [0, 1, 3, 5, 6, 10]:
+     self = .mi11_b5b9
+    case [0, 3, 6, 8, 10]:
+     self = .mi7_b5b13
+    case [0, 1, 3, 5, 6, 8, 10]:
+     self = .locrian
+    case [0, 2, 3, 5, 6, 9, 10]:
+     self = .mi13_b5
+    case [0, 3, 5, 6, 9, 10]:
+     self = .mi13_b5_omit9
+    case [0, 2, 3, 6, 9, 10]:
+     self = .mi13_b5_omit11
+    case [0, 3, 6, 9, 10]:
+     self = .mi7_b5add13
+    
+    // MARK: diminished
+    case [0, 3, 6, 9]:
+     self = .dim7
+    case [0, 3, 6, 8, 9]:
+     self = .dim7_b13
+    case [0, 3, 6, 9, 11]:
+     self = .dim7_add_ma7
+    case [0, 3, 6, 8, 9, 11]:
+     self = .dim7_b13_add_ma7
+    case [0, 2, 3, 6, 9]:
+     self = .dim9
+    case [0, 2, 3, 6, 9, 11]:
+     self = .dim9_add_ma7
+    case [0, 2, 3, 6, 8, 9]:
+     self = .dim9_b13
+    case [0, 2, 3, 6, 8, 9, 11]:
+     self = .dim9_b13_add_ma7
+    case [0, 2, 3, 5, 6, 9]:
+     self = .dim11
+    case [0, 3, 5, 6, 9]:
+     self = .dim7_add11
+    case [0, 2, 3, 5, 6, 8, 9]:
+     self = .dim11_b13
+    case [0, 3, 5, 6, 8, 9]:
+     self = .dim11_b13_omit9
+    case [0, 2, 3, 5, 6, 9, 11]:
+     self = .dim11_add_ma7
+    case [0, 3, 5, 6, 9, 11]:
+     self = .dim11_add_ma7_omit9
+    case [0, 2, 3, 5, 6, 8, 9, 11]:
+     self = .dim11_b13_add_ma7
+    case [0, 3, 5, 6, 8, 9, 11]:
+     self = .dim11_b13_add_ma7_omit9
+    default:
+      print("Couldn't find a match for degrees: \(degrees)")
+      self = .ma
+    }
+  }
+  
   var baseChordType: ChordType {
     switch self {
       // Triads and unextended + unaltered 7th and 6th chords
@@ -117,7 +390,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     case .ma9, .ma13, .ma13_omit9, .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9:
       return .ma7
       // Extended Dominant 7th Chords
-    case .dominant9, .dominant13, .dominant7_sh11, .dominant9_sh11, .dominant13_sh11:
+      // TODO: add dominant baseChordTypes
+    case .dominant9, .dominant13, .dominant7_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9:
       return .dominant7
       // Extended Major 6th chords
     case .ma6_sh9, .ma6_b9, .ma6_sh9sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9, .ma6_9sh11:
@@ -152,6 +426,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     case major7th
   }
   
+  // TODO: add dominant degree tags
   var hasMinor9th: HasDegree? {
     switch self {
     case .ma6_b9, .mi7_b9, .mi11_b9, .mi13_b9, .mi7_b9b13, .ma6_b9sh11, .mi11_b9b13, .mi7_b5b9, .mi11_b5b9, .locrian:
@@ -171,7 +446,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       // ma7
         .ma7, .ma7_sh11, .ma13_omit9, .ma13_sh11_omit9,
       // dom7
-        .dominant7, .dominant7_sh11,
+        .dominant7, .dominant7_sh11, .dominant13_sh11_omit9,
       // ma6
         .ma6, .ma6_sh11,
       // mi7
@@ -240,7 +515,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       // ma7(♯11)
     case .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9,
       // dom7(♯11)
-        .dominant7_sh11, .dominant9_sh11, .dominant13_sh11,
+        .dominant7_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9,
       // ma6(♯11)
         .ma6_sh9sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9sh11:
       return .sharp4th
@@ -503,10 +778,14 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     case .dominant13:
       // [0, 2, 4, 7, 9, 10]
       allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+      // TODO: add dominant allNotes
     case .dominant13_sh11:
       // [0, 2, 4, 6, 7, 9, 10]
       allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-      
+    case .dominant13_sh11_omit9:
+      // [0, 4, 6, 7, 9, 10]
+      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+    
       // MARK: Major 6
     case .ma6:
       // [0, 4, 7, 9]
@@ -669,6 +948,191 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     let root = Root(.c)
     return setNotes(root: root, rootKey: root.rootKey).map { $0.basePitchNum }
 //    return setNotesByDegree(root: root, rootKey: root.rootKey).map { $0.basePitchNum }
+  }
+  
+  static var allChordDegrees: [[Int]] {
+    ChordType.allCases.map { $0.degrees }
+  }
+  
+  static func < (lhs: ChordType, rhs: ChordType) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+  }
+  
+  static func getChordTypeByDegrees(degrees: [Int]) -> ChordType? {
+    switch degrees {
+    case [0, 4, 7]:
+      return .ma
+    case [0, 3, 7]:
+      return .mi
+    case [0, 4, 8]:
+      return .aug
+    case [0, 3, 6]:
+      return .dim
+    case [0, 5, 7]:
+      return .sus4
+    case [0, 2, 7]:
+      return .sus2
+    
+    // MARK: Major Lydian 7th Chords
+    case [0, 4, 7, 11]:
+      return .ma7
+    case [0, 2, 4, 7, 11]:
+      return .ma9
+    case [0, 2, 4, 7, 9, 11]:
+      return .ma13
+    case [0, 4, 7, 9, 11]:
+      return .ma13_omit9
+    case [0, 4, 6, 7, 11]:
+      return .ma7_sh11
+    case [0, 2, 4, 6, 7, 11]:
+      return .ma9_sh11
+    case [0, 2, 4, 6, 7, 9, 11]:
+      return .ma13_sh11
+    case [0, 4, 6, 7, 9, 11]:
+      return .ma13_sh11_omit9
+    
+    // MARK: Dominant 7th Chords
+    case [0, 4, 7, 10]:
+      return .dominant7
+    case [0, 4, 6, 7, 10]:
+      return .dominant7_sh11
+    case [0, 2, 4, 7, 10]:
+      return .dominant9
+    case [0, 2, 4, 6, 7, 10]:
+      return .dominant9_sh11
+    case [0, 2, 4, 7, 9, 10]:
+      return .dominant13
+    case [0, 2, 4, 6, 7, 9, 10]:
+      return .dominant13_sh11
+    case [0, 4, 6, 7, 9, 10]:
+      return .dominant13_sh11_omit9
+    // TODO: add more dominant chords
+    
+    // MARK: Major 6
+    case [0, 4, 7, 9]:
+      return .ma6
+    case [0, 3, 4, 7, 9]:
+      return .ma6_sh9
+    case [0, 1, 4, 7, 9]:
+      return .ma6_b9
+    case [0, 3, 4, 6, 7, 9]:
+      return .ma6_sh9sh11
+    case [0, 1, 4, 6, 7, 9]:
+      return .ma6_b9sh11
+    case [0, 4, 6, 7, 9]:
+      return .ma6_sh11
+    case [0, 2, 4, 7, 9]:
+      return .ma6_9
+    case [0, 2, 4, 6, 7, 9]:
+      return .ma6_9sh11
+    
+    // MARK: Minor Dorian 7th Chords
+    case [0, 3, 7, 10]:
+      return .mi7
+    case [0, 2, 3, 7, 10]:
+      return .mi9
+    case [0, 2, 3, 5, 7, 10]:
+      return .mi11
+    case [0, 3, 5, 7, 10]:
+      return .mi11_omit9
+    case [0, 2, 3, 5, 7, 9, 10]:
+      return .mi13
+    case [0, 3, 5, 7, 9, 10]:
+      return .mi13_omit9
+    case [0, 2, 3, 7, 9, 10]:
+      return .mi13_omit11
+    case [0, 3, 7, 9, 10]:
+      return .mi7_add13
+    
+    // MARK: Phrygian
+    case [0, 1, 3, 7, 10]:
+      return .mi7_b9
+    case [0, 1, 3, 7, 8, 10]:
+      return .mi7_b9b13
+    case [0, 1, 3, 5, 7, 10]:
+      return .mi11_b9
+    case [0, 1, 3, 5, 7, 8, 10]:
+      return .mi11_b9b13
+    case [0, 1, 3, 5, 7, 9, 10]:
+      return .mi13_b9
+    
+    // MARK: Min(♭13)
+    case [0, 3, 7, 8]:
+      return .mi_b6
+    case [0, 3, 7, 8, 10]:
+      return .mi7_b13
+    case [0, 2, 3, 7, 8, 10]:
+      return .mi9_b13
+    case [0, 2, 3, 5, 7, 8, 10]:
+      return .mi11_b13
+    // TODO: add mi11_b13(omit9         // [0, 3, 5, 7, 8, 10]
+    
+    // MARK: mi7(♭5)
+    case [0, 3, 6, 10]:
+      return .mi7_b5
+    case [0, 2, 3, 6, 10]:
+      return .mi9_b5
+    case [0, 3, 5, 6, 10]:
+      return .mi7_b5add11
+    case [0, 2, 3, 5, 6, 10]:
+      return .mi11_b5
+    case [0, 2, 3, 5, 6, 8, 10]:
+      return .mi11_b5b13
+    case [0, 1, 3, 6, 10]:
+      return .mi7_b5b9
+    case [0, 1, 3, 5, 6, 10]:
+      return .mi11_b5b9
+    case [0, 3, 6, 8, 10]:
+      return .mi7_b5b13
+    case [0, 1, 3, 5, 6, 8, 10]:
+      return .locrian
+    case [0, 2, 3, 5, 6, 9, 10]:
+      return .mi13_b5
+    case [0, 3, 5, 6, 9, 10]:
+      return .mi13_b5_omit9
+    case [0, 2, 3, 6, 9, 10]:
+      return .mi13_b5_omit11
+    case [0, 3, 6, 9, 10]:
+      return .mi7_b5add13
+    
+    // MARK: diminished
+    case [0, 3, 6, 9]:
+      return .dim7
+    case [0, 3, 6, 8, 9]:
+      return .dim7_b13
+    case [0, 3, 6, 9, 11]:
+      return .dim7_add_ma7
+    case [0, 3, 6, 8, 9, 11]:
+      return .dim7_b13_add_ma7
+    case [0, 2, 3, 6, 9]:
+      return .dim9
+    case [0, 2, 3, 6, 9, 11]:
+      return .dim9_add_ma7
+    case [0, 2, 3, 6, 8, 9]:
+      return .dim9_b13
+    case [0, 2, 3, 6, 8, 9, 11]:
+      return .dim9_b13_add_ma7
+    case [0, 2, 3, 5, 6, 9]:
+      return .dim11
+    case [0, 3, 5, 6, 9]:
+      return .dim7_add11
+    case [0, 2, 3, 5, 6, 8, 9]:
+      return .dim11_b13
+    case [0, 3, 5, 6, 8, 9]:
+      return .dim11_b13_omit9
+    case [0, 2, 3, 5, 6, 9, 11]:
+      return .dim11_add_ma7
+    case [0, 3, 5, 6, 9, 11]:
+      return .dim11_add_ma7_omit9
+    case [0, 2, 3, 5, 6, 8, 9, 11]:
+      return .dim11_b13_add_ma7
+    case [0, 3, 5, 6, 8, 9, 11]:
+      return .dim11_b13_add_ma7_omit9
+    default:
+      print("Couldn't find a match for degrees: \(degrees)")
+       return nil
+    }
+
   }
   
   //  func getBaseChord(root: Root) -> Chord {
