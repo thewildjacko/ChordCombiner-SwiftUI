@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Dim5: Note, CustomStringConvertible, KSwitch, Codable {
+struct Dim5: NoteProtocol, CustomStringConvertible, KSwitch, Codable {
   var description: String {
     return "Dim5 (\(noteName))"
   }
@@ -68,7 +68,7 @@ struct Dim5: Note, CustomStringConvertible, KSwitch, Codable {
     self.enharm = root.keyName.enharm
   }
   
-  func enharmSwapped() -> Note {
+  func enharmSwapped() -> NoteProtocol {
     var newEnharm: Enharmonic {
       switch enharm {
       case .flat, .sharp:

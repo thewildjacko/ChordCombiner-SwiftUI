@@ -15,12 +15,12 @@ protocol ChordsAndScales: RootKey {
   var startingOctave: Int { get set }
   var startingPitch: Int { get }
   var name: String { get }
-  var allNotes: [Note] { get set }
+  var allNotes: [NoteProtocol] { get set }
   var noteNames: [String] {get}
   var noteNums: [NoteNum] { get }
   var raisedPitches: [Int] { get }
   var raisedRoot: Int { get }
-  var notesByNoteNum: [NoteNum:Note] { get }
+  var notesByNoteNum: [NoteNum:NoteProtocol] { get }
   var degrees: [Int] { get }
   var degNames: (names: [String], short: [String], long: [String]) { get }
   var degNamesByNoteNum: (names: [NoteNum:String], short: [NoteNum:String], long: [NoteNum:String]) { get }
@@ -46,7 +46,7 @@ extension ChordsAndScales {
     return allNotes.map { $0.noteName }
   }
   
-  var notesByNoteNum: [NoteNum:Note] {
+  var notesByNoteNum: [NoteNum:NoteProtocol] {
     return Dictionary(uniqueKeysWithValues: zip(noteNums, allNotes))
   }
   

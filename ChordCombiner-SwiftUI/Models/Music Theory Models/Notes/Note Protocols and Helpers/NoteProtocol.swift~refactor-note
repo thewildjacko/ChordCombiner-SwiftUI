@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Note Protocol
 
 /// Defines a single note to be used in a scale, mode, chord or pattern
-protocol Note: Codable {
+protocol NoteProtocol: Codable {
   var noteNum: NoteNum { get set } // `NoteNum` enum case of the note
   var basePitchNum: Int { get } // see extension below
   var enharm: Enharmonic { get set } // sets whether note belongs to sharp key or flat key
@@ -19,10 +19,10 @@ protocol Note: Codable {
   var degName: (name: String, short: String, long: String) { get } // degree of the chord or scale
   var key: KeyName { get } // `KeyName` enum case of the note
   var enharmByKey: Enharmonic { get } // sets whether note belongs to sharp key or flat key based on `KeyName`
-  func enharmSwapped() -> Note // flips a note enharmonically
+  func enharmSwapped() -> NoteProtocol // flips a note enharmonically
 }
 
-extension Note {
+extension NoteProtocol {
   /// Returns raw Int value of the note, 0-11
   var basePitchNum: Int {return noteNum.basePitchNum}
   

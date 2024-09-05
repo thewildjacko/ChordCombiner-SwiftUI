@@ -9,7 +9,7 @@
 import Foundation
 
 /// used in chords & scales to define the Tonic
-struct Root: Note, CustomStringConvertible, Codable {
+struct Root: NoteProtocol, CustomStringConvertible, Codable {
   var description: String {
     return "Root (\(noteName))"
   }
@@ -123,7 +123,7 @@ struct Root: Note, CustomStringConvertible, Codable {
     rootKey = RootGen(key)
   }
   
-  func enharmSwapped() -> Note {
+  func enharmSwapped() -> NoteProtocol {
     var newEnharm: Enharmonic {
       switch enharm {
       case .flat, .sharp:

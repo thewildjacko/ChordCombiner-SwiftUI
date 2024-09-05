@@ -42,8 +42,8 @@ struct Chord: ChordProtocol, Identifiable {
     root.noteName + chordName
   }
   
-  var allNotes: [Note] = []
-  var allNotesByDegree: [Note] = []
+  var allNotes: [NoteProtocol] = []
+  var allNotesByDegree: [NoteProtocol] = []
   var noteCount: Int = 0
   
   var degrees: [Int] {

@@ -637,8 +637,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     return optionalDegreeTags.compactMap { $0 }
   }
   
-  func setNotesByDegree(root: Root, rootKey: RootGen) -> [Note] {
-    var allNotes: [Note] = []
+  func setNotesByDegree(root: Root, rootKey: RootGen) -> [NoteProtocol] {
+    var allNotes: [NoteProtocol] = []
     
     //    let timeMeasure = ContinuousClock().measure {
     
@@ -699,8 +699,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     return allNotes
   }
   
-  func setNotes(root: Root, rootKey: RootGen) -> [Note] {
-    var allNotes: [Note] = [root]
+  func setNotes(root: Root, rootKey: RootGen) -> [NoteProtocol] {
+    var allNotes: [NoteProtocol] = [root]
     
     //    let timeMeasure = ContinuousClock().measure {
     
