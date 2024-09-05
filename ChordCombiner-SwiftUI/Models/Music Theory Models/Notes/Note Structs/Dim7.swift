@@ -25,8 +25,8 @@ struct Dim7: Note, CustomStringConvertible, KSwitch, Codable {
   
   var enharm: Enharmonic
   
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) {
-    return (name: DegName.Name(.d7), short: DegName.Short.d7, long: DegName.Long(.d7))
+  var degName: (name: String, short: String, long: String) {
+    return (name: Degree.dim7th.name, short: Degree.dim7th.short, long: Degree.dim7th.long)
   }
   
   var key: KeyName {

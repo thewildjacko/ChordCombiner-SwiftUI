@@ -48,7 +48,7 @@
 		1D5F6A862C24829500193B58 /* Maj7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A292C24829400193B58 /* Maj7.swift */; };
 		1D5F6A8C2C24829500193B58 /* P5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A2F2C24829400193B58 /* P5.swift */; };
 		1D5F6A8F2C24829500193B58 /* RootKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A322C24829400193B58 /* RootKey.swift */; };
-		1D5F6A912C24829500193B58 /* DegName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A342C24829400193B58 /* DegName.swift */; };
+		1D5F6A912C24829500193B58 /* Degree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A342C24829400193B58 /* Degree.swift */; };
 		1D5F6A992C24829500193B58 /* Maj9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A3C2C24829500193B58 /* Maj9.swift */; };
 		1D5F6A9E2C24829500193B58 /* Min6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A412C24829500193B58 /* Min6.swift */; };
 		1D5F6AA02C24829500193B58 /* Maj3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F6A432C24829500193B58 /* Maj3.swift */; };
@@ -126,7 +126,7 @@
 		1D5F6A292C24829400193B58 /* Maj7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj7.swift; sourceTree = "<group>"; };
 		1D5F6A2F2C24829400193B58 /* P5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = P5.swift; sourceTree = "<group>"; };
 		1D5F6A322C24829400193B58 /* RootKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootKey.swift; sourceTree = "<group>"; };
-		1D5F6A342C24829400193B58 /* DegName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DegName.swift; sourceTree = "<group>"; };
+		1D5F6A342C24829400193B58 /* Degree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Degree.swift; sourceTree = "<group>"; };
 		1D5F6A3C2C24829500193B58 /* Maj9.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj9.swift; sourceTree = "<group>"; };
 		1D5F6A412C24829500193B58 /* Min6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Min6.swift; sourceTree = "<group>"; };
 		1D5F6A432C24829500193B58 /* Maj3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maj3.swift; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		1D5F6AAD2C24847600193B58 /* Chord Enums */ = {
 			isa = PBXGroup;
 			children = (
-				1D5F6A342C24829400193B58 /* DegName.swift */,
+				1D5F6A342C24829400193B58 /* Degree.swift */,
 				1D5F6A092C24829300193B58 /* Interval.swift */,
 				1D5F6AAE2C2484B100193B58 /* ChordDegrees */,
 			);
@@ -565,7 +565,7 @@
 				1D5F6A5A2C24829500193B58 /* RootSwitch.swift in Sources */,
 				1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */,
 				1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */,
-				1D5F6A912C24829500193B58 /* DegName.swift in Sources */,
+				1D5F6A912C24829500193B58 /* Degree.swift in Sources */,
 				1D5F6A562C24829500193B58 /* Min7.swift in Sources */,
 				1D036C402C7A71AC0088ACD4 /* ContentView.swift in Sources */,
 				1D5F6A692C24829500193B58 /* Min3.swift in Sources */,

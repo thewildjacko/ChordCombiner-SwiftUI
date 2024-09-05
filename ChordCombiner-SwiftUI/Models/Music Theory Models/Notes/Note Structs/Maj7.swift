@@ -25,8 +25,8 @@ struct Maj7: Note, CustomStringConvertible, KSwitch, Codable {
   
   var enharm: Enharmonic
   
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) {
-    return (name: DegName.Name(.ma7), short: DegName.Short.ma7, long: DegName.Long(.ma7))
+  var degName: (name: String, short: String, long: String) {
+    return (name: Degree.major7th.name, short: Degree.major7th.short, long: Degree.major7th.long)
   }
   
   var key: KeyName {

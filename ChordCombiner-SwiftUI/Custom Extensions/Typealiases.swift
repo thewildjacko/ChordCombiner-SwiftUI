@@ -17,5 +17,3 @@ typealias Extensions = ChordDegrees.Extensions
 typealias GuideTones = ChordDegrees.GuideTones
 typealias TensionTones = ChordDegrees.TensionTones
 typealias TCArray = ChordDegrees.TCArray
-
-typealias DegInt = DegName.Deg

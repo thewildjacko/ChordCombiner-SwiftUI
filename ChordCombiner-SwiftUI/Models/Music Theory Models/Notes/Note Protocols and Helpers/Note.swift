@@ -16,7 +16,7 @@ protocol Note: Codable {
   var basePitchNum: Int { get } // see extension below
   var enharm: Enharmonic { get set } // sets whether note belongs to sharp key or flat key
   var noteName: String { get } // see extension below
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) { get } // degree of the chord or scale
+  var degName: (name: String, short: String, long: String) { get } // degree of the chord or scale
   var key: KeyName { get } // `KeyName` enum case of the note
   var enharmByKey: Enharmonic { get } // sets whether note belongs to sharp key or flat key based on `KeyName`
   func enharmSwapped() -> Note // flips a note enharmonically

@@ -25,8 +25,8 @@ struct Min6: Note, CustomStringConvertible, KSwitch, Codable {
   
   var enharm: Enharmonic
   
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) {
-    return (name: DegName.Name(.mi6), short: DegName.Short.mi6, long: DegName.Long(.mi6))
+  var degName: (name: String, short: String, long: String) {
+    return (name: Degree.minor6th.name, short: Degree.minor6th.short, long: Degree.minor6th.long)
   }
   
   var key: KeyName {

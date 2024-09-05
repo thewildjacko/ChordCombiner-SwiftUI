@@ -25,8 +25,8 @@ struct Sh_9: Note, CustomStringConvertible, KSwitch, Codable {
   
   var enharm: Enharmonic
   
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) {
-    return (name: DegName.Name(.sh9), short: DegName.Short.sh9, long: DegName.Long(.sh9))
+  var degName: (name: String, short: String, long: String) {
+    return (name: Degree.sharp9th.name, short: Degree.sharp9th.short, long: Degree.sharp9th.long)
   }
   
   var key: KeyName {

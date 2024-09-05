@@ -69,9 +69,9 @@ extension ChordsAndScales {
   }
   
   var degNames: (names: [String], short: [String], long: [String]) {
-    return (names: allNotes.map { $0.degName.name.rawValue },
-            short: allNotes.map { $0.degName.short.rawValue },
-            long: allNotes.map { $0.degName.long.rawValue })
+    return (names: allNotes.map { $0.degName.name },
+            short: allNotes.map { $0.degName.short },
+            long: allNotes.map { $0.degName.long })
   }
   
   var degNamesByNoteNum: (names: [NoteNum:String], short: [NoteNum:String], long: [NoteNum:String]) {

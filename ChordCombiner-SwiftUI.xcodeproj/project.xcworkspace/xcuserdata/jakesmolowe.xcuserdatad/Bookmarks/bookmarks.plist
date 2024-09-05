@@ -102,13 +102,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>781</string>
+					<string>770</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>780</string>
+					<string>769</string>
 					<key>Timestamp</key>
-					<string>746989332.6154211</string>
+					<string>747191895.7032011</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -147,13 +147,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>429</string>
+					<string>411</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>428</string>
+					<string>410</string>
 					<key>Timestamp</key>
-					<string>746989332.61543</string>
+					<string>747185620.864506</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -176,9 +176,9 @@
   
 </string>
 				<key>trailing</key>
-				<string>  var hasMinor9th: HasDegree? {
-    switch self {
-    case .ma6_b9, .mi7_b9, .mi11_b9, .mi13_b9, .mi7_b9b13, .ma6_b9sh11, .mi11_b9b13, .mi7_b5b9, .mi11_b5b9, .locrian:
+				<string>  var hasRoot: Degree? {
+    return .root
+  }
 </string>
 			</dict>
 			<key>type</key>

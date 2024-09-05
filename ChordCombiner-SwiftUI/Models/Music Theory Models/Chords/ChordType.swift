@@ -408,26 +408,12 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  enum HasDegree: String {
-    case minor9th
-    case major9th
-    case sharp9th
-    case minor3rd
-    case major3rd
-    case perfect4th
-    case sharp4th
-    case dim5th
-    case perfect5th
-    case sharp5th
-    case minor6th
-    case major6th
-    case dim7th
-    case minor7th
-    case major7th
+  // TODO: add dominant degree tags
+  var hasRoot: Degree? {
+    return .root
   }
   
-  // TODO: add dominant degree tags
-  var hasMinor9th: HasDegree? {
+  var hasMinor9th: Degree? {
     switch self {
     case .ma6_b9, .mi7_b9, .mi11_b9, .mi13_b9, .mi7_b9b13, .ma6_b9sh11, .mi11_b9b13, .mi7_b5b9, .mi11_b5b9, .locrian:
       return .minor9th
@@ -436,7 +422,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMajor9th: HasDegree? {
+  var hasMajor9th: Degree? {
     switch self {
       // has ♭9 or ♯9
     case let type where type.hasMinor9th != nil, let type where type.hasSharp9th != nil:
@@ -463,7 +449,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasSharp9th: HasDegree? {
+  var hasSharp9th: Degree? {
     switch self {
     case .ma6_sh9, .ma6_sh9sh11:
       return .sharp9th
@@ -472,7 +458,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMinor3rd: HasDegree? {
+  var hasMinor3rd: Degree? {
     switch baseChordType {
     case .ma, .aug, .ma7, .dominant7, .ma6, .sus2, .sus4:
       return nil
@@ -481,7 +467,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMajor3rd: HasDegree? {
+  var hasMajor3rd: Degree? {
     switch baseChordType {
     case .ma, .aug, .ma7, .dominant7, .ma6:
       return .major3rd
@@ -490,7 +476,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasPerfect4th: HasDegree? {
+  var hasPerfect4th: Degree? {
     switch self {
       // triads
     case .sus4,
@@ -510,7 +496,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasSharp4th: HasDegree? {
+  var hasSharp4th: Degree? {
     switch self {
       // ma7(♯11)
     case .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9,
@@ -524,7 +510,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasDim5th: HasDegree? {
+  var hasDim5th: Degree? {
     switch baseChordType {
     case .dim, .mi7_b5, .dim7:
       return .dim5th
@@ -533,7 +519,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasPerfect5th: HasDegree? {
+  var hasPerfect5th: Degree? {
     switch self {
       // has ♭5 or ♯5
     case let type where type.hasDim5th != nil, let type where type.hasSharp5th != nil:
@@ -543,7 +529,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasSharp5th: HasDegree? {
+  var hasSharp5th: Degree? {
     switch self {
     case .aug:
       return .sharp5th
@@ -552,7 +538,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMinor6th: HasDegree? {
+  var hasMinor6th: Degree? {
     switch self {
       // Min(♭13)
     case .mi_b6, .mi7_b13, .mi9_b13, .mi11_b13,
@@ -568,7 +554,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMajor6th: HasDegree? {
+  var hasMajor6th: Degree? {
     switch baseChordType {
       // ma6 chords
     case .ma6:
@@ -598,11 +584,11 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasDim7th: HasDegree? {
+  var hasDim7th: Degree? {
     baseChordType == .dim7 ? .dim7th : nil
   }
   
-  var hasMinor7th: HasDegree? {
+  var hasMinor7th: Degree? {
     switch baseChordType {
     case .dominant7, .mi7, .mi7_b5:
       return .minor7th
@@ -611,7 +597,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var hasMajor7th: HasDegree? {
+  var hasMajor7th: Degree? {
     switch baseChordType {
     case let type where type.hasMinor7th != nil || type == .ma6:
       return nil
@@ -629,8 +615,9 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
   }
   
-  var degreeTags: [HasDegree] {
-    let optionalDegreeTags = [hasMinor9th,
+  var degreeTags: [Degree] {
+    let optionalDegreeTags = [hasRoot,
+                              hasMinor9th,
                               hasMajor9th,
                               hasSharp9th,
                               hasMinor3rd,
@@ -651,12 +638,14 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   }
   
   func setNotesByDegree(root: Root, rootKey: RootGen) -> [Note] {
-    var allNotes: [Note] = [root]
+    var allNotes: [Note] = []
     
     //    let timeMeasure = ContinuousClock().measure {
     
     for degreeTag in degreeTags {
       switch degreeTag {
+      case .root:
+        allNotes.append(root)
       case .minor9th:
         // print("degree is: \(degreeTag)")
         allNotes.append(Min9(rootKey))

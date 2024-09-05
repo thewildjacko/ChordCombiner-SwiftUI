@@ -18,8 +18,8 @@ struct Root: Note, CustomStringConvertible, Codable {
   var noteNum: NoteNum
   var enharm: Enharmonic
   
-  var degName: (name: DegName.Name, short: DegName.Short, long: DegName.Long) {
-    return (name: DegName.Name(.rt), short: DegName.Short.rt, long: DegName.Long(.rt))
+  var degName: (name: String, short: String, long: String) {
+    return (name: Degree.root.name, short: Degree.root.short, long: Degree.root.long)
   }
   
   var key: KeyName
