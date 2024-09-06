@@ -76,15 +76,15 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     self.degree = degree
   }
   
-  init(_ degree: Degree = .root, of root: RootGen = .c) {
-    self.enharm = root.keyName.enharm
+  init(_ degree: Degree = .root, of root: RootNote) {
+    self.enharm = root.note.key.enharm
     self.degree = degree
-    self.rootNum = root.keyName.noteNum
+    self.rootNum = root.note.key.noteNum
   }
   
-  init(_ root: RootGen = .c) {
-    self.enharm = root.keyName.enharm
-    self.rootNum = root.keyName.noteNum
+  init(_ root: RootNote) {
+    self.enharm = root.note.key.enharm
+    self.rootNum = root.note.key.noteNum
     self.degree = .root
   }
   
@@ -94,7 +94,7 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     self.rootNum = NoteNum(key.noteNum.rawValue.minusDeg(degree.noteNum.rawValue))
     
   }
-
+  
   func enharmSwapped() -> NoteProtocol {
     var newEnharm: Enharmonic {
       switch enharm {
@@ -131,7 +131,6 @@ extension Note {
       return false
     }
   }
-  
 }
 
 extension Note: Hashable {

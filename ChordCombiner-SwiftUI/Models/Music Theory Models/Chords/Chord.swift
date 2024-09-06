@@ -100,14 +100,15 @@ struct Chord: ChordProtocol, Identifiable {
   mutating func setNotesAndNoteCount() {
     self.allNotes = type.setNotes(root: root, rootKey: rootKey)
 //    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
+    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: RootNote(Note(root.key)))
     self.noteCount = allNotes.count
     
 //    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
+    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: RootNote(Note(root.key)))
+    //    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
 //    print("notesByDegree: ", allNotesByDegree)
   }
   

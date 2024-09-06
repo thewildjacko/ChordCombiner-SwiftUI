@@ -4,25 +4,26 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
-let notes1 = [Note(.c), Note(.d)]
-let notes2 = [Note(.bSh), Note(.e_bb, degree: .perfect4th)]
-notes1 == notes2
-notes1.isEnharmonicEquivalent(to: notes2)
-notes2.map { $0.noteName }
+//let notes1 = [Note(.c), Note(.d)]
+//let notes2 = [Note(.bSh), Note(.e_bb, degree: .perfect4th)]
+//notes1 == notes2
+//notes1.isEnharmonicEquivalent(to: notes2)
+//notes2.map { $0.noteName }
+//
+//let AbChord = Chord(.aB, .dim)
+//AbChord.allNotes.map { $0.noteName }
+//
+//Note.enharmonicEquivalents(lhs: Note(.aB), rhs: Note(.gSh))
+//
+//var note = Note(.major6th, of: .f)
+//Note(.dim7th, of: .f)
+//note.isEnharmonicEquivalent(to: Note(.dim7th, of: .f))
+//note.degree
+//note.key.name
+//note.rootKey.name
+//
+//var rootNote = Note(.cSh).key.name
 
-let AbChord = Chord(.aB, .dim)
-AbChord.allNotes.map { $0.noteName }
-
-Note.enharmonicEquivalents(lhs: Note(.aB), rhs: Note(.gSh))
-
-var note = Note(.major6th, of: .f)
-Note(.dim7th, of: .f)
-note.isEnharmonicEquivalent(to: Note(.dim7th, of: .f))
-note.degree
-note.key.name
-note.rootKey.name
-
-var rootNote = Note(.cSh).key.name
 //let ma = ChordType.ma
 //ma.degreeTags
 //ma.setNotesByDegree(root: Root(.c), rootKey: RootGen(.c))
