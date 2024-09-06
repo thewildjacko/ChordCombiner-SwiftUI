@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: add missing NoteProtocol elements
 struct Note: KSwitch {
   let rootNum: NoteNum
   

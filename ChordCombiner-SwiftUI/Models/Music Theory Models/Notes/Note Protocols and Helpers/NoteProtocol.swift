@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - Note Protocol
 
+// TODO: add anything that's not in Note
 /// Defines a single note to be used in a scale, mode, chord or pattern
 protocol NoteProtocol: Codable {
   var noteNum: NoteNum { get set } // `NoteNum` enum case of the note
