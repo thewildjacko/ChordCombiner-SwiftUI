@@ -11,11 +11,9 @@ struct Chord: ChordProtocol, Identifiable {
   var id = UUID()
   
   //  MARK: instance properties
-  var rootNote: RootNote
+  var rootNote: Root
   
-  var root: Note {
-    rootNote.note
-  }
+  var root: Note
   
   var type: ChordType {
     didSet {
@@ -76,10 +74,11 @@ struct Chord: ChordProtocol, Identifiable {
     self.type = type
     self.enharm = enharm
     self.startingOctave = startingOctave
-    self.rootNote = RootNote(Note(rootNum: rootNum, enharm: enharm, degree: .root))
+    self.rootNote = Root(Note(rootNum: rootNum, enharm: enharm, degree: .root))
+    self.root = rootNote.note
     
-    self.letter = rootNote.note.key.letter
-    self.accidental = RootAcc(rootNote.note.key.accidental)
+    self.letter = root.key.letter
+    self.accidental = RootAcc(root.key.accidental)
     
     setNotesAndNoteCount()
   }
@@ -88,10 +87,11 @@ struct Chord: ChordProtocol, Identifiable {
     self.type = type
     self.enharm = rootKey.keyName.enharm
     self.startingOctave = startingOctave
-    self.rootNote = RootNote(rootKey)
+    self.rootNote = Root(rootKey)
+    self.root = rootNote.note
     
-    self.letter = rootNote.note.key.letter
-    self.accidental = RootAcc(rootNote.note.key.accidental)
+    self.letter = root.key.letter
+    self.accidental = RootAcc(root.key.accidental)
     
     setNotesAndNoteCount()
   }

@@ -1,5 +1,5 @@
 //
-//  RootNote.swift
+//  Root.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 9/6/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RootNote {
+struct Root {
   var rootKey: RootGen
   var note: Note {
     get { Note(rootKey) }

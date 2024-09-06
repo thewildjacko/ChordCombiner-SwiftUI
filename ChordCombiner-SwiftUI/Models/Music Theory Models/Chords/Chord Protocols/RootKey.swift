@@ -9,8 +9,8 @@
 import Foundation
 
 protocol RootKey {
-  var rootNote: RootNote { get set }
-  var root: Note { get }
+  var rootNote: Root { get set }
+  var root: Note { get set }
   var rootKey: RootGen { get }
 }
 
