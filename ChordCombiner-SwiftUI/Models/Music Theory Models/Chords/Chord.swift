@@ -11,7 +11,12 @@ struct Chord: ChordProtocol, Identifiable {
   var id = UUID()
   
   //  MARK: instance properties
-  var root: Root
+  var rootNote: RootNote
+  
+  var root: Note {
+    rootNote.note
+  }
+  
   var type: ChordType {
     didSet {
       refresh()
@@ -42,8 +47,7 @@ struct Chord: ChordProtocol, Identifiable {
     root.noteName + chordName
   }
   
-  var allNotes: [NoteProtocol] = []
-  var allNotesByDegree: [NoteProtocol] = []
+  var allNotes: [Note] = []
   var noteCount: Int = 0
   
   var degrees: [Int] {
@@ -72,10 +76,10 @@ struct Chord: ChordProtocol, Identifiable {
     self.type = type
     self.enharm = enharm
     self.startingOctave = startingOctave
-    self.root = Root(noteNum: rootNum, enharm: enharm)
+    self.rootNote = RootNote(Note(rootNum: rootNum, enharm: enharm, degree: .root))
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    self.letter = rootNote.note.key.letter
+    self.accidental = RootAcc(rootNote.note.key.accidental)
     
     setNotesAndNoteCount()
   }
@@ -84,10 +88,10 @@ struct Chord: ChordProtocol, Identifiable {
     self.type = type
     self.enharm = rootKey.keyName.enharm
     self.startingOctave = startingOctave
-    self.root = Root(rootKey)
+    self.rootNote = RootNote(rootKey)
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    self.letter = rootNote.note.key.letter
+    self.accidental = RootAcc(rootNote.note.key.accidental)
     
     setNotesAndNoteCount()
   }
@@ -98,18 +102,16 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   mutating func setNotesAndNoteCount() {
-    self.allNotes = type.setNotes(root: root, rootKey: rootKey)
-//    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
+    self.allNotes = type.setNotesByDegree(rootKey: rootKey)
     self.noteCount = allNotes.count
     
 //    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
-    //    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
-//    print("notesByDegree: ", allNotesByDegree)
+    self.allNotes = type.setNotesByDegree(rootKey: rootKey)
+    //    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
+//    print("notesByDegree: ", allNotes)
   }
   
   mutating func refresh() {

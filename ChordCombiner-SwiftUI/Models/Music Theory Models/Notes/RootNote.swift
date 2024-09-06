@@ -8,12 +8,17 @@
 import Foundation
 
 struct RootNote {
-  var root: RootGen
+  var rootKey: RootGen
   var note: Note {
-    Note(root)
+    get { Note(rootKey) }
+    set { }
   }
   
-  init(_ root: RootGen) {
-    self.root = root
+  init(_ rootKey: RootGen) {
+    self.rootKey = rootKey
+  }
+  
+  init(_ note: Note) {
+    self.rootKey = RootGen(note.key)
   }
 }

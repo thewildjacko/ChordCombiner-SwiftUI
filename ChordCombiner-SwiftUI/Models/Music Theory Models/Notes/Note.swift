@@ -30,7 +30,12 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
   var degree: Degree
   
   var rootKey: KeyName {
-    ks.root(rootNum: rootNum)
+    get {
+      ks.root(rootNum: rootNum)
+    }
+    set {
+      
+    }
   }
   
   var key: KeyName {
@@ -95,6 +100,35 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     
   }
   
+  mutating func kSW(ks: KeySwitch) {
+    switch noteNum {
+    case .zero:
+      self.rootKey = ks.pickKey(.c, .bSh, .c, .c)
+    case .one:
+      self.rootKey = ks.pickKey(.dB, .cSh, .dB, .cSh)
+    case .two:
+      self.rootKey = .d
+    case .three:
+      self.rootKey = ks.pickKey(.eB, .dSh, .eB, .dSh)
+    case .four:
+      self.rootKey = ks.pickKey(.fB, .e, .fB, .e)
+    case .five:
+      self.rootKey = ks.pickKey(.f, .eSh, .f, .f)
+    case .six:
+      self.rootKey = ks.pickKey(.gB, .fSh, .gB, .fSh)
+    case .seven:
+      self.rootKey = .g
+    case .eight:
+      self.rootKey = ks.pickKey(.aB, .gSh, .aB, .gSh)
+    case .nine:
+      self.rootKey = .a
+    case .ten:
+      self.rootKey = ks.pickKey(.bB, .aSh, .bB, .aSh)
+    case .eleven:
+      self.rootKey = ks.pickKey(.cB, .b, .b, .b)
+    }
+  }
+  
   func enharmSwapped() -> NoteProtocol {
     var newEnharm: Enharmonic {
       switch enharm {
@@ -106,6 +140,20 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     }
     
     return Note(rootNum: noteNum, enharm: newEnharm, degree: degree)
+  }
+  
+  mutating func swapEnharm() {
+    switch enharm {
+    case .flat, .sharp:
+      enharm = enharm == .flat ? .sharp : .flat
+    case .blackKeyFlats, .blackKeySharps:
+      enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+    }
+    kSW(ks: KeySwitch(enharm: enharm))
+  }
+  
+  mutating func switchEnharm(to enharm: Enharmonic) {
+    self.enharm = enharm
   }
 }
 

@@ -102,51 +102,6 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>771</string>
-					<key>StartingColumnNumber</key>
-					<string>0</string>
-					<key>StartingLineNumber</key>
-					<string>770</string>
-					<key>Timestamp</key>
-					<string>747330148.25852</string>
-				</dict>
-				<key>rebasable-url</key>
-				<dict>
-					<key>base</key>
-					<string>workspace</string>
-					<key>payload</key>
-					<dict>
-						<key>relative-path</key>
-						<string>ChordCombiner-SwiftUI/Models/Music Theory Models/Chords/ChordType.swift</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>text-context</key>
-			<dict>
-				<key>focused</key>
-				<string>    case .dominant7:
-</string>
-				<key>leading</key>
-				<string>      
-      // MARK: Dominant 7th Chords
-</string>
-				<key>trailing</key>
-				<string>      // [0, 4, 7, 10]
-      allNotes = [root, Maj3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .dominant7_sh11:
-</string>
-			</dict>
-			<key>type</key>
-			<string>bookmark</string>
-		</dict>
-		<dict>
-			<key>destination</key>
-			<dict>
-				<key>location-parameters</key>
-				<dict>
-					<key>EndingColumnNumber</key>
-					<string>0</string>
-					<key>EndingLineNumber</key>
 					<string>411</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>

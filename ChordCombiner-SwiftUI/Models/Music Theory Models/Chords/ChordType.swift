@@ -637,75 +637,59 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     return optionalDegreeTags.compactMap { $0 }
   }
   
-  func setNotesByDegree(root: Root, rootKey: RootGen) -> [NoteProtocol] { 
-    var allNotes: [NoteProtocol] = []
+  func setNotesByDegree(rootKey: RootGen) -> [Note] {
+    var allNotes: [Note] = []
     
     //    let timeMeasure = ContinuousClock().measure {
     
     for degreeTag in degreeTags {
       switch degreeTag {
       case .root:
-        // allNotes.append(root)
         allNotes.append(Note(rootKey))
             case .minor9th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Min9(rootKey))
         allNotes.append(Note(.minor9th, of: rootKey))
       case .sharp9th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Sh_9(rootKey))
         allNotes.append(Note(.sharp9th, of: rootKey))
       case .major9th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Maj9(rootKey))
         allNotes.append(Note(.major9th, of: rootKey))
       case .minor3rd:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Min3(rootKey))
         allNotes.append(Note(.minor3rd, of: rootKey))
       case .major3rd:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Maj3(rootKey))
         allNotes.append(Note(.major3rd, of: rootKey))
       case .perfect4th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(P4(rootKey))
         allNotes.append(Note(.perfect4th, of: rootKey))
       case .sharp4th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Sh_4(rootKey))
         allNotes.append(Note(.sharp4th, of: rootKey))
       case .dim5th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Dim5(rootKey))
         allNotes.append(Note(.dim5th, of: rootKey))
       case .sharp5th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Sh_5(rootKey))
         allNotes.append(Note(.sharp5th, of: rootKey))
       case .perfect5th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(P5(rootKey))
         allNotes.append(Note(.perfect5th, of: rootKey))
       case .minor6th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Min6(rootKey))
         allNotes.append(Note(.minor6th, of: rootKey))
       case .major6th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Maj6(rootKey))
         allNotes.append(Note(.major6th, of: rootKey))
       case .dim7th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Dim7(rootKey))
         allNotes.append(Note(.dim7th, of: rootKey))
       case .minor7th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Min7(rootKey))
         allNotes.append(Note(.minor7th, of: rootKey))
       case .major7th:
         // print("degree is: \(degreeTag)")
-        // allNotes.append(Maj7(rootKey))
         allNotes.append(Note(.major7th, of: rootKey))
       }
     }
@@ -714,246 +698,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     //    print("\(timeMeasure) for setNotesByDegree")
     return allNotes
   }
-  
-  func setNotes(root: Root, rootKey: RootGen) -> [NoteProtocol] {
-    var allNotes: [NoteProtocol] = [root]
     
-    //    let timeMeasure = ContinuousClock().measure {
-    
-    switch self {
-      // MARK: Triads
-    case .ma:
-      // [0, 4, 7]
-      allNotes = [root, Maj3(rootKey), P5(rootKey)]
-    case .mi:
-      // [0, 3, 7]
-      allNotes = [root, Min3(rootKey), P5(rootKey)]
-    case .aug:
-      // [0, 4, 8]
-      allNotes = [root, Maj3(rootKey), Sh_5(rootKey)]
-    case .dim:
-      // [0, 3, 6]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey)]
-    case .sus4:
-      // [0, 5, 7]
-      allNotes = [root, P4(rootKey), P5(rootKey)]
-    case .sus2:
-      // [0, 2, 7]
-      allNotes = [root, Maj9(rootKey), P5(rootKey)]
-      
-      // MARK: Major Lydian 7th Chords
-    case .ma7:
-      // [0, 4, 7, 11]
-      allNotes = [root, Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma9:
-      // [0, 2, 4, 7, 11]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma13:
-      // [0, 2, 4, 7, 9, 11]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma13_omit9:
-      // [0, 4, 7, 9, 11]
-      allNotes = [root, Maj3(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma7_sh11:
-      // [0, 4, 6, 7, 11]
-      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma9_sh11:
-      // [0, 2, 4, 6, 7, 11]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj7(rootKey)]
-    case .ma13_sh11:
-      // [0, 2, 4, 6, 7, 9, 11]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-    case .ma13_sh11_omit9:
-      // [0, 4, 6, 7, 9, 11]
-      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Maj7(rootKey)]
-      
-      // MARK: Dominant 7th Chords
-    case .dominant7:
-      // [0, 4, 7, 10]
-      allNotes = [root, Maj3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .dominant7_sh11:
-      // [0, 4, 6, 7, 10]
-      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .dominant9:
-      // [0, 2, 4, 7, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .dominant9_sh11:
-      // [0, 2, 4, 6, 7, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .dominant13:
-      // [0, 2, 4, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-      // TODO: add dominant allNotes
-    case .dominant13_sh11:
-      // [0, 2, 4, 6, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .dominant13_sh11_omit9:
-      // [0, 4, 6, 7, 9, 10]
-      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    
-      // MARK: Major 6
-    case .ma6:
-      // [0, 4, 7, 9]
-      allNotes = [root, Maj3(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_sh9:
-      // [0, 3, 4, 7, 9]
-      allNotes = [root, Sh_9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_b9:
-      // [0, 1, 4, 7, 9]
-      allNotes = [root, Min9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_sh9sh11:
-      // [0, 3, 4, 6, 7, 9]
-      allNotes = [root, Sh_9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_b9sh11:
-      // [0, 1, 4, 6, 7, 9]
-      allNotes = [root, Min9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_sh11:
-      // [0, 4, 6, 7, 9]
-      allNotes = [root, Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_9:
-      // [0, 2, 4, 7, 9]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey)]
-    case .ma6_9sh11:
-      // [0, 2, 4, 6, 7, 9]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey)]
-      
-      // MARK: Minor Dorian 7th Chords
-    case .mi7:
-      // [0, 3, 7, 10]
-      allNotes = [root, Min3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi9:
-      // [0, 2, 3, 7, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi11:
-      // [0, 2, 3, 5, 7, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi11_omit9:
-      // [0, 3, 5, 7, 10]
-      allNotes = [root, Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi13:
-      // [0, 2, 3, 5, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_omit9:
-      // [0, 3, 5, 7, 9, 10]
-      allNotes = [root, Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_omit11:
-      // [0, 2, 3, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi7_add13:
-      // [0, 3, 7, 9, 10]
-      allNotes = [root, Min3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-      
-      // MARK: Phrygian
-    case .mi7_b9:
-      // [0, 1, 3, 7, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi7_b9b13:
-      // [0, 1, 3, 7, 8, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi11_b9:
-      // [0, 1, 3, 5, 7, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min7(rootKey)]
-    case .mi11_b9b13:
-      // [0, 1, 3, 5, 7, 8, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi13_b9:
-      // [0, 1, 3, 5, 7, 9, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
-      
-      // MARK: Min(♭13)
-    case .mi_b6:
-      // [0, 3, 7, 8]
-      allNotes = [root, Min3(rootKey), P5(rootKey), Min6(rootKey)]
-    case .mi7_b13:
-      // [0, 3, 7, 8, 10]
-      allNotes = [root, Min3(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi9_b13:
-      // [0, 2, 3, 7, 8, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi11_b13:
-      // [0, 2, 3, 5, 7, 8, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), P5(rootKey), Min6(rootKey), Min7(rootKey)]
-      
-      // MARK: mi7(♭5)
-    case .mi7_b5:
-      // [0, 3, 6, 10]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi9_b5:
-      // [0, 2, 3, 6, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi7_b5add11:
-      // [0, 3, 5, 6, 10]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi11_b5:
-      // [0, 2, 3, 5, 6, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi11_b5b13: // [0, 2, 3, 5, 6, 8, 10] (locrian ♯2)
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi7_b5b9:
-      // [0, 1, 3, 6, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi11_b5b9:
-      // [0, 1, 3, 5, 6, 10]
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min7(rootKey)]
-    case .mi7_b5b13:
-      // [0, 3, 6, 8, 10]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .locrian: // [0, 1, 3, 5, 6, 8, 10] (mi11(♭5♭9♭13))
-      allNotes = [root, Min9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Min7(rootKey)]
-    case .mi13_b5: // [0, 2, 3, 5, 6, 9, 10] (dorian ♭5 / 2nd
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_b5_omit9: // [0, 3, 5, 6, 9, 10]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi13_b5_omit11: // [0, 2, 3, 6, 9, 10]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Maj6(rootKey), Min7(rootKey)]
-    case .mi7_b5add13: // [0, 3, 6, 9, 10]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Maj6(rootKey), Min7(rootKey)]
-      
-      // MARK: diminished
-    case .dim7: // [0, 3, 6, 9]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Dim7(rootKey)]
-    case .dim7_b13: // [0, 3, 6, 8, 9]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
-    case .dim7_add_ma7: // [0, 3, 6, 9, 11]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim7_b13_add_ma7: // [0, 3, 6, 8, 9, 11]
-      allNotes = [root, Min3(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim9: // [0, 2, 3, 6, 9]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Dim7(rootKey)]
-    case .dim9_add_ma7: // [0, 2, 3, 6, 9, 11]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim9_b13: // [0, 2, 3, 6, 8, 9]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
-    case .dim9_b13_add_ma7: // [0, 2, 3, 6, 8, 9, 11]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim11: // [0, 2, 3, 5, 6, 9]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey)]
-    case .dim7_add11: // [0, 3, 5, 6, 9]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey)]
-    case .dim11_b13: // [0, 2, 3, 5, 6, 8, 9]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
-    case .dim11_b13_omit9: // [0, 3, 5, 6, 8, 9]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey)]
-    case .dim11_add_ma7: // [0, 2, 3, 5, 6, 9, 11]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim11_add_ma7_omit9:  // [0, 3, 5, 6, 9, 11]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim11_b13_add_ma7: // [0, 2, 3, 5, 6, 8, 9, 11]
-      allNotes = [root, Maj9(rootKey), Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    case .dim11_b13_add_ma7_omit9: // [0, 3, 5, 6, 8, 9, 11]
-      allNotes = [root, Min3(rootKey), P4(rootKey), Dim5(rootKey), Min6(rootKey), Dim7(rootKey), Maj7(rootKey)]
-    }
-    //    }
-    
-    //    print("\(timeMeasure) for allNotes")
-    return allNotes
-  }
-  
-  var degreesInC: [Int] {
-    let root = Root(.c)
-    return setNotes(root: root, rootKey: root.rootKey).map { $0.basePitchNum }
-//    return setNotesByDegree(root: root, rootKey: root.rootKey).map { $0.basePitchNum }
-  }
   
   static var allChordDegrees: [[Int]] {
     ChordType.allCases.map { $0.degrees }
@@ -1139,28 +884,5 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     }
 
   }
-  
-  //  func getBaseChord(root: Root) -> Chord {
-  //    switch self {
-  //      // Triads and unextended + unaltered 7th and 6th chords
-  //    case .ma, .mi, .aug, .dim, .sus4, .sus2, .ma7, .ma6, .mi7, .mi7_b5, .mi_b6:
-  //      return Chord(RootGen(root.key), self.baseChord)
-  //      // Extended Major 7th chords
-  //    case .ma9, .ma13, .ma13_omit9, .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9:
-  //      return Chord(RootGen(root.key), .ma7)
-  //      // Extended Major 6th chords
-  //    case .ma6_sh9, .ma6_b9, .ma6_sh9sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9, .ma6_9sh11:
-  //      return Chord(RootGen(root.key), .ma6)
-  //      // Extended Minor 7th chords
-  //    case .mi9, .mi11, .mi11_omit9, .mi13, .mi13_omit9, .mi13_omit11, .mi7_add13, .mi7_b9, .mi7_b9b13, .mi11_b9, .mi11_b9b13, .mi13_b9, .mi7_b13, .mi9_b13, .mi11_b13:
-  //      return Chord(RootGen(root.key), .mi7)
-  //      // Extended Min7(♭5) chords
-  //    case .mi9_b5, .mi7_b5add11, .mi11_b5, .mi11_b5b13, .mi7_b5b9, .mi11_b5b9, .mi7_b5b13, .locrian:
-  //      return Chord(RootGen(root.key), .mi7_b5)
-  //    case .dim7, .dim7_b13, .dim7_add_ma7, .dim7_b13_add_ma7, .dim9, .dim9_add_ma7, .dim9_b13_add_ma7, .dim11, .dim11_b13, .dim11_add_ma7, .dim11_b13_add_ma7:
-  //      return Chord(RootGen(root.key), .dim7)
-  //    }
-  //  }
-  
 }
 

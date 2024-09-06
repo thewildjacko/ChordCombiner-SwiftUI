@@ -19,12 +19,12 @@ class MultiChord: ObservableObject {
     self.resultChord = resultChord
   }
   
-  var lowerRoot: Root {
-    lowerChord.root
+  var lowerRoot: Note {
+    lowerChord.rootNote.note
   }
 
-  var upperRoot: Root {
-    upperChord.root
+  var upperRoot: Note {
+    upperChord.rootNote.note
   }
 
   var lowerDegrees: [Int] {

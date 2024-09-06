@@ -15,7 +15,7 @@ protocol ChordsAndScales: RootKey {
   var startingOctave: Int { get set }
   var startingPitch: Int { get }
   var name: String { get }
-  var allNotes: [NoteProtocol] { get set }
+  var allNotes: [Note] { get set }
   var noteNames: [String] {get}
   var noteNums: [NoteNum] { get }
   var raisedPitches: [Int] { get }
@@ -59,7 +59,7 @@ extension ChordsAndScales {
     return degrees.map { $0.toPitch(startingOctave: startingOctave) }
   }
   
-  var raisedRoot: Int { root.basePitchNum.toPitch(startingOctave: startingOctave) }
+  var raisedRoot: Int { rootNote.note.basePitchNum.toPitch(startingOctave: startingOctave) }
   
   var pitchesRaisedAboveRoot: [Int] {
 //    print("pitchesRaisedAboveRoot")
@@ -87,11 +87,11 @@ extension ChordsAndScales {
     case .blackKeyFlats, .blackKeySharps:
       enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
     }
-    root.swapEnharm()
+    rootNote.note.swapEnharm()
   }
   
   mutating func switchEnharm(to enharm: Enharmonic) {
     self.enharm = enharm
-    root.switchEnharm(to: enharm)
+    rootNote.note.switchEnharm(to: enharm)
   }
 }

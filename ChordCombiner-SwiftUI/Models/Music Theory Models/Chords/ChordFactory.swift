@@ -58,7 +58,7 @@ struct ChordFactory {
     return (resultChord, chords)
   }
   
-  static func combineChordDegrees(_ lowerChordDegrees: [Int], _ upperChordDegrees: [Int], lowerRoot: Root, upperRoot: Root) -> Chord? {
+  static func combineChordDegrees(_ lowerChordDegrees: [Int], _ upperChordDegrees: [Int], lowerRoot: Note, upperRoot: Note) -> Chord? {
 //    print("Combining degrees")
     let degrees: [Int] = lowerChordDegrees + upperChordDegrees
     let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.basePitchNum) }.sorted()
@@ -67,32 +67,24 @@ struct ChordFactory {
     
     let type = ChordType.getChordTypeByDegrees(degrees: degreesInC)
     if let type = type {
-      return Chord(lowerRoot.rootKey, type)
+      return Chord(RootGen(lowerRoot.rootKey), type)
     } else {
       return nil
     }
   }
   
   static func compareDegreesInC() {
-    var count = 0
-    for chord in allChordsInC {
-//      let allNotesByDegree = chord.allNotesByDegree.map { $0.basePitchNum }
-//      if chord.degrees != allNotesByDegree {
-      if chord.type.degrees != chord.type.degreesInC {
-        count += 1
-        print(count)
-        print(chord.name)
-        print("degrees:", chord.type.degrees)
-        print("degrees in C:", chord.type.degreesInC)
+//    var count = 0
+//    for chord in allChordsInC {
+//      let allNotes = chord.allNotes.map { $0.basePitchNum }
+//      if chord.degrees != allNotes {
 //        print(chord.type.degreeTags.map { $0.rawValue } )
-//        print("all notes: ", chord.allNotes)
 //        print(chord.degrees)
-//        print("all notes by Degree: ", chord.allNotesByDegree)
-//        print(allNotesByDegree)
+//        print("all notes by Degree: ", chord.allNotes)
+//        print(allNotes)
 //        print("----------")
-      }
-    }
-    print(count)
+//    }
+//    print(count)
   }
   
   static func deltaChords(_ chord: Chord, delta: Int) -> [Chord] {

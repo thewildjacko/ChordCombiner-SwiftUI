@@ -11,7 +11,7 @@ import UIKit
 //notes2.map { $0.noteName }
 //
 //let AbChord = Chord(.aB, .dim)
-//AbChord.allNotes.map { $0.noteName }
+
 //
 //Note.enharmonicEquivalents(lhs: Note(.aB), rhs: Note(.gSh))
 //
@@ -55,14 +55,13 @@ BbAugTriad.degrees
 cMajTriad.degSet.union(BbAugTriad.degSet)
 
 var CAugTriad = Chord(rootNum: .zero, type: .aug)
-//print(CAugTriad.allNotes.map {$0.noteName})
+
 var CMaj13sh11 = Chord(rootNum: .zero, type: .ma13_sh11)
 CMaj13sh11.noteCount
 
 CMaj13sh11.degrees
 CMaj13sh11.convertDegrees(to: .two)
 CMaj13sh11.convertedDegrees
-//print(CMaj13sh11.allNotes.map {$0.noteName})
 
 let roots: [RootGen] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
 
