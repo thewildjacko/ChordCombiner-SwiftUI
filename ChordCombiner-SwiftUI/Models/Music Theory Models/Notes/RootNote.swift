@@ -8,9 +8,12 @@
 import Foundation
 
 struct RootNote {
-  var note: Note
+  var root: RootGen
+  var note: Note {
+    Note(root)
+  }
   
-  init(_ note: Note = Note(.c)) {
-    self.note = note
+  init(_ root: RootGen) {
+    self.root = root
   }
 }

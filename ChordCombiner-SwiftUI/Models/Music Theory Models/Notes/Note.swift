@@ -76,15 +76,15 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     self.degree = degree
   }
   
-  init(_ degree: Degree = .root, of root: RootNote) {
-    self.enharm = root.note.key.enharm
+  init(_ degree: Degree = .root, of root: RootGen) {
+    self.enharm = root.keyName.enharm
     self.degree = degree
-    self.rootNum = root.note.key.noteNum
+    self.rootNum = root.keyName.noteNum
   }
   
-  init(_ root: RootNote) {
-    self.enharm = root.note.key.enharm
-    self.rootNum = root.note.key.noteNum
+  init(_ root: RootGen) {
+    self.enharm = root.keyName.enharm
+    self.rootNum = root.keyName.noteNum
     self.degree = .root
   }
   
