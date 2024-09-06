@@ -4,9 +4,15 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
-let ma = ChordType.ma
-ma.degreeTags
-ma.setNotesByDegree(root: Root(.c), rootKey: RootGen(.c))
+var note = Note(.major6th, of: .bB)
+note.degree
+note.key.name
+note.rootKey.name
+
+var rootNote = Note(.cSh).key.name
+//let ma = ChordType.ma
+//ma.degreeTags
+//ma.setNotesByDegree(root: Root(.c), rootKey: RootGen(.c))
 /*
 print(Chord(.c, .ma).degrees.toSet().subtracting(Chord(.c, .mi7).degrees.toSet()))
 print(Chord(.c, .mi7).degrees.toSet().subtracting(Chord(.c, .ma).degrees.toSet()))
