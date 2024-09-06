@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: add missing NoteProtocol elements
 struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
   var description: String {
     return "\(degree.name) (\(noteName))"

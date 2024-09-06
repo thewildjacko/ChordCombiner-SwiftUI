@@ -67,3 +67,24 @@ extension Array where Element: Hashable {
     return Set(self)
   }
 }
+
+extension Array where Element == Note {
+  func isEnharmonicEquivalent(to otherNoteArray: [Note]) -> Bool {
+    if self.count != otherNoteArray.count {
+      return false
+    } else {
+      let firstArray = self.sorted(by: { $0.noteNum.rawValue < $1.noteNum.rawValue } )
+      let secondArray = otherNoteArray.sorted(by: { $0.noteNum.rawValue < $1.noteNum.rawValue } )
+      
+      var isEnharmonicEquivalent = true
+      
+      for i in (0...firstArray.count - 1) {
+        if !firstArray[i].isEnharmonicEquivalent(to: secondArray[i]) {
+          isEnharmonicEquivalent = false
+        }
+      }
+      
+      return isEnharmonicEquivalent
+    }
+  }
+}

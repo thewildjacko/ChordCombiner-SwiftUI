@@ -4,6 +4,15 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
+let notes1 = [Note(.c), Note(.d)]
+let notes2 = [Note(.bSh), Note(.e_bb, degree: .perfect4th)]
+notes1 == notes2
+notes1.isEnharmonicEquivalent(to: notes2)
+notes2.map { $0.noteName }
+
+let AbChord = Chord(.aB, .dim)
+AbChord.allNotes.map { $0.noteName }
+
 Note.enharmonicEquivalents(lhs: Note(.aB), rhs: Note(.gSh))
 
 var note = Note(.major6th, of: .f)
