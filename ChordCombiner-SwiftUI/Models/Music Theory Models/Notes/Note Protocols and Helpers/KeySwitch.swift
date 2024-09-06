@@ -1,5 +1,5 @@
 //
-//  KSwitch.swift
+//  KeySwitch.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 6/19/24.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// selects flat or sharp version of KeyName based on enharm
-struct KeySwitch: Codable {
+struct KeySwitcher: Codable {
   var enharm: Enharmonic
   
   func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName, _ blackKeyFlats: KeyName, _ blackKeySharps: KeyName) -> KeyName {
@@ -491,14 +491,14 @@ struct KeySwitch: Codable {
 }
 
 /// a protocol to allow notes to adopt `Enharmonic` and `KeySwitch` variables
-protocol KSwitch {
+protocol KeySwitch {
   var enharm: Enharmonic { get set }
-  var ks: KeySwitch { get }
+  var keySwitcher: KeySwitcher { get }
 }
 
-extension KSwitch {
+extension KeySwitch {
   /// returns a `KeySwitch` set to sharp or flat
-  var ks: KeySwitch {
-    return KeySwitch(enharm: enharm)
+  var keySwitcher: KeySwitcher {
+    return KeySwitcher(enharm: enharm)
   }
 }

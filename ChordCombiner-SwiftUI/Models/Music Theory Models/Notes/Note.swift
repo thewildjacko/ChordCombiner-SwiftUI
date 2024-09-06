@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
+struct Note: NoteProtocol, KeySwitch, CustomStringConvertible {
   var description: String {
     return "\(degree.name) (\(noteName))"
   }
@@ -31,7 +31,7 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
   
   var rootKey: KeyName {
     get {
-      ks.root(rootNum: rootNum)
+      keySwitcher.root(rootNum: rootNum)
     }
     set {
       
@@ -41,37 +41,37 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
   var key: KeyName {
     switch degree {
     case .root:
-      ks.root(rootNum: rootNum)
+      keySwitcher.root(rootNum: rootNum)
     case .minor9th:
-      ks.minor9th(rootNum: rootNum)
+      keySwitcher.minor9th(rootNum: rootNum)
     case .major9th:
-      ks.major9th(rootNum: rootNum)
+      keySwitcher.major9th(rootNum: rootNum)
     case .sharp9th:
-      ks.sharp9th(rootNum: rootNum)
+      keySwitcher.sharp9th(rootNum: rootNum)
     case .minor3rd:
-      ks.minor3rd(rootNum: rootNum)
+      keySwitcher.minor3rd(rootNum: rootNum)
     case .major3rd:
-      ks.major3rd(rootNum: rootNum)
+      keySwitcher.major3rd(rootNum: rootNum)
     case .perfect4th:
-      ks.perfect4th(rootNum: rootNum)
+      keySwitcher.perfect4th(rootNum: rootNum)
     case .sharp4th:
-      ks.sharp4th(rootNum: rootNum)
+      keySwitcher.sharp4th(rootNum: rootNum)
     case .dim5th:
-      ks.dim5th(rootNum: rootNum)
+      keySwitcher.dim5th(rootNum: rootNum)
     case .perfect5th:
-      ks.perfect5th(rootNum: rootNum)
+      keySwitcher.perfect5th(rootNum: rootNum)
     case .sharp5th:
-      ks.sharp5th(rootNum: rootNum)
+      keySwitcher.sharp5th(rootNum: rootNum)
     case .minor6th:
-      ks.minor6th(rootNum: rootNum)
+      keySwitcher.minor6th(rootNum: rootNum)
     case .major6th:
-      ks.major6th(rootNum: rootNum)
+      keySwitcher.major6th(rootNum: rootNum)
     case .dim7th:
-      ks.dim7th(rootNum: rootNum)
+      keySwitcher.dim7th(rootNum: rootNum)
     case .minor7th:
-      ks.minor7th(rootNum: rootNum)
+      keySwitcher.minor7th(rootNum: rootNum)
     case .major7th:
-      ks.major7th(rootNum: rootNum)
+      keySwitcher.major7th(rootNum: rootNum)
     }
   }
   
@@ -100,32 +100,32 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     
   }
   
-  mutating func kSW(ks: KeySwitch) {
+  mutating func kSW(keySwitcher: KeySwitcher) {
     switch noteNum {
     case .zero:
-      self.rootKey = ks.pickKey(.c, .bSh, .c, .c)
+      self.rootKey = keySwitcher.pickKey(.c, .bSh, .c, .c)
     case .one:
-      self.rootKey = ks.pickKey(.dB, .cSh, .dB, .cSh)
+      self.rootKey = keySwitcher.pickKey(.dB, .cSh, .dB, .cSh)
     case .two:
       self.rootKey = .d
     case .three:
-      self.rootKey = ks.pickKey(.eB, .dSh, .eB, .dSh)
+      self.rootKey = keySwitcher.pickKey(.eB, .dSh, .eB, .dSh)
     case .four:
-      self.rootKey = ks.pickKey(.fB, .e, .fB, .e)
+      self.rootKey = keySwitcher.pickKey(.fB, .e, .fB, .e)
     case .five:
-      self.rootKey = ks.pickKey(.f, .eSh, .f, .f)
+      self.rootKey = keySwitcher.pickKey(.f, .eSh, .f, .f)
     case .six:
-      self.rootKey = ks.pickKey(.gB, .fSh, .gB, .fSh)
+      self.rootKey = keySwitcher.pickKey(.gB, .fSh, .gB, .fSh)
     case .seven:
       self.rootKey = .g
     case .eight:
-      self.rootKey = ks.pickKey(.aB, .gSh, .aB, .gSh)
+      self.rootKey = keySwitcher.pickKey(.aB, .gSh, .aB, .gSh)
     case .nine:
       self.rootKey = .a
     case .ten:
-      self.rootKey = ks.pickKey(.bB, .aSh, .bB, .aSh)
+      self.rootKey = keySwitcher.pickKey(.bB, .aSh, .bB, .aSh)
     case .eleven:
-      self.rootKey = ks.pickKey(.cB, .b, .b, .b)
+      self.rootKey = keySwitcher.pickKey(.cB, .b, .b, .b)
     }
   }
   
@@ -149,7 +149,7 @@ struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
     case .blackKeyFlats, .blackKeySharps:
       enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
     }
-    kSW(ks: KeySwitch(enharm: enharm))
+    kSW(keySwitcher: KeySwitcher(enharm: enharm))
   }
   
   mutating func switchEnharm(to enharm: Enharmonic) {

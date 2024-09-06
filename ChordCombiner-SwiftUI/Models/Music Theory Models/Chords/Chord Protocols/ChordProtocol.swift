@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ChordProtocol: ChordsAndScales, KSwitch {
+protocol ChordProtocol: ChordsAndScales, KeySwitch {
   var noteCount: Int { get }
   var chordName: String { get }
   var degSet: Set<Int> { get }
