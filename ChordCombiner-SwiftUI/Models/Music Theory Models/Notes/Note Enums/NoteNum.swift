@@ -75,4 +75,12 @@ enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
       self = .zero
     }
   }
+  
+  func plusDeg(_ deg: NoteNum) -> NoteNum {
+    return NoteNum((self.rawValue + deg.rawValue).degreeInOctave)
+  }
+  
+  func minusDeg(_ deg: NoteNum) -> NoteNum {
+    return NoteNum((self.rawValue - deg.rawValue).degreeInOctave)
+  }
 }

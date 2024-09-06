@@ -4,7 +4,11 @@ import UIKit
 //
 //ScaleFactory.containsTriad(triad: Triad())
 
-var note = Note(.major6th, of: .bB)
+Note.enharmonicEquivalents(lhs: Note(.aB), rhs: Note(.gSh))
+
+var note = Note(.major6th, of: .f)
+Note(.dim7th, of: .f)
+note.isEnharmonicEquivalent(to: Note(.dim7th, of: .f))
 note.degree
 note.key.name
 note.rootKey.name

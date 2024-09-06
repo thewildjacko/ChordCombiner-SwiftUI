@@ -8,17 +8,25 @@
 import Foundation
 
 // TODO: add missing NoteProtocol elements
-struct Note: KSwitch {
-  let rootNum: NoteNum
+struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
+  var description: String {
+    return "\(degree.name) (\(noteName))"
+  }
   
   var noteNum: NoteNum {
     get {
-      return NoteNum(rootNum.basePitchNum.plusDeg(1))
+      degree.noteNum.plusDeg(rootNum)
     }
     set { }
   }
   
+  var rootNum: NoteNum
+  
   var enharm: Enharmonic
+  
+  var degName: (name: String, short: String, long: String) {
+    return (name: degree.name, short: degree.short, long: degree.long)
+  }
   
   var degree: Degree
   
@@ -80,5 +88,55 @@ struct Note: KSwitch {
     self.rootNum = root.keyName.noteNum
     self.degree = .root
   }
+  
+  init(_ key: KeyName = .c, degree: Degree = .root) {
+    self.enharm = key.enharm
+    self.degree = degree
+    self.rootNum = NoteNum(key.noteNum.rawValue.minusDeg(degree.noteNum.rawValue))
+    
+  }
 
+  func enharmSwapped() -> NoteProtocol {
+    var newEnharm: Enharmonic {
+      switch enharm {
+      case .flat, .sharp:
+        return enharm == .flat ? .sharp : .flat
+      case .blackKeyFlats, .blackKeySharps:
+        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      }
+    }
+    
+    return Note(rootNum: noteNum, enharm: newEnharm, degree: degree)
+  }
+}
+
+extension Note: Equatable {
+  static func == (lhs: Note, rhs: Note) -> Bool {
+    return lhs.noteNum == rhs.noteNum
+  }
+}
+
+extension Note {
+  func isEnharmonicEquivalent(to note: Note) -> Bool {
+    if self.noteNum == note.noteNum && self.noteName != note.noteName {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  static func enharmonicEquivalents (lhs: Note, rhs: Note) -> Bool {
+    if lhs.noteNum == rhs.noteNum && lhs.noteName != rhs.noteName {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+}
+
+extension Note: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(noteNum)
+  }
 }

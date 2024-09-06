@@ -200,7 +200,8 @@ struct MultiChordKeyboardView: View {
       setAndHighlightChords(initial: false)
       print("allNotes: ", multiChord.lowerChord.allNotes)
       multiChord.lowerChord.setNotesByDegree()
-      print(multiChord.lowerChord.allNotesByDegree)
+      print("allNotesByDegree: ", multiChord.lowerChord.allNotesByDegree)
+      print(multiChord.lowerChord.allNotesByDegree.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
     }
     .onChange(of: multiChord.upperChord) {
       setAndHighlightChords(initial: false)

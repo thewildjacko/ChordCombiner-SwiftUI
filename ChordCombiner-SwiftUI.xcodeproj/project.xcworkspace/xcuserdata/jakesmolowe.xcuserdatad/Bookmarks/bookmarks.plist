@@ -41,8 +41,8 @@
 //</string>
 				<key>trailing</key>
 				<string>TODO: add missing NoteProtocol elements
-struct Note: KSwitch {
-  let rootNum: NoteNum
+struct Note: NoteProtocol, KSwitch, CustomStringConvertible {
+  var description: String {
 </string>
 			</dict>
 			<key>type</key>
@@ -190,13 +190,13 @@ protocol NoteProtocol: Codable {
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>770</string>
+					<string>771</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>769</string>
+					<string>770</string>
 					<key>Timestamp</key>
-					<string>747191895.7032011</string>
+					<string>747330148.25852</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -212,16 +212,16 @@ protocol NoteProtocol: Codable {
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>      // TODO: add dominant allNotes
+				<string>    case .dominant7:
 </string>
 				<key>leading</key>
-				<string>      // [0, 2, 4, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+				<string>      
+      // MARK: Dominant 7th Chords
 </string>
 				<key>trailing</key>
-				<string>    case .dominant13_sh11:
-      // [0, 2, 4, 6, 7, 9, 10]
-      allNotes = [root, Maj9(rootKey), Maj3(rootKey), Sh_4(rootKey), P5(rootKey), Maj6(rootKey), Min7(rootKey)]
+				<string>      // [0, 4, 7, 10]
+      allNotes = [root, Maj3(rootKey), P5(rootKey), Min7(rootKey)]
+    case .dominant7_sh11:
 </string>
 			</dict>
 			<key>type</key>
