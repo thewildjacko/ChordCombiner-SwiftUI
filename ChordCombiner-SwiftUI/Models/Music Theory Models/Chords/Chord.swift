@@ -11,7 +11,7 @@ struct Chord: ChordProtocol, Identifiable {
   var id = UUID()
   
   //  MARK: instance properties
-  var root: Root
+  var root: RootNote
   var type: ChordType {
     didSet {
       refresh()
@@ -39,7 +39,7 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   var name: String {
-    root.noteName + chordName
+    root.note.noteName + chordName
   }
   
   var allNotes: [NoteProtocol] = []
@@ -72,42 +72,42 @@ struct Chord: ChordProtocol, Identifiable {
     self.type = type
     self.enharm = enharm
     self.startingOctave = startingOctave
-    self.root = Root(noteNum: rootNum, enharm: enharm)
+    self.root = RootNote(Note(rootNum: rootNum, enharm: enharm, degree: .root))
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    self.letter = root.note.key.letter
+    self.accidental = RootAcc(root.note.key.accidental)
     
     setNotesAndNoteCount()
   }
   
-  init(_ rootKey: RootGen, _ type: ChordType, startingOctave: Int = 4) {
+  init(_ rootKey: RootNote, _ type: ChordType, startingOctave: Int = 4) {
     self.type = type
-    self.enharm = rootKey.keyName.enharm
+    self.enharm = rootKey.note.key.enharm
     self.startingOctave = startingOctave
-    self.root = Root(rootKey)
+    self.root = rootKey
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    self.letter = root.note.key.letter
+    self.accidental = RootAcc(root.note.key.accidental)
     
     setNotesAndNoteCount()
   }
   
   //  MARK: instance methods
   func translated(by offset: Int) -> any ChordProtocol {
-    return Chord(rootNum: NoteNum(root.basePitchNum.plusDeg(offset)), type: type, enharm: enharm)
+    return Chord(rootNum: NoteNum(root.note.basePitchNum.plusDeg(offset)), type: type, enharm: enharm)
   }
   
   mutating func setNotesAndNoteCount() {
-    self.allNotes = type.setNotes(root: root, rootKey: rootKey)
+//    self.allNotes = type.setNotes(root: root, rootKey: rootKey)
 //    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: RootNote(Note(root.key)))
+    self.allNotesByDegree = type.setNotesByDegree(root: RootNote(Note(root.note.key)))
     self.noteCount = allNotes.count
     
 //    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
-    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: RootNote(Note(root.key)))
+    self.allNotesByDegree = type.setNotesByDegree(root: RootNote(Note(root.note.key)))
     //    self.allNotesByDegree = type.setNotesByDegree(root: root, rootKey: rootKey)
 //    print("notesByDegree: ", allNotesByDegree)
   }
@@ -117,7 +117,7 @@ struct Chord: ChordProtocol, Identifiable {
   }
   
   func getBaseChord() -> Chord {
-    return Chord(rootKey, type.baseChordType)
+    return Chord(root, type.baseChordType)
   }
   
   func containingChords() -> [Chord] {
@@ -126,7 +126,7 @@ struct Chord: ChordProtocol, Identifiable {
     let notesbyNoteNum = self.notesByNoteNum
     
     for chord in ChordFactory.allChords {
-      let chordNum = chord.root.noteNum
+      let chordNum = chord.root.note.noteNum
       
       if self.degrees.includes(chord.degrees) && chord.name != self.name {
         if let noteNum = notesbyNoteNum.first(where: { $0.key == chordNum }) {
@@ -150,7 +150,7 @@ struct Chord: ChordProtocol, Identifiable {
       }
     }
     
-    return Chord(rootNum: root.noteNum, type: type, enharm: newEnharm)
+    return Chord(rootNum: root.note.noteNum, type: type, enharm: newEnharm)
   }
   
 }

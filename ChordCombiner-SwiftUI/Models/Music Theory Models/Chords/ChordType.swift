@@ -637,7 +637,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     return optionalDegreeTags.compactMap { $0 }
   }
   
-  func setNotesByDegree(root: Root, rootKey: RootNote) -> [NoteProtocol] { 
+  func setNotesByDegree(root: RootNote) -> [NoteProtocol] {
     var allNotes: [NoteProtocol] = []
     
     //    let timeMeasure = ContinuousClock().measure {
@@ -646,67 +646,67 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       switch degreeTag {
       case .root:
         // allNotes.append(root)
-        allNotes.append(Note(rootKey))
+        allNotes.append(Note(root))
             case .minor9th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Min9(rootKey))
-        allNotes.append(Note(.minor9th, of: rootKey))
+        allNotes.append(Note(.minor9th, of: root))
       case .sharp9th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Sh_9(rootKey))
-        allNotes.append(Note(.sharp9th, of: rootKey))
+        allNotes.append(Note(.sharp9th, of: root))
       case .major9th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Maj9(rootKey))
-        allNotes.append(Note(.major9th, of: rootKey))
+        allNotes.append(Note(.major9th, of: root))
       case .minor3rd:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Min3(rootKey))
-        allNotes.append(Note(.minor3rd, of: rootKey))
+        allNotes.append(Note(.minor3rd, of: root))
       case .major3rd:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Maj3(rootKey))
-        allNotes.append(Note(.major3rd, of: rootKey))
+        allNotes.append(Note(.major3rd, of: root))
       case .perfect4th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(P4(rootKey))
-        allNotes.append(Note(.perfect4th, of: rootKey))
+        allNotes.append(Note(.perfect4th, of: root))
       case .sharp4th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Sh_4(rootKey))
-        allNotes.append(Note(.sharp4th, of: rootKey))
+        allNotes.append(Note(.sharp4th, of: root))
       case .dim5th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Dim5(rootKey))
-        allNotes.append(Note(.dim5th, of: rootKey))
+        allNotes.append(Note(.dim5th, of: root))
       case .sharp5th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Sh_5(rootKey))
-        allNotes.append(Note(.sharp5th, of: rootKey))
+        allNotes.append(Note(.sharp5th, of: root))
       case .perfect5th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(P5(rootKey))
-        allNotes.append(Note(.perfect5th, of: rootKey))
+        allNotes.append(Note(.perfect5th, of: root))
       case .minor6th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Min6(rootKey))
-        allNotes.append(Note(.minor6th, of: rootKey))
+        allNotes.append(Note(.minor6th, of: root))
       case .major6th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Maj6(rootKey))
-        allNotes.append(Note(.major6th, of: rootKey))
+        allNotes.append(Note(.major6th, of: root))
       case .dim7th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Dim7(rootKey))
-        allNotes.append(Note(.dim7th, of: rootKey))
+        allNotes.append(Note(.dim7th, of: root))
       case .minor7th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Min7(rootKey))
-        allNotes.append(Note(.minor7th, of: rootKey))
+        allNotes.append(Note(.minor7th, of: root))
       case .major7th:
         // print("degree is: \(degreeTag)")
         // allNotes.append(Maj7(rootKey))
-        allNotes.append(Note(.major7th, of: rootKey))
+        allNotes.append(Note(.major7th, of: root))
       }
     }
     //    }

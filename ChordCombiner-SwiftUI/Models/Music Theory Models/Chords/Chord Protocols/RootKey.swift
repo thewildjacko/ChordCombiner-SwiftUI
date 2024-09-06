@@ -9,12 +9,12 @@
 import Foundation
 
 protocol RootKey {
-  var root: Root { get set }
-  var rootKey: RootGen { get }
+  var root: RootNote { get set }
+  var rootKey: KeyName { get }
 }
 
 extension RootKey {
-  var rootKey: RootGen {
-    return root.rootKey
+  var rootKey: KeyName {
+    return root.note.key
   }
 }
