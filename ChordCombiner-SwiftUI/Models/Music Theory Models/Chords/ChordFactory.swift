@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import SwiftUI
 
 struct ChordFactory {
-  @Binding var equivalentChords: [Chord]
+  var equivalentChords: [Chord]
   
   //  MARK: static properties
   static var allChords: [Chord] {
@@ -58,9 +57,9 @@ struct ChordFactory {
     return (resultChord, chords)
   }
   
-  static func combineChordDegrees(_ lowerChordDegrees: [Int], _ upperChordDegrees: [Int], lowerRoot: Note, upperRoot: Note) -> Chord? {
+  static func combineChordDegrees(lowerDegrees: [Int], upperDegrees: [Int], lowerRoot: Note, upperRoot: Note) -> Chord? {
 //    print("Combining degrees")
-    let degrees: [Int] = lowerChordDegrees + upperChordDegrees
+    let degrees: [Int] = lowerDegrees + upperDegrees
     let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.basePitchNum) }.sorted()
     
 //    print(lowerChordDegrees, upperChordDegrees, degrees, degreesInC)

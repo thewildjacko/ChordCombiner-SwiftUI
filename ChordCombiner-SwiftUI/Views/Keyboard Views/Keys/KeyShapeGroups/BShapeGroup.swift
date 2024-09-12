@@ -42,8 +42,7 @@ struct BShapeGroup: View, KeyShapeGroup {
     }
     .rotation3DEffect(
       .degrees(180),
-      axis: (x: 0.0, y: 1.0, z: 0.0)
-    )
+      axis: (x: 0.0, y: 1.0, z: 0.0))
     .frame(width: width, height: height)
     .zIndex(z_Index)
     .position(x: position, y: height/2)

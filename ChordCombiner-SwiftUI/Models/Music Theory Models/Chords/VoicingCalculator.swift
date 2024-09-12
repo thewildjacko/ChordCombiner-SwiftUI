@@ -14,13 +14,9 @@ struct VoicingCalculator {
   var key: KeyName
   var rootNote: Root
 
-  var rootKey: RootGen {
-    return rootNote.rootKey
-  }
-
-  var baseChord: Chord {
-    return Chord(rootKey, type.baseChordType)
-  }
+  var root: Note { rootNote.note }
+  var rootKey: RootGen { rootNote.rootKey }
+  var baseChord: Chord { Chord(rootKey, type.baseChordType) }
 
   var raisedPitches: [Int] {
     return degrees.map { $0.toPitch(startingOctave: startingOctave) }
@@ -46,5 +42,4 @@ struct VoicingCalculator {
   var noteNums: [NoteNum] {
     return degrees.map { NoteNum($0) }
   }
-
 }

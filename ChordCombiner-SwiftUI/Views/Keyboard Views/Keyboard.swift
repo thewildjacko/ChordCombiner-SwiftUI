@@ -121,8 +121,7 @@ struct Keyboard: View, Identifiable {
             fill: setFill(type: type),
             stroke: .black,
             initialKey: true,
-            keyPosition: type.initialKeyPosition)
-        )
+            keyPosition: type.initialKeyPosition))
         keyPosition += type.initialKeyPosition + type.nextKeyPosition
         pitch += 1
       } else if index < keyTypes.count - 1 {
@@ -135,8 +134,7 @@ struct Keyboard: View, Identifiable {
             widthMod: widthMod,
             fill: setFill(type: type),
             stroke: .black,
-            keyPosition: keyPosition)
-        )
+            keyPosition: keyPosition))
         keyPosition += type.nextKeyPosition
         pitch += 1
       } else if index == keyTypes.count - 1 {
@@ -150,8 +148,7 @@ struct Keyboard: View, Identifiable {
             fill: setFill(type: type),
             stroke: .black,
             finalKey: true,
-            keyPosition: keyPosition)
-        )
+            keyPosition: keyPosition))
       }
     }
   }
@@ -168,8 +165,7 @@ struct Keyboard: View, Identifiable {
       keyCount: keyCount,
       initialKey: initialKeyType,
       startingOctave: startingOctave,
-      octaves: octaves
-    )
+      octaves: octaves)
   }
   
   mutating func highlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
@@ -199,16 +195,14 @@ struct Keyboard: View, Identifiable {
         secondDegs: onlyInUpper,
         commonToneDegs: commonTones,
         color: color,
-        secondColor: secondColor
-      )
+        secondColor: secondColor)
     } else {
-      let (lowerPitches, upperPitches) = CombinedChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
+      let (lowerPitches, upperPitches) = MultiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
       highlightKeysSplit(
         degs: lowerPitches,
         secondDegs: upperPitches,
         color: color,
-        secondColor: secondColor
-      )
+        secondColor: secondColor)
     }
   }
 

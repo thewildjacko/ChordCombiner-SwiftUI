@@ -58,14 +58,11 @@ struct ChordMenu: View {
         geoWidth: 187,
         initialKey: .C,
         startingOctave: 4,
-        octaves: 2)
-    )
-    /*, chordStore: ChordStore()*/
-  )
+        octaves: 2))
+    /*, chordStore: ChordStore()*/)
   .environmentObject(
     MultiChord(
       lowerChord: Chord(.c, .ma7, startingOctave: 4),
       upperChord: Chord(.d, .ma, startingOctave: 4)
-    )
-  )
+    ))
 }

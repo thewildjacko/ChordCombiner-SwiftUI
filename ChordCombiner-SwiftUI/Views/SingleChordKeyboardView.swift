@@ -19,8 +19,7 @@ struct SingleChordKeyboardView: View {
       ChordMenu(
         text: text,
         chord: $chord,
-        keyboard: $keyboard
-      )
+        keyboard: $keyboard)
     }
     
   }
@@ -31,7 +30,6 @@ struct SingleChordKeyboardView: View {
     text: "Select Chord:",
     chord: Binding.constant(Chord(.c, .ma)),
     keyboard: Binding.constant(Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2)),
-    color: .yellow
-  )
+    color: .yellow)
   
 }

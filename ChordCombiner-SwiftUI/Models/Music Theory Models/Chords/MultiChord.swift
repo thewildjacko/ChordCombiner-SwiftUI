@@ -8,23 +8,35 @@
 import Foundation
 
 class MultiChord: ObservableObject {
-  @Published var lowerChord: Chord
-  @Published var upperChord: Chord
-  @Published var resultChord: Chord?
+  @Published var lowerChord: Chord {
+    didSet { setResultChord() }
+  }
   
-  init(lowerChord: Chord, upperChord: Chord, resultChord: Chord? = nil) {
+  @Published var upperChord: Chord {
+    didSet { setResultChord() }
+  }
+  
+  @Published var resultChord: Chord? = nil
+
+  var multiChordVoicingCalculator: MultiChordVoicingCalculator {
+    MultiChordVoicingCalculator(
+      lowerChordVoicingCalculator: lowerChord.voicingCalculator,
+      upperChordVoicingCalculator: upperChord.voicingCalculator)
+  }
+  
+  init(lowerChord: Chord, upperChord: Chord) {
 //    print("initializing MultiChord (lowerChord: \(lowerChord.name), upperChord: \(upperChord.name))")
     self.lowerChord = lowerChord
     self.upperChord = upperChord
-    self.resultChord = resultChord
+    setResultChord()
   }
   
   var lowerRoot: Note {
-    lowerChord.root
+    multiChordVoicingCalculator.lowerChordVoicingCalculator.rootNote.note
   }
 
   var upperRoot: Note {
-    upperChord.root
+    multiChordVoicingCalculator.upperChordVoicingCalculator.rootNote.note
   }
 
   var lowerDegrees: [Int] {
@@ -69,5 +81,27 @@ class MultiChord: ObservableObject {
   
   var upperStackedPitches: [Int] {
     upperChord.stackedPitches
+  }
+  
+  var lowerTonesToHighlight: [Int] = []
+  var upperTonesToHighlight: [Int] = []
+  var commonTonesToHighlight: [Int] = []
+
+  func setResultChord() {
+    resultChord = ChordFactory.combineChordDegrees(
+      lowerDegrees: multiChordVoicingCalculator.lowerDegrees,
+      upperDegrees: multiChordVoicingCalculator.upperDegrees,
+      lowerRoot: multiChordVoicingCalculator.lowerRoot,
+      upperRoot: multiChordVoicingCalculator.upperRoot)
+  }
+
+  func setHighlightedPitches() {
+    if let result = resultChord {
+      lowerTonesToHighlight = result.voicingCalculator.stackedPitches.includeIfSameNote(onlyInLower)
+      upperTonesToHighlight = result.voicingCalculator.stackedPitches.includeIfSameNote(onlyInUpper)
+      commonTonesToHighlight = result.voicingCalculator.stackedPitches.includeIfSameNote(commonTones)
+    }
+    
+    
   }
 }

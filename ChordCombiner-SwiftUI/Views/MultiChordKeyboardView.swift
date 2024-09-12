@@ -12,12 +12,10 @@ struct MultiChordKeyboardView: View {
 //  MARK: @State and instance variables
   @StateObject var multiChord: MultiChord = MultiChord(
     lowerChord: Chord(.c, .ma7, startingOctave: 4),
-    upperChord: Chord(.d, .ma, startingOctave: 4)
-  )
+    upperChord: Chord(.d, .ma, startingOctave: 4))
   @StateObject var oldMultiChord: MultiChord = MultiChord(
     lowerChord: Chord(.c, .ma7, startingOctave: 4),
-    upperChord: Chord(.d, .ma, startingOctave: 4)
-  )
+    upperChord: Chord(.d, .ma, startingOctave: 4))
   @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
@@ -33,11 +31,9 @@ struct MultiChordKeyboardView: View {
     let upperRoot = multiChord.upperRoot
     
     var resultChordExists: Bool = false
-    
-    multiChord.resultChord = ChordFactory.combineChordDegrees(lowerDegrees, upperDegrees, lowerRoot: lowerRoot, upperRoot: upperRoot)
 
-    let lowerStackedPitches = multiChord.lowerStackedPitches
-    let upperStackedPitches = multiChord.upperStackedPitches
+    let lowerStackedPitches = multiChord.multiChordVoicingCalculator.lowerChordVoicingCalculator.stackedPitches
+    let upperStackedPitches = multiChord.multiChordVoicingCalculator.upperChordVoicingCalculator.stackedPitches
     var stackedPitches: [Int] = []
     
     var lowerTonesStacked: [Int] = []
@@ -48,6 +44,7 @@ struct MultiChordKeyboardView: View {
       resultChordExists = true
       stackedPitches = result.stackedPitches
     }
+    
     lowerTonesStacked = stackedPitches.includeIfSameNote(multiChord.onlyInLower)
     upperTonesStacked = stackedPitches.includeIfSameNote(multiChord.onlyInUpper)
     commonTonesStacked = stackedPitches.includeIfSameNote(multiChord.commonTones)
@@ -64,8 +61,7 @@ struct MultiChordKeyboardView: View {
         upperStackedPitches: upperStackedPitches,
         resultChordExists: resultChordExists,
         color: color,
-        secondColor: secondColor
-      )
+        secondColor: secondColor)
     } else {
       var oldResultChordExists = false
       
@@ -100,8 +96,7 @@ struct MultiChordKeyboardView: View {
         upperStackedPitches: oldUpperStackedPitches,
         resultChordExists: oldResultChordExists,
         color: color,
-        secondColor: secondColor
-      )
+        secondColor: secondColor)
       combinedKeyboard.highlightStackedCombinedOrSplit(
         onlyInLower: lowerTonesStacked,
         onlyInUpper: upperTonesStacked,
@@ -110,8 +105,7 @@ struct MultiChordKeyboardView: View {
         upperStackedPitches: upperStackedPitches,
         resultChordExists: resultChordExists,
         color: color,
-        secondColor: secondColor
-      )
+        secondColor: secondColor)
     }
     
     oldMultiChord.lowerChord = multiChord.lowerChord
@@ -133,8 +127,7 @@ struct MultiChordKeyboardView: View {
           text: "Lower Chord",
           chord: $multiChord.lowerChord,
           keyboard: $lowerKeyboard,
-          color: color
-        )
+          color: color)
                 
         Spacer()
         
@@ -150,8 +143,7 @@ struct MultiChordKeyboardView: View {
           text: "Upper Chord",
           chord: $multiChord.upperChord,
           keyboard: $upperKeyboard,
-          color: secondColor
-        )
+          color: secondColor)
     
         Spacer()
       }
@@ -169,8 +161,7 @@ struct MultiChordKeyboardView: View {
       
       DualChordKeyboardView(
         text: "Combined Chord",
-        keyboard: $combinedKeyboard
-      )
+        keyboard: $combinedKeyboard)
       
       ForEach((1...6), id: \.self ) { _ in
         Spacer()
@@ -203,6 +194,5 @@ struct MultiChordKeyboardView: View {
       MultiChord(
         lowerChord: Chord(.c, .ma7, startingOctave: 4),
         upperChord: Chord(.d, .ma, startingOctave: 4)
-      )
-    )
+      ))
 }

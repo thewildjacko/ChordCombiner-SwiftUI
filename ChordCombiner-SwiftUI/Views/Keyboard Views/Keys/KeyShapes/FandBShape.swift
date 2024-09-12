@@ -36,15 +36,13 @@ struct FandBShape: Shape, KeyShape {
           CGPoint(x: x1, y: y1),
           CGPoint(x: x2, y: y1),
           CGPoint(x: x2, y: y2)
-        ]
-      )
+        ])
       
       path.addRelativeArc(
         center: arcCenter1,
         radius: radius,
         startAngle: ArcAngle.one.angle,
-        delta: ArcAngle.two.angle
-      )
+        delta: ArcAngle.two.angle)
       
       path.addLine(to: CGPoint(x: x3, y: y3))
       
@@ -52,8 +50,7 @@ struct FandBShape: Shape, KeyShape {
         center: arcCenter2,
         radius: radius,
         startAngle: ArcAngle.two.angle,
-        delta: ArcAngle.two.angle
-      )
+        delta: ArcAngle.two.angle)
       
       path.closeSubpath()
     }

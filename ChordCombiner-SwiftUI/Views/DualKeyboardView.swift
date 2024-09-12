@@ -36,12 +36,10 @@ struct DualChordKeyboardView: View {
 #Preview {
   DualChordKeyboardView(
     text: "Combined Chord:",
-    keyboard: Binding.constant(Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5))
-  )
+    keyboard: Binding.constant(Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)))
   .environmentObject(
     MultiChord(
       lowerChord: Chord(.c, .ma7, startingOctave: 4),
       upperChord: Chord(.d, .ma, startingOctave: 4)
-    )
-  )
+    ))
 }

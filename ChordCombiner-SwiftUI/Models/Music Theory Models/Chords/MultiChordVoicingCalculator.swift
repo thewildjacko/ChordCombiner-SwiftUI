@@ -1,5 +1,5 @@
 //
-//  CombinedChordVoicingCalculator.swift
+//  MultiChordVoicingCalculator.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 8/22/24.
@@ -7,7 +7,48 @@
 
 import Foundation
 
-struct CombinedChordVoicingCalculator {
+struct MultiChordVoicingCalculator {
+  var lowerChordVoicingCalculator: VoicingCalculator
+  var upperChordVoicingCalculator: VoicingCalculator
+  
+  var lowerStackedPitches: [Int] {
+    lowerChordVoicingCalculator.stackedPitches
+  }
+
+  var upperStackedPitches: [Int] {
+    upperChordVoicingCalculator.stackedPitches
+  }
+  
+  var lowerRoot: Note {
+    lowerChordVoicingCalculator.rootNote.note
+  }
+
+  var upperRoot: Note {
+    upperChordVoicingCalculator.rootNote.note
+  }
+
+  var lowerDegrees: [Int] {
+    lowerChordVoicingCalculator.degrees
+  }
+
+  var upperDegrees: [Int] {
+    upperChordVoicingCalculator.degrees
+  }
+  
+  var onlyInLower: [Int] {
+    lowerDegrees.subtracting(upperDegrees)
+  }
+  
+  var onlyInUpper: [Int] {
+    upperDegrees.subtracting(lowerDegrees)
+  }
+  
+  var commonTones: [Int] {
+    lowerDegrees.intersection(upperDegrees)
+  }
+  
+  
+  
   static func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
     //    print("Highlighting split\n--------")
     // set initial 2nd chord stacked degrees
