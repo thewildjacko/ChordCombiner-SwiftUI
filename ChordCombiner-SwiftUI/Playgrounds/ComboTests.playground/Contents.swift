@@ -1,9 +1,10 @@
 import UIKit
 
-let perfect5ths = ChordType.allCases.filter {  $0.degreeTags.contains(.perfect5th) }
-
+//let perfect5ths = ChordType.allCases.filter {  $0.degreeTags.contains(.perfect5th) }
+//
 var chord = Chord(.c, .ma)
-perfect5ths.count
+
+//perfect5ths.count
 //print("\(FileManager.documentsDirectoryURL)\n")
 //
 //ScaleFactory.containsTriad(triad: Triad())

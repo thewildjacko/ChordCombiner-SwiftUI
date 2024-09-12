@@ -202,7 +202,7 @@ struct Keyboard: View, Identifiable {
         secondColor: secondColor
       )
     } else {
-      let (lowerPitches, upperPitches) = VoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
+      let (lowerPitches, upperPitches) = CombinedChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
       highlightKeysSplit(
         degs: lowerPitches,
         secondDegs: upperPitches,

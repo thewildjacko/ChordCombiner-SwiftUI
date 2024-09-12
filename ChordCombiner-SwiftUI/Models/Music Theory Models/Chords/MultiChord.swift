@@ -5,7 +5,7 @@
 //  Created by Jake Smolowe on 8/21/24.
 //
 
-import SwiftUI
+import Foundation
 
 class MultiChord: ObservableObject {
   @Published var lowerChord: Chord

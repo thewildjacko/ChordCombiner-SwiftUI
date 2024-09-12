@@ -8,9 +8,9 @@
 import Foundation
 
 struct Chord: ChordProtocol, Identifiable {
+  //  MARK: instance properties
   var id = UUID()
   
-  //  MARK: instance properties
   var rootNote: Root
   
   var root: Note
@@ -69,31 +69,52 @@ struct Chord: ChordProtocol, Identifiable {
     return degrees.map { NoteNum($0) }
   }
   
+  var voicingCalculator: VoicingCalculator
+  
   //  MARK: initializers
   init(rootNum: NoteNum = .zero, type: ChordType, enharm: Enharmonic = .flat, startingOctave: Int = 4) {
     self.type = type
     self.enharm = enharm
     self.startingOctave = startingOctave
-    self.rootNote = Root(Note(rootNum: rootNum, enharm: enharm, degree: .root))
-    self.root = rootNote.note
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    rootNote = Root(Note(rootNum: rootNum, enharm: enharm, degree: .root))
+    root = rootNote.note
+    
+    letter = root.key.letter
+    accidental = RootAcc(root.key.accidental)
+    
+    voicingCalculator = VoicingCalculator(
+      type: type,
+      degrees: [],
+      startingOctave: startingOctave,
+      key: root.key,
+      rootNote: rootNote)
     
     setNotesAndNoteCount()
+    voicingCalculator.degrees = degrees
   }
   
   init(_ rootKey: RootGen, _ type: ChordType, startingOctave: Int = 4) {
     self.type = type
-    self.enharm = rootKey.keyName.enharm
     self.startingOctave = startingOctave
-    self.rootNote = Root(rootKey)
-    self.root = rootNote.note
     
-    self.letter = root.key.letter
-    self.accidental = RootAcc(root.key.accidental)
+    enharm = rootKey.keyName.enharm
+    
+    rootNote = Root(rootKey)
+    root = rootNote.note
+    
+    letter = root.key.letter
+    accidental = RootAcc(root.key.accidental)
+    
+    voicingCalculator = VoicingCalculator(
+      type: type,
+      degrees: [],
+      startingOctave: startingOctave,
+      key: root.key,
+      rootNote: rootNote)
     
     setNotesAndNoteCount()
+    voicingCalculator.degrees = degrees
   }
   
   //  MARK: instance methods
