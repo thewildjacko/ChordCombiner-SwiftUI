@@ -65,6 +65,7 @@
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DE6CA0C2C79A6AE00D39604 /* SingleChordKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */; };
+		1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */ = {isa = PBXBuildFile; fileRef = 1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */; };
 		1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD9D4E2C5AA4330006333D /* ChordType.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChordKeyboardView.swift; sourceTree = "<group>"; };
+		1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "ChordType addition scratchpad.md"; sourceTree = "<group>"; };
 		1DFD9D4E2C5AA4330006333D /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 				1D5F6AA42C24830200193B58 /* Views */,
 				1D5F6AA52C2483E700193B58 /* Models */,
 				1D5F6AA12C2482AD00193B58 /* Custom Extensions */,
+				1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */,
 				1D5F69DD2C2481E700193B58 /* Assets.xcassets */,
 				1D5F69DF2C2481E700193B58 /* Preview Content */,
 			);
@@ -453,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D5F69E12C2481E700193B58 /* Preview Assets.xcassets in Resources */,
+				1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */,
 				1D5F69DE2C2481E700193B58 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,6 +661,7 @@
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HarmonyBrain;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -686,6 +691,7 @@
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HarmonyBrain;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,5 +1,5 @@
 //
-//  ChordHighlighter.swift
+//  VoicingCalculator.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 8/22/24.
@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+
+
 
 struct VoicingCalculator {
   static func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {

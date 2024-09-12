@@ -18,9 +18,9 @@ struct MultiChordKeyboardView: View {
     lowerChord: Chord(.c, .ma7, startingOctave: 4),
     upperChord: Chord(.d, .ma, startingOctave: 4)
   )
-  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 450, initialKey: .C,  startingOctave: 4, octaves: 2)
-  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 450, initialKey: .C,  startingOctave: 4, octaves: 2)
-  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 1053, initialKey: .C,  startingOctave: 4, octaves: 5)
+  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)
+  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)
+  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)
   
   var color: Color = .yellow
   var secondColor: Color = .cyan
@@ -66,18 +66,6 @@ struct MultiChordKeyboardView: View {
         color: color,
         secondColor: secondColor
       )
-      
-//      VoicingCalculator.highlightStackedCombinedOrSplit(
-//        onlyInLower: lowerTonesStacked,
-//        onlyInUpper: upperTonesStacked,
-//        commonTones: commonTonesStacked,
-//        lowerStackedPitches: lowerStackedPitches,
-//        upperStackedPitches: upperStackedPitches,
-//        resultChordExists: resultChordExists,
-//        keyboard: &combinedKeyboard,
-//        color: color,
-//        secondColor: secondColor
-//      )
     } else {
       var oldResultChordExists = false
       
