@@ -7,175 +7,148 @@
 
 import Foundation
 
-struct Chord: ChordProtocol, Identifiable {
+struct Chord: ChordsAndScales, KeySwitch, EnharmonicID, Identifiable {
   //  MARK: instance properties
   var id = UUID()
   
   var rootNote: Root
-  
   var root: Note
-  
-  var type: ChordType {
-    didSet {
-      refresh()
-    }
-  }
-  
-  var enharm: Enharmonic
+  var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   
   var startingOctave: Int = 4
   
-  var accidental: RootAcc {
-    didSet {
-      refresh()
-    }
-  }
+  var type: ChordType { didSet { refresh() } }
+  var enharmonic: EnharmonicSymbol
+  var accidental: RootAccidental { didSet { refresh() } }
+  var letter: Letter { didSet { refresh() } }
   
-  var letter: Letter {
-    didSet {
-      refresh()
-    }
-  }
-  
-  var chordName: String {
-    return type.rawValue
-  }
-  
-  var name: String {
-    root.noteName + chordName
-  }
+  var chordTypeName: String { type.rawValue }
+  var name: String { root.noteName + chordTypeName }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0
-  
-  var degrees: [Int] {
-    return allNotes.map {$0.basePitchNum}
-  }
-  
-  var degSet: Set<Int> {
-    return Set(degrees)
-  }
-  
+    
   var convertedDegrees: [Int] = []
   
-  var stackedPitches: [Int] {
-    return pitchesRaisedAboveRoot.map {
-       $0.raiseAboveDegreesIfAbsent(getBaseChord()
-        .pitchesRaisedAboveRoot)
-    }
-  }
+//  var noteNums: [NoteNum] { degrees.map { NoteNum($0) } }
   
-  var noteNums: [NoteNum] {
-    return degrees.map { NoteNum($0) }
-  }
+  var noteNums: [NoteNum] { allNotes.map { $0.noteNum } }
   
   var voicingCalculator: VoicingCalculator
   
   //  MARK: initializers
-  init(rootNum: NoteNum = .zero, type: ChordType, enharm: Enharmonic = .flat, startingOctave: Int = 4) {
+  init(rootNum: NoteNum = .zero, type: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4) {
     self.type = type
-    self.enharm = enharm
+    self.enharmonic = enharmonic
     self.startingOctave = startingOctave
     
-    rootNote = Root(Note(rootNum: rootNum, enharm: enharm, degree: .root))
+    rootNote = Root(Note(rootNum: rootNum, enharmonic: enharmonic, degree: .root))
     root = rootNote.note
     
-    letter = root.key.letter
-    accidental = RootAcc(root.key.accidental)
+    letter = root.keyName.letter
+    accidental = RootAccidental(root.keyName.accidental)
     
     voicingCalculator = VoicingCalculator(
-      type: type,
       degrees: [],
+      rootNote: rootNote,
+      type: type,
       startingOctave: startingOctave,
-      key: root.key,
-      rootNote: rootNote)
+      keyName: root.keyName)
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
   }
   
-  init(_ rootKey: RootGen, _ type: ChordType, startingOctave: Int = 4) {
+  init(_ rootKeyNote: RootKeyNote, _ type: ChordType, startingOctave: Int = 4) {
     self.type = type
     self.startingOctave = startingOctave
     
-    enharm = rootKey.keyName.enharm
+    enharmonic = rootKeyNote.keyName.enharmonic
     
-    rootNote = Root(rootKey)
+    rootNote = Root(rootKeyNote)
     root = rootNote.note
     
-    letter = root.key.letter
-    accidental = RootAcc(root.key.accidental)
+    letter = root.keyName.letter
+    accidental = RootAccidental(root.keyName.accidental)
     
     voicingCalculator = VoicingCalculator(
-      type: type,
       degrees: [],
+      rootNote: rootNote,
+      type: type,
       startingOctave: startingOctave,
-      key: root.key,
-      rootNote: rootNote)
+      keyName: root.keyName)
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
   }
   
   //  MARK: instance methods
-  func translated(by offset: Int) -> any ChordProtocol {
-    return Chord(rootNum: NoteNum(root.basePitchNum.plusDeg(offset)), type: type, enharm: enharm)
+  func translated(by offset: Int) -> Chord {
+    return Chord(rootNum: NoteNum(root.noteNum.rawValue.plusDeg(offset)), type: type, enharmonic: enharmonic)
   }
   
   mutating func setNotesAndNoteCount() {
-    self.allNotes = type.setNotesByDegree(rootKey: rootKey)
+    self.allNotes = type.setNotesByDegree(rootKeyNote: rootKeyNote)
     self.noteCount = allNotes.count
-    
-//    print("Initializing: \(self.name)")
+    //    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
-    self.allNotes = type.setNotesByDegree(rootKey: rootKey)
-    //    self.allNotes = type.setNotesByDegree(root: root, rootKey: rootKey)
-//    print("notesByDegree: ", allNotes)
+    self.allNotes = type.setNotesByDegree(rootKeyNote: rootKeyNote)
+  }
+  
+  mutating func convertDegrees(to rootNum: NoteNum) {
+    convertedDegrees = degrees.map { $0.minusDeg(rootNum.rawValue)}
+  }
+  
+  mutating func convertDegsToOwnRoot() {
+    convertedDegrees = degrees.map { $0.minusDeg(root.noteNum.rawValue) }
   }
   
   mutating func refresh() {
-    self = Chord(RootGen(letter, accidental), type)
+    self = Chord(RootKeyNote(letter, accidental), type)
   }
   
   func getBaseChord() -> Chord {
-    return Chord(rootKey, type.baseChordType)
+    return Chord(rootKeyNote, type.baseChordType)
   }
   
   func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
     
-    let notesbyNoteNum = self.notesByNoteNum
-    
-    for chord in ChordFactory.allChords {
-      let chordNum = chord.root.noteNum
-      
-      if self.degrees.includes(chord.degrees) && chord.name != self.name {
-        if let noteNum = notesbyNoteNum.first(where: { $0.key == chordNum }) {
-          let enharmByKey = noteNum.value.enharmByKey
-          chordMatches.append(Chord(rootNum: chordNum, type: chord.type, enharm: enharmByKey))
-        }
+    for chord in ChordFactory.allChords where chord.name != name && degrees.includes(chord.degrees){
+      if let noteNum = notesByNoteNum.first(where: { $0.key == chord.root.noteNum }) {
+        chordMatches.append(Chord(rootNum: chord.root.noteNum, type: chord.type, enharmonic: noteNum.value.keyName.enharmonic))
       }
     }
     
     return chordMatches
   }
   
+  // TODO: Fix this MARK
   //  MARK: static methods
-  func enharmSwapped() -> ChordProtocol {
-    var newEnharm: Enharmonic {
-      switch enharm {
+  func enharmSwapped() -> Chord {
+    var newEnharm: EnharmonicSymbol {
+      switch enharmonic {
       case .flat, .sharp:
-        return enharm == .flat ? .sharp : .flat
+        return enharmonic == .flat ? .sharp : .flat
       case .blackKeyFlats, .blackKeySharps:
-        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+        return enharmonic == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
       }
     }
     
-    return Chord(rootNum: root.noteNum, type: type, enharm: newEnharm)
+    return Chord(rootNum: root.noteNum, type: type, enharmonic: newEnharm)
   }
   
+}
+
+extension Chord: Degrees {
+  var degrees: [Int] { 
+    get { allNotes.map { $0.noteNum.rawValue } }
+    set { }
+  }
+
+  var degSet: Set<Int> { Set(degrees) }
 }
 
 extension Chord: Equatable {

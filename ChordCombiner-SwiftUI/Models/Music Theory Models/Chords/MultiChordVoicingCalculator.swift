@@ -77,7 +77,7 @@ struct MultiChordVoicingCalculator {
     commonTonesToHighlight = resultChordStackedPitches.includeIfSameNote(commonTones)
   }
   
-  static func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
+  func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
     //    print("Highlighting split\n--------")
     // set initial 2nd chord stacked degrees
     var secondChordPitches = upperPitches
@@ -90,7 +90,7 @@ struct MultiChordVoicingCalculator {
     var pitchDifference = secondChordMin
     
     // if 2nd Chord root is lower than highest note in 1st chord, raise it up by an octave
-    while pitchDifference < chordMax {
+    while pitchDifference <= chordMax {
       pitchDifference += 12
     }
     
@@ -98,7 +98,7 @@ struct MultiChordVoicingCalculator {
     pitchDifference = pitchDifference - secondChordMin
     
     // if 2nd Chord root + pitchDifference is the same pitch as highest note in first chord, raise it up 1 more octave
-    pitchDifference = secondChordMin + pitchDifference == chordMax ? pitchDifference + 12 : pitchDifference
+//    pitchDifference = secondChordMin + pitchDifference == chordMax ? pitchDifference + 12 : pitchDifference
     
     // raise every note in 2nd chord by pitchDifference
     secondChordPitches = secondChordPitches.map {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LetterPicker: View {
+struct LetterPicker: View, SettableLetter {
   @Binding var letter: Letter
   
   var body: some View {

@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol SettableAccidental {
+  var accidental: RootAccidental { get set }
+}
+
 /// the accidental of a note, key, or root, e.g. flat, sharp, natural, double flat or double sharp.
 enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable, Codable {
   var id: Self {
@@ -20,7 +24,7 @@ enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable, Co
     return self.rawValue
   }
   /// accidental enum limited to flats, naturals and sharps, specifically for initializing `Roots`
-  enum RootAcc: String, CaseIterable, CustomStringConvertible, Identifiable, Codable {
+  enum RootAccidental: String, CaseIterable, CustomStringConvertible, Identifiable, Codable {
     var id: Self {
       return self
     }
@@ -37,7 +41,7 @@ enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable, Co
         return "♯"
       }
     }
-    /// get `RootAcc` from pickerView row or other row-based UI
+    /// get `RootAccidental` from pickerView row or other row-based UI
     init(_ accidentalNum: Int) {
       switch accidentalNum {
       case 0:
@@ -50,7 +54,7 @@ enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable, Co
         self = .natural
       }
     }
-    /// get `RootAcc` from another key's accidental
+    /// get `RootAccidental` from another key's accidental
     init(_ accidental: Accidental) {
       switch accidental {
       case .flat:

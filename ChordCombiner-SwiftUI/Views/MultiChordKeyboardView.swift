@@ -30,6 +30,8 @@ struct MultiChordKeyboardView: View {
     let lowerStackedPitches = multiChord.multiChordVoicingCalculator.lowerStackedPitches
     let upperStackedPitches = multiChord.multiChordVoicingCalculator.upperStackedPitches
     
+    let (lowerSplitPitches, upperSplitPitches) = multiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
+    
     if initial {
       lowerKeyboard.highlightKeysSingle(degs: lowerStackedPitches, color: color)
       upperKeyboard.highlightKeysSingle(degs: upperStackedPitches, color: secondColor)
@@ -40,8 +42,8 @@ struct MultiChordKeyboardView: View {
         onlyInLower: multiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: multiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: multiChord.multiChordVoicingCalculator.commonTonesToHighlight,
-        lowerStackedPitches: lowerStackedPitches,
-        upperStackedPitches: upperStackedPitches,
+        lowerStackedPitches: lowerSplitPitches,
+        upperStackedPitches: upperSplitPitches,
         resultChordExists: resultChordExists,
         color: color,
         secondColor: secondColor)
@@ -50,6 +52,8 @@ struct MultiChordKeyboardView: View {
       
       let oldLowerStackedPitches = oldMultiChord.multiChordVoicingCalculator.lowerStackedPitches
       let oldUpperStackedPitches = oldMultiChord.multiChordVoicingCalculator.upperStackedPitches
+      
+      let (oldLowerSplitPitches, oldUpperSplitPitches) = oldMultiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: oldLowerStackedPitches, upperPitches: oldUpperStackedPitches)
       
       lowerKeyboard.highlightKeysSingle(degs: oldLowerStackedPitches, color: color)
       upperKeyboard.highlightKeysSingle(degs: oldUpperStackedPitches, color: secondColor)
@@ -61,8 +65,8 @@ struct MultiChordKeyboardView: View {
         onlyInLower: oldMultiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: oldMultiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: oldMultiChord.multiChordVoicingCalculator.commonTonesToHighlight,
-        lowerStackedPitches: oldLowerStackedPitches,
-        upperStackedPitches: oldUpperStackedPitches,
+        lowerStackedPitches: oldLowerSplitPitches,
+        upperStackedPitches: oldUpperSplitPitches,
         resultChordExists: oldResultChordExists,
         color: color,
         secondColor: secondColor)
@@ -70,8 +74,8 @@ struct MultiChordKeyboardView: View {
         onlyInLower: multiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: multiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: multiChord.multiChordVoicingCalculator.commonTonesToHighlight,
-        lowerStackedPitches: lowerStackedPitches,
-        upperStackedPitches: upperStackedPitches,
+        lowerStackedPitches: lowerSplitPitches,
+        upperStackedPitches: upperSplitPitches,
         resultChordExists: resultChordExists,
         color: color,
         secondColor: secondColor)

@@ -7,39 +7,30 @@
 
 import Foundation
 
-struct VoicingCalculator {
-  var type: ChordType
+struct VoicingCalculator: OctaveAndPitch, GettableKeyName {
   var degrees: [Int]
-  var startingOctave: Int
-  var key: KeyName
   var rootNote: Root
+  var type: ChordType
+  var startingOctave: Int
+  var keyName: KeyName
 
   var root: Note { rootNote.note }
-  var rootKey: RootGen { rootNote.rootKey }
-  var baseChord: Chord { Chord(rootKey, type.baseChordType) }
+  var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
+  var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }
+}
 
-  var raisedPitches: [Int] {
-    return degrees.map { $0.toPitch(startingOctave: startingOctave) }
-  }
-
-  var raisedRoot: Int {
-    rootNote.note.basePitchNum.toPitch(startingOctave: startingOctave)
-  }
-  
-
-  var pitchesRaisedAboveRoot: [Int] {
-    return raisedPitches.map {
-      $0.raiseAbove(pitch: raisedRoot, degs: nil)
-    }
-  }
+extension VoicingCalculator: DegreeAndPitchOperator {
+  var noteNums: [NoteNum] { degrees.map { NoteNum($0) } }
 
   var stackedPitches: [Int] {
     return pitchesRaisedAboveRoot.map {
-       $0.raiseAboveDegreesIfAbsent(baseChord.pitchesRaisedAboveRoot)
+      $0.raiseAboveDegreesIfAbsent(baseChord.voicingCalculator.pitchesRaisedAboveRoot)
     }
   }
-  
-  var noteNums: [NoteNum] {
-    return degrees.map { NoteNum($0) }
+}
+
+extension VoicingCalculator {
+  var startingPitch: Int {
+    keyName.noteNum.rawValue.toPitch(startingOctave: startingOctave)
   }
 }

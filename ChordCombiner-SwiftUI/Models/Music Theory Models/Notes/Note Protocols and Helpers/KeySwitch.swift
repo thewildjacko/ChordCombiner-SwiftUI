@@ -8,12 +8,12 @@
 
 import Foundation
 
-/// selects flat or sharp version of KeyName based on enharm
-struct KeySwitcher: Codable {
-  var enharm: Enharmonic
+/// selects flat or sharp version of KeyName based on enharmonic
+struct KeySwitcher: Enharmonic, Codable {
+  var enharmonic: EnharmonicSymbol
   
   func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName, _ blackKeyFlats: KeyName, _ blackKeySharps: KeyName) -> KeyName {
-    switch enharm {
+    switch enharmonic {
     case .flat:
       return flatKey
     case .sharp:
@@ -490,15 +490,14 @@ struct KeySwitcher: Codable {
   }
 }
 
-/// a protocol to allow notes to adopt `Enharmonic` and `KeySwitch` variables
-protocol KeySwitch {
-  var enharm: Enharmonic { get set }
+/// a protocol to allow notes to adopt `EnharmonicSymbol` and `KeySwitch` variables
+protocol KeySwitch: Enharmonic {
   var keySwitcher: KeySwitcher { get }
 }
 
 extension KeySwitch {
   /// returns a `KeySwitch` set to sharp or flat
   var keySwitcher: KeySwitcher {
-    return KeySwitcher(enharm: enharm)
+    return KeySwitcher(enharmonic: enharmonic)
   }
 }

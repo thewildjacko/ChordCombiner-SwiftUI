@@ -8,9 +8,9 @@
 
 import Foundation
 
-typealias GetComboChordAndScale = (RootGen, Set<Int>, Int)
-typealias RootGen = KeyName.RootGen
-typealias RootAcc = Accidental.RootAcc
+typealias GetComboChordAndScale = (RootKeyNote, Set<Int>, Int)
+typealias RootKeyNote = KeyName.RootKeyNote
+typealias RootAccidental = Accidental.RootAccidental
 
 typealias Alterations = ChordDegrees.Alterations
 typealias Extensions = ChordDegrees.Extensions

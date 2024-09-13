@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol SettableLetter {
+  var letter: Letter  { get set }
+}
+
 /// Enum to get the letter name of a note
 enum Letter: String, CaseIterable, Identifiable, Codable {
   var id: Self {

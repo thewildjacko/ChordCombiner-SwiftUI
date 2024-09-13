@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Keyboard: View, Identifiable {
+struct Keyboard: View, Identifiable, OctaveAndPitch {
   var id: UUID = UUID()
   //  MARK: @State properties
   var height: CGFloat = 0
@@ -197,10 +197,10 @@ struct Keyboard: View, Identifiable {
         color: color,
         secondColor: secondColor)
     } else {
-      let (lowerPitches, upperPitches) = MultiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
+//      let (lowerPitches, upperPitches) = MultiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
       highlightKeysSplit(
-        degs: lowerPitches,
-        secondDegs: upperPitches,
+        degs: lowerStackedPitches,
+        secondDegs: upperStackedPitches,
         color: color,
         secondColor: secondColor)
     }

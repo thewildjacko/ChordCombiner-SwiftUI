@@ -8,8 +8,14 @@
 
 import Foundation
 
+protocol Enharmonic {
+  var enharmonic: EnharmonicSymbol { get set }  // sets whether note belongs to sharp key or flat key
+}
+
+protocol EnharmonicID: Enharmonic, SettableLetter, SettableAccidental { }
+
 /// enum to determine whether a key is "flat" or "sharp"
-enum Enharmonic: Int, CaseIterable, CustomStringConvertible, Codable {
+enum EnharmonicSymbol: Int, CaseIterable, CustomStringConvertible, Codable {
   case flat = 0, sharp, blackKeyFlats, blackKeySharps
   
   var description: String {

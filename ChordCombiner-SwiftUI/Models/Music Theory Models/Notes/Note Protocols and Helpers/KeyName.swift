@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol GettableKeyName {
+  var keyName: KeyName { get }
+}
+
 /// Use `KeyName` to initiate `RootGens`, which then can initiate `Notes`, `ScaleDetails`, `Triads` and `FourNoteChords`
 enum KeyName: String, CaseIterable, Codable {
   // natural white notes
@@ -50,12 +54,7 @@ enum KeyName: String, CaseIterable, Codable {
   case gX = "G𝄪"
   case aX = "A𝄪"
   case bX = "B𝄪"
-  
-  ///The KeyName's printable letter name
-  var name: String {
-    return self.rawValue
-  }
-  
+    
   ///The KeyName's accidental
   var accidental: Accidental {
     switch self {
@@ -70,19 +69,6 @@ enum KeyName: String, CaseIterable, Codable {
     case .cX, .dX, .eX, .fX, .gX, .aX, .bX:
       return .dblSharp
     }
-  }
-  
-  /// Enharmonic value to determine how `Notes` initiated using this KeyName will print
-  var enharm: Enharmonic {
-    get {
-      switch self {
-      case .c, .dB, .eB, .fB, .f, .gB, .aB, .bB, .cB, .d_bb, .e_bb, .f_bb, .g_bb, .a_bb, .b_bb, .c_bb:
-        return .flat
-      case .cSh, .d, .dSh, .e, .eSh, .fSh, .g, .gSh, .a, .aSh, .b, .bSh, .cX, .dX, .eX, .fX, .gX, .aX, .bX:
-        return .sharp
-      }
-    }
-    set { }
   }
   
   /// The KeyName's Letter
@@ -105,6 +91,28 @@ enum KeyName: String, CaseIterable, Codable {
     }
   }
   
+  ///Prints the KeyName's `name`, `Letter`, `Accidental`, `EnharmonicSymbol` and `num` to the console
+  func keyStats() {
+    print(rawValue, "(\(letter))", accidental.rawValue, enharmonic, noteNum.rawValue)
+  }
+}
+
+extension KeyName: Enharmonic {
+  /// EnharmonicSymbol value to determine how `Notes` initiated using this KeyName will print
+  var enharmonic: EnharmonicSymbol {
+    get {
+      switch self {
+      case .c, .dB, .eB, .fB, .f, .gB, .aB, .bB, .cB, .d_bb, .e_bb, .f_bb, .g_bb, .a_bb, .b_bb, .c_bb:
+        return .flat
+      case .cSh, .d, .dSh, .e, .eSh, .fSh, .g, .gSh, .a, .aSh, .b, .bSh, .cX, .dX, .eX, .fX, .gX, .aX, .bX:
+        return .sharp
+      }
+    }
+    set { }
+  }
+}
+
+extension KeyName: SettableNoteNum {
   /// The KeyName's `NoteNum` _0-_11
   var noteNum: NoteNum {
     get {
@@ -136,15 +144,5 @@ enum KeyName: String, CaseIterable, Codable {
       }
     }
     set { }
-  }
-  
-  /// The KeyName's integer value 0-11
-  var basePitchNum: Int {
-    return noteNum.basePitchNum
-  }
-  
-  ///Prints the KeyName's `name`, `Letter`, `Accidental`, `Enharmonic` and `num` to the console
-  func keyStats() {
-    print(name, "(\(letter))", accidental.rawValue, enharm, basePitchNum)
   }
 }

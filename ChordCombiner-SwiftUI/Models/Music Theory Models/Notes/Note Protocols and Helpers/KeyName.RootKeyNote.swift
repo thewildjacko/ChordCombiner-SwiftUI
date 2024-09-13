@@ -1,5 +1,5 @@
 //
-//  RootGen.swift
+//  RootKeyNote.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 6/18/24.
@@ -12,52 +12,52 @@ extension KeyName {
   /**
    A `KeyName` sub-enum, limited only to flat, natural and sharp keys, used to init a Root
    
-   Use typealias `RootGen` for brevity
+   Use typealias `RootKeyNote` for brevity
    
    **Initialization**
    
    1. `KeyName` (single parameter init)
-   2. `Letter` and `RootAcc`
+   2. `Letter` and `RootAccidental`
    */
   
-  enum RootGen: CaseIterable, Codable {
+  enum RootKeyNote: CaseIterable, Codable, GettableKeyName {
     case c, d, e, f, g, a, b
     case cB, dB, eB, fB, gB, aB, bB
     case cSh, dSh, eSh, fSh, gSh, aSh, bSh
   
     
-    static var majorRoots: [RootGen] {
+    static var majorRoots: [RootKeyNote] {
       [.c,
        .f, .bB, .eB, .aB, .dB, .gB, .cB,
        .g, .d, .a, .e, .b, .fSh, .cSh]
     }
     
-    static var majorExclusions: [RootGen] {
+    static var majorExclusions: [RootKeyNote] {
       [.fB, .gSh, .dSh, .aSh, .eSh, .bSh]
     }
     
     // a d g c f Bb Eb Ab | Db Gb Cb Fb
     // e b f# c# g# d# a# | e# b#
     
-    static var minorRoots: [RootGen] {
+    static var minorRoots: [RootKeyNote] {
       [.a,
        .d, .g, .c, .f, .bB, .eB, .aB,
        .e, .b, .fSh, .cSh, .gSh, .dSh, .aSh]
     }
     
     
-    static var minorExclusions: [RootGen] {
+    static var minorExclusions: [RootKeyNote] {
       [.dB, .gB, .cB, .fB, .eSh, .bSh]
     }
     
     /**
      
-     Initializes a RootGen using a single parameter
-     - Parameter key: takes any `KeyName`, (including double flat / double sharp keys) and converts into a RootGen with a flat, natural or sharp.
+     Initializes a RootKeyNote using a single parameter
+     - Parameter keyName: takes any `KeyName`, (including double flat / double sharp keys) and converts into a RootKeyNote with a flat, natural or sharp.
      
      */
-    init(_ key: KeyName) {
-      switch key {
+    init(_ keyName: KeyName) {
+      switch keyName {
       case .c, .d_bb:
         self = .c
       case .d, .cX, .e_bb:
@@ -105,12 +105,12 @@ extension KeyName {
     
     
     /**
-     Initializes a RootGen using two parameters, a `Letter` and a `RootAcc`
+     Initializes a RootKeyNote using two parameters, a `Letter` and a `RootAccidental`
      - Parameter letter: the letter name of a key
      - Parameter accidental: the accidental of a key
      */
     
-    init(_ letter: Letter, _ accidental: RootAcc) {
+    init(_ letter: Letter, _ accidental: RootAccidental) {
       switch accidental {
       case .flat:
         switch letter {

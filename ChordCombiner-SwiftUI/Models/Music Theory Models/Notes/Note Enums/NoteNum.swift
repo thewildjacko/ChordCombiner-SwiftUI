@@ -8,14 +8,14 @@
 
 import Foundation
 
+protocol SettableNoteNum {
+  var noteNum: NoteNum { get set }
+}
+
 /// enum assigns 0-11 for C-B
 enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
   case zero = 0, one, two, three, four, five, six, seven, eight, nine, ten, eleven
-  
-  var basePitchNum: Int { // shorthand for rawValue
-    return self.rawValue
-  }
-  
+    
   var description: String {
     switch self {
     case .zero:

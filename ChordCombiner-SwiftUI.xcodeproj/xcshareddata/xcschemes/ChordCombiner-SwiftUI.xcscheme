@@ -52,8 +52,8 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "IDEPreferLogStreaming=YES"
-            value = ""
+            key = "IDEPreferLogStreaming"
+            value = "YES"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

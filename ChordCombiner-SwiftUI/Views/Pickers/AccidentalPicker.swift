@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct AccidentalPicker: View {
-  @Binding var accidental: RootAcc
+  @Binding var accidental: RootAccidental
   
   var body: some View {
     Picker(selection: $accidental, label: Text("")) {
-      ForEach(Accidental.RootAcc.allCases) { accidental in
+      ForEach(Accidental.RootAccidental.allCases) { accidental in
         Text(accidental.rawValue).tag(accidental)
       }
     }

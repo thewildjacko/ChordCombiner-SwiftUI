@@ -57,9 +57,9 @@ extension Array where Element == Int {
     self.toSet().isSuperset(of: otherArray)
   }
   
-  func convert(to root: NoteNum) -> [Int] {
-    self.map { $0.minusDeg(root.basePitchNum)}
-  }  
+  func convert(to rootNum: NoteNum) -> [Int] {
+    self.map { $0.minusDeg(rootNum.rawValue)}
+  }
 }
 
 extension Array where Element: Hashable {

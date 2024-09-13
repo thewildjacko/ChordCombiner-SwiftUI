@@ -7,36 +7,32 @@
 
 import Foundation
 
-struct Note: NoteProtocol, KeySwitch, CustomStringConvertible {
-  var description: String {
-    return "\(degree.name) (\(noteName))"
-  }
+/// Defines a single note to be used in a scale, mode, chord or pattern
+struct Note: GettableKeyName, Enharmonic, KeySwitch, SettableNoteNum, CustomStringConvertible {
+  var description: String { "\(degree.name) (\(noteName))" }
   
   var noteNum: NoteNum {
-    get {
-      degree.noteNum.plusDeg(rootNum)
-    }
+    get { degree.noteNum.plusDeg(rootNum) }
     set { }
   }
   
   var rootNum: NoteNum
   
-  var enharm: Enharmonic
+  var enharmonic: EnharmonicSymbol
   
-  var degName: (name: String, short: String, long: String) {
-    return (name: degree.name, short: degree.short, long: degree.long)
+  /// degree of the chord or scale
+  var degreeName: (name: String, short: String, long: String) {
+    (name: degree.name, short: degree.short, long: degree.long)
   }
   
   var degree: Degree
   
-  var rootKey: KeyName {
-    get {
-      keySwitcher.root(rootNum: rootNum)
-    }
+  var rootKeyName: KeyName {
+    get { keySwitcher.root(rootNum: rootNum) }
     set { }
   }
   
-  var key: KeyName {
+  var keyName: KeyName {
     switch degree {
     case .root:
       keySwitcher.root(rootNum: rootNum)
@@ -73,85 +69,88 @@ struct Note: NoteProtocol, KeySwitch, CustomStringConvertible {
     }
   }
   
-  init(rootNum: NoteNum = .zero, enharm: Enharmonic = .flat, degree: Degree) {
+  var noteName: String { keyName.rawValue }
+  
+  init(rootNum: NoteNum = .zero, enharmonic: EnharmonicSymbol = .flat, degree: Degree) {
     self.rootNum = rootNum
-    self.enharm = enharm
+    self.enharmonic = enharmonic
     self.degree = degree
   }
   
-  init(_ degree: Degree = .root, of root: RootGen) {
-    self.enharm = root.keyName.enharm
+  init(_ degree: Degree = .root, of root: RootKeyNote) {
+    self.enharmonic = root.keyName.enharmonic
     self.degree = degree
     self.rootNum = root.keyName.noteNum
   }
   
-  init(_ root: RootGen) {
-    self.enharm = root.keyName.enharm
+  init(_ root: RootKeyNote) {
+    self.enharmonic = root.keyName.enharmonic
     self.rootNum = root.keyName.noteNum
     self.degree = .root
   }
   
-  init(_ key: KeyName = .c, degree: Degree = .root) {
-    self.enharm = key.enharm
+  init(_ keyName: KeyName = .c, degree: Degree = .root) {
+    self.enharmonic = keyName.enharmonic
     self.degree = degree
-    self.rootNum = NoteNum(key.noteNum.rawValue.minusDeg(degree.noteNum.rawValue))
+    self.rootNum = NoteNum(keyName.noteNum.rawValue.minusDeg(degree.noteNum.rawValue))
     
   }
   
   mutating func kSW(keySwitcher: KeySwitcher) {
     switch noteNum {
     case .zero:
-      self.rootKey = keySwitcher.pickKey(.c, .bSh, .c, .c)
+      self.rootKeyName = keySwitcher.pickKey(.c, .bSh, .c, .c)
     case .one:
-      self.rootKey = keySwitcher.pickKey(.dB, .cSh, .dB, .cSh)
+      self.rootKeyName = keySwitcher.pickKey(.dB, .cSh, .dB, .cSh)
     case .two:
-      self.rootKey = .d
+      self.rootKeyName = .d
     case .three:
-      self.rootKey = keySwitcher.pickKey(.eB, .dSh, .eB, .dSh)
+      self.rootKeyName = keySwitcher.pickKey(.eB, .dSh, .eB, .dSh)
     case .four:
-      self.rootKey = keySwitcher.pickKey(.fB, .e, .fB, .e)
+      self.rootKeyName = keySwitcher.pickKey(.fB, .e, .fB, .e)
     case .five:
-      self.rootKey = keySwitcher.pickKey(.f, .eSh, .f, .f)
+      self.rootKeyName = keySwitcher.pickKey(.f, .eSh, .f, .f)
     case .six:
-      self.rootKey = keySwitcher.pickKey(.gB, .fSh, .gB, .fSh)
+      self.rootKeyName = keySwitcher.pickKey(.gB, .fSh, .gB, .fSh)
     case .seven:
-      self.rootKey = .g
+      self.rootKeyName = .g
     case .eight:
-      self.rootKey = keySwitcher.pickKey(.aB, .gSh, .aB, .gSh)
+      self.rootKeyName = keySwitcher.pickKey(.aB, .gSh, .aB, .gSh)
     case .nine:
-      self.rootKey = .a
+      self.rootKeyName = .a
     case .ten:
-      self.rootKey = keySwitcher.pickKey(.bB, .aSh, .bB, .aSh)
+      self.rootKeyName = keySwitcher.pickKey(.bB, .aSh, .bB, .aSh)
     case .eleven:
-      self.rootKey = keySwitcher.pickKey(.cB, .b, .b, .b)
+      self.rootKeyName = keySwitcher.pickKey(.cB, .b, .b, .b)
     }
   }
   
-  func enharmSwapped() -> NoteProtocol {
-    var newEnharm: Enharmonic {
-      switch enharm {
+  /// flips a note enharmonically
+  func enharmSwapped() -> Note {
+    var newEnharm: EnharmonicSymbol {
+      switch enharmonic {
       case .flat, .sharp:
-        return enharm == .flat ? .sharp : .flat
+        return enharmonic == .flat ? .sharp : .flat
       case .blackKeyFlats, .blackKeySharps:
-        return enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+        return enharmonic == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
       }
     }
     
-    return Note(rootNum: noteNum, enharm: newEnharm, degree: degree)
+    return Note(rootNum: noteNum, enharmonic: newEnharm, degree: degree)
   }
   
-  mutating func swapEnharm() {
-    switch enharm {
+  mutating func swapEnharmonic() {
+    switch enharmonic {
     case .flat, .sharp:
-      enharm = enharm == .flat ? .sharp : .flat
+      enharmonic = enharmonic == .flat ? .sharp : .flat
     case .blackKeyFlats, .blackKeySharps:
-      enharm = enharm == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
+      enharmonic = enharmonic == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
     }
-    kSW(keySwitcher: KeySwitcher(enharm: enharm))
+    kSW(keySwitcher: KeySwitcher(enharmonic: enharmonic))
   }
   
-  mutating func switchEnharm(to enharm: Enharmonic) {
-    self.enharm = enharm
+  mutating func switchEnharmonic(to enharmonic: EnharmonicSymbol) {
+    self.enharmonic = enharmonic
   }
 }
 

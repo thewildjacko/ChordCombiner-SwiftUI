@@ -1,5 +1,5 @@
   //
-//  DegName.swift
+//  Degree.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 2/3/22.
