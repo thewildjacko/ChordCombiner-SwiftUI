@@ -82,9 +82,7 @@ enum KeyName: String, CaseIterable, Codable {
         return .sharp
       }
     }
-    set {
-      ()
-    }
+    set { }
   }
   
   /// The KeyName's Letter
@@ -137,9 +135,7 @@ enum KeyName: String, CaseIterable, Codable {
         return .eleven
       }
     }
-    set {
-      ()
-    }
+    set { }
   }
   
   /// The KeyName's integer value 0-11

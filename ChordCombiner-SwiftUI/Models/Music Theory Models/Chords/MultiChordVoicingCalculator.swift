@@ -10,6 +10,19 @@ import Foundation
 struct MultiChordVoicingCalculator {
   var lowerChordVoicingCalculator: VoicingCalculator
   var upperChordVoicingCalculator: VoicingCalculator
+  var resultChordVoicingCalculator: VoicingCalculator? = nil {
+    didSet {
+      resultChordStackedPitches = resultChordVoicingCalculator?.stackedPitches ?? []
+    }
+  }
+  
+  init(lowerChordVoicingCalculator: VoicingCalculator, upperChordVoicingCalculator: VoicingCalculator, resultChordVoicingCalculator: VoicingCalculator? = nil) {
+    self.lowerChordVoicingCalculator = lowerChordVoicingCalculator
+    self.upperChordVoicingCalculator = upperChordVoicingCalculator
+    self.resultChordVoicingCalculator = resultChordVoicingCalculator
+    
+    setResultChordCombinedHighlightedPitches()
+  }
   
   var lowerStackedPitches: [Int] {
     lowerChordVoicingCalculator.stackedPitches
@@ -17,6 +30,13 @@ struct MultiChordVoicingCalculator {
 
   var upperStackedPitches: [Int] {
     upperChordVoicingCalculator.stackedPitches
+  }
+  
+  var resultChordStackedPitches: [Int] {
+    get {
+      return resultChordVoicingCalculator?.stackedPitches ?? []
+    }
+    set { }
   }
   
   var lowerRoot: Note {
@@ -47,7 +67,15 @@ struct MultiChordVoicingCalculator {
     lowerDegrees.intersection(upperDegrees)
   }
   
+  var lowerTonesToHighlight: [Int] = []
+  var upperTonesToHighlight: [Int] = []
+  var commonTonesToHighlight: [Int] = []
   
+  mutating func setResultChordCombinedHighlightedPitches() {
+    lowerTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInLower)
+    upperTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInUpper)
+    commonTonesToHighlight = resultChordStackedPitches.includeIfSameNote(commonTones)
+  }
   
   static func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
     //    print("Highlighting split\n--------")

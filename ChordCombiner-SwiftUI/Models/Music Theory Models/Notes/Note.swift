@@ -33,9 +33,7 @@ struct Note: NoteProtocol, KeySwitch, CustomStringConvertible {
     get {
       keySwitcher.root(rootNum: rootNum)
     }
-    set {
-      
-    }
+    set { }
   }
   
   var key: KeyName {
