@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol SettableNoteNum {
-  var noteNum: NoteNum { get set }
+protocol GettableNoteNum {
+  var noteNum: NoteNum { get }
 }
 
 /// enum assigns 0-11 for C-B

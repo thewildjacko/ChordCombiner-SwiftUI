@@ -9,7 +9,7 @@
 import Foundation
 
 /// long, medium and short names for scale/chord degrees
-enum Degree: String, CaseIterable, Codable {
+enum Degree: String, CaseIterable, GettableNoteNum, Codable {
   case root
   case minor9th
   case major9th

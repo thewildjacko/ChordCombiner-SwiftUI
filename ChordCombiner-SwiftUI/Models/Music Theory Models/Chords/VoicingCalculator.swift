@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VoicingCalculator: OctaveAndPitch, GettableKeyName {
+struct VoicingCalculator: GettableKeyName {
   var degrees: [Int]
   var rootNote: Root
   var type: ChordType
@@ -29,7 +29,7 @@ extension VoicingCalculator: DegreeAndPitchOperator {
   }
 }
 
-extension VoicingCalculator {
+extension VoicingCalculator: OctaveAndPitch {
   var startingPitch: Int {
     keyName.noteNum.rawValue.toPitch(startingOctave: startingOctave)
   }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Defines a single note to be used in a scale, mode, chord or pattern
-struct Note: GettableKeyName, Enharmonic, KeySwitch, SettableNoteNum, CustomStringConvertible {
+struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   var description: String { "\(degree.name) (\(noteName))" }
   
   var noteNum: NoteNum {

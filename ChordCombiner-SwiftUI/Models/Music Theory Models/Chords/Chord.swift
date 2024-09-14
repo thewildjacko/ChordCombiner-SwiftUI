@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Chord: ChordsAndScales, KeySwitch, EnharmonicID, Identifiable {
+struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   //  MARK: instance properties
   var id = UUID()
   

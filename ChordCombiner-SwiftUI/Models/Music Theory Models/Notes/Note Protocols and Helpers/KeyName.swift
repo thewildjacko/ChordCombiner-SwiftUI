@@ -112,7 +112,7 @@ extension KeyName: Enharmonic {
   }
 }
 
-extension KeyName: SettableNoteNum {
+extension KeyName: GettableNoteNum {
   /// The KeyName's `NoteNum` _0-_11
   var noteNum: NoteNum {
     get {
@@ -143,6 +143,6 @@ extension KeyName: SettableNoteNum {
         return .eleven
       }
     }
-    set { }
+//    set { }
   }
 }
