@@ -37,27 +37,18 @@ extension Int: Mathable {
     }
   }
   
-  func plusDeg(_ deg: Int) -> Int {
-    return (self + deg).degreeInOctave
-  }
+  func plusDeg(_ deg: Int) -> Int { (self + deg).degreeInOctave }
   
-  func minusDeg(_ deg: Int) -> Int {
-    return (self - deg).degreeInOctave
-  }
+  func minusDeg(_ deg: Int) -> Int { (self - deg).degreeInOctave }
   
   func isTritone(from otherDeg: Int) -> Bool {
 //    return otherDeg - self == 6 ? true : false // why is this not abs?
     return abs(otherDeg - self) == 6 ? true : false
   }
   
-  func isHalfStep(from otherDeg: Int) -> Bool {
-    return abs(otherDeg - self) == 1 ? true : false
-  }
+  func isHalfStep(from otherDeg: Int) -> Bool { abs(otherDeg - self) == 1 ? true : false }
   
-  func toPitch(startingOctave: Int) -> Int {
-    let type = KeyType(rawValue: self) ?? .C
-    return type.pitchNumber + (startingOctave + 1) * 12
-  }
+  func toPitch(startingOctave: Int) -> Int { self + (startingOctave + 1) * 12 }
   
   func raiseAboveDegreesIfAbsent(_ degs: [Int]) -> Int {
     // print("raiseAboveDegreesIfAbsent: degs = \(degs)")

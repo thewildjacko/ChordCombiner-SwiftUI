@@ -79,11 +79,36 @@ enum KeyType: Int {
     }
   }
   
-  var pitchNumber: Int {
-    return self.rawValue
-  }
-  
-  func toPitch(startingOctave: Int) -> Int {
-    self.pitchNumber + (startingOctave + 1) * 12
+  func toPitch(startingOctave: Int) -> Int { noteNum.rawValue + (startingOctave + 1) * 12 }
+}
+
+extension KeyType: GettableNoteNum {
+  var noteNum: NoteNum {
+    switch self {
+    case .C:
+      return .zero
+    case .Db:
+      return .one
+    case .D:
+      return .two
+    case .Eb:
+      return .three
+    case .E:
+      return .four
+    case .F:
+      return .five
+    case .Gb:
+      return .six
+    case .G:
+      return .seven
+    case .Ab:
+      return .eight
+    case .A:
+      return .nine
+    case .Bb:
+      return .ten
+    case .B:
+      return .eleven
+    }
   }
 }

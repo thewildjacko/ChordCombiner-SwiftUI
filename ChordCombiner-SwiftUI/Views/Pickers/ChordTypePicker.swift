@@ -13,8 +13,11 @@ struct ChordTypePicker: View {
   
   var body: some View {
     Picker(selection: $type, label: Text("Chord Type")) {
-      ForEach(ChordType.allCases.sorted()) { type in
-        Text("\(chord.root.noteName)\(type.rawValue)").tag(type)
+      ForEach(ChordType.allChordTypeArrays, id: \.self) { chordTypeArray in
+        ForEach(chordTypeArray) { type in
+          Text("\(chord.root.noteName)\(type.rawValue)").tag(type)
+        }
+        Divider()
       }
     }
     .pickerStyle(.menu)

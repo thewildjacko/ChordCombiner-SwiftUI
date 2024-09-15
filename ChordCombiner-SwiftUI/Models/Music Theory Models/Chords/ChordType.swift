@@ -7,15 +7,11 @@
 
 import Foundation
 
-enum ChordType: String, CaseIterable, Identifiable, Comparable {
-  var id: Self {
-    return self
-  }
-  
+enum ChordType: String, CaseIterable {
   // MARK: Triads
-  case ma           // [0, 4, 7]
+  case ma = ""      // [0, 4, 7]
   case mi           // [0, 3, 7]
-  case aug          // [0, 4, 8]
+  case aug = "+"    // [0, 4, 8]
   case dim = "˚"    // [0, 3, 6]
   case sus4         // [0, 5, 7]
   case sus2         // [0, 2, 7]
@@ -251,8 +247,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     case .dim11_b13_add_ma7_omit9:         [0, 3, 5, 6, 8, 9, 11]
     }
   }
-    
-    // MARK: baseChordType
+  
+  // MARK: baseChordType
   var baseChordType: ChordType {
     switch self {
       // Triads + mi(♭6)
@@ -265,7 +261,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       // TODO: add dominant baseChordTypes
       // unaltered
     case .dominant7,
-        .dominant9, 
+        .dominant9,
         .dominant13,
         .dominant13_omit9,
       // ♭9
@@ -290,7 +286,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
         .dominant13_b5,
         .dominant13_b5_omit9,
         .dominant7_b5_sh5,
-      // ♯5  
+      // ♯5
         .dominant7_sh5,
         .dominant9_sh5:
       return .dominant7
@@ -314,8 +310,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
   var hasRoot: Degree? {
     return .root
   }
-
-  // MARK: hasMinor9th  
+  
+  // MARK: hasMinor9th
   var hasMinor9th: Degree? {
     switch self {
       // dom7
@@ -361,8 +357,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return nil
     }
   }
-
-  // MARK: hasSharp9th  
+  
+  // MARK: hasSharp9th
   var hasSharp9th: Degree? {
     switch self {
       // ma6
@@ -374,8 +370,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return nil
     }
   }
-
-  // MARK: hasMinor3rd  
+  
+  // MARK: hasMinor3rd
   var hasMinor3rd: Degree? {
     switch baseChordType {
     case .ma, .aug, .ma7, .dominant7, .ma6, .sus2, .sus4:
@@ -394,8 +390,8 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return nil
     }
   }
-
-  // MARK: hasPerfect4th  
+  
+  // MARK: hasPerfect4th
   var hasPerfect4th: Degree? {
     switch self {
       // triads
@@ -622,17 +618,20 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
     //    print("\(timeMeasure) for setNotesByDegree")
     return allNotes
   }
-  
-  
-  static var allChordDegrees: [[Int]] {
-    ChordType.allCases.map { $0.degrees }
+}
+
+extension ChordType: Identifiable, Comparable {
+  var id: Self {
+    return self
   }
   
   static func < (lhs: ChordType, rhs: ChordType) -> Bool {
     return lhs.rawValue < rhs.rawValue
   }
-  
-  // MARK: getChordTypeByDegrees
+}
+
+// MARK: static func getChordTypeByDegrees
+extension ChordType {
   static func getChordTypeByDegrees(degrees: [Int]) -> ChordType? {
     switch degrees {
     case [0, 4, 7]:
@@ -717,7 +716,7 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return .dominant7_sh5
     case [0, 2, 4, 8, 10]:
       return .dominant9_sh5
-  // TODO: add more dominant chords
+      // TODO: add more dominant chords
       
       // MARK: Major 6
     case [0, 4, 7, 9]:
@@ -847,5 +846,139 @@ enum ChordType: String, CaseIterable, Identifiable, Comparable {
       return nil
     }
     
+  }
+}
+
+// MARK: static properties
+extension ChordType {
+  static var allChordDegrees: [[Int]] {
+    ChordType.allCases.map { $0.degrees }
+  }
+  
+  static let triadTypes: [ChordType] = [.ma, .mi, .aug, .dim, .sus4, .sus2]
+  static let primary7thChords: [ChordType] = [.ma7, .dominant7, .mi7, .mi7_b5, .dim7]
+  
+  static let extendedMajor7thChords: [ChordType] = [
+    .ma9,
+    .ma13,
+    .ma13_omit9,
+    .ma7_sh11,
+    .ma9_sh11,
+    .ma13_sh11,
+    .ma13_sh11_omit9]
+  
+  static let extendedDominantChords: [ChordType] = [
+    .dominant9,
+    .dominant13,
+    .dominant13_omit9,
+    .dominant7_b9,
+    .dominant7_b9_b5,
+    .dominant7_b9_sh5,
+    .dominant7_b9_sh9,
+    .dominant7_b9_sh11,
+    .dominant7_sh9,
+    .dominant7_sh9_b5,
+    .dominant7_sh9_sh5,
+    .dominant7_sh9_sh11,
+    .dominant7_sh11,
+    .dominant9_sh11,
+    .dominant13_sh11,
+    .dominant13_sh11_omit9,
+    .dominant7_b5,
+    .dominant9_b5,
+    .dominant13_b5,
+    .dominant13_b5_omit9,
+    .dominant9_sh5,
+    .dominant7_b5_sh5,
+    .dominant7_sh5
+  ]
+  
+  static let extendedMinor7thChords: [ChordType] = [
+    .mi7,
+    .mi9,
+    .mi11,
+    .mi11_omit9,
+    .mi13,
+    .mi13_omit9,
+    .mi13_omit11,
+    .mi7_add13
+  ]
+
+  static let extendedMinor7th_b5Chords: [ChordType] = [
+    .mi7_b5,
+    .mi9_b5,
+    .mi7_b5add11,
+    .mi11_b5,
+    .mi11_b5b13,
+    .mi7_b5b9,
+    .mi11_b5b9,
+    .mi7_b5b13,
+    .locrian,
+    .mi13_b5,
+    .mi13_b5_omit9,
+    .mi13_b5_omit11,
+    .mi7_b5add13
+  ]
+  
+  static let extendedDiminishedChords: [ChordType] = [
+    .dim7,
+    .dim7_b13,
+    .dim7_add_ma7,
+    .dim7_b13_add_ma7,
+    .dim9,
+    .dim9_add_ma7,
+    .dim9_b13,
+    .dim9_b13_add_ma7,
+    .dim11,
+    .dim7_add11,
+    .dim11_b13,
+    .dim11_b13_omit9,
+    .dim11_add_ma7,
+    .dim11_add_ma7_omit9,
+    .dim11_b13_add_ma7,
+    .dim11_b13_add_ma7_omit9
+  ]
+ 
+  static let extendedMajor6thChords: [ChordType] = [
+    .ma6,
+    .ma6_9,
+    .ma6_9sh11,
+    .ma6_b9,
+    .ma6_b9sh11,
+    .ma6_sh9,
+    .ma6_sh9_sh11,
+    .ma6_sh11
+  ]
+  
+  static let phrygianChords: [ChordType] = [
+    .mi7_b9,
+    .mi7_b9b13,
+    .mi11_b9,
+    .mi11_b9b13,
+    .mi13_b9
+  ]
+  
+  static let minorFlat13Chords: [ChordType] = [
+    .mi_b6,
+    .mi7_b13,
+    .mi9_b13,
+    .mi11_b13,
+    .mi11_b13_omit9
+  ]
+  
+  static let allChordTypeArrays: [[ChordType]] = [
+    triadTypes, 
+    primary7thChords,
+    extendedMajor7thChords,
+    extendedDominantChords,
+    extendedMinor7thChords,
+    extendedMinor7th_b5Chords,
+    extendedDiminishedChords,
+    extendedMajor6thChords,
+    phrygianChords,
+    minorFlat13Chords
+  ]
+
+  static var allChordTypesSorted: [ChordType] { allChordTypeArrays.flatMap { $0 }
   }
 }

@@ -34,15 +34,15 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>TODO</string>
+				<string>e do</string>
 				<key>leading</key>
-				<string>  case ma13_sh11_omit9 = "ma13(♯11 omit9)"   // [0, 4, 6, 7, 9, 11]
-  
-  // </string>
+				<string>  // 7th chords
+  case dominant7 = "7"                                   // [0, 4, 7, 10]
+  cas</string>
 				<key>trailing</key>
-				<string>: add more dominant chords
-  // MARK: Dominant 7th Chords
-  // 7th chords
+				<string>minant9 = "9"                                   // [0, 2, 4, 7, 10]
+  case dominant13 = "13"                                 // [0, 2, 4, 7, 9, 10]
+  case dominant13_omit9 = "13(omit9)"                    // [0, 4, 7, 9, 10]
 </string>
 			</dict>
 			<key>type</key>
@@ -78,16 +78,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>    case .ma13_sh11_omit9:                 [0, 4, 6, 7, 9, 11]
+				<string>      // unaltered
 </string>
 				<key>leading</key>
-				<string>    case .ma9_sh11:                        [0, 2, 4, 6, 7, 11]
-    case .ma13_sh11:                       [0, 2, 4, 6, 7, 9, 11]
+				<string>      // TODO: add Dominant degrees
+      // MARK: Dominant 7th Chords
 </string>
 				<key>trailing</key>
-				<string>      
-      // TODO: add Dominant degrees
-      // MARK: Dominant 7th Chords
+				<string>    case .dominant7:                       [0, 4, 7, 10]
+    case .dominant9:                       [0, 2, 4, 7, 10]
+    case .dominant13:                      [0, 2, 4, 7, 9, 10]
 </string>
 			</dict>
 			<key>type</key>
@@ -107,7 +107,7 @@
 					<key>StartingLineNumber</key>
 					<string>250</string>
 					<key>Timestamp</key>
-					<string>747697896.853209</string>
+					<string>748114842.071002</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -123,16 +123,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>    case .dim11_b13_add_ma7_omit9:         [0, 3, 5, 6, 8, 9, 11]
+				<string>  // MARK: baseChordType
 </string>
 				<key>leading</key>
-				<string>    case .dim11_add_ma7_omit9:             [0, 3, 5, 6, 9, 11]
-    case .dim11_b13_add_ma7:               [0, 2, 3, 5, 6, 8, 9, 11]
+				<string>  }
+  
 </string>
 				<key>trailing</key>
-				<string>    }
-  }
-    
+				<string>  var baseChordType: ChordType {
+    switch self {
+      // Triads + mi(♭6)
 </string>
 			</dict>
 			<key>type</key>

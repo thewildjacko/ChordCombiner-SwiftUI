@@ -20,9 +20,8 @@ enum Accidental: String, CaseIterable, CustomStringConvertible, Identifiable, Co
   
   case flat = "♭", natural = "♮", sharp = "♯", dblFlat = "𝄫", dblSharp = "𝄪"
   
-  var description: String {
-    return self.rawValue
-  }
+  var description: String { rawValue }
+  
   /// accidental enum limited to flats, naturals and sharps, specifically for initializing `Roots`
   enum RootAccidental: String, CaseIterable, CustomStringConvertible, Identifiable, Codable {
     var id: Self {
