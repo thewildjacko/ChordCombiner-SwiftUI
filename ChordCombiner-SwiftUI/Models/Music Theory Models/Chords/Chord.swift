@@ -53,10 +53,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       rootNote: rootNote,
       type: type,
       startingOctave: startingOctave,
-      keyName: root.keyName)
+      keyName: root.keyName,
+      notesByNoteNum: [:])
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
+    voicingCalculator.notesByNoteNum = notesByNoteNum
   }
   
   init(_ rootKeyNote: RootKeyNote, _ type: ChordType, startingOctave: Int = 4) {
@@ -76,10 +78,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       rootNote: rootNote,
       type: type,
       startingOctave: startingOctave,
-      keyName: root.keyName)
+      keyName: root.keyName,
+      notesByNoteNum: [:])
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
+    voicingCalculator.notesByNoteNum = notesByNoteNum
   }
   
   //  MARK: instance methods

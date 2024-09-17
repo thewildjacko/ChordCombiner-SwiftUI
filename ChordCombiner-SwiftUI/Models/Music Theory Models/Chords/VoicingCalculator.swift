@@ -13,7 +13,8 @@ struct VoicingCalculator: GettableKeyName {
   var type: ChordType
   var startingOctave: Int
   var keyName: KeyName
-
+  var notesByNoteNum: [NoteNum: Note]
+  
   var root: Note { rootNote.note }
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }

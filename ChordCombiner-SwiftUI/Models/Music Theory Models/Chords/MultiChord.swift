@@ -56,29 +56,18 @@ extension MultiChord {
   
   func displayDetails(detailType: DetailType) -> String {
     if let resultChord = resultChord {
-      let nums = resultChord.voicingCalculator.stackedPitches.sorted().map({ $0.degreeInOctave })
-      var notes: [Note] {
-        var theNotes: [Note?] = []
-        for num in nums {
-          if let index = resultChord.allNotes.firstIndex(where: { $0.noteNum.rawValue == num }) {
-            theNotes.append(resultChord.allNotes[index])
-          }
-        }
-        
-        return theNotes.compactMap { $0 }
-      }
-      
-      print(multiChordVoicingCalculator.getResultChordNoteNames(resultChord.allNotes))
-      
+//      print(resultChord.notesByNoteNum)
+
       switch detailType {
       case .commonName:
         return resultChord.commonName
       case .preciseName:
         return resultChord.preciseName
       case .noteNames:
-        return multiChordVoicingCalculator.getResultChordNoteNames(resultChord.allNotes).map { $0.noteName }.joined(separator: ", ")
+        return multiChordVoicingCalculator.resultChordNoteNames.map { $0.noteName }
+          .joined(separator: ", ")
       case .degreeNames:
-        return resultChord.degreeNames.short.joined(separator: ", ")
+        return multiChordVoicingCalculator.resultChordDegreeNames.joined(separator: ", ")
       }
     } else {
       switch detailType {
@@ -87,9 +76,11 @@ extension MultiChord {
       case .preciseName:
         return "\(upperChord.preciseName)/\(lowerChord.preciseName)"
       case .noteNames:
-        return (lowerChord.noteNames + upperChord.noteNames).joined(separator: ", ")
+        return (lowerChord.noteNames + upperChord.noteNames)
+          .joined(separator: ", ")
       case .degreeNames:
-        return (lowerChord.degreeNames.short + upperChord.degreeNames.short).joined(separator: ", ")
+        return (lowerChord.degreeNames.numeric + upperChord.degreeNames.numeric)
+          .joined(separator: ", ")
       }
     }
   }

@@ -16,8 +16,8 @@ protocol ChordsAndScales: RootNote, GettableKeyName, EnharmonicID, Degrees {
   var noteNames: [String] {get}
   var noteNums: [NoteNum] { get }
   var notesByNoteNum: [NoteNum: Note] { get }
-  var degreeNames: (names: [String], short: [String], long: [String]) { get }
-  var degreeNamesByNoteNum: (names: [NoteNum:String], short: [NoteNum:String], long: [NoteNum:String]) { get }
+  var degreeNames: (names: [String], numeric: [String], long: [String]) { get }
+  var degreeNamesByNoteNum: (names: [NoteNum:String], numeric: [NoteNum:String], long: [NoteNum:String]) { get }
   
   mutating func swapEnharmonic()
   mutating func switchEnharmonic(to: EnharmonicSymbol)
@@ -36,15 +36,15 @@ extension ChordsAndScales {
   
   var degrees: [Int] { allNotes.map { $0.noteNum.rawValue } }
   
-  var degreeNames: (names: [String], short: [String], long: [String]) {
+  var degreeNames: (names: [String], numeric: [String], long: [String]) {
     return (names: allNotes.map { $0.degreeName.name },
-            short: allNotes.map { $0.degreeName.short },
+            numeric: allNotes.map { $0.degreeName.numeric },
             long: allNotes.map { $0.degreeName.long })
   }
   
-  var degreeNamesByNoteNum: (names: [NoteNum:String], short: [NoteNum:String], long: [NoteNum:String]) {
+  var degreeNamesByNoteNum: (names: [NoteNum:String], numeric: [NoteNum:String], long: [NoteNum:String]) {
     return (names: Dictionary(uniqueKeysWithValues: zip(noteNums, degreeNames.names)),
-            short: Dictionary(uniqueKeysWithValues: zip(noteNums, degreeNames.short)),
+            numeric: Dictionary(uniqueKeysWithValues: zip(noteNums, degreeNames.numeric)),
             long: Dictionary(uniqueKeysWithValues: zip(noteNums, degreeNames.long)))
   }
   
