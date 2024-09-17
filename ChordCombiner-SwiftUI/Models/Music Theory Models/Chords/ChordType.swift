@@ -894,98 +894,12 @@ extension ChordType {
   
   static let triadTypes: [ChordType] = [.ma, .mi, .aug, .dim, .sus4, .sus2]
   static let primary7thChords: [ChordType] = [.ma7, .dominant7, .mi7, .mi7_b5, .dim7]
-  
-  static let extendedMajor7thChords: [ChordType] = [
-    .ma9,
-    .ma13,
-    .ma13_omit9,
-    .ma7_sh11,
-    .ma9_sh11,
-    .ma13_sh11,
-    .ma13_sh11_omit9]
-  
-  static let extendedDominantChords: [ChordType] = [
-    .dominant9,
-    .dominant13,
-    .dominant13_omit9,
-    .dominant7_b9,
-    .dominant7_b9_b5,
-    .dominant7_b9_sh5,
-    .dominant7_b9_sh9,
-    .dominant7_b9_sh11,
-    .dominant7_sh9,
-    .dominant7_sh9_b5,
-    .dominant7_sh9_sh5,
-    .dominant7_sh9_sh11,
-    .dominant7_sh11,
-    .dominant9_sh11,
-    .dominant13_sh11,
-    .dominant13_sh11_omit9,
-    .dominant7_b5,
-    .dominant9_b5,
-    .dominant13_b5,
-    .dominant13_b5_omit9,
-    .dominant9_sh5,
-    .dominant7_b5_sh5,
-    .dominant7_sh5
-  ]
-  
-  static let extendedMinor7thChords: [ChordType] = [
-    .mi7,
-    .mi9,
-    .mi11,
-    .mi11_omit9,
-    .mi13,
-    .mi13_omit9,
-    .mi13_omit11,
-    .mi7_add13
-  ]
-  
-  static let extendedMinor7th_b5Chords: [ChordType] = [
-    .mi7_b5,
-    .mi9_b5,
-    .mi7_b5add11,
-    .mi11_b5,
-    .mi11_b5b13,
-    .mi7_b5b9,
-    .mi11_b5b9,
-    .mi7_b5b13,
-    .locrian,
-    .mi13_b5,
-    .mi13_b5_omit9,
-    .mi13_b5_omit11,
-    .mi7_b5add13
-  ]
-  
-  static let extendedDiminishedChords: [ChordType] = [
-    .dim7,
-    .dim7_b13,
-    .dim7_add_ma7,
-    .dim7_b13_add_ma7,
-    .dim9,
-    .dim9_add_ma7,
-    .dim9_b13,
-    .dim9_b13_add_ma7,
-    .dim11,
-    .dim7_add11,
-    .dim11_b13,
-    .dim11_b13_omit9,
-    .dim11_add_ma7,
-    .dim11_add_ma7_omit9,
-    .dim11_b13_add_ma7,
-    .dim11_b13_add_ma7_omit9
-  ]
-  
-  static let extendedMajor6thChords: [ChordType] = [
-    .ma6,
-    .ma6_9,
-    .ma6_9sh11,
-    .ma6_b9,
-    .ma6_b9sh11,
-    .ma6_sh9,
-    .ma6_sh9_sh11,
-    .ma6_sh11
-  ]
+  static let extendedMajor7thChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .ma7 && $0 != .ma7 }
+  static let extendedDominantChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dominant7 && $0 != .dominant7 }
+  static let extendedMinor7thChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .mi7 && $0 != .mi7 && !minorFlat13Chords.contains($0) && !phrygianChords.contains($0) }
+  static let extendedMinor7th_b5Chords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .mi7_b5 && $0 != .mi7_b5 }
+  static let extendedDiminishedChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dim7 && $0 != .dim7 }
+  static let extendedMajor6thChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .ma6 }
   
   static let phrygianChords: [ChordType] = [
     .mi7_b9,
@@ -1016,6 +930,11 @@ extension ChordType {
     minorFlat13Chords
   ]
   
-  static var allChordTypesSorted: [ChordType] { allChordTypeArrays.flatMap { $0 }
-  }
+  static let allChordTypesMinusOmits: [[ChordType]] = allChordTypeArrays.map { $0.filterOmits() }
+  
+  static let allChordTypesSorted: [ChordType] = allChordTypeArrays.flatMap { $0 }
+  static let allChordTypesMinusOmitsSorted: [ChordType] = allChordTypesMinusOmits.flatMap { $0 }
+  
+  
+  
 }

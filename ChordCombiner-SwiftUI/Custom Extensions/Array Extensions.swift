@@ -88,3 +88,11 @@ extension Array where Element == Note {
     }
   }
 }
+
+extension Array where Element == ChordType {
+  func filterOmits() -> [Element] {
+    self.filter { !$0.rawValue.contains("omit")}
+  }
+}
+
+

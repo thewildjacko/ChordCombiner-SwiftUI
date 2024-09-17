@@ -15,4 +15,9 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+    .environmentObject(
+      MultiChord(
+        lowerChord: Chord(.c, .ma7, startingOctave: 4),
+        upperChord: Chord(.d, .ma, startingOctave: 4)
+      ))
 }

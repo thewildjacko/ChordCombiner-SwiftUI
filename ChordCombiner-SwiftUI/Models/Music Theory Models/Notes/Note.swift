@@ -22,7 +22,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   
   /// degree of the chord or scale
   var degreeName: (name: String, short: String, long: String) {
-    (name: degree.name, short: degree.short, long: degree.long)
+    (name: degree.name, short: degree.numeric, long: degree.long)
   }
   
   var degree: Degree

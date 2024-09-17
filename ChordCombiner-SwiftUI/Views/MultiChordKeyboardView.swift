@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MultiChordKeyboardView: View {
   
-//  MARK: @State and instance variables
+  //  MARK: @State and instance variables
   @StateObject var multiChord: MultiChord = MultiChord(
     lowerChord: Chord(.c, .ma7, startingOctave: 4),
     upperChord: Chord(.d, .ma, startingOctave: 4))
@@ -24,7 +24,7 @@ struct MultiChordKeyboardView: View {
   var color: Color = .yellow
   var secondColor: Color = .cyan
   
-//  MARK: instance methods
+  //  MARK: instance methods
   func setAndHighlightChords() {
     let resultChordExists: Bool = multiChord.resultChord != nil ? true : false
     
@@ -59,7 +59,7 @@ struct MultiChordKeyboardView: View {
       
       lowerKeyboard.highlightKeysSingle(degs: oldLowerStackedPitches, color: color)
       upperKeyboard.highlightKeysSingle(degs: oldUpperStackedPitches, color: secondColor)
-
+      
       lowerKeyboard.highlightKeysSingle(degs: lowerStackedPitches, color: color)
       upperKeyboard.highlightKeysSingle(degs: upperStackedPitches, color: secondColor)
       
@@ -83,6 +83,8 @@ struct MultiChordKeyboardView: View {
         secondColor: secondColor)
     }
     
+    //    print(multiChord.resultChord?.preciseName)
+    
     oldMultiChord.lowerChord = multiChord.lowerChord
     oldMultiChord.upperChord = multiChord.upperChord
   }
@@ -102,7 +104,7 @@ struct MultiChordKeyboardView: View {
             chord: $multiChord.lowerChord,
             keyboard: $lowerKeyboard,
             color: color)
-                  
+          
           Spacer()
           
           Text("+")
@@ -118,10 +120,10 @@ struct MultiChordKeyboardView: View {
             chord: $multiChord.upperChord,
             keyboard: $upperKeyboard,
             color: secondColor)
-      
+          
           Spacer()
         }
-
+        
         ForEach((1...8), id: \.self ) { _ in
           Spacer()
         }
@@ -142,20 +144,20 @@ struct MultiChordKeyboardView: View {
         }
       }
       // MARK: modifiers
-      .environmentObject(multiChord)
       .padding()
-      .onAppear(perform: {
-        setAndHighlightChords()
-      })
-      .onChange(of: multiChord.lowerChord) {
-        setAndHighlightChords()
-        multiChord.lowerChord.setNotesByDegree()
-        print("allNotes: ", multiChord.lowerChord.allNotes)
-        print(multiChord.lowerChord.allNotes.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
-      }
-      .onChange(of: multiChord.upperChord) {
-        setAndHighlightChords()
     }
+    .environmentObject(multiChord)
+    .onAppear(perform: {
+      setAndHighlightChords()
+    })
+    .onChange(of: multiChord.lowerChord) {
+      setAndHighlightChords()
+      multiChord.lowerChord.setNotesByDegree()
+      print("allNotes: ", multiChord.lowerChord.allNotes)
+      print(multiChord.lowerChord.allNotes.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
+    }
+    .onChange(of: multiChord.upperChord) {
+      setAndHighlightChords()
     }
   }
 }

@@ -39,6 +39,19 @@ struct MultiChordVoicingCalculator {
     set { }
   }
   
+  func getResultChordNoteNames(_ allNotes: [Note]) -> [Note] {
+    let nums = resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeInOctave }) ?? []
+    
+    var notes: [Note?] = []
+    for num in nums {
+      if let index = allNotes.firstIndex(where: { $0.noteNum.rawValue == num }) {
+        notes.append(allNotes[index])
+      }
+    }
+    
+    return notes.compactMap { $0 }
+  }
+  
   var lowerRoot: Note {
     lowerChordVoicingCalculator.rootNote.note
   }

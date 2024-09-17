@@ -142,10 +142,10 @@ enum Degree: String, CaseIterable, GettableNoteNum, Codable {
   }
 
 /// concise names (3 characters or less)
-  var short: String {
+  var numeric: String {
       switch self {
       case .root:
-        return "R"
+        return "1"
       case .minor9th:
         return "♭9"
       case .major9th:
@@ -157,13 +157,13 @@ enum Degree: String, CaseIterable, GettableNoteNum, Codable {
       case .major3rd:
         return "3"
       case .perfect4th:
-        return "P4"
+        return "4"
       case .sharp4th:
         return "♯11"
       case .dim5th:
         return "♭5"
       case .perfect5th:
-        return "P5"
+        return "5"
       case .sharp5th:
         return "♯5"
       case .minor6th:
