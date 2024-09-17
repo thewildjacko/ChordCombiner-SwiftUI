@@ -22,8 +22,8 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var accidental: RootAccidental { didSet { refresh() } }
   var letter: Letter { didSet { refresh() } }
   
-  var chordTypeName: String { type.rawValue }
-  var name: String { root.noteName + chordTypeName }
+  var commonName: String { root.noteName + type.commonName }
+  var preciseName: String { root.noteName + type.rawValue }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0
@@ -116,7 +116,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
     
-    for chord in ChordFactory.allChords where chord.name != name && degrees.includes(chord.degrees){
+    for chord in ChordFactory.allChords where chord.preciseName != preciseName && degrees.includes(chord.degrees){
       if let noteNum = notesByNoteNum.first(where: { $0.key == chord.root.noteNum }) {
         chordMatches.append(Chord(rootNum: chord.root.noteNum, type: chord.type, enharmonic: noteNum.value.keyName.enharmonic))
       }

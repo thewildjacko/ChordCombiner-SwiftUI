@@ -21,7 +21,6 @@ struct SingleChordKeyboardView: View {
         chord: $chord,
         keyboard: $keyboard)
     }
-    
   }
 }
 

@@ -39,6 +39,7 @@ enum ChordType: String, CaseIterable {
   case dominant7_b9_sh5 = "7(♭9♯5)"                      // [0, 1, 4, 8, 10]
   case dominant7_b9_sh9 = "7(♭9♯9)"                      // [0, 1, 3, 4, 7, 10]
   case dominant7_b9_sh11 = "7(♭9♯11)"                    // [0, 1, 4, 6, 7, 10]
+  case dominant7_alt_b9_sh9_sh11 = "7alt(♭9♯9♯11)"       // [0, 1, 3, 4, 6, 7, 10]
   // ♯9
   case dominant7_sh9 = "7(♯9)"                           // [0, 3, 4, 7, 10]
   case dominant7_sh9_b5 = "7(♯9♭5)"                      // [0, 3, 4, 6, 10]
@@ -126,6 +127,39 @@ enum ChordType: String, CaseIterable {
   case dim11_b13_add_ma7 = "˚11(♭13add∆7)"              // [0, 2, 3, 5, 6, 8, 9, 11]
   case dim11_b13_add_ma7_omit9 = "˚11(♭13add∆7 omit9)"  // [0, 3, 5, 6, 8, 9, 11]
   
+  // MARK: commonName
+  var commonName: String {
+    switch self {
+    case .ma13_omit9:
+      return "ma13"
+    case .ma13_sh11_omit9:
+      return "ma13(♯11)"
+    case .dominant13_omit9:
+      return "13"
+    case .dominant7_alt_b9_sh9_sh11:
+      return "7alt"
+    case .dominant13_sh11_omit9:
+      return "13(♯11)"
+    case .dominant13_b5_omit9:
+      return "13(♭5)"
+    case .mi11_omit9, .mi13_omit9, .mi13_omit11:
+      return "mi11"
+    case .mi11_b13_omit9:
+      return "mi11(♭13)"
+    case .mi13_b5_omit9, .mi13_b5_omit11:
+      return "mi13(♭5)"
+    case .dim11_b13_omit9:
+      return "˚11(♭13)"
+    case .dim11_add_ma7_omit9:
+      return "˚11(add∆7)"
+    case .dim11_b13_add_ma7_omit9:
+      return "˚11(♭13 add∆7)"
+    default:
+      return rawValue
+    }
+  }
+  
+  // MARK: degrees
   var degrees: [Int] {
     switch self {
     case .ma:                              [0, 4, 7]
@@ -158,6 +192,7 @@ enum ChordType: String, CaseIterable {
     case .dominant7_b9_sh5:                [0, 1, 4, 8, 10]
     case .dominant7_b9_sh9:                [0, 1, 3, 4, 7, 10]
     case .dominant7_b9_sh11:               [0, 1, 4, 6, 7, 10]
+    case .dominant7_alt_b9_sh9_sh11:       [0, 1, 3, 4, 6, 7, 10]
       // ♯9
     case .dominant7_sh9:                   [0, 3, 4, 7, 10]
     case .dominant7_sh9_b5:                [0, 3, 4, 6, 10]
@@ -270,6 +305,7 @@ enum ChordType: String, CaseIterable {
         .dominant7_b9_sh11,
         .dominant7_b9_b5,
         .dominant7_b9_sh5,
+        .dominant7_alt_b9_sh9_sh11,
       // ♯9
         .dominant7_sh9,
         .dominant7_sh9_sh11,
@@ -307,6 +343,7 @@ enum ChordType: String, CaseIterable {
   
   // TODO: add dominant degree tags
   
+  // MARK: hasRoot
   var hasRoot: Degree? {
     return .root
   }
@@ -315,7 +352,7 @@ enum ChordType: String, CaseIterable {
   var hasMinor9th: Degree? {
     switch self {
       // dom7
-    case .dominant7_b9, .dominant7_b9_sh11, .dominant7_b9_sh9, .dominant7_b9_b5, .dominant7_b9_sh5,
+    case .dominant7_b9, .dominant7_b9_sh11, .dominant7_b9_sh9, .dominant7_b9_b5, .dominant7_b9_sh5, .dominant7_alt_b9_sh9_sh11,
       // ma6
         .ma6_b9, .ma6_b9sh11,
       // mi7
@@ -364,7 +401,7 @@ enum ChordType: String, CaseIterable {
       // ma6
     case .ma6_sh9, .ma6_sh9_sh11,
       // dom7
-        .dominant7_sh9, .dominant7_b9_sh9, .dominant7_sh9_sh11, .dominant7_sh9_b5, .dominant7_sh9_sh5:
+        .dominant7_sh9, .dominant7_b9_sh9, .dominant7_sh9_sh11, .dominant7_sh9_b5, .dominant7_sh9_sh5, .dominant7_alt_b9_sh9_sh11:
       return .sharp9th
     default:
       return nil
@@ -418,7 +455,7 @@ enum ChordType: String, CaseIterable {
       // ma7(♯11)
     case .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9,
       // dom7(♯11)
-        .dominant7_sh11, .dominant7_b9_sh11, .dominant7_sh9_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9,
+        .dominant7_sh11, .dominant7_b9_sh11, .dominant7_sh9_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9, .dominant7_alt_b9_sh9_sh11,
       // ma6(♯11)
         .ma6_sh9_sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9sh11:
       return .sharp4th
@@ -903,7 +940,7 @@ extension ChordType {
     .mi13_omit11,
     .mi7_add13
   ]
-
+  
   static let extendedMinor7th_b5Chords: [ChordType] = [
     .mi7_b5,
     .mi9_b5,
@@ -938,7 +975,7 @@ extension ChordType {
     .dim11_b13_add_ma7,
     .dim11_b13_add_ma7_omit9
   ]
- 
+  
   static let extendedMajor6thChords: [ChordType] = [
     .ma6,
     .ma6_9,
@@ -967,7 +1004,7 @@ extension ChordType {
   ]
   
   static let allChordTypeArrays: [[ChordType]] = [
-    triadTypes, 
+    triadTypes,
     primary7thChords,
     extendedMajor7thChords,
     extendedDominantChords,
@@ -978,7 +1015,7 @@ extension ChordType {
     phrygianChords,
     minorFlat13Chords
   ]
-
+  
   static var allChordTypesSorted: [ChordType] { allChordTypeArrays.flatMap { $0 }
   }
 }

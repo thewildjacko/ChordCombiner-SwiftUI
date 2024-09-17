@@ -29,7 +29,7 @@ struct ChordMenu: View {
           ChordTypePicker(chord: $chord, type: $chord.type)
         }, label: {
           VStack {
-            Text("\(chord.name)")
+            Text("\(chord.preciseName)")
               .font(.headline)
 //              .font(.title)
               .fontWeight(.heavy)

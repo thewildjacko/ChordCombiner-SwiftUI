@@ -15,19 +15,34 @@ struct DualChordKeyboardView: View {
   var body: some View {
     VStack(spacing: 20) {
       if let resultChord = multiChord.resultChord {
-        Text(resultChord.name)
-          .font(.title)
-          .fontWeight(.heavy)
-          .fixedSize()
-          .foregroundStyle(Color("titleColor"))
+          VStack(spacing: 5) {
+            HStack {
+              Text(resultChord.commonName)
+                .font(.title)
+                .fontWeight(.heavy)
+                .fixedSize()
+                .foregroundStyle(Color("titleColor"))
+              NavigationLink(destination: ChordDetailView(chord: resultChord)) {
+                Image(systemName: "info.circle")
+                  .font(.title3)
+                  .foregroundStyle(.black)
+              }
+            }
+            if resultChord.commonName != resultChord.preciseName {
+              Text("(\(resultChord.preciseName))")
+                .font(.caption)
+              //            .fontWeight(.heavy)
+                .fixedSize()
+                .foregroundStyle(Color("titleColor"))
+            }
+        }
       } else {
-        Text("\(multiChord.upperChord.name)/\(multiChord.lowerChord.name)")
+        Text("\(multiChord.upperChord.preciseName)/\(multiChord.lowerChord.preciseName)")
           .font(.title)
           .fontWeight(.heavy)
           .fixedSize()
           .foregroundStyle(Color("titleColor"))
       }
-      
       keyboard
     }
   }

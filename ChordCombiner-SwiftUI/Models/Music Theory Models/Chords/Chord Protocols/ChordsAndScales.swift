@@ -11,7 +11,7 @@ import Foundation
 protocol ChordsAndScales: RootNote, GettableKeyName, EnharmonicID, Degrees {
   var rootKeyNote: RootKeyNote { get }
   var keys: [KeyName] { get }
-  var name: String { get }
+  var commonName: String { get }
   var allNotes: [Note] { get set }
   var noteNames: [String] {get}
   var noteNums: [NoteNum] { get }

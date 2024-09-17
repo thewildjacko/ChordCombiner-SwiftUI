@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct ChordDetailView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  var chord: Chord
+  
+  var body: some View {
+    VStack {
+      Text("\(chord.commonName)")
+        .font(.largeTitle)
+        .fontWeight(.heavy)
+        .foregroundStyle(Color("titleColor"))
+      Spacer()
     }
+    .padding(.vertical)
+  }
 }
 
 #Preview {
-    ChordDetailView()
+    ChordDetailView(
+      chord: Chord(.c, .ma))
 }

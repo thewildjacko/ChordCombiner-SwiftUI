@@ -1,14 +1,15 @@
-case dominant9_b5 = "9(♯5)"                            // [0, 2, 4, 8, 10]
+case dominant7_alt_b9_sh9_sh11 = "7alt(♭9♯9♯11)"       // [0, 1, 3, 4, 6, 7, 10]
 
 // degrees
-case .dominant9_b5:                [0, 2, 4, 8, 10]
+case .dominant7_alt_b9_sh9_sh11:                [0, 1, 3, 4, 6, 7, 10]
 
 // baseChordType
 
 // degreeTags
-  hasMajor9th
-  hasDim5th
+  hasMinor9th
+  hasSharp9th
+  hasSharp4th
 
 // getChordTypeByDegrees
-case [0, 2, 4, 8, 10]:
-  return .dominant9_b5
+case [0, 1, 3, 4, 6, 7, 10]:
+  return .dominant7_alt_b9_sh9_sh11
