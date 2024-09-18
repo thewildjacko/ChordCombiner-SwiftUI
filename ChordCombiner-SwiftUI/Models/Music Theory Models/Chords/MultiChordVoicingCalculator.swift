@@ -103,15 +103,15 @@ struct MultiChordVoicingCalculator {
     var upperNotesInLowerKey: [Note] = []
     
     for degree in upperDegrees {
-      for note in lowerChordVoicingCalculator.allNotesInKey where note.noteNum == NoteNum(degree) && !upperNotesInLowerKey.contains(note) {
-        upperNotesInLowerKey.append(note)
+      if let upperNote = upperChordVoicingCalculator.notesByNoteNum[NoteNum(degree)] {
+        for lowerNote in lowerChordVoicingCalculator.allNotesInKey where lowerNote.noteName == upperNote.noteName {
+          upperNotesInLowerKey.append(lowerNote)
+        }
       }
     }
     
     return upperNotesInLowerKey.map { $0.degreeName.numeric }
   }
-  
-
   
   mutating func setResultChordCombinedHighlightedPitches() {
     lowerTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInLower)
