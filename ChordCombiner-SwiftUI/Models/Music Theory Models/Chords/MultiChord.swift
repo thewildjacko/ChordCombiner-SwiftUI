@@ -79,7 +79,7 @@ extension MultiChord {
         return (lowerChord.noteNames + upperChord.noteNames)
           .joined(separator: ", ")
       case .degreeNames:
-        return (lowerChord.degreeNames.numeric + upperChord.degreeNames.numeric)
+        return (lowerChord.degreeNames.numeric + multiChordVoicingCalculator.upperDegreeNamesInLowerKey)
           .joined(separator: ", ")
       }
     }

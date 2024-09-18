@@ -213,5 +213,9 @@ extension KeyName {
         return .bSh
       }
     }
+    
+    func allNotesInKey() -> [Note] {
+      Degree.allNotesInKey(rootKeyNote: self)
+    }
   }
 }

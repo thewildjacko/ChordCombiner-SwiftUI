@@ -179,47 +179,13 @@ enum Degree: String, CaseIterable, GettableNoteNum, Codable {
       }
     }
   
-  // MARK: setNotesByDegree
-  static func setNotesByDegree(rootKeyNote: RootKeyNote, degreeTags: [Degree]) -> [Note] {
-    var allNotes: [Note] = []
-    
-    for degreeTag in degreeTags {
-      switch degreeTag {
-      case .root:
-        allNotes.append(Note(rootKeyNote))
-      case .minor9th:
-        allNotes.append(Note(.minor9th, of: rootKeyNote))
-      case .sharp9th:
-        allNotes.append(Note(.sharp9th, of: rootKeyNote))
-      case .major9th:
-        allNotes.append(Note(.major9th, of: rootKeyNote))
-      case .minor3rd:
-        allNotes.append(Note(.minor3rd, of: rootKeyNote))
-      case .major3rd:
-        allNotes.append(Note(.major3rd, of: rootKeyNote))
-      case .perfect4th:
-        allNotes.append(Note(.perfect4th, of: rootKeyNote))
-      case .sharp4th:
-        allNotes.append(Note(.sharp4th, of: rootKeyNote))
-      case .dim5th:
-        allNotes.append(Note(.dim5th, of: rootKeyNote))
-      case .sharp5th:
-        allNotes.append(Note(.sharp5th, of: rootKeyNote))
-      case .perfect5th:
-        allNotes.append(Note(.perfect5th, of: rootKeyNote))
-      case .minor6th:
-        allNotes.append(Note(.minor6th, of: rootKeyNote))
-      case .major6th:
-        allNotes.append(Note(.major6th, of: rootKeyNote))
-      case .dim7th:
-        allNotes.append(Note(.dim7th, of: rootKeyNote))
-      case .minor7th:
-        allNotes.append(Note(.minor7th, of: rootKeyNote))
-      case .major7th:
-        allNotes.append(Note(.major7th, of: rootKeyNote))
-      }
-    }
+// MARK: allNotesInKey
+  static func allNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
+    return Degree.allCases.map { Note($0, of: rootKeyNote)}    
+  }
 
-    return allNotes
+  // MARK: setNotesByDegree
+  static func setNotesByDegrees(rootKeyNote: RootKeyNote, degreeTags: [Degree]) -> [Note] {
+    return degreeTags.map { Note($0, of: rootKeyNote)}
   }
 }

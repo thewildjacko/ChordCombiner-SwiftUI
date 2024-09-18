@@ -47,9 +47,6 @@ struct ChordDetailView: View {
 //        Section(header: Text("Notes")) {
 //          Text(multiChord.displayDetails(detailType: .noteNames))
 //        }
-//        Section(header: Text("Degrees")) {
-//          Text(multiChord.displayDetails(detailType: .degreeNames))
-//        }
       }
 //      .headerProminence(.increased)
       

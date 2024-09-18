@@ -39,6 +39,38 @@ struct MultiChordVoicingCalculator {
     set { }
   }
   
+  var lowerRoot: Note {
+    lowerChordVoicingCalculator.rootNote.note
+  }
+  
+  var upperRoot: Note {
+    upperChordVoicingCalculator.rootNote.note
+  }
+
+  var lowerDegrees: [Int] {
+    lowerChordVoicingCalculator.degrees
+  }
+
+  var upperDegrees: [Int] {
+    upperChordVoicingCalculator.degrees
+  }
+  
+  var onlyInLower: [Int] {
+    lowerDegrees.subtracting(upperDegrees)
+  }
+  
+  var onlyInUpper: [Int] {
+    upperDegrees.subtracting(lowerDegrees)
+  }
+  
+  var commonTones: [Int] {
+    lowerDegrees.intersection(upperDegrees)
+  }
+  
+  var lowerTonesToHighlight: [Int] = []
+  var upperTonesToHighlight: [Int] = []
+  var commonTonesToHighlight: [Int] = []
+  
   var resultChordDegreesInOctaveSorted: [Int] {
     return resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeInOctave }) ?? []
   }
@@ -67,37 +99,19 @@ struct MultiChordVoicingCalculator {
     return degreeNames
   }
   
-  var lowerRoot: Note {
-    lowerChordVoicingCalculator.rootNote.note
+  var upperDegreeNamesInLowerKey: [String] {
+    var upperNotesInLowerKey: [Note] = []
+    
+    for degree in upperDegrees {
+      for note in lowerChordVoicingCalculator.allNotesInKey where note.noteNum == NoteNum(degree) && !upperNotesInLowerKey.contains(note) {
+        upperNotesInLowerKey.append(note)
+      }
+    }
+    
+    return upperNotesInLowerKey.map { $0.degreeName.numeric }
   }
+  
 
-  var upperRoot: Note {
-    upperChordVoicingCalculator.rootNote.note
-  }
-
-  var lowerDegrees: [Int] {
-    lowerChordVoicingCalculator.degrees
-  }
-
-  var upperDegrees: [Int] {
-    upperChordVoicingCalculator.degrees
-  }
-  
-  var onlyInLower: [Int] {
-    lowerDegrees.subtracting(upperDegrees)
-  }
-  
-  var onlyInUpper: [Int] {
-    upperDegrees.subtracting(lowerDegrees)
-  }
-  
-  var commonTones: [Int] {
-    lowerDegrees.intersection(upperDegrees)
-  }
-  
-  var lowerTonesToHighlight: [Int] = []
-  var upperTonesToHighlight: [Int] = []
-  var commonTonesToHighlight: [Int] = []
   
   mutating func setResultChordCombinedHighlightedPitches() {
     lowerTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInLower)
