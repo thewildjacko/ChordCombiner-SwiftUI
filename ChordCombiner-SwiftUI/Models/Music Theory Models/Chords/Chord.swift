@@ -92,13 +92,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
   
   mutating func setNotesAndNoteCount() {
-    self.allNotes = type.setNotesByDegree(rootKeyNote: rootKeyNote)
+    setNotesByDegree()
     self.noteCount = allNotes.count
-    //    print("Initializing: \(self.name)")
   }
   
   mutating func setNotesByDegree() {
-    self.allNotes = type.setNotesByDegree(rootKeyNote: rootKeyNote)
+    self.allNotes = Degree.setNotesByDegree(rootKeyNote: rootKeyNote, degreeTags: type.degreeTags)
   }
   
   mutating func convertDegrees(to rootNum: NoteNum) {
