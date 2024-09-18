@@ -40,6 +40,7 @@ enum ChordType: String, CaseIterable {
   case dominant7_b9_sh9 = "7(♭9♯9)"                      // [0, 1, 3, 4, 7, 10]
   case dominant7_b9_sh11 = "7(♭9♯11)"                    // [0, 1, 4, 6, 7, 10]
   case dominant7_alt_b9_sh9_sh11 = "7alt(♭9♯9♯11)"       // [0, 1, 3, 4, 6, 7, 10]
+  case dominant7_alt_b9_sh9_b5 = "7alt(♭9♯9♭5)"          // [0, 1, 3, 4, 6, 10]
   // ♯9
   case dominant7_sh9 = "7(♯9)"                           // [0, 3, 4, 7, 10]
   case dominant7_sh9_b5 = "7(♯9♭5)"                      // [0, 3, 4, 6, 10]
@@ -193,6 +194,7 @@ enum ChordType: String, CaseIterable {
     case .dominant7_b9_sh9:                [0, 1, 3, 4, 7, 10]
     case .dominant7_b9_sh11:               [0, 1, 4, 6, 7, 10]
     case .dominant7_alt_b9_sh9_sh11:       [0, 1, 3, 4, 6, 7, 10]
+    case .dominant7_alt_b9_sh9_b5:         [0, 1, 3, 4, 6, 10]
       // ♯9
     case .dominant7_sh9:                   [0, 3, 4, 7, 10]
     case .dominant7_sh9_b5:                [0, 3, 4, 6, 10]
@@ -306,6 +308,7 @@ enum ChordType: String, CaseIterable {
         .dominant7_b9_b5,
         .dominant7_b9_sh5,
         .dominant7_alt_b9_sh9_sh11,
+        .dominant7_alt_b9_sh9_b5,
       // ♯9
         .dominant7_sh9,
         .dominant7_sh9_sh11,
@@ -352,7 +355,7 @@ enum ChordType: String, CaseIterable {
   var hasMinor9th: Degree? {
     switch self {
       // dom7
-    case .dominant7_b9, .dominant7_b9_sh11, .dominant7_b9_sh9, .dominant7_b9_b5, .dominant7_b9_sh5, .dominant7_alt_b9_sh9_sh11,
+    case .dominant7_b9, .dominant7_b9_sh11, .dominant7_b9_sh9, .dominant7_b9_b5, .dominant7_b9_sh5, .dominant7_alt_b9_sh9_sh11, .dominant7_alt_b9_sh9_b5,
       // ma6
         .ma6_b9, .ma6_b9sh11,
       // mi7
@@ -401,7 +404,7 @@ enum ChordType: String, CaseIterable {
       // ma6
     case .ma6_sh9, .ma6_sh9_sh11,
       // dom7
-        .dominant7_sh9, .dominant7_b9_sh9, .dominant7_sh9_sh11, .dominant7_sh9_b5, .dominant7_sh9_sh5, .dominant7_alt_b9_sh9_sh11:
+        .dominant7_sh9, .dominant7_b9_sh9, .dominant7_sh9_sh11, .dominant7_sh9_b5, .dominant7_sh9_sh5, .dominant7_alt_b9_sh9_sh11, .dominant7_alt_b9_sh9_b5:
       return .sharp9th
     default:
       return nil
@@ -472,7 +475,7 @@ enum ChordType: String, CaseIterable {
     case .dominant7, .ma7:
       switch self {
         // dom7
-      case .dominant7_b5, .dominant7_sh9_b5, .dominant7_b9_b5, .dominant7_b5_sh5, .dominant9_b5, .dominant13_b5, .dominant13_b5_omit9:
+      case .dominant7_b5, .dominant7_sh9_b5, .dominant7_b9_b5, .dominant7_b5_sh5, .dominant9_b5, .dominant13_b5, .dominant13_b5_omit9, .dominant7_alt_b9_sh9_b5:
         return .dim5th
       default:
         return nil
@@ -676,6 +679,10 @@ extension ChordType {
       return .dominant7_b9_sh9
     case [0, 1, 4, 6, 7, 10]:
       return .dominant7_b9_sh11
+    case [0, 1, 3, 4, 6, 7, 10]:
+      return .dominant7_alt_b9_sh9_sh11
+    case [0, 1, 3, 4, 6, 10]:
+      return .dominant7_alt_b9_sh9_b5
       // ♯9
     case [0, 3, 4, 7, 10]:
       return .dominant7_sh9
