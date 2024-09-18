@@ -36,16 +36,23 @@ struct ChordDetailView: View {
           .fixedSize()
           .foregroundStyle(Color("titleColor"))
       }
+      
       keyboard
+      
       Form {
-        Section(header: Text("Notes")) {
-          Text(multiChord.displayDetails(detailType: .noteNames))
+        List {
+          DetailRow(title: "Notes", text: multiChord.displayDetails(detailType: .noteNames))
+          DetailRow(title: "Degrees", text: multiChord.displayDetails(detailType: .degreeNames))
         }
-        Section(header: Text("Degrees")) {
-          Text(multiChord.displayDetails(detailType: .degreeNames))
-        }
+//        Section(header: Text("Notes")) {
+//          Text(multiChord.displayDetails(detailType: .noteNames))
+//        }
+//        Section(header: Text("Degrees")) {
+//          Text(multiChord.displayDetails(detailType: .degreeNames))
+//        }
       }
-      .headerProminence(.increased)
+//      .headerProminence(.increased)
+      
       Spacer()
     }
     .padding(.vertical)

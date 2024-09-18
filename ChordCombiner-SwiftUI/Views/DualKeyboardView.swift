@@ -40,7 +40,7 @@ struct DualChordKeyboardView: View {
         NavigationLink(destination: ChordDetailView(keyboard: $keyboard)) {
           Image(systemName: "info.circle")
             .font(.title3)
-            .foregroundStyle(.black)
+            .foregroundStyle(Color("titleColor"))
         }
       }
       keyboard

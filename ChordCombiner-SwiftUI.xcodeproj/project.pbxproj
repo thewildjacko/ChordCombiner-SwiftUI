@@ -60,6 +60,7 @@
 		1D73AFF92C6FD64400308356 /* FandBShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE42C6FD64400308356 /* FandBShape.swift */; };
 		1D73AFFA2C6FD64400308356 /* GandAShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE52C6FD64400308356 /* GandAShape.swift */; };
 		1D73AFFB2C6FD64400308356 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFE72C6FD64400308356 /* Key.swift */; };
+		1D898D252C9A9B3600C5AA18 /* DetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D898D242C9A9B3600C5AA18 /* DetailRow.swift */; };
 		1D8F4E1F2C8B768F000DEF30 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8F4E1E2C8B768F000DEF30 /* Root.swift */; };
 		1D9EB43D2C97925A007A76A5 /* ChordMenuButtonTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9EB43C2C97925A007A76A5 /* ChordMenuButtonTestView.swift */; };
 		1D9FC80F2C8A418C00B07BBB /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9FC80E2C8A418C00B07BBB /* Note.swift */; };
@@ -127,6 +128,7 @@
 		1D73AFE52C6FD64400308356 /* GandAShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GandAShape.swift; sourceTree = "<group>"; };
 		1D73AFE72C6FD64400308356 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		1D84A53F2C2DC8150073F0C8 /* ComboTests.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ComboTests.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		1D898D242C9A9B3600C5AA18 /* DetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRow.swift; sourceTree = "<group>"; };
 		1D8F4E1E2C8B768F000DEF30 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		1D9EB43C2C97925A007A76A5 /* ChordMenuButtonTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordMenuButtonTestView.swift; sourceTree = "<group>"; };
 		1D9FC80E2C8A418C00B07BBB /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Note.swift; path = "ChordCombiner-SwiftUI/Models/Music Theory Models/Notes/Note.swift"; sourceTree = SOURCE_ROOT; };
@@ -227,6 +229,7 @@
 				1D9EB43C2C97925A007A76A5 /* ChordMenuButtonTestView.swift */,
 				1D46C9322C77EB950014D00B /* DualKeyboardView.swift */,
 				1DD297C62C9902B6001984EF /* ChordDetailView.swift */,
+				1D898D242C9A9B3600C5AA18 /* DetailRow.swift */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
@@ -515,6 +518,7 @@
 				1D73AFF02C6FD64400308356 /* DShapeGroup.swift in Sources */,
 				1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */,
 				1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */,
+				1D898D252C9A9B3600C5AA18 /* DetailRow.swift in Sources */,
 				1D9EB43D2C97925A007A76A5 /* ChordMenuButtonTestView.swift in Sources */,
 				1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */,
 				1D5F6A912C24829500193B58 /* Degree.swift in Sources */,
