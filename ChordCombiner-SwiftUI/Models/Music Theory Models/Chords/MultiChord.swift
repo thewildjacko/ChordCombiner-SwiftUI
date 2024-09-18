@@ -50,8 +50,11 @@ extension MultiChord {
   enum DetailType {
     case commonName,
          preciseName,
+         lowerChordName,
+         upperChordName,
          noteNames,
          degreeNames
+      
   }
   
   func displayDetails(detailType: DetailType) -> String {
@@ -63,6 +66,10 @@ extension MultiChord {
         return resultChord.commonName
       case .preciseName:
         return resultChord.preciseName
+      case .lowerChordName:
+        return lowerChord.preciseName
+      case .upperChordName:
+        return upperChord.preciseName
       case .noteNames:
         return multiChordVoicingCalculator.resultChordNoteNames.map { $0.noteName }
           .joined(separator: ", ")
@@ -75,6 +82,10 @@ extension MultiChord {
         return "\(upperChord.commonName)/\(lowerChord.commonName)"
       case .preciseName:
         return "\(upperChord.preciseName)/\(lowerChord.preciseName)"
+      case .lowerChordName:
+        return lowerChord.preciseName
+      case .upperChordName:
+        return upperChord.preciseName
       case .noteNames:
         return (lowerChord.noteNames + upperChord.noteNames)
           .joined(separator: ", ")

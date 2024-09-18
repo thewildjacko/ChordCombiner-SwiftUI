@@ -41,13 +41,17 @@ struct ChordDetailView: View {
       
       Form {
         List {
+          
           DetailRow(title: "Notes", text: multiChord.displayDetails(detailType: .noteNames))
           DetailRow(title: "Degrees", text: multiChord.displayDetails(detailType: .degreeNames))
         }
-//        Section(header: Text("Notes")) {
-//          Text(multiChord.displayDetails(detailType: .noteNames))
-//        }
+        
+        Section(header: Text("Component Chords")) {
+          DetailRow(title: "Lower Chord", text: multiChord.displayDetails(detailType: .lowerChordName))
+          DetailRow(title: "Upper Chord", text: multiChord.displayDetails(detailType: .upperChordName))
+        }
       }
+      
 //      .headerProminence(.increased)
       
       Spacer()
