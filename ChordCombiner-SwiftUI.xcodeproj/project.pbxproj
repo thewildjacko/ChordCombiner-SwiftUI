@@ -66,7 +66,7 @@
 		1D9FC80F2C8A418C00B07BBB /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9FC80E2C8A418C00B07BBB /* Note.swift */; };
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
-		1DD297C72C9902B6001984EF /* ChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD297C62C9902B6001984EF /* ChordDetailView.swift */; };
+		1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD297C62C9902B6001984EF /* DualChordDetailView.swift */; };
 		1DE6CA0C2C79A6AE00D39604 /* SingleChordKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */; };
 		1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */ = {isa = PBXBuildFile; fileRef = 1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */; };
 		1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD9D4E2C5AA4330006333D /* ChordType.swift */; };
@@ -134,7 +134,7 @@
 		1D9FC80E2C8A418C00B07BBB /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Note.swift; path = "ChordCombiner-SwiftUI/Models/Music Theory Models/Notes/Note.swift"; sourceTree = SOURCE_ROOT; };
 		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		1DD297C62C9902B6001984EF /* ChordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDetailView.swift; sourceTree = "<group>"; };
+		1DD297C62C9902B6001984EF /* DualChordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordDetailView.swift; sourceTree = "<group>"; };
 		1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChordKeyboardView.swift; sourceTree = "<group>"; };
 		1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "ChordType addition scratchpad.md"; sourceTree = "<group>"; };
 		1DFD9D4E2C5AA4330006333D /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 				1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */,
 				1D9EB43C2C97925A007A76A5 /* ChordMenuButtonTestView.swift */,
 				1D46C9322C77EB950014D00B /* DualKeyboardView.swift */,
-				1DD297C62C9902B6001984EF /* ChordDetailView.swift */,
+				1DD297C62C9902B6001984EF /* DualChordDetailView.swift */,
 				1D898D242C9A9B3600C5AA18 /* DetailRow.swift */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
@@ -514,7 +514,7 @@
 				1D73AFE92C6FD64400308356 /* KeyProtocol.swift in Sources */,
 				1D73AFD12C6FD63300308356 /* TypeAliases.swift in Sources */,
 				1D73AFF72C6FD64400308356 /* DShape.swift in Sources */,
-				1DD297C72C9902B6001984EF /* ChordDetailView.swift in Sources */,
+				1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */,
 				1D73AFF02C6FD64400308356 /* DShapeGroup.swift in Sources */,
 				1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */,
 				1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */,

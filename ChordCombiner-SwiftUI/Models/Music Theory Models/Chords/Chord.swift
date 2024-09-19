@@ -154,6 +154,16 @@ extension Chord: Degrees {
   var degSet: Set<Int> { Set(degrees) }
 }
 
+extension Chord {
+  enum DetailType {
+    case commonName,
+         preciseName,
+         chordName,
+         noteNames,
+         degreeNames
+  }
+}
+
 extension Chord: Equatable {
   static func == (lhs: Chord, rhs: Chord) -> Bool {
     return lhs.type == rhs.type && lhs.root == rhs.root

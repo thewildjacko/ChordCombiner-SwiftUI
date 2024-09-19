@@ -1,5 +1,5 @@
 //
-//  ChordDetailView.swift
+//  DualChordDetailView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 9/16/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChordDetailView: View {
+struct DualChordDetailView: View {
   @EnvironmentObject var multiChord: MultiChord
   @Binding var keyboard: Keyboard
   
@@ -61,7 +61,7 @@ struct ChordDetailView: View {
 }
 
 #Preview {
-  ChordDetailView(keyboard: Binding.constant(Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)))
+  DualChordDetailView(keyboard: Binding.constant(Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)))
   .environmentObject(
     MultiChord(
       lowerChord: Chord(.c, .ma7, startingOctave: 4),
