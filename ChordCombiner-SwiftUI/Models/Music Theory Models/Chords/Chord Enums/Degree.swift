@@ -13,6 +13,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   case root
   case minor2nd
   case major2nd
+  case sharp2nd
   case minor3rd
   case major3rd
   case perfect4th
@@ -53,7 +54,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return .one
     case .major2nd, .major9th:
       return .two
-    case .minor3rd, .sharp9th, .minor10th:
+    case .sharp2nd, .minor3rd, .sharp9th, .minor10th:
       return .three
     case .major3rd, .major10th:
       return .four
@@ -89,6 +90,8 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "minor 2nd"
     case .major2nd:
       return "Major 2nd"
+    case .sharp2nd:
+      return "Augmented 2nd"
     case .minor3rd:
       return "minor 3rd"
     case .major3rd:
@@ -159,6 +162,8 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "min 2nd"
     case .major2nd:
       return "Maj 2nd"
+    case .sharp2nd:
+      return "Aug 2nd"
     case .minor3rd:
       return "min 3rd"
     case .major3rd:
@@ -229,6 +234,8 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "♭2"
     case .major2nd:
       return "♭2"
+    case .sharp2nd:
+      return "♯2"
     case .minor3rd:
       return "♭3"
     case .major3rd:
@@ -298,25 +305,19 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       1
     case .major2nd:
       2
-    case .minor3rd:
+    case .sharp2nd, .minor3rd:
       3
     case .major3rd:
       4
     case .perfect4th:
       5
-    case .sharp4th:
-      6
-    case .diminished5th:
+    case .sharp4th, .diminished5th:
       6
     case .perfect5th:
       7
-    case .sharp5th:
+    case .sharp5th, .minor6th:
       8
-    case .minor6th:
-      8
-    case .major6th:
-      9
-    case .diminished7th:
+    case .major6th, .diminished7th:
       9
     case .minor7th:
       10
@@ -328,27 +329,19 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       13
     case .major9th:
       14
-    case .sharp9th:
-      15
-    case .minor10th:
+    case .sharp9th, .minor10th:
       15
     case .major10th:
       16
     case .perfect11th:
       17
-    case .sharp11th:
-      18
-    case .flat12th:
+    case .sharp11th, .flat12th:
       18
     case .perfect12th:
       19
-    case .sharp12th:
+    case .sharp12th, .flat13th:
       20
-    case .flat13th:
-      20
-    case .major13th:
-      21
-    case .diminished14th:
+    case .major13th, .diminished14th:
       21
     case .minor14th:
       22

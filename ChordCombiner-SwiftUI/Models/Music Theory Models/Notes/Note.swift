@@ -40,7 +40,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
       keySwitcher.minor9th(rootNum: rootNum)
     case .major2nd, .major9th:
       keySwitcher.major9th(rootNum: rootNum)
-    case .sharp9th:
+    case .sharp2nd, .sharp9th:
       keySwitcher.sharp9th(rootNum: rootNum)
     case .minor3rd, .minor10th:
       keySwitcher.minor3rd(rootNum: rootNum)
