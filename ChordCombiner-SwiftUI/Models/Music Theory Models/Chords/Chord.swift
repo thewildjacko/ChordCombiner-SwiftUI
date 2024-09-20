@@ -27,10 +27,8 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   
   var allNotes: [Note] = []
   var noteCount: Int = 0
-    
-  var convertedDegrees: [Int] = []
   
-//  var noteNums: [NoteNum] { degrees.map { NoteNum($0) } }
+  var convertedDegrees: [Int] = []
   
   var noteNums: [NoteNum] { allNotes.map { $0.noteNum } }
   
@@ -128,8 +126,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return chordMatches
   }
   
-  // TODO: Fix this MARK
-  //  MARK: static methods
   func enharmSwapped() -> Chord {
     var newEnharm: EnharmonicSymbol {
       switch enharmonic {
@@ -150,7 +146,7 @@ extension Chord: Degrees {
     get { allNotes.map { $0.noteNum.rawValue } }
     set { }
   }
-
+  
   var degSet: Set<Int> { Set(degrees) }
 }
 
@@ -158,9 +154,21 @@ extension Chord {
   enum DetailType {
     case commonName,
          preciseName,
-         chordName,
          noteNames,
          degreeNames
+  }
+  
+  func displayDetails(detailType: DetailType) -> String {
+    switch detailType {
+    case .commonName:
+      return commonName
+    case .preciseName:
+      return preciseName
+    case .noteNames:
+      return noteNames.joined(separator: ", ")
+    case .degreeNames:
+      return degreeNames.numeric.joined(separator: ", ")
+    }
   }
 }
 
@@ -172,7 +180,7 @@ extension Chord: Equatable {
 
 extension Chord: Hashable {
   func hash(into hasher: inout Hasher) {
-      hasher.combine(type)
-      hasher.combine(root)
+    hasher.combine(type)
+    hasher.combine(root)
   }
 }

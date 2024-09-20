@@ -34,37 +34,37 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   
   var keyName: KeyName {
     switch degree {
-    case .root:
+    case .root, .octave, .perfect15th:
       keySwitcher.root(rootNum: rootNum)
-    case .minor9th:
+    case .minor2nd, .minor9th:
       keySwitcher.minor9th(rootNum: rootNum)
-    case .major9th:
+    case .major2nd, .major9th:
       keySwitcher.major9th(rootNum: rootNum)
     case .sharp9th:
       keySwitcher.sharp9th(rootNum: rootNum)
-    case .minor3rd:
+    case .minor3rd, .minor10th:
       keySwitcher.minor3rd(rootNum: rootNum)
-    case .major3rd:
+    case .major3rd, .major10th:
       keySwitcher.major3rd(rootNum: rootNum)
-    case .perfect4th:
+    case .perfect4th, .perfect11th:
       keySwitcher.perfect4th(rootNum: rootNum)
-    case .sharp4th:
+    case .sharp4th, .sharp11th:
       keySwitcher.sharp4th(rootNum: rootNum)
-    case .dim5th:
+    case .diminished5th, .flat12th:
       keySwitcher.dim5th(rootNum: rootNum)
-    case .perfect5th:
+    case .perfect5th, .perfect12th:
       keySwitcher.perfect5th(rootNum: rootNum)
-    case .sharp5th:
+    case .sharp5th, .sharp12th:
       keySwitcher.sharp5th(rootNum: rootNum)
-    case .minor6th:
+    case .minor6th, .flat13th:
       keySwitcher.minor6th(rootNum: rootNum)
-    case .major6th:
+    case .major6th, .major13th:
       keySwitcher.major6th(rootNum: rootNum)
-    case .dim7th:
+    case .diminished7th, .diminished14th:
       keySwitcher.dim7th(rootNum: rootNum)
-    case .minor7th:
+    case .minor7th, .minor14th:
       keySwitcher.minor7th(rootNum: rootNum)
-    case .major7th:
+    case .major7th, .major14th:
       keySwitcher.major7th(rootNum: rootNum)
     }
   }

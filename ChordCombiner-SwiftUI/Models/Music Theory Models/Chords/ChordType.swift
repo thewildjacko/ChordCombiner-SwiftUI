@@ -471,12 +471,12 @@ enum ChordType: String, CaseIterable {
   var hasDim5th: Degree? {
     switch baseChordType {
     case .dim, .mi7_b5, .dim7:
-      return .dim5th
+      return .diminished5th
     case .dominant7, .ma7:
       switch self {
         // dom7
       case .dominant7_b5, .dominant7_sh9_b5, .dominant7_b9_b5, .dominant7_b5_sh5, .dominant9_b5, .dominant13_b5, .dominant13_b5_omit9, .dominant7_alt_b9_sh9_b5:
-        return .dim5th
+        return .diminished5th
       default:
         return nil
       }
@@ -557,7 +557,7 @@ enum ChordType: String, CaseIterable {
   
   // MARK: hasDim7th
   var hasDim7th: Degree? {
-    baseChordType == .dim7 ? .dim7th : nil
+    baseChordType == .dim7 ? .diminished7th : nil
   }
   
   // MARK: hasMinor7th
