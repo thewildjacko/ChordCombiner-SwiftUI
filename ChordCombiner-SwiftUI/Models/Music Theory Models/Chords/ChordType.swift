@@ -305,30 +305,33 @@ enum ChordType: String, CaseIterable {
         .dominant7_b9,
         .dominant7_b9_sh9,
         .dominant7_b9_sh11,
-        .dominant7_b9_b5,
-        .dominant7_b9_sh5,
         .dominant7_alt_b9_sh9_sh11,
-        .dominant7_alt_b9_sh9_b5,
       // ♯9
         .dominant7_sh9,
         .dominant7_sh9_sh11,
-        .dominant7_sh9_b5,
-        .dominant7_sh9_sh5,
       // ♯11
         .dominant7_sh11,
         .dominant9_sh11,
         .dominant13_sh11,
-        .dominant13_sh11_omit9,
-      // ♭5
-        .dominant7_b5,
+        .dominant13_sh11_omit9:
+      return .dominant7
+      // 7(♭5)
+    case .dominant7_b5,
         .dominant9_b5,
         .dominant13_b5,
         .dominant13_b5_omit9,
-        .dominant7_b5_sh5,
-      // ♯5
-        .dominant7_sh5,
-        .dominant9_sh5:
-      return .dominant7
+        .dominant7_b5_sh5, 
+        .dominant7_b9_b5,
+        .dominant7_alt_b9_sh9_b5,
+        .dominant7_sh9_b5:
+      return .dominant7_b5
+      // 7(♯5)
+    case .dominant7_sh5,
+        .dominant9_sh5, 
+        .dominant7_b9_sh5,
+        .dominant7_sh9_sh5:
+      return .dominant7_sh5
+      
       // Major 6th chords
     case .ma6, .ma6_sh9, .ma6_b9, .ma6_sh9_sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9, .ma6_9sh11:
       return .ma6
@@ -364,7 +367,7 @@ enum ChordType: String, CaseIterable {
   // MARK: hasMinor3rd
   var hasMinor3rd: Degree? {
     switch baseChordType {
-    case .ma, .aug, .ma7, .dominant7, .ma6, .sus2, .sus4:
+    case .ma, .aug, .ma7, .dominant7, .dominant7_b5, .dominant7_sh5, .ma6, .sus2, .sus4:
       return nil
     default:
       return .minor3rd
@@ -374,7 +377,7 @@ enum ChordType: String, CaseIterable {
   // MARK: hasMajor3rd
   var hasMajor3rd: Degree? {
     switch baseChordType {
-    case .ma, .aug, .ma7, .dominant7, .ma6:
+    case .ma, .aug, .ma7, .dominant7, .dominant7_b5, .dominant7_sh5, .ma6:
       return .major3rd
     default:
       return nil
@@ -403,7 +406,7 @@ enum ChordType: String, CaseIterable {
   // MARK: hasDim5th
   var hasDim5th: Degree? {
     switch baseChordType {
-    case .dim, .mi7_b5, .dim7:
+    case .dim, .mi7_b5, .dim7, .dominant7_b5:
       return .diminished5th
     case .dominant7, .ma7:
       switch self {
@@ -478,7 +481,7 @@ enum ChordType: String, CaseIterable {
   // MARK: hasMinor7th
   var hasMinor7th: Degree? {
     switch baseChordType {
-    case .dominant7, .mi7, .mi7_b5:
+    case .dominant7, .dominant7_b5, .dominant7_sh5, .mi7, .mi7_b5:
       return .minor7th
     default:
       return nil
@@ -911,6 +914,8 @@ extension ChordType {
   static let primary7thChords: [ChordType] = [.ma7, .dominant7, .mi7, .mi7_b5, .dim7]
   static let extendedMajor7thChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .ma7 && $0 != .ma7 }
   static let extendedDominantChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dominant7 && $0 != .dominant7 }
+  static let extendedDominant7_b5_Chords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dominant7_b5 }
+  static let extendedDominant7_sh5_Chords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dominant7_sh5 }
   static let extendedMinor7thChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .mi7 && $0 != .mi7 && !minorFlat13Chords.contains($0) && !phrygianChords.contains($0) }
   static let extendedMinor7th_b5Chords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .mi7_b5 && $0 != .mi7_b5 }
   static let extendedDiminishedChords: [ChordType] = ChordType.allCases.filter { $0.baseChordType == .dim7 && $0 != .dim7 }
@@ -937,6 +942,8 @@ extension ChordType {
     primary7thChords,
     extendedMajor7thChords,
     extendedDominantChords,
+    extendedDominant7_b5_Chords,
+    extendedDominant7_sh5_Chords,
     extendedMinor7thChords,
     extendedMinor7th_b5Chords,
     extendedDiminishedChords,
