@@ -7,9 +7,11 @@ import SwiftUI
 var chord = Chord(.c, .ma13_sh11, startingOctave: 4)
 print(chord.type.degreeTags)
 
+
+var allNotes = chord.notesByNoteNum.values
 var allChordNotesInKey = chord.voicingCalculator.allChordNotesInKey
-var allNotes = chord.allNotes
-print(allNotes)
+//print(allChordNotesInKey)
+//print(allNotes)
 
 for note in allNotes {
   allChordNotesInKey.removeAll(where: { note.noteName == $0.noteName && note.degree != $0.degree })

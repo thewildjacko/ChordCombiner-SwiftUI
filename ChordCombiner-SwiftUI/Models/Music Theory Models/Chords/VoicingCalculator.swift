@@ -19,7 +19,16 @@ struct VoicingCalculator: GettableKeyName {
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }
   
-  var allChordNotesInKey: [Note] { rootKeyNote.allChordNotesInKey() }
+  var allChordNotesInKeyFiltered: [Note] {
+    let allNotes = notesByNoteNum.values
+    var allChordNotesInKey = rootKeyNote.allChordNotesInKey()
+    
+    for note in allNotes {
+      allChordNotesInKey.removeAll(where: { note.noteName == $0.noteName && note.degree != $0.degree })
+    }
+
+    return allChordNotesInKey
+  }
 }
 
 extension VoicingCalculator: DegreeAndPitchOperator {
