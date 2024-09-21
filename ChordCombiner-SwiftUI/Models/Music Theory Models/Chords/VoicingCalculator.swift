@@ -19,7 +19,7 @@ struct VoicingCalculator: GettableKeyName {
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }
   
-  var allNotesInKey: [Note] { rootKeyNote.allNotesInKey() }
+  var allChordNotesInKey: [Note] { rootKeyNote.allChordNotesInKey() }
 }
 
 extension VoicingCalculator: DegreeAndPitchOperator {

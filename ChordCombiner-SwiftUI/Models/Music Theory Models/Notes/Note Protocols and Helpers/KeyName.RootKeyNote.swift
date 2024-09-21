@@ -217,5 +217,9 @@ extension KeyName {
     func allNotesInKey() -> [Note] {
       Degree.allNotesInKey(rootKeyNote: self)
     }
+    
+    func allChordNotesInKey() -> [Note] {
+      Degree.allChordNotesInKey(rootKeyNote: self)
+    }
   }
 }

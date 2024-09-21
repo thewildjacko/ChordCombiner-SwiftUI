@@ -104,7 +104,7 @@ struct MultiChordVoicingCalculator {
     
     for degree in upperDegrees {
       if let upperNote = upperChordVoicingCalculator.notesByNoteNum[NoteNum(degree)] {
-        for lowerNote in lowerChordVoicingCalculator.allNotesInKey where lowerNote.noteName == upperNote.noteName {
+        for lowerNote in lowerChordVoicingCalculator.allChordNotesInKey where lowerNote.noteName == upperNote.noteName {
           upperNotesInLowerKey.append(lowerNote)
         }
       }

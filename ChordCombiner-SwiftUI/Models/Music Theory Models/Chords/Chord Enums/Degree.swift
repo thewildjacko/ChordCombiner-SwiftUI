@@ -42,8 +42,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   case diminished14th
   case minor14th
   case major14th
-  case perfect15th
-  
+  case perfect15th  
   
   /// noteNum
   var noteNum: NoteNum {
@@ -356,6 +355,35 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   static func allNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
     return Degree.allCases.map { Note($0, of: rootKeyNote)}
   }
+  
+  // MARK: allChordNotesInKey
+  static func allChordNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
+    let chordTones: [Degree] = [
+      .root, 
+      .major2nd, 
+      .minor3rd, 
+      .major13th, 
+      .perfect4th, 
+      .sharp4th,
+      .diminished5th, 
+      .perfect5th, 
+      .sharp5th,
+      .minor6th,
+      .major6th,
+      .diminished7th,
+      .minor7th,
+      .major7th,
+      .minor9th,
+      .major9th,
+      .sharp9th,
+      .perfect11th,
+      .sharp11th,
+      .flat13th,
+      .major13th
+    ]
+
+    return chordTones.map { Note($0, of: rootKeyNote)}
+  }  
   
   // MARK: setNotesByDegree
   static func setNotesByDegrees(rootKeyNote: RootKeyNote, degreeTags: [Degree]) -> [Note] {
