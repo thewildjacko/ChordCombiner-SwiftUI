@@ -67,6 +67,7 @@
 		1D9FC80F2C8A418C00B07BBB /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9FC80E2C8A418C00B07BBB /* Note.swift */; };
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
+		1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1DC11F722CA133E400263FF8 /* Algorithms */; };
 		1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD297C62C9902B6001984EF /* DualChordDetailView.swift */; };
 		1DE6CA0C2C79A6AE00D39604 /* SingleChordKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */; };
 		1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */ = {isa = PBXBuildFile; fileRef = 1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */; };
@@ -147,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +455,9 @@
 				Base,
 			);
 			mainGroup = 1D5F69CD2C2481E600193B58;
+			packageReferences = (
+				1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 1D5F69D72C2481E600193B58 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -748,6 +753,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1DC11F722CA133E400263FF8 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1D5F69CE2C2481E600193B58 /* Project object */;
 }
