@@ -7,14 +7,31 @@
 
 import SwiftUI
 
+enum Tab {
+  case singleChord, multiChord
+}
+
 struct ContentView: View {
-    var body: some View {
-        MultiChordKeyboardView()
+  @State private var selectedTab: Tab = .singleChord
+  
+  var body: some View {
+    TabView(selection: $selectedTab) {
+      SingleChordKeyboardDisplayView()
+        .tabItem {
+          Text("Single Chord")
+        }
+        .tag(Tab.singleChord)
+      MultiChordKeyboardView()
+        .tabItem {
+          Text("Chord Combiner")
+        }
+        .tag(Tab.multiChord)
     }
+  }
 }
 
 #Preview {
-    ContentView()
+  ContentView()
     .environmentObject(
       MultiChord(
         lowerChord: Chord(.c, .ma7, startingOctave: 4),
