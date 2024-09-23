@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>9</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>32</string>
+					<string>42</string>
 					<key>StartingColumnNumber</key>
-					<string>5</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>32</string>
+					<string>41</string>
 					<key>Timestamp</key>
-					<string>747362729.888211</string>
+					<string>748740583.828127</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,15 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>e do</string>
+				<string>  case dominant9 = "9"                                   // [0, 2, 4, 7, 10]
+</string>
 				<key>leading</key>
 				<string>  // 7th chords
   case dominant7 = "7"                                   // [0, 4, 7, 10]
-  cas</string>
+</string>
 				<key>trailing</key>
-				<string>minant9 = "9"                                   // [0, 2, 4, 7, 10]
-  case dominant13 = "13"                                 // [0, 2, 4, 7, 9, 10]
+				<string>  case dominant13 = "13"                                 // [0, 2, 4, 7, 9, 10]
   case dominant13_omit9 = "13(omit9)"                    // [0, 4, 7, 9, 10]
+  // ♭9
 </string>
 			</dict>
 			<key>type</key>
@@ -56,13 +57,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>159</string>
+					<string>174</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>158</string>
+					<string>173</string>
 					<key>Timestamp</key>
-					<string>748378189.308879</string>
+					<string>748740583.828136</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -101,13 +102,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>262</string>
+					<string>275</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>261</string>
+					<string>274</string>
 					<key>Timestamp</key>
-					<string>748378327.6616811</string>
+					<string>748740593.2465301</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
