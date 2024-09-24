@@ -23,7 +23,13 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var letter: Letter { didSet { refresh() } }
   
   var commonName: String { root.noteName + type.commonName }
-  var preciseName: String { root.noteName + type.rawValue }
+  var preciseName: String {
+    if type == .ma {
+      return root.noteName + "ma"
+    } else {
+      return root.noteName + type.rawValue
+    }
+  }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0

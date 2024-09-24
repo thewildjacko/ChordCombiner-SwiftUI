@@ -27,6 +27,11 @@ struct MultiChordKeyboardView: View {
   //  MARK: instance methods
   func setAndHighlightChords() {
     let resultChordExists: Bool = multiChord.resultChord != nil ? true : false
+    var isSlashChord: Bool = false
+    
+    if let resultChordVoicingCalculator = multiChord.multiChordVoicingCalculator.resultChordVoicingCalculator {
+      isSlashChord = resultChordVoicingCalculator.isSlashChord == true ? true : false
+    }
     
     let lowerStackedPitches = multiChord.multiChordVoicingCalculator.lowerStackedPitches
     let upperStackedPitches = multiChord.multiChordVoicingCalculator.upperStackedPitches
@@ -46,11 +51,17 @@ struct MultiChordKeyboardView: View {
         lowerStackedPitches: lowerSplitPitches,
         upperStackedPitches: upperSplitPitches,
         resultChordExists: resultChordExists,
+        isSlashChord: isSlashChord,
         color: color,
         secondColor: secondColor)
       isInitial = false
     } else {
       let oldResultChordExists: Bool = oldMultiChord.resultChord != nil ? true : false
+      var oldIsSlashChord: Bool = false
+      
+      if let oldResultChordVoicingCalculator = oldMultiChord.multiChordVoicingCalculator.resultChordVoicingCalculator {
+        oldIsSlashChord = oldResultChordVoicingCalculator.isSlashChord == true ? true : false
+      }
       
       let oldLowerStackedPitches = oldMultiChord.multiChordVoicingCalculator.lowerStackedPitches
       let oldUpperStackedPitches = oldMultiChord.multiChordVoicingCalculator.upperStackedPitches
@@ -70,6 +81,7 @@ struct MultiChordKeyboardView: View {
         lowerStackedPitches: oldLowerSplitPitches,
         upperStackedPitches: oldUpperSplitPitches,
         resultChordExists: oldResultChordExists,
+        isSlashChord: oldIsSlashChord,
         color: color,
         secondColor: secondColor)
       combinedKeyboard.highlightStackedCombinedOrSplit(
@@ -79,6 +91,7 @@ struct MultiChordKeyboardView: View {
         lowerStackedPitches: lowerSplitPitches,
         upperStackedPitches: upperSplitPitches,
         resultChordExists: resultChordExists,
+        isSlashChord: isSlashChord,
         color: color,
         secondColor: secondColor)
     }
@@ -153,8 +166,8 @@ struct MultiChordKeyboardView: View {
     .onChange(of: multiChord.lowerChord) {
       setAndHighlightChords()
       multiChord.lowerChord.setNotesByDegree()
-      print("allNotes: ", multiChord.lowerChord.allNotes)
-      print(multiChord.lowerChord.allNotes.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
+//      print("allNotes: ", multiChord.lowerChord.allNotes)
+//      print(multiChord.lowerChord.allNotes.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
     }
     .onChange(of: multiChord.upperChord) {
       setAndHighlightChords()

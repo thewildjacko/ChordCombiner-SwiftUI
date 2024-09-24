@@ -188,8 +188,9 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     commonToneDegs.toggleHighlightIfSelected(keys: &keys, color: LinearGradient.commonTone(secondColor, color))
   }
   
-  mutating func highlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, color: Color, secondColor: Color) {
-    if resultChordExists {
+  mutating func highlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, isSlashChord: Bool, color: Color, secondColor: Color) {
+    if resultChordExists && !isSlashChord {
+      print("combining!")
       highlightKeysCombined(
         degs: onlyInLower,
         secondDegs: onlyInUpper,
@@ -197,6 +198,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         color: color,
         secondColor: secondColor)
     } else {
+      print("splitting!")
       highlightKeysSplit(
         degs: lowerStackedPitches,
         secondDegs: upperStackedPitches,
