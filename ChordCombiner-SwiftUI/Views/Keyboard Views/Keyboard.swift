@@ -197,7 +197,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         color: color,
         secondColor: secondColor)
     } else {
-//      let (lowerPitches, upperPitches) = MultiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
       highlightKeysSplit(
         degs: lowerStackedPitches,
         secondDegs: upperStackedPitches,

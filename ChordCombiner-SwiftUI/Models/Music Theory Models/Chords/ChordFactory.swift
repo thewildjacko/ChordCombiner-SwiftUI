@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Algorithms
 
 struct ChordFactory {
   var equivalentChords: [Chord]
@@ -62,11 +63,15 @@ struct ChordFactory {
     let degrees: [Int] = lowerDegrees + upperDegrees
     let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.noteNum.rawValue) }.sorted()
     
+    let upperRootDegreesInC = Array(degrees.toSet()).map { $0.minusDeg(upperRoot.noteNum.rawValue) }.sorted()
+    
 //    print(lowerChordDegrees, upperChordDegrees, degrees, degreesInC)
     
-    let type = ChordType.getChordTypeByDegrees(degrees: degreesInC)
-    if let type = type {
+//    let type = ChordType.getChordTypeByDegrees(degrees: degreesInC)
+    if let type = ChordType.getChordTypeByDegrees(degrees: degreesInC) {
       return Chord(RootKeyNote(lowerRoot.rootKeyName), type)
+    } else if let type = ChordType.getChordTypeByDegrees(degrees: upperRootDegreesInC) {
+      return Chord(RootKeyNote(upperRoot.rootKeyName), type)
     } else {
       return nil
     }
@@ -109,5 +114,16 @@ struct ChordFactory {
   
   static func chordsIn(_ chord: Chord) -> [Chord] {
     return chord.containingChords()
+  }
+  
+  static func combos(count: Int) {
+    let numbers = Array(0...11)
+    let comboCount = numbers.combinations(ofCount: count).count
+    for combo in numbers.combinations(ofCount: count) {
+      if combo.contains(0) && !ChordType.allChordDegrees.contains(combo) {
+        print(combo)
+      }
+    }
+    print(comboCount)
   }
 }

@@ -17,11 +17,19 @@ struct DualChordKeyboardView: View {
       HStack {
         VStack(spacing: 5) {
           if let resultChord = multiChord.resultChord {
-            Text(resultChord.commonName)
-              .font(.title)
-              .fontWeight(.heavy)
-              .fixedSize()
-              .foregroundStyle(Color("titleColor"))
+            if resultChord.root == multiChord.multiChordVoicingCalculator.lowerRoot {
+              Text(resultChord.commonName)
+                .font(.title)
+                .fontWeight(.heavy)
+                .fixedSize()
+                .foregroundStyle(Color("titleColor"))
+            } else {
+              Text("\(resultChord.commonName)/\(multiChord.multiChordVoicingCalculator.lowerRoot.noteName)")
+                .font(.title)
+                .fontWeight(.heavy)
+                .fixedSize()
+                .foregroundStyle(Color("titleColor"))
+            }
             if resultChord.commonName != resultChord.preciseName {
               Text("(\(resultChord.preciseName))")
                 .font(.caption)
