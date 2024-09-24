@@ -19,6 +19,9 @@ struct VoicingCalculator: GettableKeyName {
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }
   
+  var isSlashChord: Bool = false
+  var slashChordBassNote: Root? = nil
+  
   var allChordNotesInKeyFiltered: [Note] {
     let allNotes = notesByNoteNum.values
     var allChordNotesInKey = rootKeyNote.allChordNotesInKey()
