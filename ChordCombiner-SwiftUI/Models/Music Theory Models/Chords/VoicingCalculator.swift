@@ -32,6 +32,17 @@ struct VoicingCalculator: GettableKeyName {
 
     return allChordNotesInKey
   }
+  
+  init(degrees: [Int], rootNote: Root, type: ChordType, startingOctave: Int, keyName: KeyName, notesByNoteNum: [NoteNum: Note], isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
+    self.degrees = degrees
+    self.rootNote = rootNote
+    self.type = type
+    self.startingOctave = startingOctave
+    self.keyName = keyName
+    self.notesByNoteNum = notesByNoteNum
+    self.isSlashChord = isSlashChord
+    self.slashChordBassNote = slashChordBassNote
+  }
 }
 
 extension VoicingCalculator: DegreeAndPitchOperator {

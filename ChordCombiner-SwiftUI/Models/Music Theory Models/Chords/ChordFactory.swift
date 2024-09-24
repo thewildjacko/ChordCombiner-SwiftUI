@@ -59,15 +59,11 @@ struct ChordFactory {
   }
   
   static func combineChordDegrees(lowerDegrees: [Int], upperDegrees: [Int], lowerRoot: Note, upperRoot: Note) -> Chord? {
-//    print("Combining degrees")
     let degrees: [Int] = lowerDegrees + upperDegrees
     let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.noteNum.rawValue) }.sorted()
     
     let upperRootDegreesInC = Array(degrees.toSet()).map { $0.minusDeg(upperRoot.noteNum.rawValue) }.sorted()
-    
-//    print(lowerChordDegrees, upperChordDegrees, degrees, degreesInC)
-    
-//    let type = ChordType.getChordTypeByDegrees(degrees: degreesInC)
+
     if let type = ChordType.getChordTypeByDegrees(degrees: degreesInC) {
       return Chord(RootKeyNote(lowerRoot.rootKeyName), type)
     } else if let type = ChordType.getChordTypeByDegrees(degrees: upperRootDegreesInC) {
