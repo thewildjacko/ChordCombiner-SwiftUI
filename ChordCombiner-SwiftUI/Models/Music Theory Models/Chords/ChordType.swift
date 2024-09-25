@@ -139,6 +139,7 @@ enum ChordType: String, CaseIterable {
   
   // MARK: minor 6
   case mi6 = "mi6"                         // [0, 3, 7, 9]
+  case mi6_9 = "mi⁶/₉"                     // [0, 3, 4, 7, 9]
   
   // MARK: mi(∆7)
   case mi_ma7 = "mi(∆7)"     // [0, 3, 7, 11]
@@ -308,6 +309,7 @@ enum ChordType: String, CaseIterable {
       
       // MARK: minor 6
     case .mi6:                             [0, 3, 7, 9]
+    case .mi6_9:                           [0, 3, 4, 7, 9]
       
       // MARK: mi(∆7)
     case .mi_ma7:                          [0, 3, 7, 11]
@@ -378,7 +380,7 @@ enum ChordType: String, CaseIterable {
     case .ma6, .ma6_sh9, .ma6_b9, .ma6_sh9_sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9, .ma6_9sh11:
       return .ma6
       // minor 6
-    case .mi6:
+    case .mi6, .mi6_9:
       return .mi6
       // mi(∆7)
     case .mi_ma7:
@@ -588,7 +590,9 @@ enum ChordType: String, CaseIterable {
       // mi7(♭5)
         .mi9_b5, .mi11_b5, .mi11_b5b13, .mi13_b5, .mi13_b5_omit11,
       // ˚7
-        .dim9, .dim9_add_ma7, .dim9_b13, .dim9_b13_add_ma7, .dim11, .dim11_b13, .dim11_add_ma7, .dim11_b13_add_ma7:
+        .dim9, .dim9_add_ma7, .dim9_b13, .dim9_b13_add_ma7, .dim11, .dim11_b13, .dim11_add_ma7, .dim11_b13_add_ma7,
+      //mi6
+        .mi6_9:
       return .major9th
     default:
       return nil
@@ -954,6 +958,8 @@ extension ChordType {
       // MARK: minor 6
     case [0, 3, 7, 9]:
       return .mi6
+    case [0, 3, 4, 7, 9]:
+      return .mi6_9
       
       // MARK: mi(∆7)
     case [0, 3, 7, 11]:
