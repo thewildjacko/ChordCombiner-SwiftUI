@@ -235,9 +235,9 @@
 				1D46C9322C77EB950014D00B /* DualKeyboardView.swift */,
 				1DD297C62C9902B6001984EF /* DualChordDetailView.swift */,
 				1D898D242C9A9B3600C5AA18 /* DetailRow.swift */,
-				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 				1D2214192C251759003953BD /* Menus */,
 				1D2507602C24CC11001416AF /* Pickers */,
+				1DB6EC3A2C778FDB008A23BC /* Keyboard Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";

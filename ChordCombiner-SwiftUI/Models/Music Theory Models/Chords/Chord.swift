@@ -23,7 +23,13 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var letter: Letter { didSet { refresh() } }
   
   var commonName: String { root.noteName + type.commonName }
-  var preciseName: String { root.noteName + type.rawValue }
+  var preciseName: String {
+    if type == .ma {
+      return root.noteName + "ma"
+    } else {
+      return root.noteName + type.rawValue
+    }
+  }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0
@@ -35,7 +41,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var voicingCalculator: VoicingCalculator
   
   //  MARK: initializers
-  init(rootNum: NoteNum = .zero, type: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4) {
+  init(rootNum: NoteNum = .zero, type: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
     self.type = type
     self.enharmonic = enharmonic
     self.startingOctave = startingOctave
@@ -52,14 +58,17 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       type: type,
       startingOctave: startingOctave,
       keyName: root.keyName,
-      notesByNoteNum: [:])
+      notesByNoteNum: [:],
+      isSlashChord: isSlashChord,
+      slashChordBassNote: slashChordBassNote
+    )
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
     voicingCalculator.notesByNoteNum = notesByNoteNum
   }
   
-  init(_ rootKeyNote: RootKeyNote, _ type: ChordType, startingOctave: Int = 4) {
+  init(_ rootKeyNote: RootKeyNote, _ type: ChordType, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
     self.type = type
     self.startingOctave = startingOctave
     
@@ -77,7 +86,9 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       type: type,
       startingOctave: startingOctave,
       keyName: root.keyName,
-      notesByNoteNum: [:])
+      notesByNoteNum: [:],
+      isSlashChord: isSlashChord,
+      slashChordBassNote: slashChordBassNote)
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees

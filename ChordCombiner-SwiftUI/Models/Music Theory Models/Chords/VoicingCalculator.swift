@@ -19,6 +19,9 @@ struct VoicingCalculator: GettableKeyName {
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
   var baseChord: Chord { Chord(rootKeyNote, type.baseChordType) }
   
+  var isSlashChord: Bool = false
+  var slashChordBassNote: Root? = nil
+  
   var allChordNotesInKeyFiltered: [Note] {
     let allNotes = notesByNoteNum.values
     var allChordNotesInKey = rootKeyNote.allChordNotesInKey()
@@ -28,6 +31,17 @@ struct VoicingCalculator: GettableKeyName {
     }
 
     return allChordNotesInKey
+  }
+  
+  init(degrees: [Int], rootNote: Root, type: ChordType, startingOctave: Int, keyName: KeyName, notesByNoteNum: [NoteNum: Note], isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
+    self.degrees = degrees
+    self.rootNote = rootNote
+    self.type = type
+    self.startingOctave = startingOctave
+    self.keyName = keyName
+    self.notesByNoteNum = notesByNoteNum
+    self.isSlashChord = isSlashChord
+    self.slashChordBassNote = slashChordBassNote
   }
 }
 

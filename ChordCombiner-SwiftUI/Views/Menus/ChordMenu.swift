@@ -29,11 +29,19 @@ struct ChordMenu: View {
           ChordTypePicker(chord: $chord, type: $chord.type)
         }, label: {
           VStack {
-            Text("\(chord.preciseName)")
-              .font(.headline)
-//              .font(.title)
-              .fontWeight(.heavy)
-              .fixedSize(horizontal: true, vertical: true)
+            if chord.type == .ma {
+              Text("\(chord.root.noteName)")
+                .font(.headline)
+  //              .font(.title)
+                .fontWeight(.heavy)
+                .fixedSize(horizontal: true, vertical: true)
+            } else {
+              Text("\(chord.preciseName)")
+                .font(.headline)
+              //              .font(.title)
+                .fontWeight(.heavy)
+                .fixedSize(horizontal: true, vertical: true)
+            }
             keyboard
           }
         })
