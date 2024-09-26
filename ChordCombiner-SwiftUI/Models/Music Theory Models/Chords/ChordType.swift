@@ -33,7 +33,7 @@ enum ChordType: String, CaseIterable {
   case ma13_sh11_omit9 = "ma13(♯11 omit9)"   // [0, 4, 6, 7, 9, 11]
   
   // MARK: Altered Major 7th Chords
-  case ma7_sh5                     // [0, 4, 8, 11]
+  case ma7_sh5 = "ma7(♯5)"                   // [0, 4, 8, 11]
   
   // TODO: add more dominant chords
   // MARK: Dominant 7th Chords
@@ -251,6 +251,11 @@ enum ChordType: String, CaseIterable {
   }
   
   // MARK: degrees
+  
+  var degreesByDegree: [Int] {
+    Degree.degreesInC(degreeTags: degreeTags)
+  }
+  
   var degrees: [Int] {
     switch self {
     case .ma:                              [0, 4, 7]
@@ -383,8 +388,8 @@ enum ChordType: String, CaseIterable {
       
       // MARK: minor 6
     case .mi6:                             [0, 3, 7, 9]
-    case .mi6_9:                           [0, 3, 4, 7, 9]
-    case .mi6_9_11:                        [0, 3, 4, 5, 7, 9]
+    case .mi6_9:                           [0, 2, 3, 7, 9]
+    case .mi6_9_11:                        [0, 2, 3, 5, 7, 9]
       
       // MARK: mi(∆7)
     case .mi_ma7:                          [0, 3, 7, 11]
@@ -396,7 +401,7 @@ enum ChordType: String, CaseIterable {
   static func getChordTypeByDegrees(degrees: [Int]) -> ChordType? {
     // MARK: Triads
     switch degrees {
-    case [0, 4, 7]:
+    case ChordType.ma.degrees:
       return .ma
     case [0, 3, 7]:
       return .mi
@@ -621,9 +626,9 @@ enum ChordType: String, CaseIterable {
       // MARK: minor 6
     case [0, 3, 7, 9]:
       return .mi6
-    case [0, 3, 4, 7, 9]:
+    case [0, 2, 3, 7, 9]:
       return .mi6_9
-    case [0, 3, 4, 5, 7, 9]:
+    case [0, 2, 3, 5, 7, 9]:
       return .mi6_9_11
       
       // MARK: mi(∆7)
@@ -785,7 +790,7 @@ enum ChordType: String, CaseIterable {
       return .major7th
     case .dim7:
       switch self {
-      case let type where type.rawValue.contains(/add∆7/):
+      case let type where type.rawValue.contains(/∆/):
         return .major7th
       default:
         return nil
@@ -812,7 +817,7 @@ enum ChordType: String, CaseIterable {
     case let type where type.hasMinor9th != nil, let type where type.hasSharp9th != nil:
       return nil
       // ma7
-    case let type where !type.rawValue.contains(/omit 9|add .*11|add .*13/) && type.rawValue.contains(/9|11|13|⁶\/₉/):
+    case let type where !type.rawValue.contains(/omit9|add11|add13|(6|7)\(♯11\)|7\(♭13|7\(♭5♭13/) && type.rawValue.contains(/9|11|13|⁶\/₉/):
       return .major9th
     default:
       return nil
@@ -853,7 +858,7 @@ enum ChordType: String, CaseIterable {
   var hasFlat13th: Degree? {
     switch self {
       // Min(♭13)
-    case let type where type.rawValue.contains(/♭13/):
+    case let type where type.rawValue.contains(/♭13|locrian/):
       return .flat13th
     default:
       return nil
@@ -902,9 +907,8 @@ enum ChordType: String, CaseIterable {
                               hasPerfect11th,
                               hasSharp11th,
                               hasFlat13th,
-                              hasMajor13th
-    ]
-    
+                              hasMajor13th]
+
     return optionalDegreeTags.compactMap { $0 }
   }
 }
@@ -921,9 +925,12 @@ extension ChordType: Identifiable, Comparable {
 
 // MARK: static properties
 extension ChordType {
+  // TODO: Map this to a dictionary with ChordType.allCases and use to replace switch statement in static func getChordTypeByDegrees
   static var allChordDegrees: [[Int]] {
     ChordType.allCases.map { $0.degrees }
   }
+  
+  static var typeByDegrees: [[Int]: ChordType] = Dictionary(uniqueKeysWithValues: zip(allChordDegrees, allCases))
   
   static let triadTypes: [ChordType] = [.ma, .mi, .aug, .dim, .sus4, .sus2]
   static let primary7thChords: [ChordType] = [.ma7, .dominant7, .mi7, .mi7_b5, .dim7]

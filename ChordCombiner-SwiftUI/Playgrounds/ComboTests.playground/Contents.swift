@@ -28,6 +28,10 @@ import Algorithms
 //  print(degreeSet)
 //}
 
+let type = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
+print(type)
+
+
 var multiChord = MultiChord(
   lowerChord: Chord(.c, .aug, startingOctave: 4),
   upperChord: Chord(.a, .mi, startingOctave: 4)
