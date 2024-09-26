@@ -24,6 +24,16 @@ struct MultiChordVoicingCalculator {
     setResultChordCombinedHighlightedPitches()
   }
   
+  var notesByNoteNum: [NoteNum: Note] {
+    var notesByNoteNum: [NoteNum: Note] = [:]
+    notesByNoteNum.reserveCapacity(12)
+    
+    notesByNoteNum = lowerChordVoicingCalculator.notesByNoteNum.merging(upperChordVoicingCalculator.notesByNoteNum) { (_, second) in
+      second
+    }
+    return notesByNoteNum
+  }
+  
   var lowerStackedPitches: [Int] {
     lowerChordVoicingCalculator.stackedPitches
   }

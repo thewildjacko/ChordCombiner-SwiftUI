@@ -32,6 +32,9 @@ import Algorithms
 //print(type)
 
 
+var theChord = Chord(.c, .ma13_sh11)
+print(theChord.notesByNoteNum)
+
 var multiChord = MultiChord(
   lowerChord: Chord(.c, .aug, startingOctave: 4),
   upperChord: Chord(.a, .mi, startingOctave: 4)

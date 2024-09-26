@@ -31,7 +31,11 @@ extension ChordsAndScales {
   var noteNames: [String] { allNotes.map { $0.noteName } }
   
   var notesByNoteNum: [NoteNum: Note] {
-    Dictionary(uniqueKeysWithValues: zip(noteNums, allNotes))
+    var notesByNoteNum: [NoteNum: Note] = [:]
+    notesByNoteNum.reserveCapacity(12)
+    notesByNoteNum = allNotes.keyed { $0.noteNum }
+    //    notesByNoteNum = Dictionary(uniqueKeysWithValues: zip(noteNums, allNotes))
+    return notesByNoteNum
   }
   
   var degrees: [Int] { allNotes.map { $0.noteNum.rawValue } }

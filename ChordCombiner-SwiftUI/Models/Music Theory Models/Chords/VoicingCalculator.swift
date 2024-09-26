@@ -34,6 +34,7 @@ struct VoicingCalculator: GettableKeyName {
   }
   
   init(degrees: [Int], rootNote: Root, type: ChordType, startingOctave: Int, keyName: KeyName, notesByNoteNum: [NoteNum: Note], isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
+    
     self.degrees = degrees
     self.rootNote = rootNote
     self.type = type

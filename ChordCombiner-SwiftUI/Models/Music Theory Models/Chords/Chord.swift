@@ -65,6 +65,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
+    voicingCalculator.notesByNoteNum.reserveCapacity(12)
     voicingCalculator.notesByNoteNum = notesByNoteNum
   }
   
@@ -92,6 +93,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     
     setNotesAndNoteCount()
     voicingCalculator.degrees = degrees
+    voicingCalculator.notesByNoteNum.reserveCapacity(12)
     voicingCalculator.notesByNoteNum = notesByNoteNum
   }
   
