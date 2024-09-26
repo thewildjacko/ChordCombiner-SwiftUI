@@ -28,8 +28,8 @@ import Algorithms
 //  print(degreeSet)
 //}
 
-let type = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
-print(type)
+//let type = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
+//print(type)
 
 
 var multiChord = MultiChord(

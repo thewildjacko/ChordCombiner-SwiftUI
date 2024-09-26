@@ -44,15 +44,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>4</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>927</string>
+					<string>543</string>
 					<key>StartingColumnNumber</key>
-					<string>3</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>927</string>
+					<string>542</string>
 					<key>Timestamp</key>
-					<string>749022500.896454</string>
+					<string>749051930.8043081</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -68,15 +68,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>/</string>
+				<string>  // TODO: Map this to a dictionary with ChordType.allCases and use to replace switch statement in static func getChordTypeByDegrees
+</string>
 				<key>leading</key>
 				<string>// MARK: static properties
 extension ChordType {
-  /</string>
+</string>
 				<key>trailing</key>
-				<string> TODO: Map this to a dictionary with ChordType.allCases and use to replace switch statement in static func getChordTypeByDegrees
-  static var allChordDegrees: [[Int]] {
+				<string>  static var allChordDegrees: [[Int]] {
     ChordType.allCases.map { $0.degrees }
+  }
 </string>
 			</dict>
 			<key>type</key>

@@ -16,7 +16,6 @@ struct ChordFactory {
     var chords: [Chord] = []
     let roots: [RootKeyNote] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
     
-    
     for root in roots {
       for type in ChordType.allCases {
         chords.append(Chord(root, type))
@@ -64,16 +63,27 @@ struct ChordFactory {
     
     let upperRootDegreesInC = Array(degrees.toSet()).map { $0.minusDeg(upperRoot.noteNum.rawValue) }.sorted()
 
-    if let type = ChordType.getChordTypeByDegrees(degrees: degreesInC) {
+    if let type = ChordType.typeByDegrees[degreesInC] {
       print("result chord exists with lowerRoot!")
       return Chord(RootKeyNote(lowerRoot.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
-    } else if let type = ChordType.getChordTypeByDegrees(degrees: upperRootDegreesInC) {
+    } else if let type = ChordType.typeByDegrees[upperRootDegreesInC] {
       print("result chord exists with upperRoot!")
       return Chord(RootKeyNote(upperRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(upperRoot))
     } else {
       print("couldn't find a match!")
       return nil
     }
+    
+//    if let type = ChordType.getChordTypeByDegrees(degrees: degreesInC) {
+//      print("result chord exists with lowerRoot!")
+//      return Chord(RootKeyNote(lowerRoot.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
+//    } else if let type = ChordType.getChordTypeByDegrees(degrees: upperRootDegreesInC) {
+//      print("result chord exists with upperRoot!")
+//      return Chord(RootKeyNote(upperRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(upperRoot))
+//    } else {
+//      print("couldn't find a match!")
+//      return nil
+//    }
   }
   
   static func compareDegreesInC() {
