@@ -143,8 +143,12 @@ enum ChordType: String, CaseIterable {
   case mi6_9_11 = "mi⁶/₉(11)"              // [0, 3, 4, 5, 7, 9]
   
   // MARK: mi(∆7)
-  case mi_ma7 = "mi(∆7)"     // [0, 3, 7, 11]
-  case mi_ma9 = "mi(∆9)"     // [0, 2, 3, 7, 11]
+  case mi_ma7 = "mi(∆7)"                       // [0, 3, 7, 11]
+  case mi_ma9 = "mi(∆9)"                       // [0, 2, 3, 7, 11]
+  case mi_ma11 = "mi(∆11)"                     // [0, 2, 3, 5, 7, 11]
+  case mi_ma11_omit9 = "mi(∆11 omit9)"         // [0, 3, 5, 7, 11]
+  case mi_ma13 = "mi(∆13)"                     // [0, 2, 3, 5, 7, 9, 11]
+  case mi_ma13_omit9 = "mi(∆13 omit9)"         // [0, 3, 5, 7, 9, 11]
   
   // MARK: commonName
   var commonName: String {
@@ -245,7 +249,7 @@ enum ChordType: String, CaseIterable {
     case .mi6, .mi6_9, .mi6_9_11:
       return .mi6
       // mi(∆7)
-    case .mi_ma7, .mi_ma9:
+    case .mi_ma7, .mi_ma9, .mi_ma11, .mi_ma13, .mi_ma11_omit9, .mi_ma13_omit9:
       return .mi_ma7
     }
   }
@@ -267,7 +271,8 @@ enum ChordType: String, CaseIterable {
   // MARK: hasMajor2nd
   var hasMajor2nd: Degree? {
     switch self {
-    case let type where type.rawValue.contains(/sus2|add2/):
+    // sus2 & add2
+      case .sus2, .add2, .mi_add2:
       return .major2nd
     default:
       return nil
@@ -297,8 +302,10 @@ enum ChordType: String, CaseIterable {
   // MARK: hasPerfect4th
   var hasPerfect4th: Degree? {
     switch self {
-      // sus4 & add4
-      case let type where type.rawValue.contains(/sus4|add4/):
+      // sus4 triad
+      case .sus4,
+      // modified triads
+        .add4, .mi_add4:
       return .perfect4th
     default:
       return nil
@@ -321,7 +328,7 @@ enum ChordType: String, CaseIterable {
     case .dominant7, .ma7:
       switch self {
         // 7(♭5)
-      case let type where type.rawValue.contains(/♭5/):
+      case .dominant7_b5, .dominant7_sh9_b5, .dominant7_b9_b5, .dominant7_b5_sh5, .dominant9_b5, .dominant13_b5, .dominant13_b5_omit9, .dominant7_alt_b9_sh9_b5:
         return .diminished5th
       default:
         return nil
@@ -345,8 +352,11 @@ enum ChordType: String, CaseIterable {
   // MARK: hasSharp5th
   var hasSharp5th: Degree? {
     switch self {
-      // aug triad, ma7(♯5), 7(♯5)
-    case let type where type == .aug || type.rawValue.contains(/♯5/):
+      // aug triad
+    case .aug, 
+    // ma7(♯5), 7(♯5)
+    .ma7_sh5,
+        .dominant7_sh5, .dominant7_b9_sh5, .dominant7_sh9_sh5, .dominant7_b5_sh5, .dominant9_sh5:
       return .sharp5th
     default:
       return nil
@@ -357,7 +367,7 @@ enum ChordType: String, CaseIterable {
   var hasMinor6th: Degree? {
     switch self {
       // Min(♭6)
-    case let type where type.rawValue.contains(/♭6/):
+    case .mi_b6:
       return .minor6th
     default:
       return nil
@@ -405,7 +415,7 @@ enum ChordType: String, CaseIterable {
       return .major7th
     case .dim7:
       switch self {
-      case let type where type.rawValue.contains(/∆/):
+      case .dim7_add_ma7, .dim7_b13_add_ma7, .dim9_add_ma7, .dim9_b13_add_ma7, .dim11_add_ma7, .dim11_b13_add_ma7, .dim11_add_ma7_omit9, .dim11_b13_add_ma7_omit9:
         return .major7th
       default:
         return nil
@@ -418,7 +428,15 @@ enum ChordType: String, CaseIterable {
   // MARK: hasMinor9th
   var hasMinor9th: Degree? {
     switch self {
-    case let type where type.rawValue.contains(/♭9|locrian/):
+    case .dominant7_b9, .dominant7_b9_sh11, .dominant7_b9_sh9, .dominant7_b9_b5, .dominant7_b9_sh5, .dominant7_alt_b9_sh9_sh11, .dominant7_alt_b9_sh9_b5,
+      // ma6
+        .ma6_b9, .ma6_b9sh11,
+      // mi7
+        .mi7_b9, .mi11_b9, .mi13_b9,
+      // Phrygian
+        .mi7_b9b13, .mi11_b9b13,
+      // mi7(♭5)
+        .mi7_b5b9, .mi11_b5b9, .locrian:
       return .minor9th
     default:
       return nil
@@ -432,7 +450,23 @@ enum ChordType: String, CaseIterable {
     case let type where type.hasMinor9th != nil, let type where type.hasSharp9th != nil:
       return nil
       // ma7
-    case let type where !type.rawValue.contains(/omit9|add11|add13|(6|7)\(♯11\)|7\(♭13|7\(♭5♭13/) && type.rawValue.contains(/9|11|13|⁶\/₉/):
+    case .ma9, .ma13, .ma9_sh11, .ma13_sh11,
+      // dom7
+        .dominant9, .dominant9_b5, .dominant13, .dominant13_b5, .dominant9_sh11, .dominant13_sh11, .dominant9_sh5,
+      // ma6
+        .ma6_9, .ma6_9sh11,
+      // mi7
+        .mi9, .mi11, .mi13, .mi13_omit11,
+      // mi(♭13)
+        .mi9_b13, .mi11_b13,
+      // mi7(♭5)
+        .mi9_b5, .mi11_b5, .mi11_b5b13, .mi13_b5, .mi13_b5_omit11,
+      // ˚7
+        .dim9, .dim9_add_ma7, .dim9_b13, .dim9_b13_add_ma7, .dim11, .dim11_b13, .dim11_add_ma7, .dim11_b13_add_ma7,
+      // mi(∆7)
+        .mi_ma9, .mi_ma11, .mi_ma13,
+      // mi6
+       .mi6_9, .mi6_9_11:
       return .major9th
     default:
       return nil
@@ -442,7 +476,10 @@ enum ChordType: String, CaseIterable {
   // MARK: hasSharp9th
   var hasSharp9th: Degree? {
     switch self {
-    case let type where type.rawValue.contains(/♯9/):
+    // ma6
+    case .ma6_sh9, .ma6_sh9_sh11,
+      // dom7
+        .dominant7_sh9, .dominant7_b9_sh9, .dominant7_sh9_sh11, .dominant7_sh9_b5, .dominant7_sh9_sh5, .dominant7_alt_b9_sh9_sh11, .dominant7_alt_b9_sh9_b5:
       return .sharp9th
     default:
       return nil
@@ -452,7 +489,20 @@ enum ChordType: String, CaseIterable {
   // MARK: hasPerfect11th
   var hasPerfect11th: Degree? {
     switch self {
-    case let type where !type.rawValue.contains(/omit11|♯11/) && type.rawValue.contains(/11|mi13|locrian/):
+      // dorian
+    case .mi11, .mi11_omit9, .mi13, .mi13_omit9,
+      // phrygian
+        .mi11_b9, .mi11_b9b13, .mi13_b9,
+      // mi(♭13)
+        .mi11_b13, .mi11_b13_omit9,
+      // mi7(♭5)
+        .mi7_b5add11, .mi11_b5, .mi11_b5b9, .mi11_b5b13, .locrian, .mi13_b5, .mi13_b5_omit9,
+      // ˚7
+        .dim11, .dim7_add11, .dim11_b13, .dim11_b13_omit9, .dim11_add_ma7, .dim11_add_ma7_omit9, .dim11_b13_add_ma7, .dim11_b13_add_ma7_omit9,
+      // mi(∆7)
+        .mi_ma11, .mi_ma13, .mi_ma11_omit9, .mi_ma13_omit9,
+      // mi6
+        .mi6_9_11:
       return .perfect11th
     default:
       return nil
@@ -462,7 +512,12 @@ enum ChordType: String, CaseIterable {
   // MARK: hasSharp11th
   var hasSharp11th: Degree? {
     switch self {
-    case let type where type.rawValue.contains(/♯11/):
+    // ma7(♯11)
+    case .ma7_sh11, .ma9_sh11, .ma13_sh11, .ma13_sh11_omit9,
+      // dom7(♯11)
+        .dominant7_sh11, .dominant7_b9_sh11, .dominant7_sh9_sh11, .dominant9_sh11, .dominant13_sh11, .dominant13_sh11_omit9, .dominant7_alt_b9_sh9_sh11,
+      // ma6(♯11)
+        .ma6_sh9_sh11, .ma6_b9sh11, .ma6_sh11, .ma6_9sh11:
       return .sharp11th
     default:
       return nil
@@ -473,7 +528,13 @@ enum ChordType: String, CaseIterable {
   var hasFlat13th: Degree? {
     switch self {
       // Min(♭13)
-    case let type where type.rawValue.contains(/♭13|locrian/):
+    case .mi7_b13, .mi9_b13, .mi11_b13, .mi11_b13_omit9,
+      // Phrygian
+        .mi7_b9b13, .mi11_b9b13,
+      // mi7(♭5)
+        .mi11_b5b13, .mi7_b5b13, .locrian,
+      // ˚7
+        .dim7_b13, .dim9_b13, .dim11_b13, .dim11_b13_omit9, .dim7_b13_add_ma7, .dim9_b13_add_ma7, .dim11_b13_add_ma7, .dim11_b13_add_ma7_omit9:
       return .flat13th
     default:
       return nil
@@ -492,7 +553,15 @@ enum ChordType: String, CaseIterable {
       case let type where type.hasMinor6th != nil || type.hasFlat13th != nil:
         return nil
         // Extended Major 7th chords
-      case let type where type.rawValue.contains(/13/):
+      case .ma13, .ma13_omit9, .ma13_sh11, .ma13_sh11_omit9,
+        // Extended Dominant 7th Chords
+          .dominant13, .dominant13_sh11, .dominant13_sh11_omit9, .dominant13_b5, .dominant13_omit9, .dominant13_b5_omit9,
+        // Extended Minor 7th chords
+          .mi13, .mi13_omit9, .mi13_omit11, .mi7_add13, .mi13_b9,
+        // Extended Min7(♭5) chords
+          .mi13_b5, .mi13_b5_omit9, .mi13_b5_omit11, .mi7_b5add13,
+        //mi(∆7)
+          .mi_ma13, .mi_ma13_omit9:
         return .major13th
       default:
         return nil
@@ -540,12 +609,15 @@ extension ChordType: Identifiable, Comparable {
 
 // MARK: static properties
 extension ChordType {
-  // TODO: Map this to a dictionary with ChordType.allCases and use to replace switch statement in static func getChordTypeByDegrees
   static var allChordDegrees: [[Int]] {
     ChordType.allCases.map { $0.degrees }
   }
   
   static var typeByDegrees: [[Int]: ChordType] = Dictionary(uniqueKeysWithValues: zip(allChordDegrees, allCases))
+  
+  static func typeByDegreesFiltered(degreeCount: Int) -> [[Int]: ChordType] {
+    typeByDegrees.filter { $0.key.count == degreeCount }
+  }
   
   static let triadTypes: [ChordType] = [.ma, .mi, .aug, .dim, .sus4, .sus2]
   static let primary7thChords: [ChordType] = [.ma7, .dominant7, .mi7, .mi7_b5, .dim7]
@@ -595,8 +667,78 @@ extension ChordType {
     modifiedTriadTypes
   ]
   
+  static let sectionTitles: [String] = [
+    "Triads",
+    "Primary 7th Chords",
+    "Extended Major 7th Chords",
+    "Extended Dominant Chords",
+    "Extended 7(♭5) Chords",
+    "Extended 7(♯5) Chords",
+    "Extended Minor 7th Chords",
+    "Extended mi7(♭5) Chords",
+    "Extended Diminished Chords",
+    "Extended Major 6th Chords",
+    "Extended Minor 6th Chords",
+    "Phrygian Chords",
+    "Extended Min(♭13) Chords",
+    "Extended mi(∆7) Chords",
+    "Modified Triads"
+  ]
+  
+  static let sectionTagNames: [String] = [
+    "Triads",
+    "Std. 7ths",
+    "ma7",
+    "dom7",
+    "7(♭5)",
+    "7(♯5)",
+    "mi7",
+    "mi7(♭5)",
+    "dim7",
+    "ma6",
+    "mi6",
+    "Phrygian",
+    "mi(♭13)",
+    "mi(∆7)",
+    "Mod. Triads"
+  ]
+  
+  static var chordTypeSections: [ChordTypeSection] {
+    var chordTypeSections: [ChordTypeSection] = []
+    
+    for (index, title) in sectionTitles.enumerated() {
+      chordTypeSections.append(
+        ChordTypeSection(id: index, title: title, tagName: sectionTagNames[index], chordTypes: allChordTypeArrays[index]
+      ))
+    }
+    
+    return chordTypeSections
+  }
+  
+  
+  static let sectionTitlesIndexed = sectionTitles.indexed()
+  static let allChordTypeArraysIndexed = allChordTypeArrays.indexed()
+  
+  static let sectionsWithTitles = Array(zip(ChordType.sectionTitles, ChordType.allChordTypeArrays))
+  
   static let allChordTypesMinusOmits: [[ChordType]] = allChordTypeArrays.map { $0.filterOmits() }
   
   static let allChordTypesSorted: [ChordType] = allChordTypeArrays.flatMap { $0 }
   static let allChordTypesMinusOmitsSorted: [ChordType] = allChordTypesMinusOmits.flatMap { $0 }
+}
+
+struct ChordTypeSection {
+  var id: Int
+  var title: String
+  var tagName: String
+  var chordTypes: [ChordType]
+}
+
+extension ChordTypeSection: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+    hasher.combine(title)
+    hasher.combine(tagName)
+    hasher.combine(chordTypes)
+  }
 }

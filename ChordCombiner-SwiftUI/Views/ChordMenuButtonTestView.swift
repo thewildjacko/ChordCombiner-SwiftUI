@@ -28,7 +28,7 @@ struct ChordMenuButtonTestView: View {
       //      }
     }
     .onAppear(perform: {
-      keyboard.highlightKeysSingle(degs: chord.voicingCalculator.stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degs: chord.voicingCalculator.stackedPitches, color: color)
     })
   }
 }

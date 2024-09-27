@@ -102,6 +102,14 @@ extension Array where Element == Int {
       }
     }
   }
+  
+  func highlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
+    for deg in self {
+      if let index = keys.firstIndex(where: { $0.pitch == deg }) {
+        keys[index].highlight(color: color)
+      }
+    }
+  }
 }
 
 extension CGFloat {

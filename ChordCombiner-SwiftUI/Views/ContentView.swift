@@ -8,24 +8,29 @@
 import SwiftUI
 
 enum Tab {
-  case singleChord, multiChord
+  case singleChord, multiChord, allChords
 }
 
 struct ContentView: View {
-  @State private var selectedTab: Tab = .singleChord
+  @State private var selectedTab: Tab = .multiChord
   
   var body: some View {
     TabView(selection: $selectedTab) {
-      SingleChordKeyboardDisplayView()
-        .tabItem {
-          Text("Single Chord")
-        }
-        .tag(Tab.singleChord)
       MultiChordKeyboardView()
         .tabItem {
           Text("Chord Combiner")
         }
         .tag(Tab.multiChord)
+      SingleChordKeyboardDisplayView()
+        .tabItem {
+          Text("Single Chord")
+        }
+        .tag(Tab.singleChord)
+      AllChordsView()
+        .tabItem {
+          Text("All Chords")
+        }
+        .tag(Tab.allChords)
     }
   }
 }

@@ -94,5 +94,3 @@ extension Array where Element == ChordType {
     self.filter { !$0.rawValue.contains("omit")}
   }
 }
-
-

@@ -46,13 +46,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>543</string>
+					<string>549</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>542</string>
+					<string>548</string>
 					<key>Timestamp</key>
-					<string>749051930.8043081</string>
+					<string>749071037.712473</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -68,16 +68,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>  // TODO: Map this to a dictionary with ChordType.allCases and use to replace switch statement in static func getChordTypeByDegrees
+				<string>      return nil
 </string>
 				<key>leading</key>
-				<string>// MARK: static properties
-extension ChordType {
+				<string>      // ma6 chords and ˚7 chords
+    case .ma6, .dim7:
 </string>
 				<key>trailing</key>
-				<string>  static var allChordDegrees: [[Int]] {
-    ChordType.allCases.map { $0.degrees }
-  }
+				<string>    default:
+      switch self {
+        // has ♭6
 </string>
 			</dict>
 			<key>type</key>

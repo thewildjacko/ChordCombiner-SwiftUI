@@ -169,10 +169,14 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   mutating func highlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
+    degs.highlightIfSelected(keys: &keys, color: color)
+  }
+  
+  mutating func toggleHighlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
     degs.toggleHighlightIfSelected(keys: &keys, color: color)
   }
   
-  mutating func highlightKeysSplit<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T, secondColor: T) {
+  mutating func toggleHighlightKeysSplit<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T, secondColor: T) {
 //    let clock = ContinuousClock()
 //      let elapsed = clock.measure {
         degs.toggleHighlightIfSelected(keys: &keys, color: color)
@@ -181,12 +185,12 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 //    print("time to split:", elapsed)
   }
   
-  mutating func highlightKeysSplit_SameColor<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T) {
+  mutating func toggleHighlightKeysSplit_SameColor<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T) {
     degs.toggleHighlightIfSelected(keys: &keys, color: color)
     secondDegs.toggleHighlightIfSelected(keys: &keys, color: color)
   }
   
-  mutating func highlightKeysCombined(degs: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
+  mutating func toggleHighlightKeysCombined(degs: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
 //    let clock = ContinuousClock()
 //      let elapsed = clock.measure {
         degs.toggleHighlightIfSelected(keys: &keys, color: color)
@@ -196,20 +200,20 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 //    print("time to combine:", elapsed)
   }
   
-  mutating func highlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, isSlashChord: Bool, color: Color, secondColor: Color) {
+  mutating func toggleHighlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, isSlashChord: Bool, color: Color, secondColor: Color) {
 //    let clock = ContinuousClock()
 //      let elapsed = clock.measure {
         if resultChordExists && !isSlashChord {
-          //      print("combining!")
-          highlightKeysCombined(
+                print("combining!")
+          toggleHighlightKeysCombined(
             degs: onlyInLower,
             secondDegs: onlyInUpper,
             commonToneDegs: commonTones,
             color: color,
             secondColor: secondColor)
         } else {
-          //      print("splitting!")
-          highlightKeysSplit(
+                print("splitting!")
+          toggleHighlightKeysSplit(
             degs: lowerStackedPitches,
             secondDegs: upperStackedPitches,
             color: color,

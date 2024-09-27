@@ -39,12 +39,12 @@ struct MultiChordKeyboardView: View {
     let (lowerSplitPitches, upperSplitPitches) = multiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
     
     if isInitial {
-      lowerKeyboard.highlightKeysSingle(degs: lowerStackedPitches, color: color)
-      upperKeyboard.highlightKeysSingle(degs: upperStackedPitches, color: secondColor)
+      lowerKeyboard.toggleHighlightKeysSingle(degs: lowerStackedPitches, color: color)
+      upperKeyboard.toggleHighlightKeysSingle(degs: upperStackedPitches, color: secondColor)
       
       multiChord.multiChordVoicingCalculator.setResultChordCombinedHighlightedPitches()
       
-      combinedKeyboard.highlightStackedCombinedOrSplit(
+      combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
         onlyInLower: multiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: multiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: multiChord.multiChordVoicingCalculator.commonTonesToHighlight,
@@ -68,13 +68,13 @@ struct MultiChordKeyboardView: View {
       
       let (oldLowerSplitPitches, oldUpperSplitPitches) = oldMultiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: oldLowerStackedPitches, upperPitches: oldUpperStackedPitches)
       
-      lowerKeyboard.highlightKeysSingle(degs: oldLowerStackedPitches, color: color)
-      upperKeyboard.highlightKeysSingle(degs: oldUpperStackedPitches, color: secondColor)
+      lowerKeyboard.toggleHighlightKeysSingle(degs: oldLowerStackedPitches, color: color)
+      upperKeyboard.toggleHighlightKeysSingle(degs: oldUpperStackedPitches, color: secondColor)
       
-      lowerKeyboard.highlightKeysSingle(degs: lowerStackedPitches, color: color)
-      upperKeyboard.highlightKeysSingle(degs: upperStackedPitches, color: secondColor)
+      lowerKeyboard.toggleHighlightKeysSingle(degs: lowerStackedPitches, color: color)
+      upperKeyboard.toggleHighlightKeysSingle(degs: upperStackedPitches, color: secondColor)
       
-      combinedKeyboard.highlightStackedCombinedOrSplit(
+      combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
         onlyInLower: oldMultiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: oldMultiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: oldMultiChord.multiChordVoicingCalculator.commonTonesToHighlight,
@@ -84,7 +84,7 @@ struct MultiChordKeyboardView: View {
         isSlashChord: oldIsSlashChord,
         color: color,
         secondColor: secondColor)
-      combinedKeyboard.highlightStackedCombinedOrSplit(
+      combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
         onlyInLower: multiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
         onlyInUpper: multiChord.multiChordVoicingCalculator.upperTonesToHighlight,
         commonTones: multiChord.multiChordVoicingCalculator.commonTonesToHighlight,

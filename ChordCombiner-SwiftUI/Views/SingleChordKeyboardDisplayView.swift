@@ -19,14 +19,14 @@ struct SingleChordKeyboardDisplayView: View {
     let stackedPitches = chord.voicingCalculator.stackedPitches
     
     if isInitial {
-      keyboard.highlightKeysSingle(degs: stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
             
       isInitial = false
     } else {
       let oldStackedPitches = oldChord.voicingCalculator.stackedPitches
       
-      keyboard.highlightKeysSingle(degs: oldStackedPitches, color: color)
-      keyboard.highlightKeysSingle(degs: stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degs: oldStackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
     }
     
     oldChord = chord

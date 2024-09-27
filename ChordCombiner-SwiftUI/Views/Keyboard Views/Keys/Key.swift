@@ -38,6 +38,12 @@ struct Key: View, KeyProtocol, Identifiable {
     }
   }
   
+  mutating func highlight<T: ShapeStyle>(color: T) {
+    if fill is Color && fill as! Color == .white || fill as! Color == .black {
+      fill = color
+    }
+  }
+  
   var body: some View {
     switch type {
     case .C:
