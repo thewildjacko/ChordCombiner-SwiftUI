@@ -31,6 +31,11 @@ import Algorithms
 //let type = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
 //print(type)
 
+for type in ChordType.allCases {
+  print(type.rawValue, type.degrees, type.degreeTags)
+}
+
+print(ChordType.allCases.filter({ !$0.rawValue.contains("omit9") }).count)
 
 var theChord = Chord(.c, .ma13_sh11)
 print(theChord.notesByNoteNum)
