@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SingleChordKeyboardDisplayView: View {
-  @State var chord: Chord = Chord(.c, .ma, startingOctave: 4)
-  @State var oldChord: Chord = Chord(.c, .ma, startingOctave: 4)
+  @State var chord: Chord = Chord(.c, .ma, startingOctave: 3)
+  @State var oldChord: Chord = Chord(.c, .ma, startingOctave: 3)
   @State var keyboard: Keyboard = Keyboard(geoWidth: 300, initialKey: .C,  startingOctave: 4, octaves: 3)
   @State var isInitial: Bool = true
   var color: Color = .yellow
@@ -52,6 +52,6 @@ struct SingleChordKeyboardDisplayView: View {
 #Preview {
     SingleChordKeyboardDisplayView(
     chord: Chord(.c, .ma),
-    keyboard: Keyboard(geoWidth: 187, initialKey: .C,  startingOctave: 4, octaves: 2),
+    keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3),
     color: .yellow)
 }

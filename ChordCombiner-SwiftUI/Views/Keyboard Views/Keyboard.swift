@@ -31,7 +31,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var widthMultiplier: CGFloat = 0
   
   //  MARK: initializers
-  init(/*title: String, */geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil) {
+  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil) {
 //    self.title = title
     self.keyCount = keyCount
     self.geoWidth = geoWidth
@@ -111,6 +111,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     for (index, type) in keyTypes.enumerated() {
       if index == 0 {
         pitch = startingPitch
+//        print(pitch)
         keys.append(
           Key(
             pitch: pitch,
@@ -125,6 +126,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         keyPosition += type.initialKeyPosition + type.nextKeyPosition
         pitch += 1
       } else if index < keyTypes.count - 1 {
+//        print(pitch)
         keys.append(
           Key(
             pitch: pitch,
@@ -242,7 +244,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
 #Preview {
   VStack {
-    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 3, octaves: 3)
+    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3)
       .position(x: 220, y: 600)
   }
 }

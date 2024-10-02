@@ -111,4 +111,34 @@ extension KeyType: GettableNoteNum {
       return .eleven
     }
   }
+  
+  init(noteNum: NoteNum) {
+    switch noteNum {
+    case .zero:
+      self = .C
+    case .one:
+      self = .Db
+    case .two:
+      self = .D
+    case .three:
+      self = .Eb
+    case .four:
+      self = .E
+    case .five:
+      self = .F
+    case .six:
+      self = .Gb
+    case .seven:
+      self = .G
+    case .eight:
+      self = .Ab
+    case .nine:
+      self = .A
+    case .ten:
+      self = .Bb
+    case .eleven:
+      self = .B
+    }
+  }
 }
+

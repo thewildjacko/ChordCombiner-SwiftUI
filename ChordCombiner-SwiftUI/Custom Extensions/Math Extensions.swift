@@ -96,8 +96,10 @@ enum ComparisonOutcome {
 
 extension Array where Element == Int {
   func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
+//    print(self)
     for deg in self {
       if let index = keys.firstIndex(where: { $0.pitch == deg }) {
+//        print(deg, keys[index].pitch)
         keys[index].toggleHighlight(color: color)
       }
     }
