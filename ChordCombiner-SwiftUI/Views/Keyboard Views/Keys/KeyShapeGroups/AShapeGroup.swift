@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AShapeGroup: View, KeyShapeGroup {
   var finalKey: Bool
-  typealias NoteShape = GandAShape
-  var keyShape: NoteShape { GandAShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
+  typealias NoteShape = /*GandAShape*/KeyShape
+  var keyShape: NoteShape { /*GandAShape*/KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePath: .GandAShape)
   }
   
   var octaves: CGFloat

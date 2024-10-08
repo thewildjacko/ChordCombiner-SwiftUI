@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CShapeGroup: View, KeyShapeGroup {
   var finalKey: Bool
-  typealias NoteShape = CandEShape
-  var keyShape: NoteShape { CandEShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
+  typealias NoteShape = /*CandEShape*/KeyShape
+  var keyShape: NoteShape { /*CandEShape*/KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePath: .CEFBShape)
   }
   
   var octaves: CGFloat
@@ -23,11 +23,7 @@ struct CShapeGroup: View, KeyShapeGroup {
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
-  
-  func getFill<T: ShapeStyle>(color: T) -> T {
-    return color
-  }
-  
+    
   var body: some View {
     ZStack(alignment: .topLeading) {
       if fill is Color {
