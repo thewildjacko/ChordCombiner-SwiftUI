@@ -73,8 +73,8 @@ struct KeyShapePaths {
       let y2 = height - radius * 2
       let y3 = height
       
-      let arcCenter1 = CGPoint(x: x2 - radius, y: height - radius)
-      let arcCenter2 = CGPoint(x: radius, y: height - radius)
+      let arcCenter1 = CGPoint(x: x2 - x3, y: height - radius)
+      let arcCenter2 = CGPoint(x: x3, y: height - radius)
       
       path.move(to: CGPoint(x: x0, y: y0))
       
@@ -124,8 +124,8 @@ struct KeyShapePaths {
       let y2 = height - radius * 2
       let y3 = height
       
-      let arcCenter1 = CGPoint(x: width - radius, y: height - radius)
-      let arcCenter2 = CGPoint(x: radius, y: y3 - radius)
+      let arcCenter1 = CGPoint(x: width - x3, y: height - radius)
+      let arcCenter2 = CGPoint(x: x3, y: y3 - radius)
       
       path.move(to: CGPoint(x: x0, y: y0))
       

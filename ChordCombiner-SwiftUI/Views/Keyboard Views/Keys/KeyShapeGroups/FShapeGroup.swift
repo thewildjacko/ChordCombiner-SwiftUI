@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FShapeGroup: View, KeyShapeGroup {
+struct FShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   typealias NoteShape = FandBShape
   var keyShape: NoteShape { FandBShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)

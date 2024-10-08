@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct EShapeGroup: View, KeyShapeGroup {
+struct EShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   typealias NoteShape = CandEShape
   var keyShape: NoteShape { CandEShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)
   }
-
+  
   var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
@@ -26,7 +26,7 @@ struct EShapeGroup: View, KeyShapeGroup {
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-            if fill is Color {
+      if fill is Color {
         keyShape.path(
           in: keyRect)
         .fill(fill as! Color)
@@ -46,7 +46,7 @@ struct EShapeGroup: View, KeyShapeGroup {
     .frame(width: width, height: height)
     .zIndex(z_Index)
     .position(x: position, y: height/2)
-
+    
   }
 }
 

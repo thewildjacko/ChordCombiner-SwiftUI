@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GShapeGroup: View, KeyShapeGroup {
+struct GShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   typealias NoteShape = GandAShape
   var keyShape: NoteShape { GandAShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)

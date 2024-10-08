@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol KeyShapeGroup {
+protocol KeyShapeGroupProtocol {
   var finalKey: Bool { get set }
   associatedtype NoteShape where NoteShape: Shape
   var keyShape: NoteShape { get }
@@ -25,6 +25,6 @@ protocol KeyShapeGroup {
   var z_Index: Double { get set }
 }
 
-extension KeyShapeGroup {
+extension KeyShapeGroupProtocol {
   var keyRect: CGRect { CGRect(x: 0, y: 0, width: width, height: height) }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BlackKeyShapeGroup: View, KeyShapeGroup {
+struct BlackKeyShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   typealias NoteShape = BlackKeyShape
   var keyShape: NoteShape { BlackKeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier)

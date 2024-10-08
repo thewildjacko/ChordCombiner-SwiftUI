@@ -79,6 +79,27 @@ enum KeyType: Int {
     }
   }
   
+  var keyShapePath: KeyShapePath {
+    switch self {
+    case .C:
+      return .CShape
+    case .D:
+      return .DShape
+    case .E:
+      return .EShape
+    case .F:
+      return .FShape
+    case .G:
+      return .GShape
+    case .A:
+      return .AShape
+    case .B:
+      return .BShape
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return .BlackandEdgeWhiteKeyShape
+    }
+  }
+  
   func toPitch(startingOctave: Int) -> Int { noteNum.rawValue + (startingOctave + 1) * 12 }
 }
 

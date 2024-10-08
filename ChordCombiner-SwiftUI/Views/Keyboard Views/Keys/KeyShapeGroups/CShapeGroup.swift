@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct CShapeGroup: View, KeyShapeGroup {
+struct CShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
-  typealias NoteShape = /*CandEShape*/KeyShape
-  var keyShape: NoteShape { /*CandEShape*/KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePath: .CEFBShape)
+  typealias NoteShape = KeyShape
+  var keyShape: NoteShape { KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePath: .CShape)
   }
   
   var octaves: CGFloat
