@@ -55,3 +55,4 @@ struct SingleChordKeyboardMenuView: View {
     keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3),
     color: .yellow)
 }
+
