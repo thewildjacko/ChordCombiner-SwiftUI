@@ -21,7 +21,7 @@ struct ContentView: View {
           Text("Chord Combiner")
         }
         .tag(Tab.multiChord)
-      SingleChordKeyboardDisplayView()
+      SingleChordKeyboardMenuView()
         .tabItem {
           Text("Single Chord")
         }
