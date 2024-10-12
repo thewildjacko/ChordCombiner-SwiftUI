@@ -24,28 +24,26 @@ struct AllChordsView: View {
         selectedAccidental: $selectedAccidental,
         rootKeyNote: $rootKeyNote,
         expandedSections: $expandedSections)
-      Divider()
-        .overlay {
-          Color.title
-        }
+      
+      TitleColorDivider()
+      
       ScrollView {
         VStack(alignment: .leading) {
           ForEach(chordTypeSections, id: \.tagName) { section in
-            KeyboardDisplayScrollView(section: section, rootKeyNote: $rootKeyNote, isExpanded: expandedSections.contains(section.tagName), expandedSections: $expandedSections, kbDisplay: false)
+            ChordTypeSectionView(
+              section: section,
+              rootKeyNote: $rootKeyNote, 
+              isExpanded: expandedSections.contains(section.tagName),
+              expandedSections: $expandedSections,
+              kbDisplay: false
+            )
           }
         }
-      }
-      
-//      .listRowBackground(Color(red: 0, green: 0.8, blue: 0.8, opacity: 0.1))
-      .background {
-//        Color(red: 0, green: 0.8, blue: 0.8, opacity: 0.1)
       }
       .listStyle(.insetGrouped)
     }
     .padding(.bottom, 20)
-    .background {
-      Color(red: 0, green: 0.8, blue: 0.8, opacity: 0.1)
-    }
+    .background { Color(.tagViewBackground) }
   }
 }
 
