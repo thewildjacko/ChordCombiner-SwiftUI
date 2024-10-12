@@ -1,5 +1,5 @@
 //
-//  LettersView.swift
+//  LetterTagsView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/2/24.
@@ -14,23 +14,26 @@ import SwiftUI
  - SeeAlso: ``Letter``
  
  */
-struct LettersView: View {
+struct LetterTagsView: View {
+  var chord = Chord(.c, .ma7)
   @Binding var selectedLetter: Letter
   
   var body: some View {
     HStack {
       ForEach(Letter.allCases, id: \.self) { letter in
-        Text(letter.rawValue)
-          .tagView(condition: selectedLetter == letter)
-          .onTapGesture {
-            selectedLetter = letter
-          }
+        HighlightableTagView(
+          text: letter.rawValue,
+          highlightCondition: selectedLetter == letter,
+          stroke: chord.combinesWith(chordFrom: letter) ? .title : .clear
+        )
+        .onTapGesture {
+          selectedLetter = letter
+        }
       }
-      .font(.caption)
     }
   }
 }
 
 #Preview {
-  LettersView(selectedLetter: Binding.constant(.c))
+  LetterTagsView(selectedLetter: Binding.constant(.c))
 }
