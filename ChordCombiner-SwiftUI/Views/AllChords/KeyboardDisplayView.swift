@@ -14,12 +14,8 @@ struct KeyboardDisplayView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text(chord.preciseName)
-      //        .font(.headline)
-        .font(.title2)
-        .fontWeight(.heavy)
-        .fixedSize()
-        .foregroundStyle(Color("titleColor"))
+      TitleView(text: chord.preciseName, font: .title2, weight: .heavy)
+      
       keyboard
     }
     .onAppear {
