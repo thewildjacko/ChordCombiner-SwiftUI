@@ -27,7 +27,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   case minor7th
   case major7th
   case octave
-  case minor9th
+  case flat9th
   case major9th
   case sharp9th
   case minor10th
@@ -49,7 +49,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
     switch self {
     case .root, .octave, .perfect15th:
       return .zero
-    case .minor2nd, .minor9th:
+    case .minor2nd, .flat9th:
       return .one
     case .major2nd, .major9th:
       return .two
@@ -117,7 +117,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "Major 7th"
     case .octave:
       return "Perfect Octave"
-    case .minor9th:
+    case .flat9th:
       return "minor 9th"
     case .major9th:
       return "Major 9th"
@@ -189,7 +189,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "Maj 7th"
     case .octave:
       return "Octave"
-    case .minor9th:
+    case .flat9th:
       return "min 9th"
     case .major9th:
       return "Maj 9th"
@@ -261,7 +261,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       return "7"
     case .octave:
       return "8"
-    case .minor9th:
+    case .flat9th:
       return "♭9"
     case .major9th:
       return "9"
@@ -324,7 +324,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       11
     case .octave:
       12
-    case .minor9th:
+    case .flat9th:
       13
     case .major9th:
       14
@@ -373,7 +373,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
       .diminished7th,
       .minor7th,
       .major7th,
-      .minor9th,
+      .flat9th,
       .major9th,
       .sharp9th,
       .perfect11th,
