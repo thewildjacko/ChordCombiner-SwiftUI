@@ -64,7 +64,7 @@ extension Array where Element == Int {
 
 extension Array where Element: Hashable {
   func toSet() -> Set<Element> {
-    return Set(self)
+    Set(self)
   }
 }
 
@@ -92,5 +92,15 @@ extension Array where Element == Note {
 extension Array where Element == ChordType {
   func filterOmits() -> [Element] {
     self.filter { !$0.rawValue.contains("omit")}
+  }
+  
+  func filterInSimple() -> [Element] {
+    self.filter { $0.isSimpleChord }
+  }
+}
+
+extension Array where Element == Degree {
+  func intersectsWith(_ otherArray: [Element]) -> Bool {
+    !self.toSet().intersection(otherArray).isEmpty
   }
 }
