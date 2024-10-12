@@ -18,9 +18,8 @@ struct ChordAndKeySelectionView: View {
   
   var body: some View {
     VStack {
-      TagsView(selectedSections: $selectedSections, expandedSections: $expandedSections)
-        .padding(.horizontal, 10)
-        .padding(.top, 10)
+      ChordSectionTagsView(selectedSections: $selectedSections, expandedSections: $expandedSections)
+        .padding([.horizontal, .top], 10)
         .onAppear(perform: {
           expandedSections = Set([chordTypeSections[0].tagName])
         })
@@ -31,48 +30,38 @@ struct ChordAndKeySelectionView: View {
             chordTypeSections = Array(selectedSections.sorted(by: { $0.id < $1.id }))
           }
         }
-      Divider()
-        .overlay {
-          Color.title
-        }
+      
+      TitleColorDivider()
+        .titleColorOverlay()
+      
       HStack(alignment: .bottom) {
-        LettersView(selectedLetter: $selectedLetter)
+        LetterTagsView(selectedLetter: $selectedLetter)
           .onChange(of: selectedLetter) { oldValue, newValue in
             rootKeyNote = RootKeyNote(newValue, selectedAccidental)
           }
         Divider()
-          .frame(width: 2, height: 30)
-          .overlay {
-            Color.title
-          }
-        AccidentalsView(selectedAccidental: $selectedAccidental)
+          .frame(height: 30)
+          .titleColorOverlay()
+        
+        AccidentalTagsView(selectedAccidental: $selectedAccidental)
           .onChange(of: selectedAccidental) { oldValue, newValue in
             rootKeyNote = RootKeyNote(selectedLetter, newValue)
           }
       }
       
-      Divider()
-        .overlay {
-          Color.title
-        }
+      TitleColorDivider()
+      
       Text(text)
-        .font(.headline)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 5)
-        .background(Color(red: 0.8, green: 0.8, blue: 0.8, opacity: 0.9))
-        .foregroundStyle(.title)
-        .fontWeight(.bold)
-        .clipShape(RoundedRectangle(cornerRadius: 12.0, style: .continuous))
+        .roundRectTagView(font: .caption, horizontalPadding: 8, verticalPadding: 5, cornerRadius: 12)
         .onTapGesture {
           if text == "Expand All" {
             expandedSections = Set(chordTypeSections.map { $0.tagName })
             text = "Collapse All"
           } else {
-            expandedSections.removeAll()
+            expandedSections.removeAll(keepingCapacity: true)
             text = "Expand All"
           }
         }
-       
     }
   }
 }
