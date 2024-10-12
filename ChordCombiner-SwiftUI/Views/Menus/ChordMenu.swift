@@ -16,32 +16,21 @@ struct ChordMenu: View {
   
   var body: some View {
       VStack {
-        Text(text)
-          .font(.headline)
-//          .font(.title)
-          .fontWeight(.heavy)
-          .fixedSize()
-          .foregroundStyle(Color("titleColor"))
-        
+        TitleView(text: text, font: .headline, weight: .heavy)
+
         Menu(content: {
           LetterPicker(letter: $chord.letter)
           AccidentalPicker(accidental: $chord.accidental)
           ChordTypePicker(chord: $chord, type: $chord.type)
         }, label: {
           VStack {
-            if chord.type == .ma {
-              Text("\(chord.root.noteName)")
-                .font(.headline)
-  //              .font(.title)
-                .fontWeight(.heavy)
-                .fixedSize(horizontal: true, vertical: true)
-            } else {
-              Text("\(chord.preciseName)")
-                .font(.headline)
-              //              .font(.title)
-                .fontWeight(.heavy)
-                .fixedSize(horizontal: true, vertical: true)
-            }
+            TitleView(
+              text: chord.type == .ma ? chord.root.noteName : chord.preciseName,
+              font: .headline,
+              weight: .heavy,
+              isMenuTitle: true
+            )
+            
             keyboard
           }
         })

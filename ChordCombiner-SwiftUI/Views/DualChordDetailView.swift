@@ -15,33 +15,31 @@ struct DualChordDetailView: View {
     VStack(spacing: 20) {
       if multiChord.resultChord != nil {
         VStack(spacing: 5) {
-          Text(multiChord.displayDetails(detailType: .commonName))
-            .font(.largeTitle)
-            .fontWeight(.heavy)
-            .fixedSize()
-            .foregroundStyle(Color("titleColor"))
+          TitleView(
+            text: multiChord.displayDetails(detailType: .commonName),
+            weight: .heavy
+          )
           if let resultChord = multiChord.resultChord {
             if resultChord.commonName != resultChord.preciseName {
-              Text(multiChord.displayDetails(detailType: .preciseName))
-                .font(.caption)
-                .fixedSize()
-                .foregroundStyle(Color("titleColor"))
+              TitleView(
+                text: multiChord.displayDetails(detailType: .preciseName),
+                font: .caption
+              )
             }
           }
         }
       } else {
-        Text(multiChord.displayDetails(detailType: .preciseName))
-          .font(.title)
-          .fontWeight(.heavy)
-          .fixedSize()
-          .foregroundStyle(Color("titleColor"))
+        TitleView(
+          text: multiChord.displayDetails(detailType: .preciseName),
+          font: .title,
+          weight: .heavy
+        )
       }
       
       keyboard
       
       Form {
         List {
-          
           DetailRow(title: "Notes", text: multiChord.displayDetails(detailType: .noteNames))
           DetailRow(title: "Degrees", text: multiChord.displayDetails(detailType: .degreeNames))
         }

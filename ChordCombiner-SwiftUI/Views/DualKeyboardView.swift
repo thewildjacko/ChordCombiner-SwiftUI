@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DualChordKeyboardView: View {
-  var text: String
   @EnvironmentObject var multiChord: MultiChord
   @Binding var keyboard: Keyboard
   
@@ -17,38 +16,31 @@ struct DualChordKeyboardView: View {
       HStack {
         VStack(spacing: 5) {
           if let resultChord = multiChord.resultChord {
-            if resultChord.root == multiChord.multiChordVoicingCalculator.lowerRoot {
-              Text(resultChord.commonName)
-                .font(.title)
-                .fontWeight(.heavy)
-                .fixedSize()
-                .foregroundStyle(Color("titleColor"))
-            } else {
-              Text("\(resultChord.commonName)/\(multiChord.multiChordVoicingCalculator.lowerRoot.noteName)")
-                .font(.title)
-                .fontWeight(.heavy)
-                .fixedSize()
-                .foregroundStyle(Color("titleColor"))
-            }
+              TitleView(
+                text: resultChord.root == multiChord.multiChordVoicingCalculator.lowerRoot ?
+                resultChord.commonName :
+                  "\(resultChord.commonName)/\(multiChord.multiChordVoicingCalculator.lowerRoot.noteName)",
+                font: .title,
+                weight: .heavy
+              )
             if resultChord.commonName != resultChord.preciseName {
-              Text("(\(resultChord.preciseName))")
-                .font(.caption)
-              //            .fontWeight(.heavy)
-                .fixedSize()
-                .foregroundStyle(Color("titleColor"))
+              TitleView(
+                text: "(\(resultChord.preciseName))",
+                font: .caption
+              )
             }
           } else {
-            Text("\(multiChord.upperChord.preciseName)/\(multiChord.lowerChord.preciseName)")
-              .font(.title)
-              .fontWeight(.heavy)
-              .fixedSize()
-              .foregroundStyle(Color("titleColor"))
+            TitleView(
+              text: "\(multiChord.upperChord.preciseName)/\(multiChord.lowerChord.preciseName)",
+              font: .title,
+              weight: .heavy
+            )
           }
         }
         NavigationLink(destination: DualChordDetailView(keyboard: $keyboard)) {
           Image(systemName: "info.circle")
             .font(.title3)
-            .foregroundStyle(Color("titleColor"))
+            .foregroundStyle(.title)
         }
       }
       keyboard
@@ -58,7 +50,6 @@ struct DualChordKeyboardView: View {
 
 #Preview {
   DualChordKeyboardView(
-    text: "Combined Chord:",
     keyboard: Binding.constant(Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5)))
   .environmentObject(
     MultiChord(

@@ -120,10 +120,7 @@ struct MultiChordKeyboardView: View {
           
           Spacer()
           
-          Text("+")
-            .font(.title2)
-            .fontWeight(.heavy)
-            .foregroundStyle(Color("titleColor"))
+          TitleView(text: "=", font: .title2, weight: .heavy)
             .zIndex(1.0)
           
           Spacer()
@@ -141,16 +138,11 @@ struct MultiChordKeyboardView: View {
           Spacer()
         }
         
-        Text("=")
-          .font(.title2)
-          .fontWeight(.heavy)
-          .foregroundStyle(Color("titleColor"))
+        TitleView(text: "=", font: .title2, weight: .heavy)
         
         Spacer()
         
-        DualChordKeyboardView(
-          text: "Combined Chord",
-          keyboard: $combinedKeyboard)
+        DualChordKeyboardView(keyboard: $combinedKeyboard)
         
         ForEach((1...6), id: \.self ) { _ in
           Spacer()
