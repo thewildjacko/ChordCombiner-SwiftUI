@@ -127,6 +127,30 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return Chord(rootKeyNote, type.baseChordType)
   }
   
+  func combinesWith(chordFrom letter: Letter) -> Bool {
+    let otherChord = Chord(RootKeyNote(letter, accidental), type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+  
+  func combinesWith(chordFrom accidental: RootAccidental) -> Bool {
+    let otherChord = Chord(RootKeyNote(letter, accidental), type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+
+  func combinesWith(chordFrom type: ChordType) -> Bool {
+    let otherChord = Chord(RootKeyNote(letter, accidental), type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+  
   func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
     
