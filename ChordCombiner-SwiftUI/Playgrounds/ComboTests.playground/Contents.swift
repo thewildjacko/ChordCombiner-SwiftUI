@@ -1,9 +1,29 @@
 import SwiftUI
 import Algorithms
 
-//for type in ChordType.allChordTypesMinusOmits {
-//  print(type.commonName)
-//}
+let chordType = ChordType.mi_ma13
+let chordType2 = ChordType.mi_ma9
+chordType.isTriad
+chordType.isModifiedTriad
+chordType.isFourNote6thChord
+chordType.isFourNote7thChord
+chordType.isFourNoteSimpleChord
+chordType.isSimpleChord
+chordType.isExtendedChord
+chordType.is9thChord
+chordType.is11thChord
+chordType.is13thChord
+chordType2.is9thChord
+chordType2.is11thChord
+chordType2.is13thChord
+
+
+
+for array in ChordType.allSimpleChordTypesMinusOmits {
+  for type in array {
+    print(type.commonName)
+  }
+}
 
 //var unmatchedChordDegreeSets: [[Int]] = []
 //
