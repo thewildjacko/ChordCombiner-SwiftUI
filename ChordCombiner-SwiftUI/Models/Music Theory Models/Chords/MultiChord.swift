@@ -38,10 +38,10 @@ class MultiChord: ObservableObject {
 
   func setResultChord() {
     resultChord = ChordFactory.combineChordDegrees(
-      lowerDegrees: multiChordVoicingCalculator.lowerDegrees,
-      upperDegrees: multiChordVoicingCalculator.upperDegrees,
-      lowerRoot: multiChordVoicingCalculator.lowerRoot,
-      upperRoot: multiChordVoicingCalculator.upperRoot)
+      degrees: multiChordVoicingCalculator.lowerDegrees,
+      otherDegrees: multiChordVoicingCalculator.upperDegrees,
+      root: multiChordVoicingCalculator.lowerRoot,
+      otherRoot: multiChordVoicingCalculator.upperRoot)
     multiChordVoicingCalculator.resultChordVoicingCalculator = resultChord?.voicingCalculator ?? nil
   }
 }
