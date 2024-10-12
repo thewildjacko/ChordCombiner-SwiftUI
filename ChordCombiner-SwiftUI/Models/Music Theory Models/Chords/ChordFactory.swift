@@ -57,21 +57,21 @@ struct ChordFactory {
     return (resultChord, chords)
   }
   
-  static func combineChordDegrees(lowerDegrees: [Int], upperDegrees: [Int], lowerRoot: Note, upperRoot: Note) -> Chord? {
-    let degrees: [Int] = lowerDegrees + upperDegrees
-    let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(lowerRoot.noteNum.rawValue) }.sorted()
+  static func combineChordDegrees(degrees: [Int], otherDegrees: [Int], root: Note, otherRoot: Note) -> Chord? {
+    let degrees: [Int] = degrees + otherDegrees
+    let degreesInC = Array(degrees.toSet()).map { $0.minusDeg(root.noteNum.rawValue) }.sorted()
     
-    let upperRootDegreesInC = Array(degrees.toSet()).map { $0.minusDeg(upperRoot.noteNum.rawValue) }.sorted()
+    let upperRootDegreesInC = Array(degrees.toSet()).map { $0.minusDeg(otherRoot.noteNum.rawValue) }.sorted()
 
     let degreeCount = degreesInC.count
     let typeByDegreesFiltered = ChordType.typeByDegreesFiltered(degreeCount: degreeCount)
     
     if let type = typeByDegreesFiltered[degreesInC] {
-      print("result chord exists with lowerRoot!")
-      return Chord(RootKeyNote(lowerRoot.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
+      print("result chord exists with Root!")
+      return Chord(RootKeyNote(root.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
     } else if let type = typeByDegreesFiltered[upperRootDegreesInC] {
-      print("result chord exists with upperRoot!")
-      return Chord(RootKeyNote(upperRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(upperRoot))
+      print("result chord exists with otherRoot!")
+      return Chord(RootKeyNote(otherRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(otherRoot))
     } else {
       print("couldn't find a match for degrees \(degrees) or \(upperRootDegreesInC)")
       return nil
