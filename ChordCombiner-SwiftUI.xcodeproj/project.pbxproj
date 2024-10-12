@@ -170,9 +170,9 @@
 		1D2507602C24CC11001416AF /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				1D2507612C24CC68001416AF /* AccidentalPicker.swift */,
 				1D25075E2C24CC0D001416AF /* LetterPicker.swift */,
 				1D1919472C5C434A00B0C932 /* ChordTypePicker.swift */,
-				1D2507612C24CC68001416AF /* AccidentalPicker.swift */,
 			);
 			path = Pickers;
 			sourceTree = "<group>";
@@ -237,8 +237,8 @@
 				1D46C92A2C77B7400014D00B /* MultiChordKeyboardView.swift */,
 				1D48EBCB2C9F50B800FCD4D1 /* SingleChordKeyboardMenuView.swift */,
 				1DE6CA0B2C79A6AE00D39604 /* SingleChordKeyboardView.swift */,
-				1D46C9322C77EB950014D00B /* DualKeyboardView.swift */,
 				1DD297C62C9902B6001984EF /* DualChordDetailView.swift */,
+				1D46C9322C77EB950014D00B /* DualKeyboardView.swift */,
 				1D898D242C9A9B3600C5AA18 /* DetailRow.swift */,
 				1DB4AA3F2CB8A57E006FD1C5 /* TitleView.swift */,
 				1DD507572CB981EB0085288B /* TitleColorDivider.swift */,
