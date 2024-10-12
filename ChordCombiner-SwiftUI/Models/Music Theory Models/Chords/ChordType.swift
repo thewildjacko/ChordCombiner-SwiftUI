@@ -284,7 +284,7 @@ enum ChordType: String, CaseIterable {
       // mi(∆7)
     case .mi_ma7, .mi_ma9, .mi_ma11, .mi_ma13, .mi_ma11_omit9, .mi_ma13_omit9:
       return .mi_ma7
-    
+      
     }
   }
   
@@ -308,7 +308,7 @@ enum ChordType: String, CaseIterable {
       // sus2 & add2
     case .sus2, .add2, .mi_add2,
       // 7sus2
-      .dominant7sus2:
+        .dominant7sus2:
       return .major2nd
     default:
       return nil
@@ -363,14 +363,6 @@ enum ChordType: String, CaseIterable {
     switch baseChordType {
     case .dim, .mi7_b5, .dim7, .dominant7_b5, .ma7_b5, .ma7_b5_sh5:
       return .diminished5th
-//    case .dominant7:
-//      switch self {
-//        // 7(♭5)
-//      case .dominant7_b5, .dominant7_sh9_b5, .dominant7_b9_b5, .dominant7_b5_sh5, .dominant9_b5, .dominant13_b5, .dominant13_b5_omit9, .dominant7_alt_b9_sh9_b5:
-//        return .diminished5th
-//      default:
-//        return nil
-//      }
     default:
       return nil
     }
@@ -476,7 +468,7 @@ enum ChordType: String, CaseIterable {
         .mi7_b9b13, .mi11_b9b13,
       // mi7(♭5)
         .mi7_b5b9, .mi11_b5b9, .locrian:
-      return .minor9th
+      return .flat9th
     default:
       return nil
     }
@@ -610,7 +602,7 @@ enum ChordType: String, CaseIterable {
         // Extended Min7(♭5) chords
           .mi13_b5, .mi13_b5_omit9, .mi13_b5_omit11, .mi7_b5add13,
         // mi(∆7)
-          .mi_ma13, .mi_ma13_omit9, 
+          .mi_ma13, .mi_ma13_omit9,
         // 7sus4
           .dominant13sus4, .dominant13sus4_omit9,
         // 7sus2
@@ -627,7 +619,7 @@ enum ChordType: String, CaseIterable {
     let optionalDegreeTags = [hasRoot,
                               hasMajor2nd,
                               hasMinor3rd,
-                           
+                              
                               hasMajor3rd,
                               hasPerfect4th,
                               hasSharp4th,
@@ -648,6 +640,109 @@ enum ChordType: String, CaseIterable {
                               hasMajor13th]
     
     return optionalDegreeTags.compactMap { $0 }
+  }
+  
+  // MARK: degreeTagGroups
+  var has2nd: Bool {
+    degreeTags.intersectsWith([.major2nd])
+  }
+  
+  var has3rd: Bool {
+    degreeTags.intersectsWith([.major3rd, .minor3rd])
+  }
+  
+  var has4th: Bool {
+    degreeTags.intersectsWith([.perfect4th, .sharp4th])
+  }
+  
+  var has5th: Bool {
+    degreeTags.intersectsWith([.diminished5th, .perfect5th, .sharp5th])
+  }
+  
+  var has6th: Bool {
+    degreeTags.intersectsWith([.major6th, .minor6th])
+  }
+  
+  var has7th: Bool {
+    degreeTags.intersectsWith([.major7th, .minor7th, .diminished7th])
+  }
+  
+  var has9th: Bool {
+    degreeTags.intersectsWith([.flat9th, .major9th, .sharp9th])
+  }
+  
+  var is9thChord: Bool {
+    degreeTags.intersectsWith([.flat9th, .major9th, .sharp9th]) && !(degreeTags.intersectsWith([.perfect11th, .sharp11th]) && degreeTags.intersectsWith([.major13th, .flat13th]))
+  }
+  
+  var has11th: Bool {
+    degreeTags.intersectsWith([.perfect11th, .sharp11th])
+  }
+  
+  var is11thChord: Bool {
+    degreeTags.intersectsWith([.perfect11th, .sharp11th]) && !degreeTags.intersectsWith([.major13th, .flat13th])
+  }
+  
+  var is13thChord: Bool {
+    degreeTags.intersectsWith([.major13th, .flat13th])
+  }
+  
+  var hasOneMiddleTriadNote: Bool {
+    (has2nd || has3rd || has4th)
+  }
+  
+  var hasTwoMiddleTriadNotes: Bool {
+    (has2nd && has3rd) || (has2nd && has4th) || (has3rd && has4th)
+  }
+  
+  var isTriad: Bool {
+    degrees.count == 3 &&
+    degreeTags.contains(.root) &&
+    hasOneMiddleTriadNote &&
+    !hasTwoMiddleTriadNotes &&
+    has5th
+  }
+  
+  var isModifiedTriad: Bool {
+    degreeTags.contains(.root) &&
+    hasTwoMiddleTriadNotes &&
+    has5th
+  }
+  
+  var isExtendedChord: Bool {
+    degreeTags.intersectsWith(
+      [
+        .flat9th,
+        .major9th,
+        .sharp9th,
+        .perfect11th,
+        .sharp11th,
+        .major13th,
+        .flat13th
+      ]
+    )
+  }
+  
+  var isFourNote6thChord: Bool {
+    degreeTags.count == 4 &&
+    !isExtendedChord &&
+    has6th
+  }
+  
+  var isFourNote7thChord: Bool {
+    degreeTags.count == 4 &&
+    !isExtendedChord &&
+    has7th
+  }
+  
+  var isFourNoteSimpleChord: Bool {
+    degreeTags.count == 4 &&
+    !isExtendedChord &&
+    (has6th || has7th || isModifiedTriad)
+  }
+  
+  var isSimpleChord: Bool {
+    isTriad || isFourNoteSimpleChord
   }
 }
 
@@ -770,8 +865,13 @@ extension ChordType {
     
     for (index, title) in sectionTitles.enumerated() {
       chordTypeSections.append(
-        ChordTypeSection(id: index, title: title, tagName: sectionTagNames[index], chordTypes: allChordTypeArrays[index]
-                        ))
+        ChordTypeSection(
+          id: index,
+          title: title,
+          tagName: sectionTagNames[index],
+          chordTypes: allChordTypeArrays[index]
+        )
+      )
     }
     
     return chordTypeSections
@@ -784,6 +884,10 @@ extension ChordType {
   static let sectionsWithTitles = Array(zip(ChordType.sectionTitles, ChordType.allChordTypeArrays))
   
   static let allChordTypesMinusOmits: [[ChordType]] = allChordTypeArrays.map { $0.filterOmits() }
+  
+  static let allSimpleChordTypesMinusOmits: [[ChordType]] = allChordTypeArrays.map {
+    $0.filterOmits().filterInSimple()
+  }.filter { !$0.isEmpty }
   
   static let allChordTypesSorted: [ChordType] = allChordTypeArrays.flatMap { $0 }
   static let allChordTypesMinusOmitsSorted: [ChordType] = allChordTypesMinusOmits.flatMap { $0 }
