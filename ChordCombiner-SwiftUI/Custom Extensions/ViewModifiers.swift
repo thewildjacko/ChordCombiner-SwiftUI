@@ -31,7 +31,18 @@ struct HighlightableTagViewModifier: ViewModifier {
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
   var cornerRadius: CGFloat = 8
-  var stroke: Color = .clear
+  var glowColor: Color = .clear
+  var glowRadius: CGFloat = 6
+  
+  init(highlightCondition: Bool, font: Font, horizontalPadding: CGFloat, verticalPadding: CGFloat, cornerRadius: CGFloat, glowColor: Color, glowRadius: CGFloat) {
+    self.highlightCondition = highlightCondition
+    self.font = font
+    self.horizontalPadding = horizontalPadding
+    self.verticalPadding = verticalPadding
+    self.cornerRadius = cornerRadius
+    self.glowColor = glowColor
+    self.glowRadius = glowRadius
+  }
   
   func body(content: Content) -> some View {
     content
@@ -44,23 +55,25 @@ struct HighlightableTagViewModifier: ViewModifier {
       .clipShape(
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
       )
-      .overlay(
-        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-          .fill(.clear)
-          .stroke(stroke, lineWidth: 3)
-      )
+    
+//      .overlay(
+//        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+//          .fill(.clear)
+//      )
+      .glow(color: glowColor, radius:glowRadius)
   }
 }
 
 struct TitleFormatViewModifier: ViewModifier {
   var font: Font = .largeTitle
   var weight: Font.Weight = .regular
+  var color: Color = .title
   
   func body(content: Content) -> some View {
     content
       .font(font)
       .fontWeight(weight)
-      .foregroundStyle(.title)
+      .foregroundStyle(color)
       .fixedSize()
       .fontWeight(.heavy)
   }
@@ -86,6 +99,35 @@ struct TitleColorOverlay: ViewModifier {
   }
 }
 
+struct Glow: ViewModifier {
+  @State private var pulse = false
+  
+  var color: Color = .title
+  var radius: CGFloat = 10
+  
+  var pulseRadius: CGFloat {
+    pulse ? radius * 1.25 : radius
+  }
+  
+  init(pulse: Bool = false, color: Color, radius: CGFloat) {
+    self.pulse = pulse
+    self.color = color
+    self.radius = radius
+  }
+  
+  func body(content: Content) -> some View {
+    content
+      .shadow(color: color, radius: pulseRadius)
+      .shadow(color: color, radius: pulseRadius)
+//      .shadow(color: color, radius: pulseRadius)
+//      .animation(
+//        .easeOut(duration: 2.0).repeatForever(),
+//        value: pulse
+//      )
+//      .onAppear { pulse.toggle() }
+  }
+}
+
 extension View {
   func roundRectTagView(font: Font = .title3, horizontalPadding: CGFloat = 9, verticalPadding: CGFloat = 5, cornerRadius: CGFloat = 8) -> some View {
     modifier(
@@ -98,7 +140,15 @@ extension View {
     )
   }
   
-  func highlightableTagView(highlightCondition: Bool, font: Font = .title3, horizontalPadding: CGFloat = 9, verticalPadding: CGFloat = 5, cornerRadius: CGFloat = 8, stroke: Color = .clear) -> some View {
+  func highlightableTagView(
+    highlightCondition: Bool,
+    font: Font = .title3,
+    horizontalPadding: CGFloat = 9,
+    verticalPadding: CGFloat = 5,
+    cornerRadius: CGFloat = 8,
+    glowColor: Color = .clear,
+    glowRadius: CGFloat = 6
+  ) -> some View {
     modifier(
       HighlightableTagViewModifier(
         highlightCondition: highlightCondition,
@@ -106,13 +156,14 @@ extension View {
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,
         cornerRadius: cornerRadius,
-        stroke: stroke
+        glowColor: glowColor,
+        glowRadius: glowRadius
       )
     )
   }
   
-  func titleFormat(font: Font = .largeTitle, weight: Font.Weight = .regular) -> some View {
-    modifier(TitleFormatViewModifier(font: font, weight: weight))
+  func titleFormat(font: Font = .largeTitle, weight: Font.Weight = .regular, color: Color = .title) -> some View {
+    modifier(TitleFormatViewModifier(font: font, weight: weight, color: color))
   }
   
   func menuTitleFormat(font: Font = .largeTitle, weight: Font.Weight = .regular) -> some View {
@@ -122,4 +173,9 @@ extension View {
   func titleColorOverlay() -> some View {
     modifier(TitleColorOverlay())
   }
+  
+  func glow(color: Color = .title, radius: CGFloat = 20) -> some View {
+    modifier(Glow(color: color, radius: radius))
+  }
 }
+
