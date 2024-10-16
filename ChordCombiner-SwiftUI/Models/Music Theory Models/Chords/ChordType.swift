@@ -186,8 +186,10 @@ enum ChordType: String, CaseIterable {
       return "13(♯11)"
     case .dominant13_b5_omit9:
       return "13(♭5)"
-    case .mi11_omit9, .mi13_omit9, .mi13_omit11:
+    case .mi11_omit9:
       return "mi11"
+    case .mi13_omit9, .mi13_omit11:
+      return "mi13"
     case .mi11_b13_omit9:
       return "mi11(♭13)"
     case .mi13_b5_omit9, .mi13_b5_omit11:
@@ -758,6 +760,10 @@ extension ChordType: Identifiable, Comparable {
 
 // MARK: static properties
 extension ChordType {
+  static var allSimpleChordTypes: [ChordType] {
+    ChordType.allCases.filterInSimple()
+  }
+  
   static var allChordDegrees: [[Int]] {
     ChordType.allCases.map { $0.degrees }
   }
