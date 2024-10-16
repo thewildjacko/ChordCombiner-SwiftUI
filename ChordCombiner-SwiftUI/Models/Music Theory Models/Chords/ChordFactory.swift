@@ -67,13 +67,13 @@ struct ChordFactory {
     let typeByDegreesFiltered = ChordType.typeByDegreesFiltered(degreeCount: degreeCount)
     
     if let type = typeByDegreesFiltered[degreesInC] {
-      print("result chord exists with Root!")
+//      print("result chord exists with Root!")
       return Chord(RootKeyNote(root.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
     } else if let type = typeByDegreesFiltered[upperRootDegreesInC] {
-      print("result chord exists with otherRoot!")
+//      print("result chord exists with otherRoot!")
       return Chord(RootKeyNote(otherRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(otherRoot))
     } else {
-      print("couldn't find a match for degrees \(degrees) or \(upperRootDegreesInC)")
+//      print("couldn't find a match for degrees \(degrees) or \(upperRootDegreesInC)")
       return nil
     }
   }
