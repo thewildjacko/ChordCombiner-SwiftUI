@@ -127,16 +127,42 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return Chord(rootKeyNote, type.baseChordType)
   }
   
-  func combinesWith(chordFrom letter: Letter) -> Bool {
-    let otherChord = Chord(RootKeyNote(letter, accidental), type)
+  func combinesWith(chordFrom otherLetter: Letter, _ otherType: ChordType) -> Bool {
+    let otherChord = Chord(RootKeyNote(otherLetter, accidental), otherType)
     
     let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
     
     return result != nil ? true : false
   }
   
-  func combinesWith(chordFrom accidental: RootAccidental) -> Bool {
-    let otherChord = Chord(RootKeyNote(letter, accidental), type)
+  
+  func combinesWith(chordFrom letter: Letter, originalChord: Chord) -> Bool {
+    let otherChord = Chord(RootKeyNote(letter, originalChord.accidental), originalChord.type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+  
+  func combinesWith(chordFrom accidental: RootAccidental, originalChord: Chord) -> Bool {
+    let otherChord = Chord(RootKeyNote(originalChord.letter, accidental), originalChord.type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+  
+  func combinesWith(chordFrom type: ChordType, originalChord: Chord) -> Bool {
+    let otherChord = Chord(RootKeyNote(originalChord.letter, originalChord.accidental), type)
+    
+    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    
+    return result != nil ? true : false
+  }
+  
+  
+  func combinesWith(chordFrom otherAccidental: RootAccidental, _ otherType: ChordType) -> Bool {
+    let otherChord = Chord(RootKeyNote(letter, otherAccidental), otherType)
     
     let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
     
