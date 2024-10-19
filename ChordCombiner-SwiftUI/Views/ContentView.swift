@@ -15,31 +15,49 @@ struct ContentView: View {
   @State private var selectedTab: Tab = .multiChord
   
   var body: some View {
-    TabView(selection: $selectedTab) {
-      MultiChordKeyboardView()
-        .tabItem {
-          Text("Chord Combiner")
+    NavigationStack {
+      //    TabView(selection: $selectedTab) {
+      List {
+        NavigationLink(
+          destination:
+            MultiChordKeyboardView()
+            .navigationTitle("Chord Combiner")
+        ) { Text("Chord Combiner") }
+        //        .tabItem {
+        //          Text("Chord Combiner")
+        //        }
+        //        .tag(Tab.multiChord)
+        NavigationLink(
+          destination:
+            SingleChordKeyboardMenuView()
+            .navigationTitle("Single Chord Picker")
+        ) {
+          Text("Single Chord Picker")
         }
-        .tag(Tab.multiChord)
-      SingleChordKeyboardMenuView()
-        .tabItem {
-          Text("Single Chord")
-        }
-        .tag(Tab.singleChord)
-      AllChordsView()
-        .tabItem {
+//        SingleChordKeyboardMenuView()
+//          .tabItem {
+//            Text("Single Chord")
+//          }
+//          .tag(Tab.singleChord)
+        NavigationLink(
+          destination:
+            AllChordsView()
+            .navigationTitle("All Chords")
+        ) {
           Text("All Chords")
         }
-        .tag(Tab.allChords)
+        
+//        AllChordsView()
+//          .tabItem {
+//            Text("All Chords")
+//          }
+//          .tag(Tab.allChords)
+      }
+      .navigationTitle("Harmony Brain")
     }
   }
 }
 
 #Preview {
   ContentView()
-    .environmentObject(
-      MultiChord(
-        lowerChord: Chord(.c, .ma7, startingOctave: 4),
-        upperChord: Chord(.d, .ma, startingOctave: 4)
-      ))
 }

@@ -359,9 +359,9 @@
 			children = (
 				1DA965CE2CBECD1D00368651 /* CustomChordMenuSelectedView.swift */,
 				1D7281F42CBADC2300C6DBE3 /* CustomChordMenu.swift */,
-				1DB357462CBDA49C00A5D6B3 /* CustomChordMenuKeyboardDisplayScrollView.swift */,
 				1D7281F72CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift */,
 				1D7281F92CBAF90300C6DBE3 /* CustomChordMenuAccidentalTagView.swift */,
+				1DB357462CBDA49C00A5D6B3 /* CustomChordMenuKeyboardDisplayScrollView.swift */,
 				1D7281FB2CBB01D400C6DBE3 /* LetterTagView.swift */,
 				1D7281FD2CBB135C00C6DBE3 /* AccidentalTagView.swift */,
 				1DB357442CBD9EF000A5D6B3 /* CustomChordMenuHelper.swift */,

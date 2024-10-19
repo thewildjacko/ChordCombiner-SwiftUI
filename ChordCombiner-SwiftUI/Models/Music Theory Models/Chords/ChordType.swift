@@ -171,6 +171,8 @@ enum ChordType: String, CaseIterable {
   case mi_ma13 = "mi(∆13)"                     // [0, 2, 3, 5, 7, 9, 11]
   case mi_ma13_omit9 = "mi(∆13 omit9)"         // [0, 3, 5, 7, 9, 11]
   
+  var preciseName: String { self == .ma ? "ma" : self.rawValue }
+  
   // MARK: commonName
   var commonName: String {
     switch self {

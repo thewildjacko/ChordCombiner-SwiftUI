@@ -16,8 +16,7 @@ struct AccidentalTagsView: View {
       ForEach(RootAccidental.allCases, id: \.self) { accidental in
         HighlightableTagView(
           text: accidental.rawValue,
-          highlightCondition: selectedAccidental == accidental,
-          stroke: chord.combinesWith(chordFrom: accidental) ? .title : .clear
+          highlightCondition: selectedAccidental == accidental
         )
         .onTapGesture {
           selectedAccidental = accidental

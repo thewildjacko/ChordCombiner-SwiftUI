@@ -24,7 +24,7 @@ struct LetterTagsView: View {
         HighlightableTagView(
           text: letter.rawValue,
           highlightCondition: selectedLetter == letter,
-          stroke: chord.combinesWith(chordFrom: letter) ? .title : .clear
+          glowRadius: 4
         )
         .onTapGesture {
           selectedLetter = letter

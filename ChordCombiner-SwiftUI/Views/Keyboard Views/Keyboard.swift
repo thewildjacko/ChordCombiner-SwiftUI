@@ -29,9 +29,11 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var widthMod: CGFloat = 0
   var keyPosition: CGFloat = 0
   var widthMultiplier: CGFloat = 0
+  var glowColor: Color = .clear
+  var glowRadius: CGFloat = 0
   
   //  MARK: initializers
-  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil) {
+  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
 //    self.title = title
     self.keyCount = keyCount
     self.geoWidth = geoWidth
@@ -39,10 +41,30 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     self.initialKeyType = initialKey
     self.keyTypes.append(initialKey)
     self.octaves = octaves
+    self.glowColor = glowColor
+    self.glowRadius = glowRadius
     
     keyTypesByCount()
     setWidthAndHeight()
     addKeys()
+  }
+  
+  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color) {
+//    self.title = title
+    self.keyCount = keyCount
+    self.geoWidth = geoWidth
+    self.startingOctave = startingOctave
+    self.initialKeyType = initialKey
+    self.keyTypes.append(initialKey)
+    self.octaves = octaves
+    self.glowColor = glowColor
+    self.glowRadius = glowRadius
+    
+    keyTypesByCount()
+    setWidthAndHeight()
+    addKeys()
+    
+    highlightKeysSingle(degs: chord.voicingCalculator.stackedPitches, color: color)
   }
   
   //  MARK: initializer methods
@@ -206,7 +228,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 //    let clock = ContinuousClock()
 //      let elapsed = clock.measure {
         if resultChordExists && !isSlashChord {
-                print("combining!")
+//                print("combining!")
           toggleHighlightKeysCombined(
             degs: onlyInLower,
             secondDegs: onlyInUpper,
@@ -214,7 +236,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             color: color,
             secondColor: secondColor)
         } else {
-                print("splitting!")
+//                print("splitting!")
           toggleHighlightKeysSplit(
             degs: lowerStackedPitches,
             secondDegs: upperStackedPitches,
@@ -231,11 +253,32 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
         ZStack {
+//          RoundedRectangle(cornerRadius: Radius.whiteKey.rawValue * widthMultiplier)
+//            .frame(width: geoWidth, height: height)
+//          
+//            .glow(color: glowColor, radius: glowRadius)
+//          
           ForEach(keys) { key in
             key
           }
+          
         }
+        .background(
+          RoundedRectangle(cornerRadius: Radius.whiteKey.rawValue * widthMultiplier)
+            .frame(width: geoWidth, height: height)          
+            .glow(color: glowColor, radius: glowRadius)
+        )
+
         .frame(width: geoWidth, height: height)
+
+//        .overlay {
+//          ZStack {
+//            ForEach(keys) { key in
+//              key
+//            }
+//            .foregroundStyle(.clear)
+//            }
+//        }
 //        .position(x: geoWidth/2)
       }
     }
@@ -244,7 +287,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
 #Preview {
   VStack {
-    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3)
+    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3, glowColor: .yellow, glowRadius: 5)
       .position(x: 220, y: 600)
   }
 }

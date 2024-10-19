@@ -8,42 +8,42 @@
 import SwiftUI
 
 struct ChordMenu: View {
-  @EnvironmentObject var multiChord: MultiChord
+//  @EnvironmentObject var multiChord: MultiChord
   var text: String
   @Binding var chord: Chord
   @Binding var keyboard: Keyboard
-//  var chordStore: ChordStore
+  //  var chordStore: ChordStore
   
   var body: some View {
-      VStack {
-        TitleView(text: text, font: .headline, weight: .heavy)
-
-        Menu(content: {
-          LetterPicker(letter: $chord.letter)
-          AccidentalPicker(accidental: $chord.accidental)
-          ChordTypePicker(chord: $chord, type: $chord.type)
-        }, label: {
-          VStack {
-            TitleView(
-              text: chord.type == .ma ? chord.root.noteName : chord.preciseName,
-              font: .headline,
-              weight: .heavy,
-              isMenuTitle: true
-            )
-            
-            keyboard
-          }
-        })
-//        .onChange(of: chord) {
-//          chordStore.chordData.chord = chord
-////          print("lower chord is: \(chord)")
-//        }
-//        .onAppear(perform: {
-//          chord = chordStore.loadChordsJSON().chord
-////          print("lower chord is: \(chord)")
-//        })
-      }
+    VStack {
+      TitleView(text: text, font: .headline, weight: .heavy)
+      
+      Menu(content: {
+        LetterPicker(letter: $chord.letter)
+        AccidentalPicker(accidental: $chord.accidental)
+        ChordTypePicker(chord: $chord, type: $chord.type)
+      }, label: {
+        VStack {
+          TitleView(
+            text: chord.type == .ma ? chord.root.noteName : chord.preciseName,
+            font: .headline,
+            weight: .heavy,
+            isMenuTitle: true
+          )
+          
+          keyboard
+        }
+      })
+      //        .onChange(of: chord) {
+      //          chordStore.chordData.chord = chord
+      ////          print("lower chord is: \(chord)")
+      //        }
+      //        .onAppear(perform: {
+      //          chord = chordStore.loadChordsJSON().chord
+      ////          print("lower chord is: \(chord)")
+      //        })
     }
+  }
 }
 
 #Preview {
@@ -57,9 +57,9 @@ struct ChordMenu: View {
         startingOctave: 4,
         octaves: 2))
     /*, chordStore: ChordStore()*/)
-  .environmentObject(
-    MultiChord(
-      lowerChord: Chord(.c, .ma7, startingOctave: 4),
-      upperChord: Chord(.d, .ma, startingOctave: 4)
-    ))
+//  .environmentObject(
+//    MultiChord(
+//      lowerChord: Chord(.c, .ma7, startingOctave: 4),
+//      upperChord: Chord(.d, .ma, startingOctave: 4)
+//    ))
 }

@@ -22,14 +22,8 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var accidental: RootAccidental { didSet { refresh() } }
   var letter: Letter { didSet { refresh() } }
   
-  var commonName: String { root.noteName + type.commonName }
-  var preciseName: String {
-    if type == .ma {
-      return root.noteName + "ma"
-    } else {
-      return root.noteName + type.rawValue
-    }
-  }
+  var commonName: String { root.noteName + type.commonName }  
+  var preciseName: String { root.noteName + type.preciseName }
   
   var allNotes: [Note] = []
   var noteCount: Int = 0
@@ -102,14 +96,15 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return Chord(rootNum: NoteNum(root.noteNum.rawValue.plusDeg(offset)), type: type, enharmonic: enharmonic)
   }
   
+  mutating func setNotesByDegree() {
+    self.allNotes = Degree.setNotesByDegrees(rootKeyNote: rootKeyNote, degreeTags: type.degreeTags)
+  }
+  
   mutating func setNotesAndNoteCount() {
     setNotesByDegree()
     self.noteCount = allNotes.count
   }
   
-  mutating func setNotesByDegree() {
-    self.allNotes = Degree.setNotesByDegrees(rootKeyNote: rootKeyNote, degreeTags: type.degreeTags)
-  }
   
   mutating func convertDegrees(to rootNum: NoteNum) {
     convertedDegrees = degrees.map { $0.minusDeg(rootNum.rawValue)}
@@ -126,15 +121,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   func getBaseChord() -> Chord {
     return Chord(rootKeyNote, type.baseChordType)
   }
-  
-  func combinesWith(chordFrom otherLetter: Letter, _ otherType: ChordType) -> Bool {
-    let otherChord = Chord(RootKeyNote(otherLetter, accidental), otherType)
-    
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
-    
-    return result != nil ? true : false
-  }
-  
   
   func combinesWith(chordFrom letter: Letter, originalChord: Chord) -> Bool {
     let otherChord = Chord(RootKeyNote(letter, originalChord.accidental), originalChord.type)
@@ -154,23 +140,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   
   func combinesWith(chordFrom type: ChordType, originalChord: Chord) -> Bool {
     let otherChord = Chord(RootKeyNote(originalChord.letter, originalChord.accidental), type)
-    
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
-    
-    return result != nil ? true : false
-  }
-  
-  
-  func combinesWith(chordFrom otherAccidental: RootAccidental, _ otherType: ChordType) -> Bool {
-    let otherChord = Chord(RootKeyNote(letter, otherAccidental), otherType)
-    
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
-    
-    return result != nil ? true : false
-  }
-
-  func combinesWith(chordFrom type: ChordType) -> Bool {
-    let otherChord = Chord(RootKeyNote(letter, accidental), type)
     
     let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
     

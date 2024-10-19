@@ -32,7 +32,6 @@ struct ChordAndKeySelectionView: View {
         }
       
       TitleColorDivider()
-        .titleColorOverlay()
       
       HStack(alignment: .bottom) {
         LetterTagsView(selectedLetter: $selectedLetter)
@@ -67,5 +66,12 @@ struct ChordAndKeySelectionView: View {
 }
 
 #Preview {
-  ChordAndKeySelectionView(chordTypeSections: Binding.constant(ChordType.chordTypeSections), selectedSections: Binding.constant([ChordType.chordTypeSections[0]]), selectedLetter: Binding.constant(.c), selectedAccidental: Binding.constant(.natural), rootKeyNote: Binding.constant(.c), expandedSections: Binding.constant([]))
+  ChordAndKeySelectionView(
+    chordTypeSections: Binding.constant(ChordType.chordTypeSections),
+    selectedSections: Binding.constant([ChordType.chordTypeSections[0]]),
+    selectedLetter: Binding.constant(.c),
+    selectedAccidental: Binding.constant(.natural),
+    rootKeyNote: Binding.constant(.c),
+    expandedSections: Binding.constant([])
+  )
 }

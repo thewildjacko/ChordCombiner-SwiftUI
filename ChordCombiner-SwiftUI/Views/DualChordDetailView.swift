@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DualChordDetailView: View {
   @EnvironmentObject var multiChord: MultiChord
-  @Binding var keyboard: Keyboard
+  var keyboard: Keyboard
   
   var body: some View {
     VStack(spacing: 20) {
@@ -50,7 +50,7 @@ struct DualChordDetailView: View {
         }
       }
       
-//      .headerProminence(.increased)
+      //      .headerProminence(.increased)
       
       Spacer()
     }
@@ -59,10 +59,15 @@ struct DualChordDetailView: View {
 }
 
 #Preview {
-  DualChordDetailView(keyboard: Binding.constant(Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2)))
-  .environmentObject(
-    MultiChord(
-      lowerChord: Chord(.c, .ma7, startingOctave: 4),
-      upperChord: Chord(.d, .ma, startingOctave: 4)
-    ))
+  DualChordDetailView(keyboard: Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2))
+    .environmentObject(
+      MultiChord(
+        lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
+        upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+      )
+      //    MultiChord(
+      //      lowerChord: Chord(.c, .ma7, startingOctave: 4),
+      //      upperChord: Chord(.d, .ma, startingOctave: 4)
+      //    )
+    )
 }
