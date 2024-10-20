@@ -122,24 +122,20 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return Chord(rootKeyNote, type.baseChordType)
   }
   
-  func combinesWith(chordFrom letter: Letter, originalChord: Chord) -> Bool {
-    let otherChord = Chord(RootKeyNote(letter, originalChord.accidental), originalChord.type)
+  func combinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, originalChord: Chord) -> Bool {
+    var otherChord: Chord
     
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
-    
-    return result != nil ? true : false
-  }
-  
-  func combinesWith(chordFrom accidental: RootAccidental, originalChord: Chord) -> Bool {
-    let otherChord = Chord(RootKeyNote(originalChord.letter, accidental), originalChord.type)
-    
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
-    
-    return result != nil ? true : false
-  }
-  
-  func combinesWith(chordFrom type: ChordType, originalChord: Chord) -> Bool {
-    let otherChord = Chord(RootKeyNote(originalChord.letter, originalChord.accidental), type)
+    switch chordProperty {
+    case is Letter:
+      otherChord = Chord(RootKeyNote(chordProperty as! Letter, originalChord.accidental), originalChord.type)
+    case is RootAccidental:
+      otherChord = Chord(RootKeyNote(originalChord.letter, chordProperty as! RootAccidental), originalChord.type)
+    case is ChordType:
+      otherChord = Chord(RootKeyNote(originalChord.letter, originalChord.accidental), chordProperty as! ChordType)
+    default:
+      print("Incompatible chord property!")
+      return false
+    }
     
     let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
     

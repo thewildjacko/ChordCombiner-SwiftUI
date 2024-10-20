@@ -13,6 +13,7 @@ struct CustomChordMenu: View {
   @Binding var selectedKeyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: MultiChordProperties
+  @Binding var oldChordProperties: MultiChordProperties
   
   @State var matchingLetters: Set<Letter> = []
   @State var matchingAccidentals: Set<RootAccidental> = []
@@ -20,6 +21,10 @@ struct CustomChordMenu: View {
   
   var isLowerChordMenu: Bool {
     get { chordProperties == multiChord.lowerChordProperties ? true : false }
+  }
+  
+  var selectedChord: Chord? {
+    isLowerChordMenu ? multiChord.lowerChord : multiChord.upperChord
   }
   
   var chordSymbolTitleFont: Font {
@@ -71,54 +76,34 @@ struct CustomChordMenu: View {
     return isLowerChordMenu ? (upperChord, lowerChord) : (lowerChord, upperChord)
   }
   
-  func insertMatchingLetter(letter: Letter) {
+  func insertMatching<T: ChordAndScaleProperty>(chordProperty: T, matchingProperties: inout Set<T>) {
     guard let firstChord = setChordsForMatches().firstChord,
           let secondChord = setChordsForMatches().secondChord else {
       return
     }
+
     
-    if firstChord.combinesWith(chordFrom: letter, originalChord: secondChord) {
-      matchingLetters.insert(letter)
+    
+    if firstChord.combinesWith(chordFrom: chordProperty, originalChord: secondChord) {
+      chordProperty.insertMatching(matchingProperties: &matchingProperties)
     }
   }
   
   func matchByLetter() {
     for letter in Letter.allCases {
-      insertMatchingLetter(letter: letter)
-    }
-  }
-  
-  func insertMatchingAccidental(accidental: RootAccidental) {
-    guard let firstChord = setChordsForMatches().firstChord,
-          let secondChord = setChordsForMatches().secondChord else {
-      return
-    }
-    
-    if firstChord.combinesWith(chordFrom: accidental, originalChord: secondChord) {
-      matchingAccidentals.insert(accidental)
+      insertMatching(chordProperty: letter, matchingProperties: &matchingLetters)
     }
   }
   
   func matchByAccidental() {
     for accidental in RootAccidental.allCases {
-      insertMatchingAccidental(accidental: accidental)
-    }
-  }
-  
-  func insertMatchingType(type: ChordType) {
-    guard let firstChord = setChordsForMatches().firstChord,
-          let secondChord = setChordsForMatches().secondChord else {
-      return
-    }
-    
-    if firstChord.combinesWith(chordFrom: type, originalChord: secondChord) {
-      matchingChordTypes.insert(type)
+      insertMatching(chordProperty: accidental, matchingProperties: &matchingAccidentals)
     }
   }
   
   func matchByChordType() {
     for type in ChordType.allSimpleChordTypes {
-      insertMatchingType(type: type)
+      insertMatching(chordProperty: type, matchingProperties: &matchingChordTypes)
     }
   }
   
@@ -128,8 +113,15 @@ struct CustomChordMenu: View {
     matchByChordType()
   }
   
-//  func toggleHighlightForSelectedKeyboard() {
-//    let stackedPitches = chord == multiChord.lowerChord ? multiChord.multiChordVoicingCalculator.lowerStackedPitches : multiChord.multiChordVoicingCalculator.upperStackedPitches
+  func toggleHighlightForSelectedKeyboard() {
+    var stackedPitches: [Int]
+    
+    if !oldChordProperties.propertiesAreSet {
+      if let selectedChord = selectedChord {
+        stackedPitches = selectedChord.voicingCalculator.stackedPitches
+      }
+    }
+//    let stackedPitches = isLowerChordMenu ?  multiChord.multiChordVoicingCalculator.lowerStackedPitches : multiChord.multiChordVoicingCalculator.upperStackedPitches
 //    
 //    let color = chord == multiChord.lowerChord ? multiChord.color : multiChord.secondColor
 //    
@@ -139,7 +131,7 @@ struct CustomChordMenu: View {
 //    
 //    selectedKeyboard.toggleHighlightKeysSingle(degs: oldStackedPitches, color: color)
 //    selectedKeyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
-//  }
+  }
   
 //  func toggleHighlightForCombinedKeyboard() {
 //    let resultChordExists: Bool = multiChord.resultChord != nil ? true : false
@@ -340,7 +332,8 @@ struct CustomChordMenu: View {
         octaves: 5
       )
     ),
-    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
+    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil)),
+    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
   )
   .environmentObject(
     MultiChord(

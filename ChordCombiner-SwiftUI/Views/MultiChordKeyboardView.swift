@@ -22,6 +22,9 @@ struct MultiChordKeyboardView: View {
     upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
   )
   
+  @State var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
+  @State var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
+  
   @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 250, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 250, initialKey: .C,  startingOctave: 4, octaves: 2)
   @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
@@ -124,7 +127,8 @@ struct MultiChordKeyboardView: View {
       CustomChordMenuSelectedView(
         keyboard: $lowerKeyboard,
         combinedKeyboard: $combinedKeyboard,
-        chordProperties: $multiChord.lowerChordProperties
+        chordProperties: $multiChord.lowerChordProperties,
+        oldChordProperties: $multiChord.oldLowerChordProperties
       )
       
       Spacer()
@@ -137,7 +141,8 @@ struct MultiChordKeyboardView: View {
       CustomChordMenuSelectedView(
         keyboard: $upperKeyboard,
         combinedKeyboard: $combinedKeyboard,
-        chordProperties: $multiChord.upperChordProperties
+        chordProperties: $multiChord.upperChordProperties,
+        oldChordProperties: $multiChord.oldUpperChordProperties
       )
       
       Spacer()

@@ -7,7 +7,9 @@
 
 import Foundation
 
-enum ChordType: String, CaseIterable {
+enum ChordType: String, ChordAndScaleProperty {
+  var id: Self { return self }
+  
   // MARK: Triads
   case ma = ""      // [0, 4, 7]
   case mi           // [0, 3, 7]
@@ -750,11 +752,8 @@ enum ChordType: String, CaseIterable {
   }
 }
 
-extension ChordType: Identifiable, Comparable {
-  var id: Self {
-    return self
-  }
-  
+
+extension ChordType: Comparable {
   static func < (lhs: ChordType, rhs: ChordType) -> Bool {
     return lhs.rawValue < rhs.rawValue
   }

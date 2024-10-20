@@ -11,10 +11,6 @@ struct CustomChordMenuSelectedView: View {
   @EnvironmentObject var multiChord: MultiChord
   @State var chord: Chord? = nil
   
-  var isLowerChordMenu: Bool {
-    get { chordProperties == multiChord.lowerChordProperties ? true : false }
-  }
-  
   var text: String {
     isLowerChordMenu ? "Select Lower Chord" : "Select Upper Chord"
   }
@@ -31,8 +27,11 @@ struct CustomChordMenuSelectedView: View {
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: MultiChordProperties
+  @Binding var oldChordProperties: MultiChordProperties
   
-  
+  var isLowerChordMenu: Bool {
+    get { chordProperties == multiChord.lowerChordProperties ? true : false }
+  }
   
   var body: some View {
     VStack {
@@ -43,7 +42,8 @@ struct CustomChordMenuSelectedView: View {
           CustomChordMenu(
             selectedKeyboard: $keyboard,
             combinedKeyboard: $combinedKeyboard,
-            chordProperties: $chordProperties
+            chordProperties: $chordProperties,
+            oldChordProperties: $oldChordProperties
           )
           .navigationTitle(text)
           .navigationBarTitleDisplayMode(.inline)
@@ -80,7 +80,8 @@ struct CustomChordMenuSelectedView: View {
         geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5
       )
     ),
-    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
+    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil)),
+    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
   )
   .environmentObject(
     MultiChord(

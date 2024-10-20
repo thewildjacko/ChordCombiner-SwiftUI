@@ -13,10 +13,8 @@ protocol SettableLetter {
 }
 
 /// Enum to get the letter name of a note
-enum Letter: String, CaseIterable, Identifiable, Codable {
-  var id: Self {
-    return self
-  }
+enum Letter: String, ChordAndScaleProperty{
+  var id: Self { return self }
   
   case c = "C", d = "D" , e = "E", f = "F", g = "G", a = "A", b = "B"
   /// get Letter case from Int 0-6
