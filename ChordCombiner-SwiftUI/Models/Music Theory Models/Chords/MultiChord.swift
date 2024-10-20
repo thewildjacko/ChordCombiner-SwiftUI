@@ -14,6 +14,10 @@ struct MultiChordProperties: Equatable {
   var accidental: RootAccidental?
   var type: ChordType?
   
+  var propertiesAreSet: Bool {
+    return letter != nil && accidental != nil && type != nil
+  }
+  
   init(letter: Letter? = nil, accidental: RootAccidental? = nil, type: ChordType? = nil) {
     self.letter = letter
     self.accidental = accidental
@@ -23,7 +27,10 @@ struct MultiChordProperties: Equatable {
 
 class MultiChord: ObservableObject {
   @Published var lowerChordProperties: MultiChordProperties
+  @Published var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
+  
   @Published var upperChordProperties: MultiChordProperties
+  @Published var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
   
   //  @Published var lowerChord: Chord {
   //    didSet { setResultChord() }
