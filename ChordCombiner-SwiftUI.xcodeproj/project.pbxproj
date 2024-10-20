@@ -45,8 +45,6 @@
 		1D7281F52CBADC2300C6DBE3 /* CustomChordMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7281F42CBADC2300C6DBE3 /* CustomChordMenu.swift */; };
 		1D7281F82CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7281F72CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift */; };
 		1D7281FA2CBAF90A00C6DBE3 /* CustomChordMenuAccidentalTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7281F92CBAF90300C6DBE3 /* CustomChordMenuAccidentalTagView.swift */; };
-		1D7281FC2CBB01DD00C6DBE3 /* LetterTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7281FB2CBB01D400C6DBE3 /* LetterTagView.swift */; };
-		1D7281FE2CBB136000C6DBE3 /* AccidentalTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7281FD2CBB135C00C6DBE3 /* AccidentalTagView.swift */; };
 		1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFBD2C6FD37400308356 /* Keyboard.swift */; };
 		1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFC72C6FD63300308356 /* Constants.swift */; };
 		1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D73AFCA2C6FD63300308356 /* KeyType.swift */; };
@@ -69,6 +67,10 @@
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1DC11F722CA133E400263FF8 /* Algorithms */; };
+		1DC6A0742CC55E660053068C /* ChordPropertyTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A0732CC55E660053068C /* ChordPropertyTagView.swift */; };
+		1DC6A0762CC566950053068C /* CustomChordMenuTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A0752CC566950053068C /* CustomChordMenuTagsView.swift */; };
+		1DC6A07A2CC56ACB0053068C /* LetterTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A0792CC56ACB0053068C /* LetterTagView.swift */; };
+		1DC6A07C2CC56AD20053068C /* AccidentalTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A07B2CC56AD20053068C /* AccidentalTagView.swift */; };
 		1DC8313B2CB4A66600481996 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8313A2CB4A66600481996 /* ViewModifiers.swift */; };
 		1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD297C62C9902B6001984EF /* DualChordDetailView.swift */; };
 		1DD507562CB97D080085288B /* HighlightableTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD507552CB97D080085288B /* HighlightableTagView.swift */; };
@@ -126,8 +128,6 @@
 		1D7281F42CBADC2300C6DBE3 /* CustomChordMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenu.swift; sourceTree = "<group>"; };
 		1D7281F72CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenuLetterTagsView.swift; sourceTree = "<group>"; };
 		1D7281F92CBAF90300C6DBE3 /* CustomChordMenuAccidentalTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenuAccidentalTagView.swift; sourceTree = "<group>"; };
-		1D7281FB2CBB01D400C6DBE3 /* LetterTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTagView.swift; sourceTree = "<group>"; };
-		1D7281FD2CBB135C00C6DBE3 /* AccidentalTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalTagView.swift; sourceTree = "<group>"; };
 		1D73AFBD2C6FD37400308356 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		1D73AFC72C6FD63300308356 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1D73AFCA2C6FD63300308356 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyType.swift; sourceTree = "<group>"; };
@@ -150,6 +150,10 @@
 		1DB4AA432CB8BEF9006FD1C5 /* ChordTypeSectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTypeSectionTitleView.swift; sourceTree = "<group>"; };
 		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		1DC6A0732CC55E660053068C /* ChordPropertyTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPropertyTagView.swift; sourceTree = "<group>"; };
+		1DC6A0752CC566950053068C /* CustomChordMenuTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenuTagsView.swift; sourceTree = "<group>"; };
+		1DC6A0792CC56ACB0053068C /* LetterTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterTagView.swift; sourceTree = "<group>"; };
+		1DC6A07B2CC56AD20053068C /* AccidentalTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentalTagView.swift; sourceTree = "<group>"; };
 		1DC8313A2CB4A66600481996 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		1DD297C62C9902B6001984EF /* DualChordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordDetailView.swift; sourceTree = "<group>"; };
 		1DD507552CB97D080085288B /* HighlightableTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableTagView.swift; sourceTree = "<group>"; };
@@ -362,12 +366,14 @@
 			children = (
 				1DA965CE2CBECD1D00368651 /* CustomChordMenuSelectedView.swift */,
 				1D7281F42CBADC2300C6DBE3 /* CustomChordMenu.swift */,
+				1DC6A0752CC566950053068C /* CustomChordMenuTagsView.swift */,
+				1DC6A0732CC55E660053068C /* ChordPropertyTagView.swift */,
+				1DB357462CBDA49C00A5D6B3 /* CustomChordMenuKeyboardDisplayScrollView.swift */,
 				1D7281F72CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift */,
 				1D7281F92CBAF90300C6DBE3 /* CustomChordMenuAccidentalTagView.swift */,
-				1DB357462CBDA49C00A5D6B3 /* CustomChordMenuKeyboardDisplayScrollView.swift */,
-				1D7281FB2CBB01D400C6DBE3 /* LetterTagView.swift */,
-				1D7281FD2CBB135C00C6DBE3 /* AccidentalTagView.swift */,
 				1DB357442CBD9EF000A5D6B3 /* CustomChordMenuHelper.swift */,
+				1DC6A07B2CC56AD20053068C /* AccidentalTagView.swift */,
+				1DC6A0792CC56ACB0053068C /* LetterTagView.swift */,
 			);
 			path = CustomChordMenu;
 			sourceTree = "<group>";
@@ -531,12 +537,12 @@
 				1DE53BF02CADEDEC00CC27DE /* ChordAndKeySelectionView.swift in Sources */,
 				1D8F4E1F2C8B768F000DEF30 /* Root.swift in Sources */,
 				1DE3FF182CBF1D580037C354 /* MultiChordKeyboardHighlighter.swift in Sources */,
+				1DC6A07C2CC56AD20053068C /* AccidentalTagView.swift in Sources */,
 				1D73AFFB2C6FD64400308356 /* Key.swift in Sources */,
 				1DABBE142CB58A930039F325 /* KeyShape.swift in Sources */,
 				1DB357452CBD9EF000A5D6B3 /* CustomChordMenuHelper.swift in Sources */,
 				1D9FC80F2C8A418C00B07BBB /* Note.swift in Sources */,
 				1DE6CA0C2C79A6AE00D39604 /* SingleChordKeyboardView.swift in Sources */,
-				1D7281FE2CBB136000C6DBE3 /* AccidentalTagView.swift in Sources */,
 				1D5F6AA32C2482D300193B58 /* Colors.swift in Sources */,
 				1DC8313B2CB4A66600481996 /* ViewModifiers.swift in Sources */,
 				1D73AFBE2C6FD37400308356 /* Keyboard.swift in Sources */,
@@ -553,6 +559,7 @@
 				1D25075F2C24CC0D001416AF /* LetterPicker.swift in Sources */,
 				1D5F6A7D2C24829500193B58 /* KeySwitch.swift in Sources */,
 				1DE53BEA2CADE84D00CC27DE /* KeyboardDisplayView.swift in Sources */,
+				1DC6A07A2CC56ACB0053068C /* LetterTagView.swift in Sources */,
 				1D2507622C24CC68001416AF /* AccidentalPicker.swift in Sources */,
 				1D5F6A822C24829500193B58 /* ChordDegrees.TCArray.swift in Sources */,
 				1DE53BE82CADE7DD00CC27DE /* AccidentalTagsView.swift in Sources */,
@@ -568,13 +575,13 @@
 				1D73AFD12C6FD63300308356 /* TypeAliases.swift in Sources */,
 				1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */,
 				1D73AFCD2C6FD63300308356 /* Constants.swift in Sources */,
+				1DC6A0762CC566950053068C /* CustomChordMenuTagsView.swift in Sources */,
 				1D0967F52CB59CC700600325 /* KeyShapeGroup.swift in Sources */,
 				1D7281F82CBAE3BB00C6DBE3 /* CustomChordMenuLetterTagsView.swift in Sources */,
 				1DE53BE62CADE74900CC27DE /* LetterTagsView.swift in Sources */,
 				1D5F6A732C24829500193B58 /* ChordsAndScales.swift in Sources */,
 				1D898D252C9A9B3600C5AA18 /* DetailRow.swift in Sources */,
 				1DE53BE42CADE67000CC27DE /* ChordSectionTagsView.swift in Sources */,
-				1D7281FC2CBB01DD00C6DBE3 /* LetterTagView.swift in Sources */,
 				1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */,
 				1D7281F52CBADC2300C6DBE3 /* CustomChordMenu.swift in Sources */,
 				1D5F6A912C24829500193B58 /* Degree.swift in Sources */,
@@ -584,6 +591,7 @@
 				1D7281FA2CBAF90A00C6DBE3 /* CustomChordMenuAccidentalTagView.swift in Sources */,
 				1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */,
 				1D5F6A722C24829500193B58 /* NoteNum.swift in Sources */,
+				1DC6A0742CC55E660053068C /* ChordPropertyTagView.swift in Sources */,
 				1D5F6A542C24829500193B58 /* KeyName.RootKeyNote.swift in Sources */,
 				1D65C9632C5BFAA100DB7E3A /* ChordFactory.swift in Sources */,
 				1D5F69DA2C2481E600193B58 /* ChordCombiner_SwiftUIApp.swift in Sources */,

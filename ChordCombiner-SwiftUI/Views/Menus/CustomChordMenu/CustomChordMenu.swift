@@ -225,29 +225,54 @@ struct CustomChordMenu: View {
           )
           
         HStack(alignment: .bottom) {
-            CustomChordMenuLetterTagsView(
-              selectedLetter: $chordProperties.letter,
-              matchingLetters: $matchingLetters,
-              font: .headline,
-              horizontalPadding: 10,
-              verticalPadding: 1.5,
-              cornerRadius: 5,
-              spacing: 8
-            )
+          CustomChordMenuTagsView(
+            selectedProperty: $chordProperties.letter,
+            matchingProperties: $matchingLetters,
+            tagProperties: Letter.allCases,
+            isHorizontal: true,
+            font: .headline,
+            horizontalPadding: 10,
+            verticalPadding: 1.5,
+            cornerRadius: 5,
+            spacing: 8
+          )
+          
+//            CustomChordMenuLetterTagsView(
+//              selectedLetter: $chordProperties.letter,
+//              matchingLetters: $matchingLetters,
+//              font: .headline,
+//              horizontalPadding: 10,
+//              verticalPadding: 1.5,
+//              cornerRadius: 5,
+//              spacing: 8
+//            )
           
           Divider()
             .frame(height: 30)
             .titleColorOverlay()
           
-          CustomChordMenuAccidentalTagsView(
-            selectedAccidental: $chordProperties.accidental,
-            matchingAccidentals: $matchingAccidentals,
+          
+          CustomChordMenuTagsView(
+            selectedProperty: $chordProperties.accidental,
+            matchingProperties: $matchingAccidentals,
+            tagProperties: RootAccidental.allCases,
             isHorizontal: true,
             font: .headline,
             horizontalPadding: 5,
             verticalPadding: 1.5,
-            cornerRadius: 5
+            cornerRadius: 5,
+            spacing: 8
           )
+          
+//          CustomChordMenuAccidentalTagsView(
+//            selectedAccidental: $chordProperties.accidental,
+//            matchingAccidentals: $matchingAccidentals,
+//            isHorizontal: true,
+//            font: .headline,
+//            horizontalPadding: 5,
+//            verticalPadding: 1.5,
+//            cornerRadius: 5
+//          )
         }
       }
       
