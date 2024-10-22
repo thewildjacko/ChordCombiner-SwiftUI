@@ -24,8 +24,8 @@ enum Constants {
       case Bb = 11
     }
     
-    static func getAddend(_ type: KeyType) -> CGFloat {
-      switch type {
+    static func getAddend(_ keyType: KeyType) -> CGFloat {
+      switch keyType {
       case .C:
         return Width.whiteKeyCEGA.rawValue
       case .Db:

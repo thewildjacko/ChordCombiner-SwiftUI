@@ -26,7 +26,7 @@ import SwiftUI
 //    var firstChord: Chord { matchesLower ? upperChord : lowerChord }
 //    var secondChord: Chord { matchesLower ? lowerChord : upperChord }
 //    
-//    if firstChord.combinesWith(chordFrom: accidental, secondChord.type) {
+//    if firstChord.combinesWith(chordFrom: accidental, secondChord.chordType) {
 //      matchingAccidentals.insert(accidental)
 //    }
 //  }
@@ -41,7 +41,7 @@ import SwiftUI
 //          matchingAccidentals: &matchingAccidentals,
 //          matchesLower: true
 //        )
-////        if multiChord.upperChord.combinesWith(chordFrom: accidental, multiChord.lowerChord.type) {
+////        if multiChord.upperChord.combinesWith(chordFrom: accidental, multiChord.lowerChord.chordType) {
 ////          matchingAccidentals.insert(accidental)
 ////        }
 //      } else {
@@ -52,7 +52,7 @@ import SwiftUI
 //          matchingAccidentals: &matchingAccidentals,
 //          matchesLower: true
 //        )
-////        if multiChord.lowerChord.combinesWith(chordFrom: accidental, multiChord.upperChord.type) {
+////        if multiChord.lowerChord.combinesWith(chordFrom: accidental, multiChord.upperChord.chordType) {
 ////          matchingAccidentals.insert(accidental)
 ////        }
 //      }
@@ -64,7 +64,7 @@ import SwiftUI
 //    var firstChord: Chord { matchesLower ? upperChord : lowerChord }
 //    var secondChord: Chord { matchesLower ? lowerChord : upperChord }
 //    
-//    if firstChord.combinesWith(chordFrom: letter, secondChord.type) {
+//    if firstChord.combinesWith(chordFrom: letter, secondChord.chordType) {
 //      matchingLetters.insert(letter)
 //    }
 //  }
@@ -79,7 +79,7 @@ import SwiftUI
 //          matchingLetters: &matchingLetters,
 //          matchesLower: true
 //        )
-////        if multiChord.upperChord.combinesWith(chordFrom: letter, multiChord.lowerChord.type) {
+////        if multiChord.upperChord.combinesWith(chordFrom: letter, multiChord.lowerChord.chordType) {
 ////          matchingLetters.insert(letter)
 ////        }
 //      } else {
@@ -90,7 +90,7 @@ import SwiftUI
 //          matchingLetters: &matchingLetters,
 //          matchesLower: true
 //        )
-////        if multiChord.lowerChord.combinesWith(chordFrom: letter, multiChord.upperChord.type) {
+////        if multiChord.lowerChord.combinesWith(chordFrom: letter, multiChord.upperChord.chordType) {
 ////          matchingLetters.insert(letter)
 ////        }
 //      }

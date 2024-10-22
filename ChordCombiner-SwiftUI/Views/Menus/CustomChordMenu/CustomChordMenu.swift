@@ -27,6 +27,18 @@ struct CustomChordMenu: View {
     isLowerChordMenu ? multiChord.lowerChord : multiChord.upperChord
   }
   
+  var chordToMatch: Chord? {
+    isLowerChordMenu ? multiChord.upperChord : multiChord.lowerChord
+  }
+  
+  var selectedChordColor: Color {
+    isLowerChordMenu ? .lowerChordHighlight : .upperChordHighlight
+  }
+  
+  var chordToMatchColor: Color {
+    isLowerChordMenu ? .upperChordHighlight : .lowerChordHighlight
+  }
+  
   var chordSymbolTitleFont: Font {
     isLowerChordMenu ?
     multiChord.lowerChord != nil ?
@@ -102,8 +114,8 @@ struct CustomChordMenu: View {
   }
   
   func matchByChordType() {
-    for type in ChordType.allSimpleChordTypes {
-      insertMatching(chordProperty: type, matchingProperties: &matchingChordTypes)
+    for chordType in ChordType.allSimpleChordTypes {
+      insertMatching(chordProperty: chordType, matchingProperties: &matchingChordTypes)
     }
   }
   
@@ -113,25 +125,63 @@ struct CustomChordMenu: View {
     matchByChordType()
   }
   
-  func toggleHighlightForSelectedKeyboard() {
-    var stackedPitches: [Int]
-    
-    if !oldChordProperties.propertiesAreSet {
-      if let selectedChord = selectedChord {
-        stackedPitches = selectedChord.voicingCalculator.stackedPitches
-      }
+  func highlightSelectedChord() {
+    if let selectedChord = selectedChord {
+      selectedKeyboard.highlightKeysAfterClearing(pitches: selectedChord.voicingCalculator.stackedPitches, color: selectedChordColor)
     }
-//    let stackedPitches = isLowerChordMenu ?  multiChord.multiChordVoicingCalculator.lowerStackedPitches : multiChord.multiChordVoicingCalculator.upperStackedPitches
-//    
-//    let color = chord == multiChord.lowerChord ? multiChord.color : multiChord.secondColor
-//    
-//    let oldStackedPitches = chord == multiChord.lowerChord ? oldMultiChord.multiChordVoicingCalculator.lowerStackedPitches : oldMultiChord.multiChordVoicingCalculator.upperStackedPitches
-//    
-//    //    print(stackedPitches, oldStackedPitches)
-//    
-//    selectedKeyboard.toggleHighlightKeysSingle(degs: oldStackedPitches, color: color)
-//    selectedKeyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
   }
+  
+  func highlightCombinedChord() {
+    if let selectedChord = selectedChord,
+        let chordToMatch = chordToMatch,
+       let resultChord = multiChord.resultChord,
+       let mcvc = multiChord.multiChordVoicingCalculator {
+      let color = isLowerChordMenu ? selectedChordColor : chordToMatchColor
+      let secondColor = isLowerChordMenu ? chordToMatchColor : selectedChordColor
+      let commonToneColor = LinearGradient.commonTone(secondColor, color)
+      
+      combinedKeyboard.highlightKeysAfterClearing(pitches: mcvc.lowerTonesToHighlight, color: color)
+      combinedKeyboard.highlightKeysWithoutClearing(pitches: mcvc.upperTonesToHighlight, color: secondColor)
+      combinedKeyboard.highlightKeysWithoutClearing(pitches: mcvc.commonTonesToHighlight, color: commonToneColor)
+      
+//      if isLowerChordMenu {
+//        combinedKeyboard.highlightKeysAfterClearing(pitches: mcvc.lowerStackedPitches, color: selectedChordColor)
+//      } else {
+//        combinedKeyboard.highlightKeysAfterClearing(pitches: chordToMatch.voicingCalculator.stackedPitches, color: chordToMatchColor)
+//      }
+    }
+      
+    //      combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
+    //        onlyInLower: multiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
+    //        onlyInUpper: multiChord.multiChordVoicingCalculator.upperTonesToHighlight,
+    //        commonTones: multiChord.multiChordVoicingCalculator.commonTonesToHighlight,
+    //        lowerStackedPitches: lowerSplitPitches,
+    //        upperStackedPitches: upperSplitPitches,
+    //        resultChordExists: resultChordExists,
+    //        isSlashChord: isSlashChord,
+    //        color: multiChord.color,
+    //        secondColor: multiChord.secondColor)
+  }
+  
+//  func toggleHighlightForSelectedKeyboard() {
+//    var stackedPitches: [Int]
+//    
+//    if !oldChordProperties.propertiesAreSet {
+//      if let selectedChord = selectedChord {
+//        stackedPitches = selectedChord.voicingCalculator.stackedPitches
+//      }
+//    }
+////    let stackedPitches = isLowerChordMenu ?  multiChord.multiChordVoicingCalculator.lowerStackedPitches : multiChord.multiChordVoicingCalculator.upperStackedPitches
+////    
+////    let color = chord == multiChord.lowerChord ? multiChord.color : multiChord.secondColor
+////    
+////    let oldStackedPitches = chord == multiChord.lowerChord ? oldMultiChord.multiChordVoicingCalculator.lowerStackedPitches : oldMultiChord.multiChordVoicingCalculator.upperStackedPitches
+////    
+////    //    print(stackedPitches, oldStackedPitches)
+////    
+////    selectedKeyboard.toggleHighlightKeysSingle(degs: oldStackedPitches, color: color)
+////    selectedKeyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
+//  }
   
 //  func toggleHighlightForCombinedKeyboard() {
 //    let resultChordExists: Bool = multiChord.resultChord != nil ? true : false
@@ -234,18 +284,9 @@ struct CustomChordMenu: View {
             horizontalPadding: 10,
             verticalPadding: 1.5,
             cornerRadius: 5,
-            spacing: 8
+            spacing: 8,
+            highlightColor: .tagBackgroundHighlighted
           )
-          
-//            CustomChordMenuLetterTagsView(
-//              selectedLetter: $chordProperties.letter,
-//              matchingLetters: $matchingLetters,
-//              font: .headline,
-//              horizontalPadding: 10,
-//              verticalPadding: 1.5,
-//              cornerRadius: 5,
-//              spacing: 8
-//            )
           
           Divider()
             .frame(height: 30)
@@ -261,29 +302,20 @@ struct CustomChordMenu: View {
             horizontalPadding: 5,
             verticalPadding: 1.5,
             cornerRadius: 5,
-            spacing: 8
+            spacing: 8,
+            highlightColor: .tagBackgroundHighlighted
           )
-          
-//          CustomChordMenuAccidentalTagsView(
-//            selectedAccidental: $chordProperties.accidental,
-//            matchingAccidentals: $matchingAccidentals,
-//            isHorizontal: true,
-//            font: .headline,
-//            horizontalPadding: 5,
-//            verticalPadding: 1.5,
-//            cornerRadius: 5
-//          )
         }
       }
       
       TitleColorDivider()
       
       CustomChordMenuKeyboardDisplayScrollView(
-        selectedChordType: $chordProperties.type,
+        selectedChordType: $chordProperties.chordType,
         matchingChordTypes: $matchingChordTypes,
         chordTypes: ChordType.allSimpleChordTypes,
         rootKeyNote: rootKeyNote,
-        color: .cyan
+        color: selectedChordColor
       )
       
       TitleColorDivider()
@@ -295,46 +327,16 @@ struct CustomChordMenu: View {
     .environmentObject(multiChord)
     .padding()
     .onAppear {
-//    setOldMultiChord()
-//      print("CustomChordMenu\n------\nlowerChord is \(multiChord.lowerChord.preciseName), upperChord is \(multiChord.upperChord.preciseName)")
-//      print(multiChord.lowerChord.voicingCalculator.stackedPitches, multiChord.upperChord.voicingCalculator.stackedPitches)
-//      print("old lowerChord is \(oldMultiChord.lowerChord.preciseName), old upperChord is \(oldMultiChord.upperChord.preciseName)")
-//      print(oldMultiChord.lowerChord.voicingCalculator.stackedPitches, oldMultiChord.upperChord.voicingCalculator.stackedPitches)
-//      print("------")
       matchChords()
+      highlightSelectedChord()
+      highlightCombinedChord()
     }
-    .onChange(of: multiChord.lowerChord, { oldValue, newValue in
+    .onChange(of: selectedChord, { oldValue, newValue in
       clearAndMatchChords()
+      highlightSelectedChord()
+      highlightCombinedChord()
     })
-    .onChange(of: multiChord.upperChord, { oldValue, newValue in
-      clearAndMatchChords()
-    })
-//    
-//    .onChange(of: chord.letter, {
-////      print("CustomChordMenu\n------\nlowerChord is \(multiChord.lowerChord.preciseName), upperChord is \(multiChord.upperChord.preciseName)")
-////      print(multiChord.lowerChord.voicingCalculator.stackedPitches, multiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("old lowerChord is \(oldMultiChord.lowerChord.preciseName), old upperChord is \(oldMultiChord.upperChord.preciseName)")
-////      print(oldMultiChord.lowerChord.voicingCalculator.stackedPitches, oldMultiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("------")
-//      clearAndMatchChords()
-//    })
-//    .onChange(of: chord.accidental, {
-////      print("CustomChordMenu\n------\nlowerChord is \(multiChord.lowerChord.preciseName), upperChord is \(multiChord.upperChord.preciseName)")
-////      print(multiChord.lowerChord.voicingCalculator.stackedPitches, multiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("old lowerChord is \(oldMultiChord.lowerChord.preciseName), old upperChord is \(oldMultiChord.upperChord.preciseName)")
-////      print(oldMultiChord.lowerChord.voicingCalculator.stackedPitches, oldMultiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("------")
-//      
-//      clearAndMatchChords()
-//    })
-//    .onChange(of: chord.type, {
-////      print("CustomChordMenu\n------\nlowerChord is \(multiChord.lowerChord.preciseName), upperChord is \(multiChord.upperChord.preciseName)")
-////      print(multiChord.lowerChord.voicingCalculator.stackedPitches, multiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("old lowerChord is \(oldMultiChord.lowerChord.preciseName), old upperChord is \(oldMultiChord.upperChord.preciseName)")
-////      print(oldMultiChord.lowerChord.voicingCalculator.stackedPitches, oldMultiChord.upperChord.voicingCalculator.stackedPitches)
-////      print("------")
-//      clearAndMatchChords()
-//    })
+
   }
 }
 
@@ -357,13 +359,13 @@ struct CustomChordMenu: View {
         octaves: 5
       )
     ),
-    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil)),
-    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
+    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil)),
+    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil))
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }

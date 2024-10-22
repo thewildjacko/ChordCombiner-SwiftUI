@@ -1,6 +1,36 @@
 import SwiftUI
 import Algorithms
 
+let lowerDegrees = [0, 4, 7, 10]
+lowerDegrees.convert(to: .two)
+let upperDegrees = [2, 4, 9]
+let upperDegrees2 = [2, 6, 9]
+
+let resultChord = ChordFactory.combineChordDegrees(degrees: lowerDegrees, otherDegrees: upperDegrees, root: Note(.c), otherRoot: Note(.d))
+let resultChord2 = ChordFactory.combineChordDegrees(degrees: lowerDegrees, otherDegrees: upperDegrees2, root: Note(.c), otherRoot: Note(.d))
+
+//let stackedPitches = [60, 64, 67, 70, 74, 76, 81]
+let stackedPitches = resultChord?.voicingCalculator.stackedPitches ?? []
+let stackedPitches2 = resultChord2?.voicingCalculator.stackedPitches ?? []
+
+var onlyInLower: [Int] {
+  lowerDegrees.subtracting(upperDegrees2)
+}
+
+var onlyInUpper: [Int] {
+  upperDegrees2.subtracting(lowerDegrees)
+}
+
+var commonTones: [Int] {
+  lowerDegrees.intersection(upperDegrees2)
+}
+
+let lowerTones = stackedPitches2.includeIfSameNote(onlyInLower)
+let upperTones = stackedPitches2.includeIfSameNote(onlyInUpper)
+let sharedTones = stackedPitches2.includeIfSameNote(commonTones)
+
+
+
 let chordType = ChordType.mi_ma13
 let chordType2 = ChordType.mi_ma9
 chordType.isTriad
@@ -20,11 +50,11 @@ chordType2.is13thChord
 
 
 for array in ChordType.allSimpleChordTypesMinusOmits {
-  for type in array {
-    print(type.commonName)
+  for chordType in array {
+    print(chordType.commonName)
   }
 }
-
+/*
 //var unmatchedChordDegreeSets: [[Int]] = []
 //
 //for chord in ChordFactory.allChordsInC {
@@ -48,11 +78,11 @@ for array in ChordType.allSimpleChordTypesMinusOmits {
 //  print(degreeSet)
 //}
 
-//let type = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
-//print(type)
+//let chordType = ChordType.typeByDegrees[[0, 3, 4, 6, 10]]
+//print(chordType)
 
-for type in ChordType.allCases {
-  print(type.rawValue, type.degrees, type.degreeTags)
+for chordType in ChordType.allCases {
+  print(chordType.rawValue, chordType.degrees, chordType.degreeTags)
 }
 
 print(ChordType.allCases.filter({ !$0.rawValue.contains("omit9") }).count)
@@ -126,7 +156,7 @@ for combo in combosFiltered {
 ChordFactory.combos(count: 4)
 
 var chord = Chord(.c, .ma13_sh11, startingOctave: 4)
-print(chord.type.degreeTags)
+print(chord.chordType.degreeTags)
 
 
 var allNotes = chord.notesByNoteNum.values
@@ -144,3 +174,4 @@ print(allChordNotesInKey)
 //for chordName in containingChords {
 //  print(chordName)
 //}
+*/

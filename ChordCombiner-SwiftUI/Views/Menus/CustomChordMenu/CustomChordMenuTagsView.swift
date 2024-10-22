@@ -18,6 +18,7 @@ struct CustomChordMenuTagsView<T: ChordAndScaleProperty>: View {
   var verticalPadding: CGFloat = 5
   var cornerRadius: CGFloat = 8
   var spacing: CGFloat = 10
+  var highlightColor: Color = .tagBackgroundHighlighted
   
   var body: some View {
     if isHorizontal {
@@ -29,7 +30,8 @@ struct CustomChordMenuTagsView<T: ChordAndScaleProperty>: View {
           font: font,
           horizontalPadding: horizontalPadding,
           verticalPadding: verticalPadding,
-          cornerRadius: cornerRadius
+          cornerRadius: cornerRadius,
+          highlightColor: highlightColor
         )
       }
     } else {
@@ -41,7 +43,8 @@ struct CustomChordMenuTagsView<T: ChordAndScaleProperty>: View {
           font: font,
           horizontalPadding: horizontalPadding,
           verticalPadding: verticalPadding,
-          cornerRadius: cornerRadius
+          cornerRadius: cornerRadius,
+          highlightColor: highlightColor
         )
       }
     }

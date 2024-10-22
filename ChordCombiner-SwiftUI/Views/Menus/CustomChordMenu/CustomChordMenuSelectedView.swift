@@ -80,13 +80,13 @@ struct CustomChordMenuSelectedView: View {
         geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5
       )
     ),
-    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil)),
-    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, type: nil))
+    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil)),
+    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil))
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }

@@ -10,8 +10,7 @@ import SwiftUI
 struct Key: View, KeyProtocol, Identifiable {
   var id: UUID = UUID()
   var pitch: Int = 0
-  var type: KeyType
-  var octaves: CGFloat
+  var keyType: KeyType
   var geoWidth: CGFloat
   var widthMod: CGFloat
   var initialKey: Bool = false
@@ -28,7 +27,7 @@ struct Key: View, KeyProtocol, Identifiable {
       height: height,
       radius: radius,
       widthMultiplier: widthMultiplier,
-      keyShapePath: type.keyShapePath
+      keyShapePath: keyType.keyShapePath
     )
   }
   
@@ -37,22 +36,20 @@ struct Key: View, KeyProtocol, Identifiable {
   }
   
   mutating func toggleHighlight<T: ShapeStyle>(color: T) {
-    switch type {
-    case .C, .D, .E, .F, .G, .A, .B:
-      fill = fill is Color && fill as! Color == .white ? color : .white
-    case .Db, .Eb, .Gb, .Ab, .Bb:
-      fill = fill is Color && fill as! Color == .black ? color : .black
-    }
+    fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : keyType.defaultFillColor
   }
   
   mutating func highlight<T: ShapeStyle>(color: T) {
-    fill = fill is Color && (fill as! Color == .white || fill as! Color == .black) ? color : fill
+    fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : fill
   }
   
-  init(pitch: Int = 0, type: KeyType = .C, octaves: CGFloat = 1, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1) {
+  mutating func clearHighlight() {
+    fill = keyType.defaultFillColor
+  }
+  
+  init(pitch: Int = 0, keyType: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1) {
     self.pitch = pitch
-    self.type = type
-    self.octaves = octaves
+    self.keyType = keyType
     self.geoWidth = geoWidth
     self.widthMod = widthMod
     self.fill = fill
@@ -60,10 +57,19 @@ struct Key: View, KeyProtocol, Identifiable {
     self.lineWidth = lineWidth
   }
   
+  init(pitch: Int = 0, keyType: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat) {
+    self.pitch = pitch
+    self.keyType = keyType
+    self.geoWidth = geoWidth
+    self.widthMod = widthMod
+    self.fill = keyType.defaultFillColor
+    self.stroke = .black
+    self.lineWidth = 1
+  }
+  
   var body: some View {
     KeyShapeGroup(
       finalKey: finalKey,
-      octaves: octaves,
       width: width,
       height: height,
       radius: radius,
@@ -73,14 +79,18 @@ struct Key: View, KeyProtocol, Identifiable {
       stroke: stroke,
       lineWidth: lineWidth,
       z_Index: z_Index,
-      keyShapePath: type.keyShapePath
+      keyShapePath: keyType.keyShapePath
     )
   }
 }
 
+extension Key {
+  
+}
+
 #Preview {
   GeometryReader { geometry in
-    Key(type: .C, octaves: 1, geoWidth: geometry.size.width, widthMod: 23, fill: .white)
+    Key(keyType: .C, geoWidth: geometry.size.width, widthMod: 23, fill: .white)
   }
   .position(x: 92, y: 192)
   .frame(width: 23 * 4, height: 96 * 4)

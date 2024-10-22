@@ -12,25 +12,25 @@ struct MultiChordProperties: Equatable {
   var id: UUID = UUID()
   var letter: Letter?
   var accidental: RootAccidental?
-  var type: ChordType?
+  var chordType: ChordType?
   
   var propertiesAreSet: Bool {
-    return letter != nil && accidental != nil && type != nil
+    return letter != nil && accidental != nil && chordType != nil
   }
   
-  init(letter: Letter? = nil, accidental: RootAccidental? = nil, type: ChordType? = nil) {
+  init(letter: Letter? = nil, accidental: RootAccidental? = nil, chordType: ChordType? = nil) {
     self.letter = letter
     self.accidental = accidental
-    self.type = type
+    self.chordType = chordType
   }
 }
 
 class MultiChord: ObservableObject {
   @Published var lowerChordProperties: MultiChordProperties
-  @Published var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
+  @Published var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
   
   @Published var upperChordProperties: MultiChordProperties
-  @Published var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, type: nil)
+  @Published var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
   
   //  @Published var lowerChord: Chord {
   //    didSet { setResultChord() }
@@ -57,21 +57,21 @@ class MultiChord: ObservableObject {
   var lowerChord: Chord? {
     guard let letter = lowerChordProperties.letter,
           let accidental = lowerChordProperties.accidental,
-          let type = lowerChordProperties.type else {
+          let chordType = lowerChordProperties.chordType else {
       return nil
     }
     
-    return Chord(RootKeyNote(letter, accidental), type)
+    return Chord(RootKeyNote(letter, accidental), chordType)
   }
   
   var upperChord: Chord? {
     guard let letter = upperChordProperties.letter,
           let accidental = upperChordProperties.accidental,
-          let type = upperChordProperties.type else {
+          let chordType = upperChordProperties.chordType else {
       return nil
     }
     
-    return Chord(RootKeyNote(letter, accidental), type)
+    return Chord(RootKeyNote(letter, accidental), chordType)
   }
   
   var resultChord: Chord? {
@@ -87,8 +87,8 @@ class MultiChord: ObservableObject {
     )
   }
   
-  let color: Color = .yellow
-  let secondColor: Color = .cyan
+  let color: Color = .lowerChordHighlight
+  let secondColor: Color = .lowerChordHighlight
   
   var multiChordVoicingCalculator: MultiChordVoicingCalculator? {
     guard let lowerChord = lowerChord,

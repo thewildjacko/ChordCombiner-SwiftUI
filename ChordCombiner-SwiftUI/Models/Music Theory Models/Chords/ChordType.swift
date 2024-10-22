@@ -378,7 +378,7 @@ enum ChordType: String, ChordAndScaleProperty {
   var hasPerfect5th: Degree? {
     switch self {
       // has ♭5 or ♯5
-    case let type where type.hasDim5th != nil, let type where type.hasSharp5th != nil:
+    case let chordType where chordType.hasDim5th != nil, let chordType where chordType.hasSharp5th != nil:
       return nil
     default:
       return .perfect5th
@@ -446,7 +446,7 @@ enum ChordType: String, ChordAndScaleProperty {
   // MARK: hasMajor7th
   var hasMajor7th: Degree? {
     switch baseChordType {
-    case let type where type.hasMinor7th != nil || type == .ma6:
+    case let chordType where chordType.hasMinor7th != nil || chordType == .ma6:
       return nil
     case .ma7, .mi_ma7, .ma7_b5, .ma7_sh5, .ma7_b5_sh5:
       return .major7th
@@ -484,7 +484,7 @@ enum ChordType: String, ChordAndScaleProperty {
   var hasMajor9th: Degree? {
     switch self {
       // has ♭9 or ♯9
-    case let type where type.hasMinor9th != nil, let type where type.hasSharp9th != nil:
+    case let chordType where chordType.hasMinor9th != nil, let chordType where chordType.hasSharp9th != nil:
       return nil
       // ma7
     case .ma9, .ma13, .ma9_sh11, .ma13_sh11,
@@ -593,7 +593,7 @@ enum ChordType: String, ChordAndScaleProperty {
     default:
       switch self {
         // has ♭6
-      case let type where type.hasMinor6th != nil || type.hasFlat13th != nil:
+      case let chordType where chordType.hasMinor6th != nil || chordType.hasFlat13th != nil:
         return nil
         // Extended Major 7th chords
       case .ma13, .ma13_omit9, .ma13_sh11, .ma13_sh11_omit9,

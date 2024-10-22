@@ -10,6 +10,7 @@ import SwiftUI
 struct HighlightableTagView: View {
   let text: String
   var highlightCondition: Bool
+  var highlightColor: Color = .tagBackgroundHighlighted
   var font: Font = .caption
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
@@ -17,9 +18,10 @@ struct HighlightableTagView: View {
   var glowColor: Color = .clear
   var glowRadius: CGFloat = 0
   
-  init(text: String, highlightCondition: Bool, font: Font = .caption, horizontalPadding: CGFloat = 9, verticalPadding: CGFloat = 5, cornerRadius: CGFloat = 8, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
+  init(text: String, highlightCondition: Bool, highlightColor: Color = .tagBackgroundHighlighted, font: Font = .caption, horizontalPadding: CGFloat = 9, verticalPadding: CGFloat = 5, cornerRadius: CGFloat = 8, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
     self.text = text
     self.highlightCondition = highlightCondition
+    self.highlightColor = highlightColor
     self.font = font
     self.horizontalPadding = horizontalPadding
     self.verticalPadding = verticalPadding
@@ -32,6 +34,7 @@ struct HighlightableTagView: View {
     Text(text)
       .highlightableTagView(
         highlightCondition: highlightCondition,
+        highlightColor: highlightColor,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

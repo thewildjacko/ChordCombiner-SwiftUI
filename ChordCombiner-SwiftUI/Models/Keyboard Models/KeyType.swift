@@ -5,7 +5,7 @@
 //  Created by Jake Smolowe on 7/5/24.
 //
 
-import Foundation
+import SwiftUI
 
 enum KeyType: Int {
   case C = 0, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
@@ -23,23 +23,15 @@ enum KeyType: Int {
   
   var nextKeyPosition: CGFloat {
     switch self {
-    case .C:
+    case .C, .Eb, .F:
       return 9.5
     case .Db:
       return 13.5
-    case .D:
+    case .D, .Gb:
       return 14.5
-    case .Eb:
-      return 9.5
     case .E:
       return 23
-    case .F:
-      return 9.5
-    case .Gb:
-      return 14.5
-    case .G:
-      return 11.5
-    case .Ab:
+    case .G, .Ab:
       return 11.5
     case .A:
       return 15.5
@@ -97,6 +89,15 @@ enum KeyType: Int {
       return .BShape
     case .Db, .Eb, .Gb, .Ab, .Bb:
       return .BlackandEdgeWhiteKeyShape
+    }
+  }
+  
+  var defaultFillColor: Color {
+    switch self {
+    case .C, .D, .E, .F, .G, .A, .B:
+      return .white
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return .black
     }
   }
   

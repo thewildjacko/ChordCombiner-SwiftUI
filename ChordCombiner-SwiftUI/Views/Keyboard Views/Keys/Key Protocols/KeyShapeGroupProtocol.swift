@@ -13,7 +13,6 @@ protocol KeyShapeGroupProtocol {
   associatedtype NoteShape where NoteShape: Shape
   var keyShape: NoteShape { get }
   var keyRect: CGRect { get }
-  var octaves: CGFloat { get set }
 
   var width: CGFloat { get set }
   var height: CGFloat { get set }

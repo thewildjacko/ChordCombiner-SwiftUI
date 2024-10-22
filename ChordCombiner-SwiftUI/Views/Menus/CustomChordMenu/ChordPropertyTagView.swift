@@ -16,12 +16,14 @@ struct ChordPropertyTagView<T: ChordAndScaleProperty>: View {
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
   var cornerRadius: CGFloat = 8
+  var highlightColor: Color = .tagBackgroundHighlighted
 
   var body: some View {
     ForEach(tagProperties, id: \.rawValue) { property in
       HighlightableTagView(
         text: property.rawValue,
         highlightCondition: selectedProperty == property,
+        highlightColor: highlightColor,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

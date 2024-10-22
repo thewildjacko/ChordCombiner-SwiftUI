@@ -27,6 +27,7 @@ struct RoundRectTagViewModifier: ViewModifier {
 
 struct HighlightableTagViewModifier: ViewModifier {
   var highlightCondition: Bool
+  var highlightColor: Color = .tagBackgroundHighlighted
   var font: Font = .title3
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
@@ -34,8 +35,9 @@ struct HighlightableTagViewModifier: ViewModifier {
   var glowColor: Color = .clear
   var glowRadius: CGFloat = 6
   
-  init(highlightCondition: Bool, font: Font, horizontalPadding: CGFloat, verticalPadding: CGFloat, cornerRadius: CGFloat, glowColor: Color, glowRadius: CGFloat) {
+  init(highlightCondition: Bool, highlightColor: Color = .tagBackgroundHighlighted, font: Font, horizontalPadding: CGFloat, verticalPadding: CGFloat, cornerRadius: CGFloat, glowColor: Color, glowRadius: CGFloat) {
     self.highlightCondition = highlightCondition
+    self.highlightColor = highlightColor
     self.font = font
     self.horizontalPadding = horizontalPadding
     self.verticalPadding = verticalPadding
@@ -49,7 +51,7 @@ struct HighlightableTagViewModifier: ViewModifier {
       .font(font)
       .padding(.horizontal, horizontalPadding)
       .padding(.vertical, verticalPadding)
-      .background(highlightCondition ? .tagBackgroundHighlighted : .tagBackground)
+      .background(highlightCondition ? highlightColor : .tagBackground)
       .foregroundStyle(highlightCondition ? .tagTextHighlighted : .tagText)
       .fontWeight(.bold)
       .clipShape(
@@ -142,6 +144,7 @@ extension View {
   
   func highlightableTagView(
     highlightCondition: Bool,
+    highlightColor: Color = .tagBackgroundHighlighted,
     font: Font = .title3,
     horizontalPadding: CGFloat = 9,
     verticalPadding: CGFloat = 5,
@@ -152,6 +155,7 @@ extension View {
     modifier(
       HighlightableTagViewModifier(
         highlightCondition: highlightCondition,
+        highlightColor: highlightColor,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

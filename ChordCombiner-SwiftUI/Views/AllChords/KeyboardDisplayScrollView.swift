@@ -21,8 +21,8 @@ struct KeyboardDisplayScrollView: View {
     var body: some View {
       ScrollView(.horizontal) {
         LazyHGrid(rows: rows, spacing: 20) {
-          ForEach(section.chordTypes) { type in
-            let chord = Chord(rootKeyNote, type)
+          ForEach(section.chordTypes) { chordType in
+            let chord = Chord(rootKeyNote, chordType)
             
             if kbDisplay {
               KeyboardDisplayView(
@@ -32,7 +32,7 @@ struct KeyboardDisplayScrollView: View {
                   initialKey: .C,
                   startingOctave: 4,
                   octaves: 3),
-                color: .yellow
+                color: .lowerChordHighlight
               )
             } else {
               Text(chord.preciseName)

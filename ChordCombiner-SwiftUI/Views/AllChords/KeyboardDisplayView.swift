@@ -23,7 +23,7 @@ struct KeyboardDisplayView: View {
   var startingOctave: Int = 4
   var octaves: Int = 2
   var color: Color
-  var glowColor: Color = .yellow
+  var glowColor: Color = .lowerChordHighlight
   var glowRadius: CGFloat = 5
   
   init(
@@ -34,7 +34,7 @@ struct KeyboardDisplayView: View {
     startingOctave: Int = 4,
     octaves: Int = 2,
     color: Color,
-    glowColor: Color = .yellow,
+    glowColor: Color = .lowerChordHighlight,
     glowRadius: CGFloat = 10
   ) {
     self.chord = chord
@@ -95,5 +95,5 @@ struct KeyboardDisplayView: View {
         initialKey: .C,
         startingOctave: 4,
         octaves: 3),
-    color: .yellow)
+    color: .lowerChordHighlight)
 }

@@ -12,6 +12,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   //  MARK: @State properties
   var height: CGFloat = 0
   @State var geoWidth: CGFloat
+  var highlightedPitches: Set<Int> = []
 //  var title: String
   
   //  MARK: instance properties
@@ -34,7 +35,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   
   //  MARK: initializers
   init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
-//    self.title = title
     self.keyCount = keyCount
     self.geoWidth = geoWidth
     self.startingOctave = startingOctave
@@ -50,7 +50,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color) {
-//    self.title = title
     self.keyCount = keyCount
     self.geoWidth = geoWidth
     self.startingOctave = startingOctave
@@ -96,14 +95,14 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   mutating func setWidthAndHeight() {
-    for (index, type) in keyTypes.enumerated() {
-      switch type {
+    for (index, keyType) in keyTypes.enumerated() {
+      switch keyType {
       case .C, .E, .G, .A:
-        widthMod += index == 0 ? Width.whiteKeyCEGA.rawValue : Width.getAddend(type)
+        widthMod += index == 0 ? Width.whiteKeyCEGA.rawValue : Width.getAddend(keyType)
       case .D, .F, .B:
-        widthMod += index == 0 ? Width.whiteKeyDFB.rawValue : Width.getAddend(type)
+        widthMod += index == 0 ? Width.whiteKeyDFB.rawValue : Width.getAddend(keyType)
       case .Db, .Eb, .Gb, .Ab, .Bb:
-        widthMod += index == 0 ? Width.blackKey.rawValue : Width.getAddend(type)
+        widthMod += index == 0 ? Width.blackKey.rawValue : Width.getAddend(keyType)
       }
     }
     
@@ -118,59 +117,42 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     }
   }
   
-  mutating func setFill(type: KeyType) -> Color {
-    switch type {
-    case .C, .D, .E, .F, .G, .A, .B:
-
-      return .white
-    case .Db, .Eb, .Gb, .Ab, .Bb:
-      return .black
-    }
+  mutating func setDefaultFill(keyType: KeyType) -> Color {
+    keyType.defaultFillColor
   }
   
   mutating func addKeys() {
     var pitch = 0
-    for (index, type) in keyTypes.enumerated() {
+    for (index, keyType) in keyTypes.enumerated() {
       if index == 0 {
         pitch = startingPitch
-//        print(pitch)
         keys.append(
           Key(
             pitch: pitch,
-            type,
-            octaves: CGFloat(octaves ?? 1),
+            keyType,
             geoWidth: geoWidth,
             widthMod: widthMod,
-            fill: setFill(type: type),
-            stroke: .black,
             initialKey: true,
-            keyPosition: type.initialKeyPosition))
-        keyPosition += type.initialKeyPosition + type.nextKeyPosition
+            keyPosition: keyType.initialKeyPosition))
+        keyPosition += keyType.initialKeyPosition + keyType.nextKeyPosition
         pitch += 1
       } else if index < keyTypes.count - 1 {
-//        print(pitch)
         keys.append(
           Key(
             pitch: pitch,
-            type,
-            octaves: CGFloat(octaves ?? 1),
+            keyType,
             geoWidth: geoWidth,
             widthMod: widthMod,
-            fill: setFill(type: type),
-            stroke: .black,
             keyPosition: keyPosition))
-        keyPosition += type.nextKeyPosition
+        keyPosition += keyType.nextKeyPosition
         pitch += 1
       } else if index == keyTypes.count - 1 {
         keys.append(
           Key(
             pitch: pitch,
-            type,
-            octaves: CGFloat(octaves ?? 1),
+            keyType,
             geoWidth: geoWidth,
             widthMod: widthMod,
-            fill: setFill(type: type),
-            stroke: .black,
             finalKey: true,
             keyPosition: keyPosition))
       }
@@ -192,6 +174,40 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       octaves: octaves)
   }
   
+  mutating func clearHighlightedKeys() {
+    if !highlightedPitches.isEmpty {
+      for pitch in highlightedPitches {
+        if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+          keys[index].clearHighlight()
+        }
+      }
+      
+      highlightedPitches.removeAll()
+    }
+  }
+  
+  mutating func highlightKeysAfterClearing<T: ShapeStyle>(pitches: [Int], color: T) {
+    clearHighlightedKeys()
+        
+    for pitch in pitches {
+      highlightedPitches.insert(pitch)
+      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+        keys[index].highlight(color: color)
+      }
+    }
+  }
+  
+  mutating func highlightKeysWithoutClearing<T: ShapeStyle>(pitches: [Int], color: T) {
+    for pitch in pitches {
+      highlightedPitches.insert(pitch)
+      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+        keys[index].highlight(color: color)
+      }
+    }
+  }
+  
+  mutating func highlightCombinedKeysWithoutClearing() {}
+  
   mutating func highlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
     degs.highlightIfSelected(keys: &keys, color: color)
   }
@@ -201,12 +217,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   mutating func toggleHighlightKeysSplit<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T, secondColor: T) {
-//    let clock = ContinuousClock()
-//      let elapsed = clock.measure {
         degs.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
-//      }
-//    print("time to split:", elapsed)
   }
   
   mutating func toggleHighlightKeysSplit_SameColor<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T) {
@@ -215,18 +227,12 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   mutating func toggleHighlightKeysCombined(degs: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
-//    let clock = ContinuousClock()
-//      let elapsed = clock.measure {
         degs.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
         commonToneDegs.toggleHighlightIfSelected(keys: &keys, color: LinearGradient.commonTone(secondColor, color))
-//      }
-//    print("time to combine:", elapsed)
   }
   
   mutating func toggleHighlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, isSlashChord: Bool, color: Color, secondColor: Color) {
-//    let clock = ContinuousClock()
-//      let elapsed = clock.measure {
         if resultChordExists && !isSlashChord {
 //                print("combining!")
           toggleHighlightKeysCombined(
@@ -243,8 +249,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             color: color,
             secondColor: secondColor)
         }
-//      }
-//    print("highlighting:", elapsed)
   }
 
   
@@ -253,33 +257,16 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
         ZStack {
-//          RoundedRectangle(cornerRadius: Radius.whiteKey.rawValue * widthMultiplier)
-//            .frame(width: geoWidth, height: height)
-//          
-//            .glow(color: glowColor, radius: glowRadius)
-//          
           ForEach(keys) { key in
             key
           }
-          
         }
         .background(
           RoundedRectangle(cornerRadius: Radius.whiteKey.rawValue * widthMultiplier)
             .frame(width: geoWidth, height: height)          
             .glow(color: glowColor, radius: glowRadius)
         )
-
         .frame(width: geoWidth, height: height)
-
-//        .overlay {
-//          ZStack {
-//            ForEach(keys) { key in
-//              key
-//            }
-//            .foregroundStyle(.clear)
-//            }
-//        }
-//        .position(x: geoWidth/2)
       }
     }
   }
@@ -287,7 +274,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
 #Preview {
   VStack {
-    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3, glowColor: .yellow, glowRadius: 5)
+    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
       .position(x: 220, y: 600)
   }
 }

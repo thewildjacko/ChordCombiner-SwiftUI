@@ -62,8 +62,8 @@ struct DualChordDetailView: View {
   DualChordDetailView(keyboard: Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2))
     .environmentObject(
       MultiChord(
-        lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
-        upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+        lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
+        upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
       )
       //    MultiChord(
       //      lowerChord: Chord(.c, .ma7, startingOctave: 4),

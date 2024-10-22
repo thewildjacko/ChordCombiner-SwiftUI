@@ -17,8 +17,8 @@ struct ChordFactory {
     let roots: [RootKeyNote] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
     
     for root in roots {
-      for type in ChordType.allCases {
-        chords.append(Chord(root, type))
+      for chordType in ChordType.allCases {
+        chords.append(Chord(root, chordType))
       }
     }
     
@@ -29,8 +29,8 @@ struct ChordFactory {
     var chords: [Chord] = []
     let root: RootKeyNote = .c
     
-    for type in ChordType.allCases {
-      chords.append(Chord(root, type))
+    for chordType in ChordType.allCases {
+      chords.append(Chord(root, chordType))
     }
     
     return chords
@@ -66,12 +66,12 @@ struct ChordFactory {
     let degreeCount = degreesInC.count
     let typeByDegreesFiltered = ChordType.typeByDegreesFiltered(degreeCount: degreeCount)
     
-    if let type = typeByDegreesFiltered[degreesInC] {
+    if let chordType = typeByDegreesFiltered[degreesInC] {
 //      print("result chord exists with Root!")
-      return Chord(RootKeyNote(root.rootKeyName), type, isSlashChord: false, slashChordBassNote: nil)
-    } else if let type = typeByDegreesFiltered[upperRootDegreesInC] {
+      return Chord(RootKeyNote(root.rootKeyName), chordType, isSlashChord: false, slashChordBassNote: nil)
+    } else if let chordType = typeByDegreesFiltered[upperRootDegreesInC] {
 //      print("result chord exists with otherRoot!")
-      return Chord(RootKeyNote(otherRoot.rootKeyName), type, isSlashChord: true, slashChordBassNote: Root(otherRoot))
+      return Chord(RootKeyNote(otherRoot.rootKeyName), chordType, isSlashChord: true, slashChordBassNote: Root(otherRoot))
     } else {
 //      print("couldn't find a match for degrees \(degrees) or \(upperRootDegreesInC)")
       return nil
@@ -83,7 +83,7 @@ struct ChordFactory {
 //    for chord in allChordsInC {
 //      let allNotes = chord.allNotes.map { $0.noteNum.rawValue }
 //      if chord.degrees != allNotes {
-//        print(chord.type.degreeTags.map { $0.rawValue } )
+//        print(chord.chordType.degreeTags.map { $0.rawValue } )
 //        print(chord.degrees)
 //        print("all notes by Degree: ", chord.allNotes)
 //        print(allNotes)

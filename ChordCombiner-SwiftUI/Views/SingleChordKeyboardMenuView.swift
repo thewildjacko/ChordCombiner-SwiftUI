@@ -12,7 +12,7 @@ struct SingleChordKeyboardMenuView: View {
   @State var oldChord: Chord = Chord(.c, .ma, startingOctave: 3)
   @State var keyboard: Keyboard = Keyboard(geoWidth: 300, initialKey: .C,  startingOctave: 4, octaves: 3)
   @State var isInitial: Bool = true
-  var color: Color = .yellow
+  var color: Color = .lowerChordHighlight
 
   //  MARK: instance methods
   func setAndHighlightChord() {
@@ -53,6 +53,6 @@ struct SingleChordKeyboardMenuView: View {
     SingleChordKeyboardMenuView(
     chord: Chord(.c, .ma),
     keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3),
-    color: .yellow)
+    color: .lowerChordHighlight)
 }
 

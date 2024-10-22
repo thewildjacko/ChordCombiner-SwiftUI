@@ -10,7 +10,6 @@ import SwiftUI
 struct KeyShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   
-  var octaves: CGFloat
   var width: CGFloat
   var height: CGFloat
   var radius: CGFloat
@@ -54,5 +53,5 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
 }
 
 #Preview {
-  KeyShapeGroup(finalKey: false, octaves: 1, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0, keyShapePath: .CShape)
+  KeyShapeGroup(finalKey: false, width: 23, height: 96, radius: 2.5, widthMultiplier: 1, position: 200, fill: .white, stroke: .black, lineWidth: 1, z_Index: 0, keyShapePath: .CShape)
 }

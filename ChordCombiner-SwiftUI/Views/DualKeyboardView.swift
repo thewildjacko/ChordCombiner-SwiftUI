@@ -18,9 +18,9 @@ struct DualChordKeyboardView: View {
       case (true, true):
         return "waiting for chord selection..."
       case (true, false):
-        return multiChord.upperChord?.displayDetails(detailType: .preciseName) ?? "Please select an upper chord"
+        return multiChord.upperChord?.displayDetails(detailType: .commonName) ?? "Please select an upper chord"
       case (false, true):
-        return  multiChord.lowerChord?.displayDetails(detailType: .preciseName) ?? "Please select a lower Chord chord"
+        return  multiChord.lowerChord?.displayDetails(detailType: .commonName) ?? "Please select a lower Chord chord"
       case (false, false):
         guard let lowerChordName = multiChord.lowerChord?.preciseName, let upperChordName = multiChord.upperChord?.preciseName else {
           return "No chords selected!"
@@ -50,7 +50,7 @@ struct DualChordKeyboardView: View {
               font: .title,
               weight: .heavy
             )
-            if resultChord.commonName != resultChord.preciseName {
+            if resultChord.commonName != resultChord.preciseName && resultChord.chordType != .ma {
               TitleView(
                 text: chordSymbolCaptionText,
                 font: .caption
@@ -95,8 +95,8 @@ struct DualChordKeyboardView: View {
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }

@@ -21,11 +21,11 @@ struct ChordMenu: View {
       Menu(content: {
         LetterPicker(letter: $chord.letter)
         AccidentalPicker(accidental: $chord.accidental)
-        ChordTypePicker(chord: $chord, type: $chord.type)
+        ChordTypePicker(chord: $chord, chordType: $chord.chordType)
       }, label: {
         VStack {
           TitleView(
-            text: chord.type == .ma ? chord.root.noteName : chord.preciseName,
+            text: chord.chordType == .ma ? chord.root.noteName : chord.preciseName,
             font: .headline,
             weight: .heavy,
             isMenuTitle: true

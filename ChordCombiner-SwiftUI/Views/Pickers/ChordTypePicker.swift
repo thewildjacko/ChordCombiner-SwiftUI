@@ -9,17 +9,17 @@ import SwiftUI
 
 struct ChordTypePicker: View {
   @Binding var chord: Chord
-  @Binding var type: ChordType
+  @Binding var chordType: ChordType
   
   var body: some View {
-    Picker(selection: $type, label: Text("Chord Type")) {
-      ForEach(ChordType.allSimpleChordTypes) { type in
-        Text("\(chord.root.noteName)\(type.rawValue)")
-          .tag(type)
+    Picker(selection: $chordType, label: Text("Chord Type")) {
+      ForEach(ChordType.allSimpleChordTypes) { chordType in
+        Text("\(chord.root.noteName)\(chordType.rawValue)")
+          .tag(chordType)
       }
 //      ForEach(ChordType.allSimpleChordTypesMinusOmits, id: \.self) { chordTypeArray in
-//        ForEach(chordTypeArray) { type in
-//          Text("\(chord.root.noteName)\(type.rawValue)").tag(type)
+//        ForEach(chordTypeArray) { chordType in
+//          Text("\(chord.root.noteName)\(chordType.rawValue)").tag(chordType)
 //        }
 //        Divider()
 //      }
@@ -29,5 +29,5 @@ struct ChordTypePicker: View {
 }
 
 #Preview {
-  ChordTypePicker(chord: Binding.constant(Chord(type: .ma)), type: Binding.constant(.ma))
+  ChordTypePicker(chord: Binding.constant(Chord(chordType: .ma)), chordType: Binding.constant(.ma))
 }

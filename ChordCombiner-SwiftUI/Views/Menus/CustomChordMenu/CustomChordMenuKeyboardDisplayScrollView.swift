@@ -24,67 +24,45 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
   var body: some View {
     ScrollViewReader { proxy in
       List {
-        ForEach(chordTypes, id: \.self) { type in
+        ForEach(chordTypes, id: \.rawValue) { chordType in
           if let rootKeyNote = rootKeyNote {
-            let chord = Chord(rootKeyNote, type)
+            let chord = Chord(rootKeyNote, chordType)
             
-            HStack(alignment: .firstTextBaseline) {
-              VStack(alignment: .leading, spacing: 10) {
-                TitleView(
-                  text: chord.preciseName,
-                  font: .title3, weight: .heavy,
-                  color: type == selectedChordType ?
-                    .tagTitleHighlighted :
-                    matchingChordTypes.contains(type) ? .glowText : .title
-                )
-                
-                Keyboard(
-                  geoWidth: 150,
-                  initialKey: .C,
-                  startingOctave: 4,
-                  octaves: 2,
-                  glowColor: matchingChordTypes.contains(type) ? .glow : .clear,
-                  glowRadius: matchingChordTypes.contains(type) ? 5 : 0,
-                  chord: chord,
-                  color: color
-                )
-              }
-              .onTapGesture { selectedChordType = type }
-              
-              Spacer()
-              
-              if matchingChordTypes.contains(type) {
-                TitleView(text: "match found!", font: .caption, weight: .bold, color: .glowText)
-              }
-            }
+            CustomChordMenuKeyboardDisplayRow(
+              selectedChordType: $selectedChordType,
+              matchingChordTypes: $matchingChordTypes,
+              chordType: chordType,
+              titleText: chord.preciseName,
+              titleColor: chordType == selectedChordType ?
+                .tagTitleHighlighted :
+                matchingChordTypes.contains(chordType) ? .glowText : .title,
+              keyboard: Keyboard(
+                geoWidth: 150,
+                initialKey: .C,
+                startingOctave: 4,
+                octaves: 2,
+                glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
+                glowRadius: matchingChordTypes.contains(chordType) ? 5 : 0,
+                chord: chord,
+                color: color
+              )
+            )
           } else {
-            HStack(alignment: .firstTextBaseline) {
-              VStack(alignment: .leading, spacing: 10) {
-                TitleView(
-                  text: type.preciseName,
-                  font: .title3, weight: .heavy,
-                  color: selectedChordType != nil && type == selectedChordType! ?
-                    .tagTitleHighlighted :
-                    matchingChordTypes.contains(type) ? .glowText : .title
-                )
-                
-                Keyboard(
-                  geoWidth: 150,
-                  initialKey: .C,
-                  startingOctave: 4,
-                  octaves: 2,
-                  glowColor: matchingChordTypes.contains(type) ? .glow : .clear,
-                  glowRadius: matchingChordTypes.contains(type) ? 5 : 0
-                )
-              }
-              .onTapGesture { selectedChordType = type }
-              
-              Spacer()
-              
-              if matchingChordTypes.contains(type) {
-                TitleView(text: "match found!", font: .caption, weight: .bold, color: .glowText)
-              }
-            }
+            CustomChordMenuKeyboardDisplayRow(
+              selectedChordType: $selectedChordType,
+              matchingChordTypes: $matchingChordTypes,
+              chordType: chordType,
+              titleText: chordType.preciseName,
+              titleColor: selectedChordType != nil && chordType == selectedChordType! ?
+                .tagTitleHighlighted :
+                matchingChordTypes.contains(chordType) ? .glowText : .title,
+              keyboard: Keyboard(
+                geoWidth: 150,
+                initialKey: .C,
+                startingOctave: 4,
+                octaves: 2
+              )
+            )
           }
         }
         .onAppear {
@@ -107,12 +85,12 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
     matchingChordTypes: .constant([.mi, .ma, .ma6]),
     chordTypes: ChordType.allSimpleChordTypes,
     rootKeyNote: .c,
-    color: .yellow
+    color: .lowerChordHighlight
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, type: nil)
+      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }
