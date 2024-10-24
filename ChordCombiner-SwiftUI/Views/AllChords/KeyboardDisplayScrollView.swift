@@ -27,11 +27,17 @@ struct KeyboardDisplayScrollView: View {
             if kbDisplay {
               KeyboardDisplayView(
                 chord: chord,
-                keyboard: Keyboard(
-                  geoWidth: 250,
-                  initialKeyType: .C,
-                  startingOctave: 4,
-                  octaves: 3),
+                keyboard:
+                  Keyboard(
+                    geoWidth: 250,
+                    initialKeyType: .C,
+                    startingOctave: 4,
+                    octaves: 3,
+                    glowColor: .clear,
+                    glowRadius: 0,
+                    chord: chord,
+                    color: .lowerChordHighlight
+                  ),
                 color: .lowerChordHighlight
               )
             } else {
@@ -52,7 +58,7 @@ struct KeyboardDisplayScrollView: View {
 
 #Preview {
     KeyboardDisplayScrollView(
-      section: /*Binding.constant(*/ChordType.chordTypeSections[5]/*)*/,
+      section: ChordType.chordTypeSections[5],
       rootKeyNote: Binding.constant(.c),
       kbDisplay: Binding.constant(true)
     )
