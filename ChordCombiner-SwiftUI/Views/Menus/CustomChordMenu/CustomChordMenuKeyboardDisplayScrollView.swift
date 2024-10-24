@@ -38,7 +38,7 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
                 matchingChordTypes.contains(chordType) ? .glowText : .title,
               keyboard: Keyboard(
                 geoWidth: 150,
-                initialKey: .C,
+                initialKeyType: .C,
                 startingOctave: 4,
                 octaves: 2,
                 glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
@@ -58,7 +58,7 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
                 matchingChordTypes.contains(chordType) ? .glowText : .title,
               keyboard: Keyboard(
                 geoWidth: 150,
-                initialKey: .C,
+                initialKeyType: .C,
                 startingOctave: 4,
                 octaves: 2
               )
@@ -89,8 +89,8 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+      lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }

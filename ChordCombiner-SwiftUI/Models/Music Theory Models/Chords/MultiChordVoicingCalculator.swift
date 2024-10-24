@@ -24,14 +24,14 @@ struct MultiChordVoicingCalculator {
     setResultChordCombinedHighlightedPitches()
   }
   
-  var notesByNoteNum: [NoteNum: Note] {
-    var notesByNoteNum: [NoteNum: Note] = [:]
-    notesByNoteNum.reserveCapacity(12)
+  var notesByNoteNumber: [NoteNumber: Note] {
+    var notesByNoteNumber: [NoteNumber: Note] = [:]
+    notesByNoteNumber.reserveCapacity(12)
     
-    notesByNoteNum = lowerChordVoicingCalculator.notesByNoteNum.merging(upperChordVoicingCalculator.notesByNoteNum) { (_, second) in
+    notesByNoteNumber = lowerChordVoicingCalculator.notesByNoteNumber.merging(upperChordVoicingCalculator.notesByNoteNumber) { (_, second) in
       second
     }
-    return notesByNoteNum
+    return notesByNoteNumber
   }
   
   var lowerStackedPitches: [Int] {
@@ -57,24 +57,24 @@ struct MultiChordVoicingCalculator {
     upperChordVoicingCalculator.rootNote.note
   }
 
-  var lowerDegrees: [Int] {
-    lowerChordVoicingCalculator.degrees
+  var lowerDegreeNumbers: [Int] {
+    lowerChordVoicingCalculator.degreeNumbers
   }
 
-  var upperDegrees: [Int] {
-    upperChordVoicingCalculator.degrees
+  var upperDegreeNumbers: [Int] {
+    upperChordVoicingCalculator.degreeNumbers
   }
   
   var onlyInLower: [Int] {
-    lowerDegrees.subtracting(upperDegrees)
+    lowerDegreeNumbers.subtracting(upperDegreeNumbers)
   }
   
   var onlyInUpper: [Int] {
-    upperDegrees.subtracting(lowerDegrees)
+    upperDegreeNumbers.subtracting(lowerDegreeNumbers)
   }
   
   var commonTones: [Int] {
-    lowerDegrees.intersection(upperDegrees)
+    lowerDegreeNumbers.intersection(upperDegreeNumbers)
   }
   
   var lowerTonesToHighlight: [Int] = []
@@ -82,14 +82,14 @@ struct MultiChordVoicingCalculator {
   var commonTonesToHighlight: [Int] = []
   
   var resultChordDegreesInOctaveSorted: [Int] {
-    return resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeInOctave }) ?? []
+    return resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeNumberInOctave }) ?? []
   }
   
   var resultChordNoteNames: [Note] {
     var notes: [Note] = []
     
-    for degree in resultChordDegreesInOctaveSorted {
-      if let note = resultChordVoicingCalculator?.notesByNoteNum[NoteNum(degree)] {
+    for degreeNumber in resultChordDegreesInOctaveSorted {
+      if let note = resultChordVoicingCalculator?.notesByNoteNumber[NoteNumber(degreeNumber)] {
         notes.append(note)
       }
     }
@@ -100,8 +100,8 @@ struct MultiChordVoicingCalculator {
   var resultChordDegreeNames: [String] {
     var degreeNames: [String] = []
     
-    for degree in resultChordDegreesInOctaveSorted {
-      if let degreeName = resultChordVoicingCalculator?.notesByNoteNum[NoteNum(degree)] {
+    for degreeNumber in resultChordDegreesInOctaveSorted {
+      if let degreeName = resultChordVoicingCalculator?.notesByNoteNumber[NoteNumber(degreeNumber)] {
         degreeNames.append(degreeName.degreeName.numeric)
       }
     }
@@ -112,8 +112,8 @@ struct MultiChordVoicingCalculator {
   var upperDegreeNamesInLowerKey: [String] {
     var upperNotesInLowerKey: [Note] = []
     
-    for degree in upperDegrees {
-      if let upperNote = upperChordVoicingCalculator.notesByNoteNum[NoteNum(degree)] {
+    for degreeNumber in upperDegreeNumbers {
+      if let upperNote = upperChordVoicingCalculator.notesByNoteNumber[NoteNumber(degreeNumber)] {
         for lowerNote in lowerChordVoicingCalculator.allChordNotesInKeyFiltered where lowerNote.noteName == upperNote.noteName {
           upperNotesInLowerKey.append(lowerNote)
         }
@@ -131,7 +131,7 @@ struct MultiChordVoicingCalculator {
   
   func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
     //    print("Highlighting split\n--------")
-    // set initial 2nd chord stacked degrees
+    // set initial 2nd chord stacked degreeNumbers
     var secondChordPitches = upperPitches
     
     // set 1st Chord highest pitch, 2nd chord lowest pitch

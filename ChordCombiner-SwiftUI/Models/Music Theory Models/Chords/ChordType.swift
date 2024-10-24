@@ -295,7 +295,6 @@ enum ChordType: String, ChordAndScaleProperty {
   }
   
   // MARK: degrees
-  
   var degrees: [Int] {
     Degree.degreesInC(degreeTags: degreeTags)
   }
@@ -759,6 +758,61 @@ extension ChordType: Comparable {
   }
 }
 
+// MARK: Initializers
+extension ChordType {
+  /// Failable initializer from a set of degreeNumbers.
+  ///
+  /// Compares `degreeNumbers` against an array of ``ChordType`` enum cases, filtered by `count` using `ChordType.typeByDegreesInCFiltered`
+  init?(fromDegreeNumbersToMatch degreeNumbers: [Int]) {
+    let count = degreeNumbers.count
+    
+    if let chordType = ChordType.typeByDegreesInCFiltered(degreeCount: count)[degreeNumbers] {
+      self = chordType
+    } else {
+      return nil
+    }
+  }
+  
+  /// Failable initializer from two chords.
+  ///
+  /// - Combines the `degreeNumbers` arrays from both chords into a set to filter out duplicates.
+  /// - Tranposes the combined set to an array in the key of C *(C is 0 in a range of 0-11)* relative to `firstChord`'s root, sorted in ascending order
+  /// - Runs the new array through `init?(fromDegreeNumbersToMatch degreeNumbers: [Int])`
+  init?(from firstChord: Chord, and secondChord: Chord) {
+    let combinedDegreeSet = firstChord.degreeNumbers.combineSetFilter(secondChord.degreeNumbers)
+    
+    let combinedDegreesInC = Array(combinedDegreeSet).transposed(to: firstChord.rootKeyNote)
+    
+    self.init(fromDegreeNumbersToMatch: combinedDegreesInC)
+  }
+  
+  /// Failable initializer from a set of `degreeNumbers` plus a ``RootKeyNote`` to use as a basis for transposition
+  ///
+  /// - Tranposes the combined set to an array in the key of C *(C is 0 in a range of 0-11)* relative to the supplied `rootKeyNote`, sorted in ascending order
+  /// - Runs the new array through `init?(fromDegreeNumbersToMatch degreeNumbers: [Int])`
+  init?(fromDegreeNumbers degreeNumbersInC: [Int], transposedTo rootKeyNote: RootKeyNote) {
+    let degreeNumbersInCTransposed = degreeNumbersInC.transposed(to: rootKeyNote)
+    
+    self.init(fromDegreeNumbersToMatch: degreeNumbersInCTransposed)
+  }
+  
+  /// Failable initializer from a set of `degreeNumbers` plus a ``RootKeyNote`` (usually the lower chord's root) to filter out
+  ///
+  /// - Gets the `index` of the supplied ``RootKeyNote`` rawValue in `degreeNumbers` and uses the `index` to remove the `degreeNumber` from the array
+  /// - Runs the new array through `init?(fromDegreeNumbersToMatch degreeNumbers: [Int])`
+  init?(fromDegreeNumbers degreeNumbersInC: [Int], withRootToFilter rootKeyNote: RootKeyNote) {
+    var degreeNumbersInCFiltered = degreeNumbersInC
+    
+    guard let index = degreeNumbersInCFiltered.firstIndex(
+      where: { $0 == rootKeyNote.keyName.noteNumber.rawValue }) else { return nil
+    }
+    
+    degreeNumbersInCFiltered.remove(at: index)
+    
+    self.init(fromDegreeNumbersToMatch: degreeNumbersInCFiltered)
+  }
+}
+
 // MARK: static properties
 extension ChordType {
   static var allSimpleChordTypes: [ChordType] {
@@ -771,7 +825,7 @@ extension ChordType {
   
   static var typeByDegrees: [[Int]: ChordType] = Dictionary(uniqueKeysWithValues: zip(allChordDegrees, allCases))
   
-  static func typeByDegreesFiltered(degreeCount: Int) -> [[Int]: ChordType] {
+  static func typeByDegreesInCFiltered(degreeCount: Int) -> [[Int]: ChordType] {
     typeByDegrees.filter { $0.key.count == degreeCount }
   }
   

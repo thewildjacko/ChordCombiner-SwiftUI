@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol GettableNoteNum {
-  var noteNum: NoteNum { get }
+protocol GettableNoteNumber {
+  var noteNumber: NoteNumber { get }
 }
 
 /// enum assigns 0-11 for C-B
-enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
+enum NoteNumber: Int, CaseIterable, CustomStringConvertible, Codable {
   case zero = 0, one, two, three, four, five, six, seven, eight, nine, ten, eleven
     
   var description: String {
@@ -45,8 +45,8 @@ enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
     }
   }
   
-  init(_ num: Int) {
-    switch num {
+  init(_ number: Int) {
+    switch number {
     case 0:
       self = .zero
     case 1:
@@ -76,11 +76,11 @@ enum NoteNum: Int, CaseIterable, CustomStringConvertible, Codable {
     }
   }
   
-  func plusDeg(_ degree: NoteNum) -> NoteNum {
-    return NoteNum((rawValue + degree.rawValue).degreeInOctave)
+  func plusNoteNum(_ otherNoteNumber: NoteNumber) -> NoteNumber {
+    NoteNumber((rawValue + otherNoteNumber.rawValue).degreeNumberInOctave)
   }
   
-  func minusDeg(_ degree: NoteNum) -> NoteNum {
-    return NoteNum((rawValue - degree.rawValue).degreeInOctave)
+  func minusNoteNum(_ otherNoteNumber: NoteNumber) -> NoteNumber {
+    NoteNumber((rawValue - otherNoteNumber.rawValue).degreeNumberInOctave)
   }
 }

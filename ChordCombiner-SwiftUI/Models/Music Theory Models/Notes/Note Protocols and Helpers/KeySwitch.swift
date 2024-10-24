@@ -25,8 +25,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func root(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func root(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.c, .bSh, .c, .c)
     case .one:
@@ -54,8 +54,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func minor9th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func minor9th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.dB, .cSh, .dB, .cSh)
     case .one:
@@ -83,8 +83,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func major9th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func major9th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.d, .cX, .d, .d)
     case .one:
@@ -112,8 +112,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func sharp9th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func sharp9th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return .dSh
     case .one:
@@ -141,8 +141,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func minor3rd(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func minor3rd(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.eB, .dSh, .eB, .dSh)
     case .one:
@@ -170,8 +170,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func major3rd(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func major3rd(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.e, .dX, .e, .e)
     case .one:
@@ -199,8 +199,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func perfect4th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func perfect4th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.f, .eSh, .f, .f)
     case .one:
@@ -228,8 +228,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func sharp4th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func sharp4th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.fSh, .eX, .fSh, .eX)
     case .one:
@@ -257,8 +257,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func dim5th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func dim5th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.gB, .fSh, .gB, .fSh)
     case .one:
@@ -286,8 +286,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func perfect5th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func perfect5th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.g, .fX, .g, .g)
     case .one:
@@ -315,8 +315,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func sharp5th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func sharp5th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return .gSh
     case .one:
@@ -344,8 +344,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func minor6th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func minor6th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.aB, .gSh, .aB, .gSh)
     case .one:
@@ -373,8 +373,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func major6th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func major6th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.a, .gX, .a, .a)
     case .one:
@@ -402,8 +402,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func dim7th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func dim7th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.b_bb, .a, .a, .a)
     case .one:
@@ -431,8 +431,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func minor7th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func minor7th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.bB, .aSh, .bB, .aSh)
     case .one:
@@ -460,8 +460,8 @@ struct KeySwitcher: Enharmonic, Codable {
     }
   }
   
-  func major7th(rootNum: NoteNum) -> KeyName {
-    switch rootNum {
+  func major7th(rootNumber: NoteNumber) -> KeyName {
+    switch rootNumber {
     case .zero:
       return pickKey(.b, .aX, .b, .b)
     case .one:

@@ -101,11 +101,11 @@ enum KeyType: Int {
     }
   }
   
-  func toPitch(startingOctave: Int) -> Int { noteNum.rawValue + (startingOctave + 1) * 12 }
+  func toPitch(startingOctave: Int) -> Int { noteNumber.rawValue + (startingOctave + 1) * 12 }
 }
 
-extension KeyType: GettableNoteNum {
-  var noteNum: NoteNum {
+extension KeyType: GettableNoteNumber {
+  var noteNumber: NoteNumber {
     switch self {
     case .C:
       return .zero
@@ -134,8 +134,8 @@ extension KeyType: GettableNoteNum {
     }
   }
   
-  init(noteNum: NoteNum) {
-    switch noteNum {
+  init(noteNumber: NoteNumber) {
+    switch noteNumber {
     case .zero:
       self = .C
     case .one:

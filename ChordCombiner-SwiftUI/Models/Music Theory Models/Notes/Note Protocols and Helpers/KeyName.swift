@@ -91,9 +91,9 @@ enum KeyName: String, CaseIterable, Codable {
     }
   }
   
-  ///Prints the KeyName's `name`, `Letter`, `Accidental`, `EnharmonicSymbol` and `num` to the console
+  ///Prints the KeyName's `name`, `Letter`, `Accidental`, `EnharmonicSymbol` and `noteNumber` to the console
   func keyStats() {
-    print(rawValue, "(\(letter))", accidental.rawValue, enharmonic, noteNum.rawValue)
+    print(rawValue, "(\(letter))", accidental.rawValue, enharmonic, noteNumber.rawValue)
   }
 }
 
@@ -112,9 +112,9 @@ extension KeyName: Enharmonic {
   }
 }
 
-extension KeyName: GettableNoteNum {
-  /// The KeyName's `NoteNum` _0-_11
-  var noteNum: NoteNum {
+extension KeyName: GettableNoteNumber {
+  /// The KeyName's `NoteNumber` _0-_11
+  var noteNumber: NoteNumber {
     get {
       switch self {
       case .c, .bSh, .d_bb:

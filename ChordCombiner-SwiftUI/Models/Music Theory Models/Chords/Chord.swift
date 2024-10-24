@@ -30,70 +30,53 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   
   var convertedDegrees: [Int] = []
   
-  var noteNums: [NoteNum] { allNotes.map { $0.noteNum } }
+  var noteNumbers: [NoteNumber] { allNotes.map { $0.noteNumber } }
   
   var voicingCalculator: VoicingCalculator
   
   //  MARK: initializers
-  init(rootNum: NoteNum = .zero, chordType: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
+  init(rootNumber: NoteNumber = .zero, chordType: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
     self.chordType = chordType
     self.enharmonic = enharmonic
     self.startingOctave = startingOctave
     
-    rootNote = Root(Note(rootNum: rootNum, enharmonic: enharmonic, degree: .root))
+    rootNote = Root(Note(rootNumber: rootNumber, enharmonic: enharmonic, degree: .root))
     root = rootNote.note
     
     letter = root.keyName.letter
     accidental = RootAccidental(root.keyName.accidental)
     
     voicingCalculator = VoicingCalculator(
-      degrees: [],
+      degreeNumbers: [],
       rootNote: rootNote,
       chordType: chordType,
       startingOctave: startingOctave,
       keyName: root.keyName,
-      notesByNoteNum: [:],
+      notesByNoteNumber: [:],
       isSlashChord: isSlashChord,
       slashChordBassNote: slashChordBassNote
     )
     
     setNotesAndNoteCount()
-    voicingCalculator.degrees = degrees
-    voicingCalculator.notesByNoteNum.reserveCapacity(12)
-    voicingCalculator.notesByNoteNum = notesByNoteNum
+    voicingCalculator.degreeNumbers = degreeNumbers
+    voicingCalculator.notesByNoteNumber.reserveCapacity(12)
+    voicingCalculator.notesByNoteNumber = notesByNoteNumber
   }
   
-  init(_ rootKeyNote: RootKeyNote, _ chordType: ChordType, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: Root? = nil) {
-    self.chordType = chordType
-    self.startingOctave = startingOctave
-    
-    enharmonic = rootKeyNote.keyName.enharmonic
-    
-    rootNote = Root(rootKeyNote)
-    root = rootNote.note
-    
-    letter = root.keyName.letter
-    accidental = RootAccidental(root.keyName.accidental)
-    
-    voicingCalculator = VoicingCalculator(
-      degrees: [],
-      rootNote: rootNote,
+  init(_ rootKeyNote: RootKeyNote, _ chordType: ChordType, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
+    self.init(
+      rootNumber: rootKeyNote.keyName.noteNumber,
       chordType: chordType,
+      enharmonic: rootKeyNote.keyName.enharmonic,
       startingOctave: startingOctave,
-      keyName: root.keyName,
-      notesByNoteNum: [:],
       isSlashChord: isSlashChord,
-      slashChordBassNote: slashChordBassNote)
-    
-    setNotesAndNoteCount()
-    voicingCalculator.degrees = degrees
-    voicingCalculator.notesByNoteNum.reserveCapacity(12)
-    voicingCalculator.notesByNoteNum = notesByNoteNum
+      slashChordBassNote: slashChordBassNote
+    )    
   }
   
   //  MARK: instance methods
   func translated(by offset: Int) -> Chord {
-    return Chord(rootNum: NoteNum(root.noteNum.rawValue.plusDeg(offset)), chordType: chordType, enharmonic: enharmonic)
+    return Chord(rootNumber: NoteNumber(root.noteNumber.rawValue.plusDegreeNumber(offset)), chordType: chordType, enharmonic: enharmonic)
   }
   
   mutating func setNotesByDegree() {
@@ -106,12 +89,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
   
   
-  mutating func convertDegrees(to rootNum: NoteNum) {
-    convertedDegrees = degrees.map { $0.minusDeg(rootNum.rawValue)}
+  mutating func convertDegrees(to rootNumber: NoteNumber) {
+    convertedDegrees = degreeNumbers.map { $0.minusDegreeNumber(rootNumber.rawValue)}
   }
   
   mutating func convertDegsToOwnRoot() {
-    convertedDegrees = degrees.map { $0.minusDeg(root.noteNum.rawValue) }
+    convertedDegrees = degreeNumbers.map { $0.minusDegreeNumber(root.noteNumber.rawValue) }
   }
   
   mutating func refresh() {
@@ -122,22 +105,24 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return Chord(rootKeyNote, chordType.baseChordType)
   }
   
-  func combinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, originalChord: Chord) -> Bool {
-    var otherChord: Chord
-    
+  func variantCombinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, chordToMatch: Chord) -> Bool {
+    var newChord: Chord
+//    print("chordProperty: \(chordProperty.rawValue)")
     switch chordProperty {
     case is Letter:
-      otherChord = Chord(RootKeyNote(chordProperty as! Letter, originalChord.accidental), originalChord.chordType)
+      newChord = Chord(RootKeyNote(chordProperty as! Letter, accidental), chordType)
     case is RootAccidental:
-      otherChord = Chord(RootKeyNote(originalChord.letter, chordProperty as! RootAccidental), originalChord.chordType)
+      newChord = Chord(RootKeyNote(letter, chordProperty as! RootAccidental), chordType)
     case is ChordType:
-      otherChord = Chord(RootKeyNote(originalChord.letter, originalChord.accidental), chordProperty as! ChordType)
+      newChord = Chord(RootKeyNote(letter, accidental), chordProperty as! ChordType)
     default:
       print("Incompatible chord property!")
       return false
     }
     
-    let result = ChordFactory.combineChordDegrees(degrees: degrees, otherDegrees: otherChord.degrees, root: root, otherRoot: otherChord.root)
+    let result = ChordFactory.combineChords(firstChord: chordToMatch, secondChord: newChord).resultChord
+        
+//    print("newChord \(newChord.preciseName) and chordToMatch \(chordToMatch.preciseName) combine to create \(result?.preciseName ?? "no chord")")
     
     return result != nil ? true : false
   }
@@ -145,14 +130,16 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
     
-    for chord in ChordFactory.allChords where chord.preciseName != preciseName && degrees.includes(chord.degrees){
-      if let noteNum = notesByNoteNum.first(where: { $0.key == chord.root.noteNum }) {
-        chordMatches.append(Chord(rootNum: chord.root.noteNum, chordType: chord.chordType, enharmonic: noteNum.value.keyName.enharmonic))
+    for chord in ChordFactory.allChords where chord.preciseName != preciseName && degreeNumbers.includes(chord.degreeNumbers){
+      if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
+        chordMatches.append(Chord(rootNumber: chord.root.noteNumber, chordType: chord.chordType, enharmonic: noteNumber.value.keyName.enharmonic))
       }
     }
     
     return chordMatches
   }
+  
+  
   
   func enharmSwapped() -> Chord {
     var newEnharm: EnharmonicSymbol {
@@ -164,18 +151,46 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       }
     }
     
-    return Chord(rootNum: root.noteNum, chordType: chordType, enharmonic: newEnharm)
+    return Chord(rootNumber: root.noteNumber, chordType: chordType, enharmonic: newEnharm)
   }
   
 }
 
-extension Chord: Degrees {
-  var degrees: [Int] { 
-    get { allNotes.map { $0.noteNum.rawValue } }
+extension Chord {
+  init?(firstChord: Chord, secondChord: Chord) {
+    if let chord = ChordFactory.combineChords(firstChord: firstChord, secondChord: secondChord).resultChord {
+      self = chord
+    } else {
+      return nil
+    }
+  }
+}
+
+extension Chord: DegreeNumbers {
+  var degreeNumbers: [Int] { 
+    get { allNotes.map { $0.noteNumber.rawValue } }
     set { }
   }
   
-  var degSet: Set<Int> { Set(degrees) }
+  var degreeNumberSet: Set<Int> { Set(degreeNumbers) }
+}
+
+extension Chord {
+  /// All ``RootKeyNotes`` from `self` and parameter `secondChord` sorted in order of the two chords' combined `allNotes` arrays, filtering out duplicate values and `lowerRootKeyNote`.
+  func combinedRootKeyNotes(with secondChord: Chord) -> [RootKeyNote] {
+    /// All ``RootKeyNotes`` in `self`
+    let firstChordRootKeyNotes = allNotes.map { RootKeyNote($0.keyName) }
+    
+    /// All ``RootKeyNotes`` in `self` minus  own `rootKeyNote`
+    let firstChordRemainingRootKeyNotes = firstChordRootKeyNotes.filter { $0 != rootKeyNote }
+    
+    /// All ``RootKeyNotes`` in `secondChord` not present in `self`
+    let secondChordUniqueRootKeyNotes = secondChord.allNotes.map { RootKeyNote($0.keyName) }
+      .filter { !firstChordRootKeyNotes.contains($0) }
+
+    /// All ``RootKeyNotes`` sorted in order of both chords' combined `allNotes` arrays, filtering out duplicate values and own `rootKeyNote`.
+    return firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
+  }
 }
 
 extension Chord {

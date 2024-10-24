@@ -38,7 +38,7 @@ struct ChordTypeSectionTitleView: View {
       }
       if isExpanded {
         HStack {
-          Keyboard(geoWidth: 40, keyCount: 12, initialKey: .C, startingOctave: 4)
+          Keyboard(geoWidth: 40, keyCount: 12, initialKeyType: .C, startingOctave: 4)
             .padding(.trailing, 5)
             .onTapGesture {
               kbDisplay.toggle()

@@ -36,4 +36,11 @@ extension LinearGradient {
         .init(color: color2, location: 0.80)
     ], startPoint: .topLeading, endPoint: .bottomTrailing)
   }
+  
+  public static let commonToneGradient: LinearGradient = .commonTone(.lowerChordHighlight, .upperChordHighlight)
+}
+
+extension ShapeStyle {
+//  public var commonToneGradient: LinearGradient { .commonTone(.lowerChordHighlight, .upperChordHighlight)
+//  }
 }

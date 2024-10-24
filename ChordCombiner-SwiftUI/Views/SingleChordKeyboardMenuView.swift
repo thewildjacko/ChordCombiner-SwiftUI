@@ -10,7 +10,7 @@ import SwiftUI
 struct SingleChordKeyboardMenuView: View {
   @State var chord: Chord = Chord(.c, .ma, startingOctave: 3)
   @State var oldChord: Chord = Chord(.c, .ma, startingOctave: 3)
-  @State var keyboard: Keyboard = Keyboard(geoWidth: 300, initialKey: .C,  startingOctave: 4, octaves: 3)
+  @State var keyboard: Keyboard = Keyboard(geoWidth: 300, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   @State var isInitial: Bool = true
   var color: Color = .lowerChordHighlight
 
@@ -19,14 +19,14 @@ struct SingleChordKeyboardMenuView: View {
     let stackedPitches = chord.voicingCalculator.stackedPitches
     
     if isInitial {
-      keyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degreeNumbers: stackedPitches, color: color)
             
       isInitial = false
     } else {
       let oldStackedPitches = oldChord.voicingCalculator.stackedPitches
       
-      keyboard.toggleHighlightKeysSingle(degs: oldStackedPitches, color: color)
-      keyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degreeNumbers: oldStackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degreeNumbers: stackedPitches, color: color)
     }
     
     oldChord = chord
@@ -52,7 +52,7 @@ struct SingleChordKeyboardMenuView: View {
 #Preview {
     SingleChordKeyboardMenuView(
     chord: Chord(.c, .ma),
-    keyboard: Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3),
+    keyboard: Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3),
     color: .lowerChordHighlight)
 }
 

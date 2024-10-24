@@ -5,54 +5,14 @@
 //  Created by Jake Smolowe on 8/21/24.
 //
 
-import Foundation
 import SwiftUI
 
-struct MultiChordProperties: Equatable {
-  var id: UUID = UUID()
-  var letter: Letter?
-  var accidental: RootAccidental?
-  var chordType: ChordType?
-  
-  var propertiesAreSet: Bool {
-    return letter != nil && accidental != nil && chordType != nil
-  }
-  
-  init(letter: Letter? = nil, accidental: RootAccidental? = nil, chordType: ChordType? = nil) {
-    self.letter = letter
-    self.accidental = accidental
-    self.chordType = chordType
-  }
-}
-
 class MultiChord: ObservableObject {
-  @Published var lowerChordProperties: MultiChordProperties
-  @Published var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+  @Published var lowerChordProperties: ChordProperties
+  @Published var oldLowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
   
-  @Published var upperChordProperties: MultiChordProperties
-  @Published var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
-  
-  //  @Published var lowerChord: Chord {
-  //    didSet { setResultChord() }
-  //  }
-  
-  //  @Published var upperChord: Chord {
-  //    didSet { setResultChord() }
-  //  }
-  
-  //  @Published var resultChord: Chord? = nil {
-  //    didSet { multiChordVoicingCalculator.setResultChordCombinedHighlightedPitches() }
-  //  }
-  
-  //  var multiChordVoicingCalculator: MultiChordVoicingCalculator? {
-  //    get {
-  //      MultiChordVoicingCalculator(
-  //        lowerChordVoicingCalculator: lowerChord.voicingCalculator,
-  //        upperChordVoicingCalculator: upperChord.voicingCalculator,
-  //        resultChordVoicingCalculator: resultChord?.voicingCalculator ?? nil)
-  //    }
-  //    set { }
-  //  }
+  @Published var upperChordProperties: ChordProperties
+  @Published var oldUpperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
   
   var lowerChord: Chord? {
     guard let letter = lowerChordProperties.letter,
@@ -79,12 +39,15 @@ class MultiChord: ObservableObject {
       return nil
     }
     
-    return ChordFactory.combineChordDegrees(
-      degrees: lowerChord.degrees,
-      otherDegrees: upperChord.degrees,
-      root: lowerChord.root,
-      otherRoot: upperChord.root
-    )
+    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).resultChord    
+  }
+  
+  var equivalentChords: [Chord] {
+    guard let lowerChord = lowerChord, let upperChord = upperChord else {
+      return []
+    }
+    
+    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).equivalentChords
   }
   
   let color: Color = .lowerChordHighlight
@@ -103,33 +66,11 @@ class MultiChord: ObservableObject {
       resultChordVoicingCalculator: resultChord.voicingCalculator)
   }
   
-  init(lowerChordProperties: MultiChordProperties, upperChordProperties: MultiChordProperties) {
+  init(lowerChordProperties: ChordProperties, upperChordProperties: ChordProperties) {
     self.lowerChordProperties = lowerChordProperties
     self.upperChordProperties = upperChordProperties
-    //    setResultChord()
   }
-  
-  //  init(lowerChord: Chord, upperChord: Chord) {
-  //    self.lowerChord = lowerChord
-  //    self.upperChord = upperChord
-  //    setResultChord()
-  //  }
-  
-  //  func setResultChord() {
-  //    guard let lowerChord = lowerChord,
-  //            let upperChord = upperChord else {
-  //      return
-  //    }
-  //
-  //    resultChord = ChordFactory.combineChordDegrees(
-  //      degrees: lowerChord.degrees,
-  //      otherDegrees: upperChord.degrees,
-  //      root: lowerChord.root,
-  //      otherRoot: upperChord.root)
-  //
-  //    multiChordVoicingCalculator.resultChordVoicingCalculator = resultChord?.voicingCalculator ?? nil
-  //  }
-  
+    
   func singleChordTitle(forLowerChord: Bool) -> String {
     let chordPrompt = "Please select a chord"
     

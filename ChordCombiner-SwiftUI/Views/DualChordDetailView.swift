@@ -48,6 +48,16 @@ struct DualChordDetailView: View {
           DetailRow(title: "Lower Chord", text: multiChord.displayDetails(detailType: .lowerChordName))
           DetailRow(title: "Upper Chord", text: multiChord.displayDetails(detailType: .upperChordName))
         }
+        
+        if !multiChord.equivalentChords.isEmpty {
+          Section(header: Text("Equivalent Chords")) {
+            List {
+              ForEach(multiChord.equivalentChords) { chord in
+                TitleView(text: chord.preciseName, font: .headline)
+              }
+            }
+          }
+        }
       }
       
       //      .headerProminence(.increased)
@@ -59,15 +69,11 @@ struct DualChordDetailView: View {
 }
 
 #Preview {
-  DualChordDetailView(keyboard: Keyboard(geoWidth: 150, initialKey: .C,  startingOctave: 4, octaves: 2))
+  DualChordDetailView(keyboard: Keyboard(geoWidth: 150, initialKeyType: .C,  startingOctave: 4, octaves: 2))
     .environmentObject(
       MultiChord(
-        lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
-        upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+        lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+        upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
       )
-      //    MultiChord(
-      //      lowerChord: Chord(.c, .ma7, startingOctave: 4),
-      //      upperChord: Chord(.d, .ma, startingOctave: 4)
-      //    )
     )
 }

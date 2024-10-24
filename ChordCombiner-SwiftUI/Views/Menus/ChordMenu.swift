@@ -53,7 +53,7 @@ struct ChordMenu: View {
     keyboard: Binding.constant(
       Keyboard(
         geoWidth: 187,
-        initialKey: .C,
+        initialKeyType: .C,
         startingOctave: 4,
         octaves: 2))
     /*, chordStore: ChordStore()*/)

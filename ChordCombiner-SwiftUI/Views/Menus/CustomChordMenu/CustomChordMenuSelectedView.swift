@@ -26,8 +26,8 @@ struct CustomChordMenuSelectedView: View {
   
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
-  @Binding var chordProperties: MultiChordProperties
-  @Binding var oldChordProperties: MultiChordProperties
+  @Binding var chordProperties: ChordProperties
+  @Binding var oldChordProperties: ChordProperties
   
   var isLowerChordMenu: Bool {
     get { chordProperties == multiChord.lowerChordProperties ? true : false }
@@ -70,23 +70,23 @@ struct CustomChordMenuSelectedView: View {
         .constant(
           Keyboard(
             geoWidth: 330,
-            initialKey: .C,
+            initialKeyType: .C,
             startingOctave: 4,
             octaves: 2
           )
         ),
     combinedKeyboard: .constant(
       Keyboard(
-        geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 5
+        geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 5
       )
     ),
-    chordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil)),
-    oldChordProperties: .constant(MultiChordProperties(letter: nil, accidental: nil, chordType: nil))
+    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil)),
+    oldChordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
   )
   .environmentObject(
     MultiChord(
-      lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
-      upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+      lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+      upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
     )
   )
 }

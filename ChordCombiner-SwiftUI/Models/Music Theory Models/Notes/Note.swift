@@ -11,12 +11,12 @@ import Foundation
 struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   var description: String { "\(degree.name) (\(noteName))" }
   
-  var noteNum: NoteNum {
-    get { degree.noteNum.plusDeg(rootNum) }
+  var noteNumber: NoteNumber {
+    get { degree.noteNumber.plusNoteNum(rootNumber) }
     set { }
   }
   
-  var rootNum: NoteNum
+  var rootNumber: NoteNumber
   
   var enharmonic: EnharmonicSymbol
   
@@ -28,76 +28,81 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   var degree: Degree
   
   var rootKeyName: KeyName {
-    get { keySwitcher.root(rootNum: rootNum) }
+    get { keySwitcher.root(rootNumber: rootNumber) }
     set { }
   }
   
   var keyName: KeyName {
     switch degree {
     case .root, .octave, .perfect15th:
-      keySwitcher.root(rootNum: rootNum)
+      keySwitcher.root(rootNumber: rootNumber)
     case .minor2nd, .flat9th:
-      keySwitcher.minor9th(rootNum: rootNum)
+      keySwitcher.minor9th(rootNumber: rootNumber)
     case .major2nd, .major9th:
-      keySwitcher.major9th(rootNum: rootNum)
+      keySwitcher.major9th(rootNumber: rootNumber)
     case .sharp2nd, .sharp9th:
-      keySwitcher.sharp9th(rootNum: rootNum)
+      keySwitcher.sharp9th(rootNumber: rootNumber)
     case .minor3rd, .minor10th:
-      keySwitcher.minor3rd(rootNum: rootNum)
+      keySwitcher.minor3rd(rootNumber: rootNumber)
     case .major3rd, .major10th:
-      keySwitcher.major3rd(rootNum: rootNum)
+      keySwitcher.major3rd(rootNumber: rootNumber)
     case .perfect4th, .perfect11th:
-      keySwitcher.perfect4th(rootNum: rootNum)
+      keySwitcher.perfect4th(rootNumber: rootNumber)
     case .sharp4th, .sharp11th:
-      keySwitcher.sharp4th(rootNum: rootNum)
+      keySwitcher.sharp4th(rootNumber: rootNumber)
     case .diminished5th, .flat12th:
-      keySwitcher.dim5th(rootNum: rootNum)
+      keySwitcher.dim5th(rootNumber: rootNumber)
     case .perfect5th, .perfect12th:
-      keySwitcher.perfect5th(rootNum: rootNum)
+      keySwitcher.perfect5th(rootNumber: rootNumber)
     case .sharp5th, .sharp12th:
-      keySwitcher.sharp5th(rootNum: rootNum)
+      keySwitcher.sharp5th(rootNumber: rootNumber)
     case .minor6th, .flat13th:
-      keySwitcher.minor6th(rootNum: rootNum)
+      keySwitcher.minor6th(rootNumber: rootNumber)
     case .major6th, .major13th:
-      keySwitcher.major6th(rootNum: rootNum)
+      keySwitcher.major6th(rootNumber: rootNumber)
     case .diminished7th, .diminished14th:
-      keySwitcher.dim7th(rootNum: rootNum)
+      keySwitcher.dim7th(rootNumber: rootNumber)
     case .minor7th, .minor14th:
-      keySwitcher.minor7th(rootNum: rootNum)
+      keySwitcher.minor7th(rootNumber: rootNumber)
     case .major7th, .major14th:
-      keySwitcher.major7th(rootNum: rootNum)
+      keySwitcher.major7th(rootNumber: rootNumber)
     }
   }
   
   var noteName: String { keyName.rawValue }
   
-  init(rootNum: NoteNum = .zero, enharmonic: EnharmonicSymbol = .flat, degree: Degree) {
-    self.rootNum = rootNum
+  init(rootNumber: NoteNumber = .zero, enharmonic: EnharmonicSymbol = .flat, degree: Degree) {
+    self.rootNumber = rootNumber
     self.enharmonic = enharmonic
     self.degree = degree
   }
   
-  init(_ degree: Degree = .root, of root: RootKeyNote) {
-    self.enharmonic = root.keyName.enharmonic
-    self.degree = degree
-    self.rootNum = root.keyName.noteNum
+  init(_ degree: Degree, of root: RootKeyNote) {
+    // maj3rd of D -> rootNumber = 2 -> note is F#
+    self.init(
+      rootNumber: root.keyName.noteNumber,
+      enharmonic: root.keyName.enharmonic,
+      degree: degree
+    )
   }
   
   init(_ root: RootKeyNote) {
-    self.enharmonic = root.keyName.enharmonic
-    self.rootNum = root.keyName.noteNum
-    self.degree = .root
+    self.init(
+      rootNumber: root.keyName.noteNumber,
+      enharmonic: root.keyName.enharmonic,
+      degree: .root
+    )
   }
   
+  // FIXME: Currently not using this init
   init(_ keyName: KeyName = .c, degree: Degree = .root) {
-    self.enharmonic = keyName.enharmonic
-    self.degree = degree
-    self.rootNum = NoteNum(keyName.noteNum.rawValue.minusDeg(degree.noteNum.rawValue))
-    
+    // keyName = D, degree is maj3rd, noteNumber is 2 minusDeg 4 = 10
+    let noteNumber = NoteNumber(keyName.noteNumber.rawValue.minusDegreeNumber(degree.noteNumber.rawValue))
+    self.init(rootNumber: noteNumber, enharmonic: keyName.enharmonic, degree: degree)
   }
   
   mutating func kSW(keySwitcher: KeySwitcher) {
-    switch noteNum {
+    switch noteNumber {
     case .zero:
       self.rootKeyName = keySwitcher.pickKey(.c, .bSh, .c, .c)
     case .one:
@@ -136,7 +141,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
       }
     }
     
-    return Note(rootNum: noteNum, enharmonic: newEnharm, degree: degree)
+    return Note(rootNumber: noteNumber, enharmonic: newEnharm, degree: degree)
   }
   
   mutating func swapEnharmonic() {
@@ -156,13 +161,13 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
 
 extension Note: Equatable {
   static func == (lhs: Note, rhs: Note) -> Bool {
-    return lhs.noteNum == rhs.noteNum
+    return lhs.noteNumber == rhs.noteNumber
   }
 }
 
 extension Note {
   func isEnharmonicEquivalent(to note: Note) -> Bool {
-    if self.noteNum == note.noteNum && self.noteName != note.noteName {
+    if self.noteNumber == note.noteNumber && self.noteName != note.noteName {
       return true
     } else {
       return false
@@ -170,7 +175,7 @@ extension Note {
   }
   
   static func enharmonicEquivalents (lhs: Note, rhs: Note) -> Bool {
-    if lhs.noteNum == rhs.noteNum && lhs.noteName != rhs.noteName {
+    if lhs.noteNumber == rhs.noteNumber && lhs.noteName != rhs.noteName {
       return true
     } else {
       return false
@@ -180,6 +185,6 @@ extension Note {
 
 extension Note: Hashable {
   func hash(into hasher: inout Hasher) {
-    hasher.combine(noteNum)
+    hasher.combine(noteNumber)
   }
 }

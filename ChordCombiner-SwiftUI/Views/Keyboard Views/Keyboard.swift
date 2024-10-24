@@ -32,38 +32,38 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var widthMultiplier: CGFloat = 0
   var glowColor: Color = .clear
   var glowRadius: CGFloat = 0
+  var lettersOn: Bool = false
   
   //  MARK: initializers
-  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
-    self.keyCount = keyCount
+  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, lettersOn: Bool = false) {
     self.geoWidth = geoWidth
+    self.keyCount = keyCount
     self.startingOctave = startingOctave
-    self.initialKeyType = initialKey
-    self.keyTypes.append(initialKey)
+    self.initialKeyType = initialKeyType
+    self.keyTypes.append(initialKeyType)
     self.octaves = octaves
     self.glowColor = glowColor
     self.glowRadius = glowRadius
+    self.lettersOn = lettersOn
     
     keyTypesByCount()
     setWidthAndHeight()
     addKeys()
   }
   
-  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKey: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color) {
-    self.keyCount = keyCount
-    self.geoWidth = geoWidth
-    self.startingOctave = startingOctave
-    self.initialKeyType = initialKey
-    self.keyTypes.append(initialKey)
-    self.octaves = octaves
-    self.glowColor = glowColor
-    self.glowRadius = glowRadius
+  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color, lettersOn: Bool = false) {
+    self.init(
+      geoWidth: geoWidth,
+      keyCount: keyCount,
+      initialKeyType: initialKeyType,
+      startingOctave: startingOctave,
+      octaves: octaves, 
+      glowColor: glowColor,
+      glowRadius: glowRadius,
+      lettersOn: lettersOn
+    )
     
-    keyTypesByCount()
-    setWidthAndHeight()
-    addKeys()
-    
-    highlightKeysSingle(degs: chord.voicingCalculator.stackedPitches, color: color)
+    highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitches, color: color)
   }
   
   //  MARK: initializer methods
@@ -133,7 +133,10 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             geoWidth: geoWidth,
             widthMod: widthMod,
             initialKey: true,
-            keyPosition: keyType.initialKeyPosition))
+            keyPosition: keyType.initialKeyPosition,
+            lettersOn: lettersOn
+          )
+        )
         keyPosition += keyType.initialKeyPosition + keyType.nextKeyPosition
         pitch += 1
       } else if index < keyTypes.count - 1 {
@@ -143,7 +146,10 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             keyType,
             geoWidth: geoWidth,
             widthMod: widthMod,
-            keyPosition: keyPosition))
+            keyPosition: keyPosition,
+            lettersOn: lettersOn
+          )
+        )
         keyPosition += keyType.nextKeyPosition
         pitch += 1
       } else if index == keyTypes.count - 1 {
@@ -154,7 +160,10 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             geoWidth: geoWidth,
             widthMod: widthMod,
             finalKey: true,
-            keyPosition: keyPosition))
+            keyPosition: keyPosition,
+            lettersOn: lettersOn
+          )
+        )
       }
     }
   }
@@ -165,13 +174,20 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     print("height: \(key.height)")
   }
   
+  mutating func toggleLetters() {
+    for index in keys.indices {
+      keys[index].lettersOn.toggle()
+    }
+  }
+  
   mutating func resize(geoWidth: CGFloat) -> Keyboard {
     return Keyboard(
       geoWidth: geoWidth,
       keyCount: keyCount,
-      initialKey: initialKeyType,
+      initialKeyType: initialKeyType,
       startingOctave: startingOctave,
-      octaves: octaves)
+      octaves: octaves,
+      lettersOn: lettersOn)
   }
   
   mutating func clearHighlightedKeys() {
@@ -179,6 +195,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       for pitch in highlightedPitches {
         if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
           keys[index].clearHighlight()
+          keys[index].lettersOn.toggle()
         }
       }
       
@@ -193,6 +210,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       highlightedPitches.insert(pitch)
       if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
         keys[index].highlight(color: color)
+        keys[index].lettersOn.toggle()
       }
     }
   }
@@ -208,26 +226,26 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   
   mutating func highlightCombinedKeysWithoutClearing() {}
   
-  mutating func highlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
-    degs.highlightIfSelected(keys: &keys, color: color)
+  mutating func highlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
+    degreeNumbers.highlightIfSelected(keys: &keys, color: color)
   }
   
-  mutating func toggleHighlightKeysSingle<T: ShapeStyle>(degs: [Int], color: T) {
-    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+  mutating func toggleHighlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
+    degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
   }
   
-  mutating func toggleHighlightKeysSplit<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T, secondColor: T) {
-        degs.toggleHighlightIfSelected(keys: &keys, color: color)
+  mutating func toggleHighlightKeysSplit<T: ShapeStyle>(degreeNumbers: [Int], secondDegs: [Int], color: T, secondColor: T) {
+        degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
   }
   
-  mutating func toggleHighlightKeysSplit_SameColor<T: ShapeStyle>(degs: [Int], secondDegs: [Int], color: T) {
-    degs.toggleHighlightIfSelected(keys: &keys, color: color)
+  mutating func toggleHighlightKeysSplit_SameColor<T: ShapeStyle>(degreeNumbers: [Int], secondDegs: [Int], color: T) {
+    degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
     secondDegs.toggleHighlightIfSelected(keys: &keys, color: color)
   }
   
-  mutating func toggleHighlightKeysCombined(degs: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
-        degs.toggleHighlightIfSelected(keys: &keys, color: color)
+  mutating func toggleHighlightKeysCombined(degreeNumbers: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
+        degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
         commonToneDegs.toggleHighlightIfSelected(keys: &keys, color: LinearGradient.commonTone(secondColor, color))
   }
@@ -236,7 +254,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         if resultChordExists && !isSlashChord {
 //                print("combining!")
           toggleHighlightKeysCombined(
-            degs: onlyInLower,
+            degreeNumbers: onlyInLower,
             secondDegs: onlyInUpper,
             commonToneDegs: commonTones,
             color: color,
@@ -244,7 +262,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         } else {
 //                print("splitting!")
           toggleHighlightKeysSplit(
-            degs: lowerStackedPitches,
+            degreeNumbers: lowerStackedPitches,
             secondDegs: upperStackedPitches,
             color: color,
             secondColor: secondColor)
@@ -274,7 +292,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
 #Preview {
   VStack {
-    Keyboard(geoWidth: 351, initialKey: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
+    Keyboard(geoWidth: 351, initialKeyType: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
       .position(x: 220, y: 600)
   }
 }

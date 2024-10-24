@@ -12,14 +12,14 @@ struct KeyboardDisplayView: View {
   @State var keyboard: Keyboard
 //  = Keyboard(
 //    geoWidth: 250,
-//    initialKey: .C,
+//    initialKeyType: .C,
 //    startingOctave: 4,
 //    octaves: 2,
 //    glowColor: .clear,
 //    glowRadius: 0
 //  )
   var geoWidth: CGFloat = 150
-  var initialKey: KeyType = .C
+  var initialKeyType: KeyType = .C
   var startingOctave: Int = 4
   var octaves: Int = 2
   var color: Color
@@ -30,7 +30,7 @@ struct KeyboardDisplayView: View {
     chord: Chord,
     keyboard: Keyboard,
     geoWidth: CGFloat = 250,
-    initialKey: KeyType = .C,
+    initialKeyType: KeyType = .C,
     startingOctave: Int = 4,
     octaves: Int = 2,
     color: Color,
@@ -39,7 +39,7 @@ struct KeyboardDisplayView: View {
   ) {
     self.chord = chord
     self.geoWidth = geoWidth
-    self.initialKey = initialKey
+    self.initialKeyType = initialKeyType
     self.startingOctave = startingOctave
     self.octaves = octaves
     self.color = color
@@ -48,7 +48,7 @@ struct KeyboardDisplayView: View {
     
     self.keyboard = Keyboard(
       geoWidth: geoWidth,
-      initialKey: initialKey,
+      initialKeyType: initialKeyType,
       startingOctave: startingOctave,
       octaves: octaves,
       glowColor: glowColor,
@@ -69,7 +69,7 @@ struct KeyboardDisplayView: View {
       print(glowRadius)
       keyboard = Keyboard(
         geoWidth: geoWidth,
-        initialKey: initialKey,
+        initialKeyType: initialKeyType,
         startingOctave: startingOctave,
         octaves: octaves,
         glowColor: glowColor,
@@ -77,11 +77,11 @@ struct KeyboardDisplayView: View {
         chord: chord,
         color: color
       )
-//      keyboard.highlightKeysSingle(degs: chord.voicingCalculator.stackedPitches, color: color)
+//      keyboard.highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitches, color: color)
     }
     .onChange(of: chord) { oldValue, newValue in
-      keyboard.toggleHighlightKeysSingle(degs: oldValue.voicingCalculator.stackedPitches, color: color)
-      keyboard.toggleHighlightKeysSingle(degs: newValue.voicingCalculator.stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degreeNumbers: oldValue.voicingCalculator.stackedPitches, color: color)
+      keyboard.toggleHighlightKeysSingle(degreeNumbers: newValue.voicingCalculator.stackedPitches, color: color)
     }
   }
 }
@@ -92,7 +92,7 @@ struct KeyboardDisplayView: View {
     keyboard:
       Keyboard(
         geoWidth: 250,
-        initialKey: .C,
+        initialKeyType: .C,
         startingOctave: 4,
         octaves: 3),
     color: .lowerChordHighlight)

@@ -9,7 +9,7 @@
 import Foundation
 
 /// long, medium and numeric names for scale/chord degrees
-enum Degree: CaseIterable, GettableNoteNum, Codable {
+enum Degree: CaseIterable, GettableNoteNumber, Codable {
   case root
   case minor2nd
   case major2nd
@@ -44,8 +44,8 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   case major14th
   case perfect15th
   
-  /// noteNum
-  var noteNum: NoteNum {
+  /// noteNumber
+  var noteNumber: NoteNumber {
     switch self {
     case .root, .octave, .perfect15th:
       return .zero
@@ -391,7 +391,7 @@ enum Degree: CaseIterable, GettableNoteNum, Codable {
   }
   
   static func degreesInC(degreeTags: [Degree]) -> [Int] {
-    return degreeTags.map { $0.noteNum.rawValue }.sorted()
+    return degreeTags.map { $0.noteNumber.rawValue }.sorted()
   }
 }
 

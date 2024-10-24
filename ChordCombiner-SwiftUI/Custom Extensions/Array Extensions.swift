@@ -6,7 +6,14 @@
 //  Copyright © 2022 Jake Smolowe. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+extension Chord {
+  /// Returns a set of the combined elements of two Chord degreeNumber arrays
+  func combineSetFilter(_ otherChord: Chord) -> Set<Int> {
+    return Set(self.degreeNumbers).union(otherChord.degreeNumbers)
+  }
+}
 
 extension Array where Element == Int {
   // MARK: Set operations
@@ -58,11 +65,43 @@ extension Array where Element == Int {
     return result
   }
   
+  /// Tranposes the degreeNumber array to a given ``RootKeyNote``, then converts it into an array sorted in ascending order
+  func transposed(to rootKeyNote: RootKeyNote) -> [Int] {
+    return self.map { $0.minusDegreeNumber(rootKeyNote.keyName.noteNumber.rawValue)}
+      .sorted()
+  }
+  
+  /// Combines two degreeNumber arrays and tranposes the combined array to a given ``RootKeyNote``, then converts it into an array sorted in ascending order
+  func combinedAndTransposed(with otherDegreeNumbers: [Int], to rootKeyNote: RootKeyNote) -> [Int] {
+    let combinedDegreeArray = Array(self.combineSetFilter(otherDegreeNumbers))
+    
+    return combinedDegreeArray.transposed(to: rootKeyNote)
+  }
+  
+  func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
+//    print(self)
+    for degreeNumber in self {
+      if let index = keys.firstIndex(where: { $0.pitch == degreeNumber }) {
+//        print(degreeNumber, keys[index].pitch)
+        keys[index].toggleHighlight(color: color)
+      }
+    }
+  }
+  
+  func highlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
+    for degreeNumber in self {
+      if let index = keys.firstIndex(where: { $0.pitch == degreeNumber }) {
+        keys[index].highlight(color: color)
+      }
+    }
+  }
+
+  
   // MARK: currently unused
   
-  /// takes in a parameter `rootNum: NoteNum` and operates on an array of Integer degrees **(0-11)**, returning a new array with each element  translated down in pitch by a number of half steps *(half step = 1)* equal to the rawValue of the `rootNum`
-  func convert(to rootNum: NoteNum) -> [Int] {
-    self.map { $0.minusDeg(rootNum.rawValue)}
+  /// takes in a parameter `rootNumber: NoteNumber` and operates on an array of Integer degreeNumbers **(0-11)**, returning a new array with each element  translated down in pitch by a number of half steps *(half step = 1)* equal to the rawValue of the `rootNumber`
+  func converted(to rootNumber: NoteNumber) -> [Int] {
+    self.map { $0.minusDegreeNumber(rootNumber.rawValue)}
   }
   
   /// appends a supplied value to an array if the value is not already present in the array
@@ -88,8 +127,8 @@ extension Array where Element == Note {
     if self.count != otherNoteArray.count {
       return false
     } else {
-      let firstArray = self.sorted(by: { $0.noteNum.rawValue < $1.noteNum.rawValue } )
-      let secondArray = otherNoteArray.sorted(by: { $0.noteNum.rawValue < $1.noteNum.rawValue } )
+      let firstArray = self.sorted(by: { $0.noteNumber.rawValue < $1.noteNumber.rawValue } )
+      let secondArray = otherNoteArray.sorted(by: { $0.noteNumber.rawValue < $1.noteNumber.rawValue } )
       
       var isEnharmonicEquivalent = true
       

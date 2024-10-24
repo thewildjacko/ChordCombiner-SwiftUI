@@ -1,28 +1,169 @@
 import SwiftUI
 import Algorithms
 
-let lowerDegrees = [0, 4, 7, 10]
-lowerDegrees.convert(to: .two)
-let upperDegrees = [2, 4, 9]
-let upperDegrees2 = [2, 6, 9]
+let lowerDegreeNumbers = [0, 4, 7, 10]
+lowerDegreeNumbers.converted(to: .two)
+let upperDegreeNumbers = [2, 6, 9]
+upperDegreeNumbers.converted(to: .two)
+let upperDegreeNumbers2 = [2, 6, 9]
 
-let resultChord = ChordFactory.combineChordDegrees(degrees: lowerDegrees, otherDegrees: upperDegrees, root: Note(.c), otherRoot: Note(.d))
-let resultChord2 = ChordFactory.combineChordDegrees(degrees: lowerDegrees, otherDegrees: upperDegrees2, root: Note(.c), otherRoot: Note(.d))
+let firstChord = Chord(.c, .dominant7)
+let secondChord = Chord(.d, .ma)
+
+func combineChords(firstChord: Chord, secondChord: Chord) -> (resultChord: Chord?, equivalentChords: [Chord]) {
+  // Assigns initial values for the result tuplet.
+  var resultChord: Chord? = nil
+  var equiavalentChords: [Chord] = []
+  
+  /// Combines the two degreeNumber arrays into a single set.
+  let combinedDegreeSet = firstChord.degreeNumbers.combineSetFilter(secondChord.degreeNumbers)
+  
+  /// Tranposes the degreeNumber set to the key of C (C is 0 in a range of 0-11), then converts it into an array sorted in ascending order
+  let combinedDegreesInC = Array(combinedDegreeSet).map { $0.minusDegreeNumber(firstChord.root.noteNumber.rawValue)
+  }.sorted()
+  
+  /// First chord's ``RootKeyNote`` assigned to a constant for convenient reuse
+  let lowerRootKeyNote = firstChord.rootKeyNote
+  
+  /// All ``RootKeyNotes`` in `firstChord`
+  let firstChordRootKeyNotes = firstChord.allNotes.map { RootKeyNote($0.keyName) }
+  
+  /// All ``RootKeyNotes`` in `firstChord` minus  `lowerRootKeyNote`
+  let firstChordRemainingRootKeyNotes = firstChordRootKeyNotes.filter { $0 != lowerRootKeyNote }
+  
+  /// All ``RootKeyNotes`` in `secondChord` not present in `firstChord`
+  let secondChordUniqueRootKeyNotes = secondChord.allNotes.map { RootKeyNote($0.keyName) }
+    .filter { !firstChordRootKeyNotes.contains($0) }
+
+  /// All ``RootKeyNotes`` sorted in order of the original two chords' combined `allNotes` arrays, filtering out duplicate values and `lowerRootKeyNote`.
+  var combinedRootKeyNotes = firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
+  
+  /// the number of notes in `combinedDegreesInC` (for input into `ChordType.typeByDegreesInCFiltered`)
+  let combinedDegreeCount = combinedDegreesInC.count
+  
+  /// Array of `ChordType` objects where each element matches `combinedDegreeCount` so that we're only comparing degreeNumber arrays of the same number of notes.
+  let typeByDegreesFiltered = ChordType.typeByDegreesInCFiltered(degreeCount: combinedDegreeCount)
+      
+  // Checks the remaining roots for equivalent `Chords` by transposing the elements of `combinedDegreesInC` down by the numeric value of each new root so that the new root becomes 0, and running the tranposed degreeNumbers through `typeByDegreesFiltered`
+  func checkForEquivalentChords() {
+    for rootKeyNote in combinedRootKeyNotes {
+      // set new degreeNumber array relative to new root
+      let degreesInCRelativeToNewRoot = combinedDegreesInC.map { $0.minusDegreeNumber(rootKeyNote.keyName.noteNumber.rawValue) }.sorted()
+      
+      // check for matching ChordType based on new degreeNumbers
+      if let chordType = typeByDegreesFiltered[degreesInCRelativeToNewRoot] {
+        /// create chord from matching ChordType and add to equivalentChords array
+        let chord = Chord(
+          rootKeyNote,
+          chordType,
+          isSlashChord: true,
+          slashChordBassNote: rootKeyNote
+        )
+        
+        equiavalentChords.append(chord)
+      }
+    }
+  }
+  
+  // check for matching ChordType based on combinedDegreesinC, assign chord from matching chordType to resultChord, and check for equivalentChords
+  if let chordType = typeByDegreesFiltered[combinedDegreesInC] {
+    resultChord = Chord(
+      RootKeyNote(firstChord.root.rootKeyName),
+      chordType,
+      isSlashChord: false,
+      slashChordBassNote: nil
+    )
+    
+    checkForEquivalentChords()
+    
+  } else {
+    while combinedRootKeyNotes.count >= 1 {
+      print(combinedRootKeyNotes.map { $0.keyName })
+      for rootKeyNote in combinedRootKeyNotes {
+        let degreesInCRelativeToNewRoot = combinedDegreesInC.map { $0.minusDegreeNumber(rootKeyNote.keyName.noteNumber.rawValue) }.sorted()
+        
+        if let chordType = typeByDegreesFiltered[degreesInCRelativeToNewRoot] {
+          resultChord = Chord(
+            rootKeyNote,
+            chordType,
+            isSlashChord: true,
+            slashChordBassNote: rootKeyNote
+          )
+          
+          if let resultChord = resultChord {
+            print(resultChord.commonName)
+          }
+          combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
+          print(combinedRootKeyNotes.map { $0.keyName })
+          checkForEquivalentChords()
+          break
+        } else {
+          combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
+          print(combinedRootKeyNotes.map { $0.keyName })
+        }
+      }
+    }
+  }
+  
+  if resultChord == nil {
+//      print("couldn't find a match for degreeNumbers \(firstChord.degreeNumbers) or any other root in the chord.")
+  }
+  
+  return (resultChord, equiavalentChords)
+}
+
+let (combinedChord, equivalentChords) = ChordFactory.combineChordsCheckingAllChords(firstChord, secondChord)
+
+combinedChord
+equivalentChords
+print(equivalentChords.map {$0.commonName})
+
+let (comboChord, comboEquivalentChords) = combineChords(firstChord: firstChord, secondChord: secondChord)
+
+comboChord
+comboEquivalentChords
+print(comboEquivalentChords.map {$0.commonName})
+comboEquivalentChords.map {$0.commonName}
+
+equivalentChords.map { $0.preciseName }.sorted() == comboEquivalentChords.map { $0.preciseName }.sorted()
+equivalentChords.map { $0.preciseName } == comboEquivalentChords.map { $0.preciseName }
+
+let upperRootDegreesInC = Array(Set(lowerDegreeNumbers + upperDegreeNumbers)).map { $0.minusDegreeNumber(secondChord.root.noteNumber.rawValue) }.sorted()
+
+upperRootDegreesInC
+
+let converted = Array(firstChord.degreeNumbers + secondChord.degreeNumbers).converted(to: secondChord.root.keyName.noteNumber)
+
+var combinedNotes: [RootKeyNote] {
+  let firstChordRoots = firstChord.allNotes.map { RootKeyNote($0.keyName) }
+  
+  let secondChordRoots = secondChord.allNotes.map { RootKeyNote($0.keyName) }
+   + secondChord.allNotes.map { RootKeyNote($0.keyName) }
+  
+  return Array(Set(firstChordRoots + secondChordRoots)
+    .filter { $0 != firstChord.rootKeyNote })
+}
+
+combinedNotes
+
+
+let resultChord = ChordFactory.combineChordDegrees(firstChordDegrees: lowerDegreeNumbers, secondChordDegrees: upperDegreeNumbers, firstChordRoot: Note(.c), secondChordRoot: Note(.d))
+let resultChord2 = ChordFactory.combineChordDegrees(firstChordDegrees: lowerDegreeNumbers, secondChordDegrees: upperDegreeNumbers2, firstChordRoot: Note(.c), secondChordRoot: Note(.d))
 
 //let stackedPitches = [60, 64, 67, 70, 74, 76, 81]
 let stackedPitches = resultChord?.voicingCalculator.stackedPitches ?? []
 let stackedPitches2 = resultChord2?.voicingCalculator.stackedPitches ?? []
 
 var onlyInLower: [Int] {
-  lowerDegrees.subtracting(upperDegrees2)
+  lowerDegreeNumbers.subtracting(upperDegreeNumbers2)
 }
 
 var onlyInUpper: [Int] {
-  upperDegrees2.subtracting(lowerDegrees)
+  upperDegreeNumbers2.subtracting(lowerDegreeNumbers)
 }
 
 var commonTones: [Int] {
-  lowerDegrees.intersection(upperDegrees2)
+  lowerDegreeNumbers.intersection(upperDegreeNumbers2)
 }
 
 let lowerTones = stackedPitches2.includeIfSameNote(onlyInLower)
@@ -59,13 +200,13 @@ for array in ChordType.allSimpleChordTypesMinusOmits {
 //
 //for chord in ChordFactory.allChordsInC {
 //  for secondChord in ChordFactory.allChords.filter({ !ChordFactory.allChordsInC.contains($0) }) {
-//    let degrees = Array(
-//      (chord.degrees + secondChord.degrees).toSet()).map { $0.minusDeg(chord.root.noteNum.rawValue)
+//    let degreeNumbers = Array(
+//      (chord.degreeNumbers + secondChord.degreeNumbers).toSet()).map { $0.minusDegreeNumber(chord.root.noteNumber.rawValue)
 //      }
 //      .sorted()
 //    
-//    if degrees.count <= 8 && ChordFactory.combineChordDegrees(lowerDegrees: chord.degrees, upperDegrees: secondChord.degrees, lowerRoot: chord.root, upperRoot: secondChord.root) == nil && !unmatchedChordDegreeSets.contains(degrees) {
-//      unmatchedChordDegreeSets.append(degrees)
+//    if degreeNumbers.count <= 8 && ChordFactory.combineChordDegrees(lowerDegreeNumbers: chord.degreeNumbers, upperDegreeNumbers: secondChord.degreeNumbers, lowerRoot: chord.root, upperRoot: secondChord.root) == nil && !unmatchedChordDegreeSets.contains(degreeNumbers) {
+//      unmatchedChordDegreeSets.append(degreeNumbers)
 //    }
 //  }
 //}
@@ -82,7 +223,7 @@ for array in ChordType.allSimpleChordTypesMinusOmits {
 //print(chordType)
 
 for chordType in ChordType.allCases {
-  print(chordType.rawValue, chordType.degrees, chordType.degreeTags)
+  print(chordType.rawValue, chordType.degreeNumbers, chordType.degreeTags)
 }
 
 print(ChordType.allCases.filter({ !$0.rawValue.contains("omit9") }).count)
@@ -95,7 +236,7 @@ var multiChord = MultiChord(
   upperChord: Chord(.a, .mi, startingOctave: 4)
 )
 
-multiChord.resultChord = ChordFactory.combineChordDegrees(lowerDegrees: multiChord.multiChordVoicingCalculator.lowerDegrees, upperDegrees: multiChord.multiChordVoicingCalculator.upperDegrees, lowerRoot: multiChord.multiChordVoicingCalculator.lowerRoot, upperRoot: multiChord.multiChordVoicingCalculator.upperRoot)
+multiChord.resultChord = ChordFactory.combineChordDegrees(lowerDegreeNumbers: multiChord.multiChordVoicingCalculator.lowerDegreeNumbers, upperDegreeNumbers: multiChord.multiChordVoicingCalculator.upperDegreeNumbers, lowerRoot: multiChord.multiChordVoicingCalculator.lowerRoot, upperRoot: multiChord.multiChordVoicingCalculator.upperRoot)
 
 multiChord.resultChord
 
@@ -131,13 +272,13 @@ combosFiltered = combosFiltered.filter { combo in
   !all8NoteChordDegrees.contains(combo)
 }
 
-for degree in 1...11 {
-  for (index, degrees) in all8NoteChordDegrees.enumerated() {
-    all8NoteChordDegrees[index] = degrees.map { $0.plusDeg(degree) }
+for degreeNumber in 1...11 {
+  for (index, degreeNumbers) in all8NoteChordDegrees.enumerated() {
+    all8NoteChordDegrees[index] = degreeNumbers.map { $0.plusDegreeNumber(degreeNumber) }
   }
   
-  for (combo, degrees) in product(combosFiltered, all8NoteChordDegrees) {
-    if combo.includes(degrees) {
+  for (combo, degreeNumbers) in product(combosFiltered, all8NoteChordDegrees) {
+    if combo.includes(degreeNumbers) {
       if let index = combosFiltered.firstIndex(of: combo) {
         combosFiltered.remove(at: index)
       }

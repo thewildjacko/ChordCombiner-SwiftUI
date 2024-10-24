@@ -17,12 +17,12 @@ protocol Divisible { static func /(lhs: Self, rhs: Self) -> Self }
 protocol Mathable: Summable, Subtractable, Multiplicable, Divisible { }
 
 extension Int: Mathable {
-  var degreeInOctave: Int {
+  var degreeNumberInOctave: Int {
     let mod12 = self % 12
     return mod12 >= 0 ? mod12 : mod12 + 12
   }
   
-  func degreeInMode(modeLength: Int) -> Int {
+  func degreeNumberInMode(modeLength: Int) -> Int {
     let mod = self % modeLength
     return mod >= 0 ? mod : mod + modeLength
   }
@@ -37,37 +37,33 @@ extension Int: Mathable {
     }
   }
   
-  func plusDeg(_ deg: Int) -> Int { (self + deg).degreeInOctave }
+  func plusDegreeNumber(_ degreeNumber: Int) -> Int { (self + degreeNumber).degreeNumberInOctave }
   
-  func minusDeg(_ deg: Int) -> Int { (self - deg).degreeInOctave }
+  func minusDegreeNumber(_ degreeNumber: Int) -> Int { (self - degreeNumber).degreeNumberInOctave }
   
-  func isTritone(from otherDeg: Int) -> Bool {
-//    return otherDeg - self == 6 ? true : false // why is this not abs?
-    return abs(otherDeg - self) == 6 ? true : false
+  func isTritone(from otherDegreeNumber: Int) -> Bool {
+    return abs(otherDegreeNumber - self) == 6 ? true : false
   }
   
-  func isHalfStep(from otherDeg: Int) -> Bool { abs(otherDeg - self) == 1 ? true : false }
+  func isHalfStep(from otherDegreeNumber: Int) -> Bool { abs(otherDegreeNumber - self) == 1 ? true : false }
   
   func toPitch(startingOctave: Int) -> Int { self + (startingOctave + 1) * 12 }
   
-  func raiseAboveDegreesIfAbsent(_ degs: [Int]) -> Int {
-    // print("raiseAboveDegreesIfAbsent: degs = \(degs)")
-    return degs.contains(self) ? self : self + 12
+  func raiseAboveDegreesIfAbsent(_ degreeNumbers: [Int]) -> Int {
+    return degreeNumbers.contains(self) ? self : self + 12
   }
   
-  func raiseAbove(pitch: Int, degs: [Int]?) -> Int {
-    // print("raise above: \(self) above \(pitch)")
-    if let degs = degs {
-      // print("degs: \(degs)")
-      if self < pitch && !degs.contains(self) {
-        // print("self < pitch and not in degs")
+  func raiseAbove(pitch: Int, degreeNumbers: [Int]?) -> Int {
+    if let degreeNumbers = degreeNumbers {
+      if self < pitch && !degreeNumbers.contains(self) {
+        // print("self < pitch and not in degreeNumbers")
         return self + 12
       } else {
-        // print("self < pitch and is in degs")
+        // print("self < pitch and is in degreeNumbers")
         return self
       }
     } else {
-      // print("no degs")
+      // print("no degreeNumbers")
       if self >= pitch {
         // print("self >= pitch")
         return self
@@ -87,31 +83,11 @@ extension Int: Mathable {
   }
 }
 
-/// for comparing chord/scale degrees
+/// for comparing chord/scale degreeNumbers
 enum ComparisonOutcome {
   case equal
   case greater
   case less
-}
-
-extension Array where Element == Int {
-  func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
-//    print(self)
-    for deg in self {
-      if let index = keys.firstIndex(where: { $0.pitch == deg }) {
-//        print(deg, keys[index].pitch)
-        keys[index].toggleHighlight(color: color)
-      }
-    }
-  }
-  
-  func highlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
-    for deg in self {
-      if let index = keys.firstIndex(where: { $0.pitch == deg }) {
-        keys[index].highlight(color: color)
-      }
-    }
-  }
 }
 
 extension CGFloat {

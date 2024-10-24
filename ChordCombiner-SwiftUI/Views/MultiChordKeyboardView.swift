@@ -18,16 +18,16 @@ struct MultiChordKeyboardView: View {
   //    upperChord: Chord(.d, .ma, startingOctave: 4))
 
   @StateObject var multiChord: MultiChord = MultiChord(
-    lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
-    upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+    lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+    upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
   )
   
-  @State var oldLowerChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
-  @State var oldUpperChordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+  @State var oldLowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
+  @State var oldUpperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
   
-  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 250, initialKey: .C,  startingOctave: 4, octaves: 2)
-  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 250, initialKey: .C,  startingOctave: 4, octaves: 2)
-  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKey: .C,  startingOctave: 4, octaves: 3)
+  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   @State var isInitial: Bool = true
   
   var color: Color = .lowerChordHighlight
@@ -177,7 +177,7 @@ struct MultiChordKeyboardView: View {
       //      )
       //      multiChord.lowerChord.setNotesByDegree()
       //      print("allNotes: ", multiChord.lowerChord.allNotes)
-      //      print(multiChord.lowerChord.allNotes.map { $0.noteNum.rawValue }, multiChord.lowerChord.degrees)
+      //      print(multiChord.lowerChord.allNotes.map { $0.noteNumber.rawValue }, multiChord.lowerChord.degreeNumbers)
     }
     .onChange(of: multiChord.upperChord) {
       //      setAndHighlightChords()
@@ -205,8 +205,8 @@ struct MultiChordKeyboardView: View {
 //        upperChord: Chord(.d, .ma, startingOctave: 4)
 //      )
       MultiChord(
-        lowerChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil),
-        upperChordProperties: MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
+        lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+        upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
       )
     )
 }

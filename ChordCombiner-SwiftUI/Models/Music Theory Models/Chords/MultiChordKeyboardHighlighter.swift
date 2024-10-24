@@ -33,8 +33,8 @@ import SwiftUI
 //    let (lowerSplitPitches, upperSplitPitches) = multiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: lowerStackedPitches, upperPitches: upperStackedPitches)
 //    
 //    if isInitial {
-//      lowerKeyboard.toggleHighlightKeysSingle(degs: lowerStackedPitches, color: color)
-//      upperKeyboard.toggleHighlightKeysSingle(degs: upperStackedPitches, color: secondColor)
+//      lowerKeyboard.toggleHighlightKeysSingle(degreeNumbers: lowerStackedPitches, color: color)
+//      upperKeyboard.toggleHighlightKeysSingle(degreeNumbers: upperStackedPitches, color: secondColor)
 //      
 //      multiChord.multiChordVoicingCalculator.setResultChordCombinedHighlightedPitches()
 //      
@@ -62,11 +62,11 @@ import SwiftUI
 //      
 //      let (oldLowerSplitPitches, oldUpperSplitPitches) = oldMultiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: oldLowerStackedPitches, upperPitches: oldUpperStackedPitches)
 //      
-//      lowerKeyboard.toggleHighlightKeysSingle(degs: oldLowerStackedPitches, color: color)
-//      upperKeyboard.toggleHighlightKeysSingle(degs: oldUpperStackedPitches, color: secondColor)
+//      lowerKeyboard.toggleHighlightKeysSingle(degreeNumbers: oldLowerStackedPitches, color: color)
+//      upperKeyboard.toggleHighlightKeysSingle(degreeNumbers: oldUpperStackedPitches, color: secondColor)
 //      
-//      lowerKeyboard.toggleHighlightKeysSingle(degs: lowerStackedPitches, color: color)
-//      upperKeyboard.toggleHighlightKeysSingle(degs: upperStackedPitches, color: secondColor)
+//      lowerKeyboard.toggleHighlightKeysSingle(degreeNumbers: lowerStackedPitches, color: color)
+//      upperKeyboard.toggleHighlightKeysSingle(degreeNumbers: upperStackedPitches, color: secondColor)
 //      
 //      combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
 //        onlyInLower: oldMultiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
@@ -113,9 +113,9 @@ import SwiftUI
 //    
 //    let (oldLowerSplitPitches, oldUpperSplitPitches) = oldMultiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: oldLowerStackedPitches, upperPitches: oldUpperStackedPitches)
 //    
-//    keyboard.toggleHighlightKeysSingle(degs: oldLowerStackedPitches, color: color)
+//    keyboard.toggleHighlightKeysSingle(degreeNumbers: oldLowerStackedPitches, color: color)
 //    
-//    keyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
+//    keyboard.toggleHighlightKeysSingle(degreeNumbers: stackedPitches, color: color)
 //  }
 //  
 //  func highlightCombinedKeyboard(multiChord: MultiChord, oldMultiChord: MultiChord, combinedKeyboard: inout Keyboard, color: Color, secondColor: Color) {
@@ -144,9 +144,9 @@ import SwiftUI
 //    
 //    let (oldLowerSplitPitches, oldUpperSplitPitches) = oldMultiChord.multiChordVoicingCalculator.stackedSplit(lowerPitches: oldLowerStackedPitches, upperPitches: oldUpperStackedPitches)
 //    
-//    combinedKeyboard.toggleHighlightKeysSingle(degs: oldLowerStackedPitches, color: color)
+//    combinedKeyboard.toggleHighlightKeysSingle(degreeNumbers: oldLowerStackedPitches, color: color)
 //    
-//    combinedKeyboard.toggleHighlightKeysSingle(degs: stackedPitches, color: color)
+//    combinedKeyboard.toggleHighlightKeysSingle(degreeNumbers: stackedPitches, color: color)
 //    
 //    combinedKeyboard.toggleHighlightStackedCombinedOrSplit(
 //      onlyInLower: oldMultiChord.multiChordVoicingCalculator.lowerTonesToHighlight,
