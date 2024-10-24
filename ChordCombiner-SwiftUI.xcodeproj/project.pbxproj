@@ -443,8 +443,8 @@
 				1DE53BE52CADE74900CC27DE /* LetterTagsView.swift */,
 				1DD507552CB97D080085288B /* HighlightableTagView.swift */,
 				1DE53BED2CADEC4200CC27DE /* ChordTypeSectionView.swift */,
-				1DE53BEB2CADEBE000CC27DE /* KeyboardDisplayScrollView.swift */,
 				1DB4AA432CB8BEF9006FD1C5 /* ChordTypeSectionTitleView.swift */,
+				1DE53BEB2CADEBE000CC27DE /* KeyboardDisplayScrollView.swift */,
 				1DE53BE92CADE84D00CC27DE /* KeyboardDisplayView.swift */,
 			);
 			path = AllChords;

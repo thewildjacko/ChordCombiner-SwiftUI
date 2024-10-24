@@ -22,9 +22,14 @@ struct Key: View, KeyProtocol, Identifiable {
   var initialKey: Bool = false
   var finalKey: Bool = false
   var lettersOn: Bool = false
+  var highlighted = false
   
   var letterFontSizeMultiplier: CGFloat {
     keyType.defaultFillColor == .white ? 0.175 : 0.085
+  }
+  
+  var letterTextColor: Color {
+    highlighted ? .black : keyType.defaultFillColor == .white ? .black : .white
   }
   
   var keyShape: any KeyShapeProtocol {
@@ -44,14 +49,18 @@ struct Key: View, KeyProtocol, Identifiable {
   
   mutating func toggleHighlight<T: ShapeStyle>(color: T) {
     fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : keyType.defaultFillColor
+    highlighted.toggle()
   }
   
   mutating func highlight<T: ShapeStyle>(color: T) {
     fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : fill
+    highlighted = true
+    
   }
   
   mutating func clearHighlight() {
     fill = keyType.defaultFillColor
+    highlighted = false
   }
   
   init(pitch: Int = 0, keyType: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
@@ -97,12 +106,11 @@ struct Key: View, KeyProtocol, Identifiable {
           TitleView(
             text: "B♯",
             font: .system(size: keyGeo.size.height > keyGeo.size.width ? keyGeo.size.width * letterFontSizeMultiplier : keyGeo.size.height * letterFontSizeMultiplier),
-            color: fill as! Color == keyType.defaultFillColor ? keyType.defaultFillColor == .white ? .black : .white : .black
+            color: letterTextColor
           )
           .position(x: position, y: height * 3/4)
           .zIndex(2)
         }
-//          .opacity(lettersOn ? 1.0 : 0)
       }
     }
   }

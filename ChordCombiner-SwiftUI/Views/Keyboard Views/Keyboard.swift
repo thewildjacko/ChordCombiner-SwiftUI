@@ -220,6 +220,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       highlightedPitches.insert(pitch)
       if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
         keys[index].highlight(color: color)
+        keys[index].lettersOn.toggle()
       }
     }
   }

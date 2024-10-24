@@ -17,6 +17,8 @@ protocol KeyProtocol {
   var initialKey: Bool { get set }
   var finalKey: Bool { get set }
   var keyPosition: CGFloat { get set }
+  var highlighted: Bool { get set }
+  var letterTextColor: Color { get }
   
   var widthMultiplier: CGFloat { get }
   var radius: CGFloat { get }
