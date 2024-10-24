@@ -14,7 +14,32 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   var chordType: ChordType
   var titleText: String
   var titleColor: Color
-  var keyboard: Keyboard
+  var glowColor: Color
+  var glowRadius: CGFloat
+  var chord: Chord?
+  var keyboardColor: Color?
+  
+  var keyboard: Keyboard {
+    if let chord = chord, let keyboardColor = keyboardColor {
+      Keyboard(
+        geoWidth: 150,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 2,
+        glowColor: glowColor,
+        glowRadius: glowRadius,
+        chord: chord,
+        color: keyboardColor
+      )
+    } else {
+      Keyboard(
+        geoWidth: 150,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 2
+      )
+    }
+  }
   
   var body: some View {
     HStack(alignment: .firstTextBaseline) {

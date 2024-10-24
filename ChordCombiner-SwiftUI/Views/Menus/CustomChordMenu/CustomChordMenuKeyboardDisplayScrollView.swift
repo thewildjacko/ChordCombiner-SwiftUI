@@ -36,16 +36,10 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
               titleColor: chordType == selectedChordType ?
                 .tagTitleHighlighted :
                 matchingChordTypes.contains(chordType) ? .glowText : .title,
-              keyboard: Keyboard(
-                geoWidth: 150,
-                initialKeyType: .C,
-                startingOctave: 4,
-                octaves: 2,
-                glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
-                glowRadius: matchingChordTypes.contains(chordType) ? 5 : 0,
-                chord: chord,
-                color: color
-              )
+              glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
+              glowRadius: matchingChordTypes.contains(chordType) ? 5 : 0,
+              chord: chord,
+              keyboardColor: color
             )
           } else {
             CustomChordMenuKeyboardDisplayRow(
@@ -56,12 +50,10 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
               titleColor: selectedChordType != nil && chordType == selectedChordType! ?
                 .tagTitleHighlighted :
                 matchingChordTypes.contains(chordType) ? .glowText : .title,
-              keyboard: Keyboard(
-                geoWidth: 150,
-                initialKeyType: .C,
-                startingOctave: 4,
-                octaves: 2
-              )
+              glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
+              glowRadius: matchingChordTypes.contains(chordType) ? 5 : 0,
+              chord: nil,
+              keyboardColor: nil
             )
           }
         }
