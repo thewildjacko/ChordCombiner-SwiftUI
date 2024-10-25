@@ -390,7 +390,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
     return degreeTags.map { Note($0, of: rootKeyNote)}
   }
   
-  static func degreesInC(degreeTags: [Degree]) -> [Int] {
+  static func degreeNumbersInC(degreeTags: [Degree]) -> [Int] {
     return degreeTags.map { $0.noteNumber.rawValue }.sorted()
   }
 }

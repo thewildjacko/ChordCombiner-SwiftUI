@@ -159,7 +159,7 @@ struct ChordFactory {
     let numbers = Array(0...11)
     let comboCount = numbers.combinations(ofCount: count).count
     for combo in numbers.combinations(ofCount: count) {
-      if combo.contains(0) && !ChordType.allChordDegrees.contains(combo) {
+      if combo.contains(0) && !ChordType.allChordDegreeNumbers.contains(combo) {
         print(combo)
       }
     }

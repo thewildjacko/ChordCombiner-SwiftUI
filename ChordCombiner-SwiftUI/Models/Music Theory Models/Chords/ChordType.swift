@@ -295,8 +295,8 @@ enum ChordType: String, ChordAndScaleProperty {
   }
   
   // MARK: degrees
-  var degrees: [Int] {
-    Degree.degreesInC(degreeTags: degreeTags)
+  var degreeNumbers: [Int] {
+    Degree.degreeNumbersInC(degreeTags: degreeTags)
   }
   
   // MARK: hasDegreeTags
@@ -701,7 +701,7 @@ enum ChordType: String, ChordAndScaleProperty {
   }
   
   var isTriad: Bool {
-    degrees.count == 3 &&
+    degreeNumbers.count == 3 &&
     degreeTags.contains(.root) &&
     hasOneMiddleTriadNote &&
     !hasTwoMiddleTriadNotes &&
@@ -725,7 +725,7 @@ enum ChordType: String, ChordAndScaleProperty {
         .major13th,
         .flat13th
       ]
-    )
+    ) || degreeTags.contains([.diminished7th, .major7th])
   }
   
   var isFourNote6thChord: Bool {
@@ -746,8 +746,14 @@ enum ChordType: String, ChordAndScaleProperty {
     (has6th || has7th || isModifiedTriad)
   }
   
+  var isFiveNoteSimpleChord: Bool {
+    degreeTags.count == 5 &&
+    !isExtendedChord &&
+    (has6th || has7th)
+  }
+  
   var isSimpleChord: Bool {
-    isTriad || isFourNoteSimpleChord
+    isTriad || isFourNoteSimpleChord || isFiveNoteSimpleChord
   }
 }
 
@@ -766,7 +772,7 @@ extension ChordType {
   init?(fromDegreeNumbersToMatch degreeNumbers: [Int]) {
     let count = degreeNumbers.count
     
-    if let chordType = ChordType.typeByDegreesInCFiltered(degreeCount: count)[degreeNumbers] {
+    if let chordType = ChordType.typeByDegreeNumbersInCFiltered(degreeNumberCount: count)[degreeNumbers] {
       self = chordType
     } else {
       return nil
@@ -819,14 +825,18 @@ extension ChordType {
     ChordType.allCases.filterInSimple()
   }
   
-  static var allChordDegrees: [[Int]] {
-    ChordType.allCases.map { $0.degrees }
+  static var allExtendedChordTypes: [ChordType] {
+    ChordType.allCases.filter { $0.isExtendedChord }
   }
   
-  static var typeByDegrees: [[Int]: ChordType] = Dictionary(uniqueKeysWithValues: zip(allChordDegrees, allCases))
+  static var allChordDegreeNumbers: [[Int]] {
+    ChordType.allCases.map { $0.degreeNumbers }
+  }
   
-  static func typeByDegreesInCFiltered(degreeCount: Int) -> [[Int]: ChordType] {
-    typeByDegrees.filter { $0.key.count == degreeCount }
+  static var typeByDegreeNumbers: [[Int]: ChordType] = Dictionary(uniqueKeysWithValues: zip(allChordDegreeNumbers, allCases))
+  
+  static func typeByDegreeNumbersInCFiltered(degreeNumberCount: Int) -> [[Int]: ChordType] {
+    typeByDegreeNumbers.filter { $0.key.count == degreeNumberCount }
   }
   
   static let triadTypes: [ChordType] = [.ma, .mi, .aug, .dim, .sus4, .sus2]

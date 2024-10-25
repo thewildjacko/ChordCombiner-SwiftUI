@@ -28,7 +28,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var allNotes: [Note] = []
   var noteCount: Int = 0
   
-  var convertedDegrees: [Int] = []
+  var convertedDegreeNumbers: [Int] = []
   
   var noteNumbers: [NoteNumber] { allNotes.map { $0.noteNumber } }
   
@@ -89,12 +89,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
   
   
-  mutating func convertDegrees(to rootNumber: NoteNumber) {
-    convertedDegrees = degreeNumbers.map { $0.minusDegreeNumber(rootNumber.rawValue)}
+  mutating func convertDegreeNumbers(to rootNumber: NoteNumber) {
+    convertedDegreeNumbers = degreeNumbers.map { $0.minusDegreeNumber(rootNumber.rawValue)}
   }
   
-  mutating func convertDegsToOwnRoot() {
-    convertedDegrees = degreeNumbers.map { $0.minusDegreeNumber(root.noteNumber.rawValue) }
+  mutating func convertDegreeNumbersToOwnRoot() {
+    convertedDegreeNumbers = degreeNumbers.map { $0.minusDegreeNumber(root.noteNumber.rawValue) }
   }
   
   mutating func refresh() {

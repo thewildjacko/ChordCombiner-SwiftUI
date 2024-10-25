@@ -34,7 +34,7 @@ extension ChordsAndScales {
     var notesByNoteNumber: [NoteNumber: Note] = [:]
     notesByNoteNumber.reserveCapacity(12)
     notesByNoteNumber = allNotes.keyed { $0.noteNumber }
-    //    notesByNoteNumber = Dictionary(uniqueKeysWithValues: zip(noteNumbers, allNotes))
+
     return notesByNoteNumber
   }
   
