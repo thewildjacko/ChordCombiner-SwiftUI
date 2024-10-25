@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -87,6 +87,16 @@
 		1DFD9D4F2C5AA4330006333D /* ChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD9D4E2C5AA4330006333D /* ChordType.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1D3D65412CCBEFF50045AD8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D5F69CE2C2481E600193B58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D5F69D52C2481E600193B58;
+			remoteInfo = "ChordCombiner-SwiftUI";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D036C3F2C7A71AC0088ACD4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1D0967F42CB59CC700600325 /* KeyShapeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyShapeGroup.swift; sourceTree = "<group>"; };
@@ -98,6 +108,7 @@
 		1D30F2542CC9840900D40625 /* ChordHelperClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordHelperClasses.swift; sourceTree = "<group>"; };
 		1D350EF72C779358007D8F85 /* MultiChord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiChord.swift; sourceTree = "<group>"; };
 		1D3B70502CA5CA4B008DB232 /* AllChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChordsView.swift; sourceTree = "<group>"; };
+		1D3D653D2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ChordCombiner-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3EA8A72C93644700A6430C /* VoicingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicingCalculator.swift; sourceTree = "<group>"; };
 		1D46C92A2C77B7400014D00B /* MultiChordKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChordKeyboardView.swift; sourceTree = "<group>"; };
 		1D46C92F2C77CE530014D00B /* MultiChordVoicingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChordVoicingCalculator.swift; sourceTree = "<group>"; };
@@ -169,7 +180,18 @@
 		1DFD9D4E2C5AA4330006333D /* ChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1D3D653E2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "ChordCombiner-SwiftUITests"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		1D3D653A2CCBEFF50045AD8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D5F69D32C2481E600193B58 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69D82C2481E600193B58 /* ChordCombiner-SwiftUI */,
+				1D3D653E2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */,
 				1D5F69D72C2481E600193B58 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -212,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69D62C2481E600193B58 /* ChordCombiner-SwiftUI.app */,
+				1D3D653D2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,12 +309,12 @@
 			isa = PBXGroup;
 			children = (
 				1DBD4C5F2C58364A00F4015C /* Chord.swift */,
-				1D30F2542CC9840900D40625 /* ChordHelperClasses.swift */,
 				1D3EA8A72C93644700A6430C /* VoicingCalculator.swift */,
 				1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */,
 				1D350EF72C779358007D8F85 /* MultiChord.swift */,
 				1DC9DAAB2CC8081000776417 /* ChordProperties.swift */,
 				1D46C92F2C77CE530014D00B /* MultiChordVoicingCalculator.swift */,
+				1D30F2542CC9840900D40625 /* ChordHelperClasses.swift */,
 				1DE3FF172CBF1D580037C354 /* MultiChordKeyboardHighlighter.swift */,
 				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
 				1D5F6AAD2C24847600193B58 /* Chord Enums */,
@@ -453,6 +477,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1D3D653C2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D3D65452CCBEFF50045AD8D /* Build configuration list for PBXNativeTarget "ChordCombiner-SwiftUITests" */;
+			buildPhases = (
+				1D3D65392CCBEFF50045AD8D /* Sources */,
+				1D3D653A2CCBEFF50045AD8D /* Frameworks */,
+				1D3D653B2CCBEFF50045AD8D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1D3D65422CCBEFF50045AD8D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				1D3D653E2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */,
+			);
+			name = "ChordCombiner-SwiftUITests";
+			packageProductDependencies = (
+			);
+			productName = "ChordCombiner-SwiftUITests";
+			productReference = 1D3D653D2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1D5F69D52C2481E600193B58 /* ChordCombiner-SwiftUI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D5F69E42C2481E700193B58 /* Build configuration list for PBXNativeTarget "ChordCombiner-SwiftUI" */;
@@ -477,9 +524,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					1D3D653C2CCBEFF50045AD8D = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 1D5F69D52C2481E600193B58;
+					};
 					1D5F69D52C2481E600193B58 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -502,11 +553,19 @@
 			projectRoot = "";
 			targets = (
 				1D5F69D52C2481E600193B58 /* ChordCombiner-SwiftUI */,
+				1D3D653C2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1D3D653B2CCBEFF50045AD8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D5F69D42C2481E600193B58 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,6 +579,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1D3D65392CCBEFF50045AD8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D5F69D22C2481E600193B58 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -603,7 +669,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1D3D65422CCBEFF50045AD8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D5F69D52C2481E600193B58 /* ChordCombiner-SwiftUI */;
+			targetProxy = 1D3D65412CCBEFF50045AD8D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1D3D65432CCBEFF50045AD8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C359E2V4B3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChordCombiner-SwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChordCombiner-SwiftUI";
+			};
+			name = Debug;
+		};
+		1D3D65442CCBEFF50045AD8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C359E2V4B3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jakesmolowe.ChordCombiner-SwiftUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChordCombiner-SwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChordCombiner-SwiftUI";
+			};
+			name = Release;
+		};
 		1D5F69E22C2481E700193B58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -786,6 +898,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1D3D65452CCBEFF50045AD8D /* Build configuration list for PBXNativeTarget "ChordCombiner-SwiftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D3D65432CCBEFF50045AD8D /* Debug */,
+				1D3D65442CCBEFF50045AD8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1D5F69D12C2481E600193B58 /* Build configuration list for PBXProject "ChordCombiner-SwiftUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
