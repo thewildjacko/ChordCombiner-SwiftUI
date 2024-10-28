@@ -66,6 +66,7 @@
 		1DBD4C602C58364A00F4015C /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBD4C5F2C58364A00F4015C /* Chord.swift */; };
 		1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */; };
 		1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1DC11F722CA133E400263FF8 /* Algorithms */; };
+		1DC272852CCC2C210035032A /* StackedPitchesTest.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 1DC272842CCC2C210035032A /* StackedPitchesTest.xctestplan */; };
 		1DC6A0742CC55E660053068C /* ChordPropertyTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A0732CC55E660053068C /* ChordPropertyTagView.swift */; };
 		1DC6A0762CC566950053068C /* CustomChordMenuTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A0752CC566950053068C /* CustomChordMenuTagsView.swift */; };
 		1DC6A07E2CC57A4E0053068C /* CustomChordMenuKeyboardDisplayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6A07D2CC57A4E0053068C /* CustomChordMenuKeyboardDisplayRow.swift */; };
@@ -159,6 +160,7 @@
 		1DB4AA432CB8BEF9006FD1C5 /* ChordTypeSectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordTypeSectionTitleView.swift; sourceTree = "<group>"; };
 		1DBD4C5F2C58364A00F4015C /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		1DBE1C2E2C25D3C8008DCBDF /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		1DC272842CCC2C210035032A /* StackedPitchesTest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StackedPitchesTest.xctestplan; sourceTree = "<group>"; };
 		1DC6A0732CC55E660053068C /* ChordPropertyTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPropertyTagView.swift; sourceTree = "<group>"; };
 		1DC6A0752CC566950053068C /* CustomChordMenuTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenuTagsView.swift; sourceTree = "<group>"; };
 		1DC6A07D2CC57A4E0053068C /* CustomChordMenuKeyboardDisplayRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChordMenuKeyboardDisplayRow.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		1D5F69CD2C2481E600193B58 = {
 			isa = PBXGroup;
 			children = (
+				1DC272842CCC2C210035032A /* StackedPitchesTest.xctestplan */,
 				1D5F69D82C2481E600193B58 /* ChordCombiner-SwiftUI */,
 				1D3D653E2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests */,
 				1D5F69D72C2481E600193B58 /* Products */,
@@ -563,6 +566,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC272852CCC2C210035032A /* StackedPitchesTest.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

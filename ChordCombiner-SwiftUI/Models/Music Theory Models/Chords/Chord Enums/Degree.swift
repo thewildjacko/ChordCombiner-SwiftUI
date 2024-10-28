@@ -350,7 +350,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
       24
     }
   }
-  
+    
   // MARK: allNotesInKey
   static func allNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
     return Degree.allCases.map { Note($0, of: rootKeyNote)}

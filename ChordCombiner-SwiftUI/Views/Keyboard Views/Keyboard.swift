@@ -64,6 +64,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     )
     
     highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitches, color: color)
+    print(chord.voicingCalculator.pitchesRaisedAboveRoot)
+//    highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitchesByDegree, color: color)
   }
   
   //  MARK: initializer methods
@@ -226,6 +228,14 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   mutating func highlightCombinedKeysWithoutClearing() {}
+  
+  mutating func setNotesStacked<T: ShapeStyle>(pitchesByNote: [Note: Int], color: T) {
+    for (note, pitch) in pitchesByNote {
+      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+        keys[index].note = note
+      }
+    }
+  }
   
   mutating func highlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
     degreeNumbers.highlightIfSelected(keys: &keys, color: color)

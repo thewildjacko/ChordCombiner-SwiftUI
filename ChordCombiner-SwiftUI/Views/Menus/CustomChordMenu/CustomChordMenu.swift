@@ -131,6 +131,11 @@ struct CustomChordMenu: View {
     guard let selectedChord = selectedChord else { return }
     
     selectedKeyboard.highlightKeysAfterClearing(pitches: selectedChord.voicingCalculator.stackedPitches, color: selectedChordColor)
+    selectedKeyboard.setNotesStacked(pitchesByNote: selectedChord.voicingCalculator.stackedPitchesByNote, color: selectedChordColor)
+    print(selectedChord.voicingCalculator.allNotes)
+    print(selectedChord.voicingCalculator.pitchesRaisedAboveRoot)
+    print(selectedChord.voicingCalculator.stackedPitches)
+    print(selectedChord.voicingCalculator.stackedPitchesByNote)
 //    selectedKeyboard.toggleLetters()
   }
   

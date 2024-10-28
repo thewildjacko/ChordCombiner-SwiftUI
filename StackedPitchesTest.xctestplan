@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "5F943697-5E27-49E0-9191-B1204DFD1EA5",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : {
+        "suites" : [
+          {
+            "name" : "ChordCombiner_SwiftUITests",
+            "testFunctions" : [
+              "allChordTypesAreSimpleOrExtended(_:)",
+              "simpleAndExtendedChordTypesDontOverlap(_:)"
+            ]
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:ChordCombiner-SwiftUI.xcodeproj",
+        "identifier" : "1D3D653C2CCBEFF50045AD8D",
+        "name" : "ChordCombiner-SwiftUITests"
+      }
+    }
+  ],
+  "version" : 2
+}

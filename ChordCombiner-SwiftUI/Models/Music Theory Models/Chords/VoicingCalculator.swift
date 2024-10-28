@@ -13,7 +13,9 @@ struct VoicingCalculator: GettableKeyName {
   var chordType: ChordType
   var startingOctave: Int
   var keyName: KeyName
+  
   var notesByNoteNumber: [NoteNumber: Note]
+  var allNotes: [Note] { Array(notesByNoteNumber.values).sorted { $0.degree.size < $1.degree.size } }
   
   var root: Note { rootNote.note }
   var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
@@ -23,7 +25,6 @@ struct VoicingCalculator: GettableKeyName {
   var slashChordBassNote: RootKeyNote? = nil
   
   var allChordNotesInKeyFiltered: [Note] {
-    let allNotes = notesByNoteNumber.values
     var allChordNotesInKey = rootKeyNote.allChordNotesInKey()
     
     for note in allNotes {
@@ -48,11 +49,34 @@ struct VoicingCalculator: GettableKeyName {
 
 extension VoicingCalculator: DegreeAndPitchNumberOperator {
   var noteNumbers: [NoteNumber] { degreeNumbers.map { NoteNumber($0) } }
-
+  
+  var degreeNumbersRaisedAboveRoot: [Int] {
+    degreeNumbers.map { $0.raiseAboveRoot(rootKeyNote: rootKeyNote) }
+  }
+  
+  var raisedPitches: [Int] {
+    return degreeNumbers.map { $0.toPitch(startingOctave: startingOctave) }
+  }
+  
+  var pitchesRaisedAboveRoot: [Int] {
+    return raisedPitches.map {
+      $0.raiseAbove(pitch: raisedRoot, degreeNumbers: nil)
+    }
+  }
+  
   var stackedPitches: [Int] {
     return pitchesRaisedAboveRoot.map {
       $0.raiseAboveDegreesIfAbsent(baseChord.voicingCalculator.pitchesRaisedAboveRoot)
     }
+  }
+  
+  
+  var stackedPitchesByNote: [Note: Int] {
+    Dictionary(uniqueKeysWithValues: zip(allNotes, stackedPitches))
+  }
+  
+  var stackedPitchesByDegree: [Int] {
+    return allNotes.map { $0.toStackedPitch(startingOctave: startingOctave, chordType: chordType) }
   }
 }
 

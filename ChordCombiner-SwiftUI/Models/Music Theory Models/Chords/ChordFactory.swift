@@ -36,28 +36,6 @@ struct ChordFactory {
     return chords
   }
   
-  //  MARK: static methods
-  // FIXME: deprecated
-  static func combineChordsCheckingAllChords(_ lowerChord: Chord, _ upperChord: Chord) -> (resultChord: Chord?, equivalentChords: [Chord]) {
-    let degreeNumbers: [Int] = lowerChord.degreeNumbers + upperChord.degreeNumbers
-    
-    var resultChord: Chord? = nil
-    
-    var chords: [Chord] = []
-    
-    for chord in allChords {
-      if degreeNumbers.toSet() == chord.degreeNumbers.toSet() {
-        if chord.root == lowerChord.root {
-          resultChord = chord
-        } else {
-          chords.append(chord)
-        }
-      }
-    }
-    
-    return (resultChord, chords)
-  }
-  
   /// This method takes two ``Chord`` objects, and uses **`ChordType.typeByDegreesFiltered(degreeCount: CombinedDegreeCount`** to check if their combined **`degreeNumbers`** form a **unified chord** *(single chord symbol with no alternate bass)*, a **slash chord** *(single chord symbol over an alternate bass)*, or a **polychord** *(two chord symbols, one over the other)*.
   ///
   /// - Returns a tuplet where the first value, `resultChord: Chord?`, equals the result of the above check: an optional ``Chord`` if the combined degreeNumbers form a unified chord or slash chord, or **nil** if they form a polychord. The second value, `equivalentChords: [Chord]` is an array of the other equivalent `Chords`, if any, that have the same degreeNumbers as `resultChord`.
@@ -150,11 +128,7 @@ struct ChordFactory {
     
     return chords
   }
-  
-  static func chordsIn(_ chord: Chord) -> [Chord] {
-    return chord.containingChords()
-  }
-  
+    
   static func combos(count: Int) {
     let numbers = Array(0...11)
     let comboCount = numbers.combinations(ofCount: count).count

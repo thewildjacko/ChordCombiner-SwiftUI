@@ -13,7 +13,7 @@ struct ChordTypePicker: View {
   
   var body: some View {
     Picker(selection: $chordType, label: Text("Chord Type")) {
-      ForEach(ChordType.allSimpleChordTypes) { chordType in
+      ForEach(ChordType.allChordTypesMinusOmitsSorted) { chordType in
         Text("\(chord.root.noteName)\(chordType.rawValue)")
           .tag(chordType)
       }

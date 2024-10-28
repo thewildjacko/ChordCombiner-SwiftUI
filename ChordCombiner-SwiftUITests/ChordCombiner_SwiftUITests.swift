@@ -27,7 +27,7 @@ struct ChordCombiner_SwiftUITests {
   @Test("All simple chord types are correct", arguments: ChordType.allSimpleChordTypes)
   func simpleChordTypesCountsAreCorrect(_ chordType: ChordType) async throws {
     var countIsCorrect: Bool
-    let chordTypeIsCorrect: Bool = (chordType.isTriad || chordType.isFourNoteSimpleChord || chordType.isFiveNoteSimpleChord) && !chordType.isExtendedChord
+    let chordTypeIsCorrect: Bool = (chordType.isTriad || chordType.isFourNoteSimpleChord) && !chordType.isExtendedChord
     let count = chordType.degreeNumbers.count
     
     switch count {
@@ -35,21 +35,46 @@ struct ChordCombiner_SwiftUITests {
       countIsCorrect = chordType.isTriad ? true : false
     case 4:
       countIsCorrect = chordType.isFourNoteSimpleChord ? true : false
-    case 5:
-      countIsCorrect = chordType.isFiveNoteSimpleChord ? true : false
     default:
       countIsCorrect = false
     }
     
-    #expect(countIsCorrect && chordTypeIsCorrect, "allSimpleChordTypes should contain only 3- and 4-note chords, or 5-note chords without extensions")
+    #expect(countIsCorrect && chordTypeIsCorrect, "allSimpleChordTypes should contain only 3- and 4-note chords")
   }
   
   @Test("All extended chords are correct", arguments: ChordType.allExtendedChordTypes)
   func extendedChordTypesAreCorrect(_ chordType: ChordType) async throws {
-    let chordTypeIsCorrect: Bool = (!chordType.isTriad && !chordType.isFourNoteSimpleChord && !chordType.isFiveNoteSimpleChord) && chordType.isExtendedChord
+    let chordTypeIsCorrect: Bool = (!chordType.isTriad && !chordType.isFourNoteSimpleChord) && chordType.isExtendedChord
     
     #expect(chordTypeIsCorrect, "allExtendedChordTypes should contain no triads or simple 4- or 5-note chords")
   }
   
+  @Test("All ChordTypes are either simple or extended", arguments: ChordType.allCases)
+  func allChordTypesAreSimpleOrExtended(_ chordType: ChordType) async throws {
+    let chordTypeIsSimpleOrTriad: Bool = chordType.isSimpleChord || chordType.isExtendedChord
+    
+    #expect(chordTypeIsSimpleOrTriad, "All ChordTypes should be either Simple or Extended")
+  }
+  
+  @Test("Simple and Extended ChordTypes Don't Overlap")
+  func simpleAndExtendedChordTypesDontOverlap() async throws {
+    let overlaps = !Set(ChordType.allSimpleChordTypes).intersection(ChordType.allExtendedChordTypes).isEmpty
+    
+    #expect(!overlaps, "Simple and Extended ChordTypes shouldn't overlap")
+  }
+  
+  
+  
+  @Test("Chord: degreeNumbers matches degreeNumberSet", arguments: ChordFactory.allChordsInC)
+  func degreeNumbersMatchesDegreeNumberSet(_ chord: Chord) async throws {
+    let degreeNumbersMatchesDegreeNumberSet: Bool = chord.degreeNumbers.count == chord.degreeNumberSet.count
+    
+    #expect(degreeNumbersMatchesDegreeNumberSet, "all Chords should have no duplicate degree numbers")
+  }
+  
+  @Test("Stacked pitchesByDegree matches stackedPitches", arguments: ChordFactory.allChordsInC)
+  func stackedPitchesByDegreeMatchesStackedPitches(_ chord: Chord) async throws {
+    #expect(chord.voicingCalculator.stackedPitches == chord.voicingCalculator.stackedPitchesByDegree, "\n\(chord.preciseName)\n------\n\(chord.voicingCalculator.stackedPitches)\n\(chord.voicingCalculator.stackedPitchesByDegree)\nShould be able to get stacked pitches by sorting degrees by size\n")
+  }
   
 }

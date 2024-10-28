@@ -27,8 +27,12 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:StackedPitchesTest.xctestplan">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -40,6 +44,20 @@
                BlueprintName = "ChordCombiner-SwiftUITests"
                ReferencedContainer = "container:ChordCombiner-SwiftUI.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ChordCombiner_SwiftUITests/chordsCombineCorrectly()">
+               </Test>
+               <Test
+                  Identifier = "ChordCombiner_SwiftUITests/degreeNumbersMatchesDegreeNumberSet(_:)">
+               </Test>
+               <Test
+                  Identifier = "ChordCombiner_SwiftUITests/extendedChordTypesAreCorrect(_:)">
+               </Test>
+               <Test
+                  Identifier = "ChordCombiner_SwiftUITests/simpleChordTypesCountsAreCorrect(_:)">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

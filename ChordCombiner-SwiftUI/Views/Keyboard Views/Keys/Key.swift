@@ -11,6 +11,7 @@ struct Key: View, KeyProtocol, Identifiable {
   var id: UUID = UUID()
   var pitch: Int = 0
   var keyType: KeyType
+  var note: Note?
   
   var geoWidth: CGFloat
   var widthMod: CGFloat
@@ -63,9 +64,10 @@ struct Key: View, KeyProtocol, Identifiable {
     highlighted = false
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
     self.pitch = pitch
     self.keyType = keyType
+    self.note = note
     self.geoWidth = geoWidth
     self.widthMod = widthMod
     self.fill = fill
@@ -74,10 +76,11 @@ struct Key: View, KeyProtocol, Identifiable {
     self.lettersOn = lettersOn
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, geoWidth: CGFloat, widthMod: CGFloat, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat, lettersOn: Bool = false) {
     self.init(
       pitch: pitch,
       keyType: keyType,
+      note: note,
       geoWidth: geoWidth,
       widthMod: widthMod,
       fill: keyType.defaultFillColor,
@@ -103,13 +106,15 @@ struct Key: View, KeyProtocol, Identifiable {
         )
         
         if lettersOn {
-          TitleView(
-            text: "B♯",
-            font: .system(size: keyGeo.size.height > keyGeo.size.width ? keyGeo.size.width * letterFontSizeMultiplier : keyGeo.size.height * letterFontSizeMultiplier),
-            color: letterTextColor
-          )
-          .position(x: position, y: height * 3/4)
-          .zIndex(2)
+          if let note = note {
+            TitleView(
+              text: note.noteName,
+              font: .system(size: keyGeo.size.height > keyGeo.size.width ? keyGeo.size.width * letterFontSizeMultiplier : keyGeo.size.height * letterFontSizeMultiplier),
+              color: letterTextColor
+            )
+            .position(x: position, y: height * 3/4)
+            .zIndex(2)
+          }
         }
       }
     }

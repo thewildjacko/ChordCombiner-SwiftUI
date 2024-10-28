@@ -157,6 +157,14 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   mutating func switchEnharmonic(to enharmonic: EnharmonicSymbol) {
     self.enharmonic = enharmonic
   }
+  
+  func toStackedPitch(startingOctave: Int, chordType: ChordType) -> Int {
+    let pitch = self.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+    let raisedPitch = pitch + 12
+    
+    return chordType.baseChordType.degreeTags.contains(degree) ? pitch : raisedPitch
+  }
+
 }
 
 extension Note: Equatable {
