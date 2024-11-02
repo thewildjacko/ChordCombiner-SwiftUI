@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CustomChordMenuKeyboardDisplayScrollView: View {
-  @EnvironmentObject var multiChord: MultiChord
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
   
@@ -63,7 +62,6 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
           }
         }
       }
-      .environmentObject(multiChord)
       .listStyle(.plain)
       .frame(maxHeight: .infinity)
       .padding(.horizontal)
@@ -78,11 +76,5 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
     chordTypes: ChordType.allSimpleChordTypes,
     rootKeyNote: .c,
     color: .lowerChordHighlight
-  )
-  .environmentObject(
-    MultiChord(
-      lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-      upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
-    )
   )
 }

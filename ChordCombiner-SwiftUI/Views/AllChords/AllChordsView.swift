@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllChordsView: View {
-  @State var chordTypeSections = ChordType.chordTypeSections
+  @State private var chordTypeSections = ChordType.chordTypeSections
   @State private var selectedSections: Set<ChordTypeSection> = []
   @State private var selectedLetter: Letter = .c
   @State private var selectedAccidental: RootAccidental = .natural

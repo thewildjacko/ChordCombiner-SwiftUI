@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
+import Observation
 
-class MultiChord: ObservableObject {
-  @Published var lowerChordProperties: ChordProperties
-  @Published var oldLowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
-  
-  @Published var upperChordProperties: ChordProperties
-  @Published var oldUpperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
+@Observable
+final class MultiChord: ObservableObject {
+  var lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
+  var upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   
   var lowerChord: Chord? {
     guard let letter = lowerChordProperties.letter,
@@ -66,7 +65,9 @@ class MultiChord: ObservableObject {
       resultChordVoicingCalculator: resultChord.voicingCalculator)
   }
   
-  init(lowerChordProperties: ChordProperties, upperChordProperties: ChordProperties) {
+  init(
+    lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
+    upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)) {
     self.lowerChordProperties = lowerChordProperties
     self.upperChordProperties = upperChordProperties
   }

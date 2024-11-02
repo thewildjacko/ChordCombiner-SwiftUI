@@ -83,6 +83,40 @@
 			<key>type</key>
 			<string>bookmark</string>
 		</dict>
+		<dict>
+			<key>query-specification</key>
+			<dict>
+				<key>query</key>
+				<string>text</string>
+				<key>scope</key>
+				<dict>
+					<key>named-scopes</key>
+					<array/>
+					<key>type</key>
+					<string>scope-chooser-compound-scope</string>
+					<key>workspace-location-predicates</key>
+					<array>
+						<dict>
+							<key>path-components</key>
+							<array>
+								<string>ChordCombiner-SwiftUI.xcodeproj</string>
+							</array>
+							<key>rule</key>
+							<string>workspace-location</string>
+						</dict>
+					</array>
+				</dict>
+				<key>term</key>
+				<dict>
+					<key>text</key>
+					<string>environment</string>
+				</dict>
+			</dict>
+			<key>title</key>
+			<string>environment</string>
+			<key>type</key>
+			<string>batch-find-query</string>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct CustomChordMenuSelectedView: View {
-  @EnvironmentObject var multiChord: MultiChord
+  var multiChord: MultiChord
   @State var chord: Chord? = nil
+  
+  @Binding var keyboard: Keyboard
+  @Binding var combinedKeyboard: Keyboard
+  @Binding var chordProperties: ChordProperties
   
   var text: String {
     isLowerChordMenu ? "Select Lower Chord" : "Select Upper Chord"
@@ -22,12 +26,6 @@ struct CustomChordMenuSelectedView: View {
     multiChord.upperChord != nil ?
       .largeTitle : .headline
   }
-
-  
-  @Binding var keyboard: Keyboard
-  @Binding var combinedKeyboard: Keyboard
-  @Binding var chordProperties: ChordProperties
-  @Binding var oldChordProperties: ChordProperties
   
   var isLowerChordMenu: Bool {
     get { chordProperties == multiChord.lowerChordProperties ? true : false }
@@ -40,14 +38,13 @@ struct CustomChordMenuSelectedView: View {
       NavigationLink(
         destination:
           CustomChordMenu(
+            multiChord: multiChord,
             selectedKeyboard: $keyboard,
             combinedKeyboard: $combinedKeyboard,
-            chordProperties: $chordProperties,
-            oldChordProperties: $oldChordProperties
+            chordProperties: $chordProperties
           )
           .navigationTitle(text)
           .navigationBarTitleDisplayMode(.inline)
-          .environmentObject(multiChord)
       ) {
         VStack(spacing: 15) {
             TitleView(
@@ -66,6 +63,7 @@ struct CustomChordMenuSelectedView: View {
 
 #Preview {
   CustomChordMenuSelectedView(
+    multiChord: MultiChord(),
     keyboard:
         .constant(
           Keyboard(
@@ -80,13 +78,6 @@ struct CustomChordMenuSelectedView: View {
         geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 5
       )
     ),
-    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil)),
-    oldChordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
-  )
-  .environmentObject(
-    MultiChord(
-      lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-      upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
-    )
+    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
   )
 }

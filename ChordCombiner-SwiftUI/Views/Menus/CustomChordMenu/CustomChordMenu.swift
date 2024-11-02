@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CustomChordMenu: View {
-  @EnvironmentObject var multiChord: MultiChord
+  var multiChord: MultiChord
   
   @Binding var selectedKeyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
-  @Binding var oldChordProperties: ChordProperties
   
   @State var matchingLetters: Set<Letter> = []
   @State var matchingAccidentals: Set<RootAccidental> = []
@@ -311,11 +310,10 @@ struct CustomChordMenu: View {
       
       TitleColorDivider()
       
-      DualChordKeyboardView(keyboard: $combinedKeyboard)
+      DualChordKeyboardView(multiChord: multiChord, keyboard: $combinedKeyboard)
       
       Spacer()
     }
-    .environmentObject(multiChord)
     .padding()
     .onAppear {
       matchChords()
@@ -333,6 +331,7 @@ struct CustomChordMenu: View {
 
 #Preview {
   CustomChordMenu(
+    multiChord: MultiChord(),
     selectedKeyboard:
         .constant(
           Keyboard(
@@ -350,13 +349,6 @@ struct CustomChordMenu: View {
         octaves: 5
       )
     ),
-    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil)),
-    oldChordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
-  )
-  .environmentObject(
-    MultiChord(
-      lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-      upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
-    )
+    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
   )
 }

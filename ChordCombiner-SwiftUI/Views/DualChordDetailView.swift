@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DualChordDetailView: View {
-  @EnvironmentObject var multiChord: MultiChord
+  var multiChord: MultiChord
   var keyboard: Keyboard
   
   var body: some View {
@@ -69,11 +69,8 @@ struct DualChordDetailView: View {
 }
 
 #Preview {
-  DualChordDetailView(keyboard: Keyboard(geoWidth: 150, initialKeyType: .C,  startingOctave: 4, octaves: 2))
-    .environmentObject(
-      MultiChord(
-        lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-        upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
-      )
-    )
+  DualChordDetailView(
+    multiChord: MultiChord(),
+    keyboard: Keyboard(geoWidth: 150, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  )
 }

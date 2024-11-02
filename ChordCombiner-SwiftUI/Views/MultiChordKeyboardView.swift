@@ -10,20 +10,11 @@ import SwiftUI
 struct MultiChordKeyboardView: View {
   
   //  MARK: @State and instance variables
-  //  @StateObject var multiChord: MultiChord = MultiChord(
-  //    lowerChord: Chord(.c, .ma7, startingOctave: 4),
-  //    upperChord: Chord(.d, .ma, startingOctave: 4))
-  //  @StateObject var oldMultiChord: MultiChord = MultiChord(
-  //    lowerChord: Chord(.c, .ma7, startingOctave: 4),
-  //    upperChord: Chord(.d, .ma, startingOctave: 4))
 
-  @StateObject var multiChord: MultiChord = MultiChord(
-    lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-    upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
+  @Bindable var multiChord: MultiChord = MultiChord(
+    lowerChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil),
+    upperChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   )
-  
-  @State var oldLowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
-  @State var oldUpperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: nil, chordType: nil)
   
   @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
   @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
@@ -32,9 +23,7 @@ struct MultiChordKeyboardView: View {
   
   var color: Color = .lowerChordHighlight
   var secondColor: Color = .lowerChordHighlight
-  
-//  @State var chordProperties: MultiChordProperties = MultiChordProperties(letter: nil, accidental: nil, chordType: nil)
-  
+    
 //    MARK: instance methods
   
 //    func setAndHighlightChords() {
@@ -117,10 +106,10 @@ struct MultiChordKeyboardView: View {
       Spacer()
       
       CustomChordMenuSelectedView(
+        multiChord: multiChord,
         keyboard: $lowerKeyboard,
         combinedKeyboard: $combinedKeyboard,
-        chordProperties: $multiChord.lowerChordProperties,
-        oldChordProperties: $multiChord.oldLowerChordProperties
+        chordProperties: $multiChord.lowerChordProperties
       )
       
       Spacer()
@@ -131,10 +120,10 @@ struct MultiChordKeyboardView: View {
       Spacer()
       
       CustomChordMenuSelectedView(
+        multiChord: multiChord,
         keyboard: $upperKeyboard,
         combinedKeyboard: $combinedKeyboard,
-        chordProperties: $multiChord.upperChordProperties,
-        oldChordProperties: $multiChord.oldUpperChordProperties
+        chordProperties: $multiChord.upperChordProperties
       )
       
       Spacer()
@@ -143,12 +132,11 @@ struct MultiChordKeyboardView: View {
       
       Spacer()
       
-      DualChordKeyboardView(keyboard: $combinedKeyboard)
+      DualChordKeyboardView(multiChord: multiChord, keyboard: $combinedKeyboard)
       
       Spacer()
     }
     // MARK: modifiers
-    .environmentObject(multiChord)
     .padding()
     .onAppear(perform: {
       //      setAndHighlightChords()
@@ -199,14 +187,4 @@ struct MultiChordKeyboardView: View {
 //  MARK: Preview
 #Preview {
   MultiChordKeyboardView()
-    .environmentObject(
-//      MultiChord(
-//        lowerChord: Chord(.c, .ma7, startingOctave: 4),
-//        upperChord: Chord(.d, .ma, startingOctave: 4)
-//      )
-      MultiChord(
-        lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-        upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
-      )
-    )
 }
