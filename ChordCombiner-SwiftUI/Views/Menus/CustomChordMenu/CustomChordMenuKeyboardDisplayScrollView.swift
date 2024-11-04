@@ -23,7 +23,7 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
   var body: some View {
     ScrollViewReader { proxy in
       List {
-        ForEach(chordTypes, id: \.rawValue) { chordType in
+        ForEach(chordTypes) { chordType in
           if let rootKeyNote = rootKeyNote {
             let chord = Chord(rootKeyNote, chordType)
             

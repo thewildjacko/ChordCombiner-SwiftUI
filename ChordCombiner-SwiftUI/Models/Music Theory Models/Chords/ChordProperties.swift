@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct ChordProperties: Equatable {
+  enum ChordPropertyChanged {
+    case letter, accidental, chordType
+  }
+  
   var id: UUID = UUID()
   var letter: Letter?
   var accidental: RootAccidental?

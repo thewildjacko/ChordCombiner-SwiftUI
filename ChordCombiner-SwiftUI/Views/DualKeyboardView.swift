@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DualChordKeyboardView: View {
   var multiChord: MultiChord
-  @Binding var keyboard: Keyboard
   
   var chordSymbolText: String {
     guard let resultChord = multiChord.resultChord,
@@ -68,7 +67,7 @@ struct DualChordKeyboardView: View {
         if multiChord.lowerChord != nil || multiChord.upperChord != nil {
           NavigationLink(
             destination:
-              DualChordDetailView(multiChord: multiChord, keyboard: keyboard)
+              DualChordDetailView(multiChord: multiChord)
           ) {
             Image(systemName: "info.circle")
               .font(.title3)
@@ -76,22 +75,11 @@ struct DualChordKeyboardView: View {
           }
         }
       }
-      keyboard
+      multiChord.combinedKeyboard
     }
   }
 }
 
 #Preview {
-  DualChordKeyboardView(
-    multiChord: MultiChord(),
-    keyboard: .constant(
-      Keyboard(
-        geoWidth: 351,
-        initialKeyType: .C,
-        startingOctave: 4,
-        octaves: 5
-      )
-    )
-  )
-  
+  DualChordKeyboardView(multiChord: MultiChord())
 }

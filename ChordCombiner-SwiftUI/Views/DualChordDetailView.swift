@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DualChordDetailView: View {
   var multiChord: MultiChord
-  var keyboard: Keyboard
   
   var body: some View {
     VStack(spacing: 20) {
@@ -36,7 +35,7 @@ struct DualChordDetailView: View {
         )
       }
       
-      keyboard
+      multiChord.combinedKeyboard
       
       Form {
         List {
@@ -59,9 +58,7 @@ struct DualChordDetailView: View {
           }
         }
       }
-      
-      //      .headerProminence(.increased)
-      
+
       Spacer()
     }
     .padding(.vertical)
@@ -69,8 +66,5 @@ struct DualChordDetailView: View {
 }
 
 #Preview {
-  DualChordDetailView(
-    multiChord: MultiChord(),
-    keyboard: Keyboard(geoWidth: 150, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  )
+  DualChordDetailView(multiChord: MultiChord())
 }

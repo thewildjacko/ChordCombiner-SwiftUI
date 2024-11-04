@@ -13,14 +13,13 @@ struct MultiChordKeyboardView: View {
 
   @Bindable var multiChord: MultiChord = MultiChord(
     lowerChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil),
-    upperChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil)
+    upperChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil),
+    lowerKeyboard: Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
+    upperKeyboard: Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
+    combinedKeyboard: Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   )
   
-  @State var lowerKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  @State var upperKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  @State var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   @State var isInitial: Bool = true
-  
   var color: Color = .lowerChordHighlight
   var secondColor: Color = .lowerChordHighlight
     
@@ -107,8 +106,8 @@ struct MultiChordKeyboardView: View {
       
       CustomChordMenuSelectedView(
         multiChord: multiChord,
-        keyboard: $lowerKeyboard,
-        combinedKeyboard: $combinedKeyboard,
+        keyboard: $multiChord.lowerKeyboard,
+        combinedKeyboard: $multiChord.combinedKeyboard,
         chordProperties: $multiChord.lowerChordProperties
       )
       
@@ -121,8 +120,8 @@ struct MultiChordKeyboardView: View {
       
       CustomChordMenuSelectedView(
         multiChord: multiChord,
-        keyboard: $upperKeyboard,
-        combinedKeyboard: $combinedKeyboard,
+        keyboard: $multiChord.upperKeyboard,
+        combinedKeyboard: $multiChord.combinedKeyboard,
         chordProperties: $multiChord.upperChordProperties
       )
       
@@ -132,7 +131,7 @@ struct MultiChordKeyboardView: View {
       
       Spacer()
       
-      DualChordKeyboardView(multiChord: multiChord, keyboard: $combinedKeyboard)
+      DualChordKeyboardView(multiChord: multiChord)
       
       Spacer()
     }

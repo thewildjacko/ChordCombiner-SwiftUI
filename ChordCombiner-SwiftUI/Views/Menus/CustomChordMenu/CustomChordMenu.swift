@@ -72,10 +72,10 @@ struct CustomChordMenu: View {
   func clearAccidentals() { matchingAccidentals.removeAll() }
   func clearChordTypes() { matchingChordTypes.removeAll() }
   
-  func clearMatches() {
-    clearLetters()
-    clearAccidentals()
-    clearChordTypes()
+  func clearMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
+    if propertyChanged == .accidental || propertyChanged == .chordType { clearLetters() }
+    if propertyChanged == .letter || propertyChanged == .chordType { clearAccidentals() }
+    if propertyChanged == .letter || propertyChanged == .accidental { clearChordTypes() }
   }
   
   func setChordsForMatches() -> (firstChord: Chord?, secondChord: Chord?) {
@@ -126,15 +126,18 @@ struct CustomChordMenu: View {
     matchByChordType()
   }
   
+  func renewChordMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
+    if propertyChanged == .accidental || propertyChanged == .chordType { matchByLetter() }
+    if propertyChanged == .letter || propertyChanged == .chordType { matchByAccidental() }
+    if propertyChanged == .letter || propertyChanged == .accidental { matchByChordType() }
+  }
+  
   func highlightSelectedChord() {
     guard let selectedChord = selectedChord else { return }
     
     selectedKeyboard.highlightKeysAfterClearing(pitches: selectedChord.voicingCalculator.stackedPitches, color: selectedChordColor)
     selectedKeyboard.setNotesStacked(pitchesByNote: selectedChord.voicingCalculator.stackedPitchesByNote, color: selectedChordColor)
-    print(selectedChord.voicingCalculator.allNotes)
-    print(selectedChord.voicingCalculator.pitchesRaisedAboveRoot)
-    print(selectedChord.voicingCalculator.stackedPitches)
-    print(selectedChord.voicingCalculator.stackedPitchesByNote)
+    
 //    selectedKeyboard.toggleLetters()
   }
   
@@ -229,17 +232,9 @@ struct CustomChordMenu: View {
   //  }
   
   
-  //  func setOldMultiChord() {
-  //    oldMultiChord = MultiChord(lowerChord: multiChord.lowerChord, upperChord: multiChord.upperChord)
-  //    oldMultiChord.setResultChord()
-  //  }
-  
-  func clearAndMatchChords() {
-    clearMatches()
-    matchChords()
-    //    toggleHighlightForSelectedKeyboard()
-    //    toggleHighlightForCombinedKeyboard()
-    //    setOldMultiChord()
+  func clearAndMatchChords(propertyChanged: ChordProperties.ChordPropertyChanged) {
+    clearMatches(propertyChanged: propertyChanged)
+    renewChordMatches(propertyChanged: propertyChanged)
   }
   
   var body: some View {
@@ -310,7 +305,7 @@ struct CustomChordMenu: View {
       
       TitleColorDivider()
       
-      DualChordKeyboardView(multiChord: multiChord, keyboard: $combinedKeyboard)
+      DualChordKeyboardView(multiChord: multiChord)
       
       Spacer()
     }
@@ -320,12 +315,24 @@ struct CustomChordMenu: View {
       highlightSelectedChord()
       highlightCombinedChord()
     }
-    .onChange(of: selectedChord, { oldValue, newValue in
-      clearAndMatchChords()
+    .onChange(of: selectedChord?.letter, { oldValue, newValue in
+      clearAndMatchChords(propertyChanged: .letter)
+      
       highlightSelectedChord()
       highlightCombinedChord()
     })
-    
+    .onChange(of: selectedChord?.accidental, { oldValue, newValue in
+      clearAndMatchChords(propertyChanged: .accidental)
+      
+      highlightSelectedChord()
+      highlightCombinedChord()
+    })
+    .onChange(of: selectedChord?.chordType, { oldValue, newValue in
+      clearAndMatchChords(propertyChanged: .chordType)
+
+      highlightSelectedChord()
+      highlightCombinedChord()
+    })
   }
 }
 
