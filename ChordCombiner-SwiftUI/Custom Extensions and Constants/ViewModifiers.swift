@@ -57,11 +57,6 @@ struct HighlightableTagViewModifier: ViewModifier {
       .clipShape(
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
       )
-    
-//      .overlay(
-//        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-//          .fill(.clear)
-//      )
       .glow(color: glowColor, radius:glowRadius)
   }
 }
@@ -121,12 +116,6 @@ struct Glow: ViewModifier {
     content
       .shadow(color: color, radius: pulseRadius)
       .shadow(color: color, radius: pulseRadius)
-//      .shadow(color: color, radius: pulseRadius)
-//      .animation(
-//        .easeOut(duration: 2.0).repeatForever(),
-//        value: pulse
-//      )
-//      .onAppear { pulse.toggle() }
   }
 }
 

@@ -13,20 +13,20 @@ struct Key: View, KeyProtocol, Identifiable {
   var keyType: KeyType
   var note: Note?
   
-  var geoWidth: CGFloat
-  var widthMod: CGFloat
+  var baseWidth: CGFloat
+  var widthDivisor: CGFloat
   var keyPosition: CGFloat = 0
   var fill: any ShapeStyle
   var stroke: Color = .black
   var lineWidth: CGFloat = 1
-
+  
   var initialKey: Bool = false
   var finalKey: Bool = false
   var lettersOn: Bool = false
   var highlighted = false
   
   var letterFontSizeMultiplier: CGFloat {
-    keyType.defaultFillColor == .white ? 0.175 : 0.085
+    keyType.defaultFillColor == .white ? 0.7 : 0.6
   }
   
   var letterTextColor: Color {
@@ -40,7 +40,7 @@ struct Key: View, KeyProtocol, Identifiable {
       height: height,
       radius: radius,
       widthMultiplier: widthMultiplier,
-      keyShapePath: keyType.keyShapePath
+      keyShapePathType: keyType.keyShapePath
     )
   }
   
@@ -56,7 +56,6 @@ struct Key: View, KeyProtocol, Identifiable {
   mutating func highlight<T: ShapeStyle>(color: T) {
     fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : fill
     highlighted = true
-    
   }
   
   mutating func clearHighlight() {
@@ -64,57 +63,55 @@ struct Key: View, KeyProtocol, Identifiable {
     highlighted = false
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
     self.pitch = pitch
     self.keyType = keyType
     self.note = note
-    self.geoWidth = geoWidth
-    self.widthMod = widthMod
+    self.baseWidth = baseWidth
+    self.widthDivisor = widthDivisor
     self.fill = fill
     self.stroke = stroke
     self.lineWidth = lineWidth
     self.lettersOn = lettersOn
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, lettersOn: Bool = false) {
     self.init(
       pitch: pitch,
       keyType: keyType,
       note: note,
-      geoWidth: geoWidth,
-      widthMod: widthMod,
+      baseWidth: baseWidth,
+      widthDivisor: widthDivisor,
       fill: keyType.defaultFillColor,
       lettersOn: lettersOn
     )
   }
   
   var body: some View {
-    GeometryReader { keyGeo in
-      ZStack {
-        KeyShapeGroup(
-          finalKey: finalKey,
-          width: width,
-          height: height,
-          radius: radius,
-          widthMultiplier: widthMultiplier,
-          position: position,
-          fill: fill,
-          stroke: stroke,
-          lineWidth: lineWidth,
-          z_Index: z_Index,
-          keyShapePath: keyType.keyShapePath
-        )
-        
-        if lettersOn {
-          if let note = note {
-            TitleView(
-              text: note.noteName,
-              font: .system(size: keyGeo.size.height > keyGeo.size.width ? keyGeo.size.width * letterFontSizeMultiplier : keyGeo.size.height * letterFontSizeMultiplier),
-              color: letterTextColor
-            )
-            .position(x: position, y: height * 3/4)
-            .zIndex(2)
-          }
+    ZStack {
+      KeyShapeGroup(
+        finalKey: finalKey,
+        width: width,
+        height: height,
+        radius: radius,
+        widthMultiplier: widthMultiplier,
+        position: position,
+        fill: fill,
+        stroke: stroke,
+        lineWidth: lineWidth,
+        z_Index: z_Index,
+        keyShapePath: keyType.keyShapePath
+      )
+      
+      if lettersOn {
+        if let note = note {
+          TitleView(
+            text: note.noteName,
+            font: .system(size: width * letterFontSizeMultiplier),
+            color: letterTextColor
+          )
+          .position(x: position, y: height * 3/4)
+          .zIndex(2)
         }
       }
     }
@@ -127,7 +124,7 @@ extension Key {
 
 #Preview {
   GeometryReader { geometry in
-    Key(keyType: .C, geoWidth: geometry.size.width, widthMod: 23, fill: .white)
+    Key(keyType: .G, baseWidth: geometry.size.width, widthDivisor: 23, fill: .white)
   }
   .position(x: 92, y: 192)
   .frame(width: 23 * 4, height: 96 * 4)

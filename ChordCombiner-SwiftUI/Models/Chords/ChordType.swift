@@ -287,10 +287,9 @@ enum ChordType: String, ChordAndScaleProperty {
       // mi(∆7)
     case .mi_ma7, .mi_ma9, .mi_ma11, .mi_ma13, .mi_ma11_omit9, .mi_ma13_omit9:
       return .mi_ma7
-      
     }
   }
-  
+    
   // MARK: degrees
   var degreeNumbers: [Int] {
     Degree.degreeNumbersInC(degreeTags: degreeTags)
@@ -787,10 +786,12 @@ extension ChordType {
   ///
   /// - Tranposes the combined set to an array in the key of C *(C is 0 in a range of 0-11)* relative to the supplied `rootKeyNote`, sorted in ascending order
   /// - Runs the new array through `init?(fromDegreeNumbersToMatch degreeNumbers: [Int])`
-  init?(fromDegreeNumbers degreeNumbersInC: [Int], transposedTo rootKeyNote: RootKeyNote) {
-    let degreeNumbersInCTransposed = degreeNumbersInC.transposed(to: rootKeyNote)
+  init?(fromDegreeNumbers degreeNumbers: [Int], transposedTo rootKeyNote: RootKeyNote) {
+    let degreeNumbersTransposed = degreeNumbers.transposed(to: rootKeyNote)
     
-    self.init(fromDegreeNumbersToMatch: degreeNumbersInCTransposed)
+    print(degreeNumbersTransposed)
+    
+    self.init(fromDegreeNumbersToMatch: degreeNumbersTransposed)
   }
   
   /// Failable initializer from a set of `degreeNumbers` plus a ``RootKeyNote`` (usually the lower chord's root) to filter out

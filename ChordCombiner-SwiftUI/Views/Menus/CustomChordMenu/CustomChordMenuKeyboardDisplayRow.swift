@@ -22,7 +22,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   var keyboard: Keyboard {
     if let chord = chord, let keyboardColor = keyboardColor {
       Keyboard(
-        geoWidth: 150,
+        baseWidth: 150,
         initialKeyType: .C,
         startingOctave: 4,
         octaves: 2,
@@ -33,7 +33,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
       )
     } else {
       Keyboard(
-        geoWidth: 150,
+        baseWidth: 150,
         initialKeyType: .C,
         startingOctave: 4,
         octaves: 2

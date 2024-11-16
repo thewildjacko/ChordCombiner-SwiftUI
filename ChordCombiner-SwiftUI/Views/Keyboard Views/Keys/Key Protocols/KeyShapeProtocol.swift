@@ -14,5 +14,5 @@ protocol KeyShapeProtocol: Shape {
   var height: CGFloat { get set }
   var radius: CGFloat { get set }
   var widthMultiplier: CGFloat { get set }
-  var keyShapePath: KeyShapePath { get set }
+  var keyShapePathType: KeyShapePathType { get set }
 }

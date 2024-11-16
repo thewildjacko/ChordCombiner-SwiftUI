@@ -78,7 +78,6 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   }
   
   init(_ degree: Degree, of root: RootKeyNote) {
-    // maj3rd of D -> rootNumber = 2 -> note is F#
     self.init(
       rootNumber: root.keyName.noteNumber,
       enharmonic: root.keyName.enharmonic,
@@ -92,13 +91,6 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
       enharmonic: root.keyName.enharmonic,
       degree: .root
     )
-  }
-  
-  // FIXME: Currently not using this init
-  init(_ keyName: KeyName = .c, degree: Degree = .root) {
-    // keyName = D, degree is maj3rd, noteNumber is 2 minusDeg 4 = 10
-    let noteNumber = NoteNumber(keyName.noteNumber.rawValue.minusDegreeNumber(degree.noteNumber.rawValue))
-    self.init(rootNumber: noteNumber, enharmonic: keyName.enharmonic, degree: degree)
   }
   
   mutating func kSW(keySwitcher: KeySwitcher) {
@@ -129,35 +121,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
       self.rootKeyName = keySwitcher.pickKey(.cB, .b, .b, .b)
     }
   }
-  
-  /// flips a note enharmonically
-  func enharmSwapped() -> Note {
-    var newEnharm: EnharmonicSymbol {
-      switch enharmonic {
-      case .flat, .sharp:
-        return enharmonic == .flat ? .sharp : .flat
-      case .blackKeyFlats, .blackKeySharps:
-        return enharmonic == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
-      }
-    }
-    
-    return Note(rootNumber: noteNumber, enharmonic: newEnharm, degree: degree)
-  }
-  
-  mutating func swapEnharmonic() {
-    switch enharmonic {
-    case .flat, .sharp:
-      enharmonic = enharmonic == .flat ? .sharp : .flat
-    case .blackKeyFlats, .blackKeySharps:
-      enharmonic = enharmonic == .blackKeyFlats ? .blackKeySharps : .blackKeyFlats
-    }
-    kSW(keySwitcher: KeySwitcher(enharmonic: enharmonic))
-  }
-  
-  mutating func switchEnharmonic(to enharmonic: EnharmonicSymbol) {
-    self.enharmonic = enharmonic
-  }
-  
+        
   func toStackedPitch(startingOctave: Int, chordType: ChordType) -> Int {
     let pitch = self.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
     let raisedPitch = pitch + 12
@@ -165,15 +129,6 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
     return chordType.baseChordType.degreeTags.contains(degree) ? pitch : raisedPitch
   }
 
-}
-
-extension Note: Equatable {
-  static func == (lhs: Note, rhs: Note) -> Bool {
-    return lhs.noteNumber == rhs.noteNumber
-  }
-}
-
-extension Note {
   func isEnharmonicEquivalent(to note: Note) -> Bool {
     if self.noteNumber == note.noteNumber && self.noteName != note.noteName {
       return true
@@ -181,13 +136,11 @@ extension Note {
       return false
     }
   }
-  
-  static func enharmonicEquivalents (lhs: Note, rhs: Note) -> Bool {
-    if lhs.noteNumber == rhs.noteNumber && lhs.noteName != rhs.noteName {
-      return true
-    } else {
-      return false
-    }
+}
+
+extension Note: Equatable {
+  static func == (lhs: Note, rhs: Note) -> Bool {
+    return lhs.noteNumber == rhs.noteNumber
   }
 }
 

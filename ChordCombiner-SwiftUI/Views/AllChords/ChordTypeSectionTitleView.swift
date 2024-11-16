@@ -32,13 +32,11 @@ struct ChordTypeSectionTitleView: View {
       .fontWeight(.bold)
       .contentShape(Rectangle())
       .onTapGesture {
-        //          withAnimation(.easeInOut) {
         self.selectDeselect(section)
-        //          }
       }
       if isExpanded {
         HStack {
-          Keyboard(geoWidth: 40, keyCount: 12, initialKeyType: .C, startingOctave: 4)
+          Keyboard(baseWidth: 40, keyCount: 12, initialKeyType: .C, startingOctave: 4)
             .padding(.trailing, 5)
             .onTapGesture {
               kbDisplay.toggle()

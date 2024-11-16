@@ -12,9 +12,9 @@ import Observation
 final class MultiChord: ObservableObject {
   var lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   var upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
-  var lowerKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  var upperKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  var combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+  var lowerKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  var upperKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  var combinedKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   
   var lowerChord: Chord? {
     guard let letter = lowerChordProperties.letter,
@@ -57,23 +57,22 @@ final class MultiChord: ObservableObject {
   
   var multiChordVoicingCalculator: MultiChordVoicingCalculator? {
     guard let lowerChord = lowerChord,
-          let upperChord = upperChord,
-          let resultChord = resultChord else {
+          let upperChord = upperChord else {
       return nil
     }
     
     return MultiChordVoicingCalculator(
       lowerChordVoicingCalculator: lowerChord.voicingCalculator,
       upperChordVoicingCalculator: upperChord.voicingCalculator,
-      resultChordVoicingCalculator: resultChord.voicingCalculator)
+      resultChordVoicingCalculator: resultChord?.voicingCalculator ?? nil)
   }
   
   init(
     lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
     upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
-    lowerKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
-    upperKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
-    combinedKeyboard: Keyboard = Keyboard(geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+    lowerKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
+    upperKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
+    combinedKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   ) {
     self.lowerChordProperties = lowerChordProperties
     self.upperChordProperties = upperChordProperties

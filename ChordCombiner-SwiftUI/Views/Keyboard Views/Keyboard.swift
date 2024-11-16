@@ -11,9 +11,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var id: UUID = UUID()
   //  MARK: @State properties
   var height: CGFloat = 0
-  @State var geoWidth: CGFloat
+  @State var width: CGFloat
   var highlightedPitches: Set<Int> = []
-//  var title: String
   
   //  MARK: instance properties
   
@@ -27,7 +26,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var keyTypes: [KeyType] = []
   var octaves: Int?
   var keys: [Key] = []
-  var widthMod: CGFloat = 0
+  var widthDivisor: CGFloat = 0
   var keyPosition: CGFloat = 0
   var widthMultiplier: CGFloat = 0
   var glowColor: Color = .clear
@@ -35,8 +34,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var lettersOn: Bool = false
   
   //  MARK: initializers
-  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, lettersOn: Bool = false) {
-    self.geoWidth = geoWidth
+  init(baseWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, lettersOn: Bool = false) {
+    self.width = baseWidth
     self.keyCount = keyCount
     self.startingOctave = startingOctave
     self.initialKeyType = initialKeyType
@@ -51,9 +50,9 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     addKeys()
   }
   
-  init(geoWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color, lettersOn: Bool = false) {
+  init(baseWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color, lettersOn: Bool = false) {
     self.init(
-      geoWidth: geoWidth,
+      baseWidth: baseWidth,
       keyCount: keyCount,
       initialKeyType: initialKeyType,
       startingOctave: startingOctave,
@@ -64,8 +63,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     )
     
     highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitches, color: color)
-    print(chord.voicingCalculator.pitchesRaisedAboveRoot)
-//    highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitchesByDegree, color: color)
   }
   
   //  MARK: initializer methods
@@ -100,16 +97,16 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     for (index, keyType) in keyTypes.enumerated() {
       switch keyType {
       case .C, .E, .G, .A:
-        widthMod += index == 0 ? Width.whiteKeyCEGA.rawValue : Width.getAddend(keyType)
+        widthDivisor += index == 0 ? KeyWidth.whiteKeyCEGA.rawValue : KeyWidth.getAddend(keyType)
       case .D, .F, .B:
-        widthMod += index == 0 ? Width.whiteKeyDFB.rawValue : Width.getAddend(keyType)
+        widthDivisor += index == 0 ? KeyWidth.whiteKeyDFB.rawValue : KeyWidth.getAddend(keyType)
       case .Db, .Eb, .Gb, .Ab, .Bb:
-        widthMod += index == 0 ? Width.blackKey.rawValue : Width.getAddend(keyType)
+        widthDivisor += index == 0 ? KeyWidth.blackKey.rawValue : KeyWidth.getAddend(keyType)
       }
     }
     
-    self.widthMultiplier = geoWidth/widthMod
-    self.height = Height.whiteKey.rawValue * widthMultiplier
+    self.widthMultiplier = width/widthDivisor
+    self.height = KeyHeight.whiteKey.rawValue * widthMultiplier
   }
   
   mutating func addKeyTypes(count: Int, nextKey: inout KeyType) {
@@ -132,8 +129,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
           Key(
             pitch: pitch,
             keyType,
-            geoWidth: geoWidth,
-            widthMod: widthMod,
+            baseWidth: width,
+            widthDivisor: widthDivisor,
             initialKey: true,
             keyPosition: keyType.initialKeyPosition,
             lettersOn: lettersOn
@@ -146,8 +143,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
           Key(
             pitch: pitch,
             keyType,
-            geoWidth: geoWidth,
-            widthMod: widthMod,
+            baseWidth: width,
+            widthDivisor: widthDivisor,
             keyPosition: keyPosition,
             lettersOn: lettersOn
           )
@@ -159,8 +156,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
           Key(
             pitch: pitch,
             keyType,
-            geoWidth: geoWidth,
-            widthMod: widthMod,
+            baseWidth: width,
+            widthDivisor: widthDivisor,
             finalKey: true,
             keyPosition: keyPosition,
             lettersOn: lettersOn
@@ -171,25 +168,10 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
   
   //  MARK: instance methods
-  func stats() {
-    let key = keys[0]
-    print("height: \(key.height)")
-  }
-  
   mutating func toggleLetters() {
     for index in keys.indices {
       keys[index].lettersOn.toggle()
     }
-  }
-  
-  mutating func resize(geoWidth: CGFloat) -> Keyboard {
-    return Keyboard(
-      geoWidth: geoWidth,
-      keyCount: keyCount,
-      initialKeyType: initialKeyType,
-      startingOctave: startingOctave,
-      octaves: octaves,
-      lettersOn: lettersOn)
   }
   
   mutating func clearHighlightedKeys() {
@@ -249,12 +231,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
   }
-  
-  mutating func toggleHighlightKeysSplit_SameColor<T: ShapeStyle>(degreeNumbers: [Int], secondDegs: [Int], color: T) {
-    degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
-    secondDegs.toggleHighlightIfSelected(keys: &keys, color: color)
-  }
-  
+
   mutating func toggleHighlightKeysCombined(degreeNumbers: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
         degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
         secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
@@ -291,11 +268,12 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
           }
         }
         .background(
-          RoundedRectangle(cornerRadius: Radius.whiteKey.rawValue * widthMultiplier)
-            .frame(width: geoWidth, height: height)          
+          RoundedRectangle(cornerRadius: KeyRadius.whiteKey.rawValue * widthMultiplier)
+            .frame(width: width, height: height)          
             .glow(color: glowColor, radius: glowRadius)
         )
-        .frame(width: geoWidth, height: height)
+        .frame(width: width, height: height)
+        .foregroundStyle(.clear)
       }
     }
   }
@@ -303,8 +281,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
 #Preview {
   VStack {
-    Keyboard(geoWidth: 351, initialKeyType: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
-      .position(x: 220, y: 600)
+    Keyboard(baseWidth: 950, keyCount: 13, initialKeyType: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
+      .position(x: 550, y: 600)
   }
 }
 

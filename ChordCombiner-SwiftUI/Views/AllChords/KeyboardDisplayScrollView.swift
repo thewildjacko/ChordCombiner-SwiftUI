@@ -29,7 +29,7 @@ struct KeyboardDisplayScrollView: View {
                 chord: chord,
                 keyboard:
                   Keyboard(
-                    geoWidth: 250,
+                    baseWidth: 250,
                     initialKeyType: .C,
                     startingOctave: 4,
                     octaves: 3,

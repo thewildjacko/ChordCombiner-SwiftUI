@@ -14,8 +14,8 @@ protocol KeyProtocol {
   var keyType: KeyType { get set }
   var note: Note? { get set }
   
-  var geoWidth: CGFloat { get set }
-  var widthMod: CGFloat { get set }
+  var baseWidth: CGFloat { get set }
+  var widthDivisor: CGFloat { get set }
   var initialKey: Bool { get set }
   var finalKey: Bool { get set }
   var keyPosition: CGFloat { get set }
@@ -32,38 +32,38 @@ protocol KeyProtocol {
   var z_Index: Double { get }
   var lettersOn: Bool { get set }
   
-  init(pitch: Int, keyType: KeyType, note: Note?, geoWidth: CGFloat, widthMod: CGFloat, fill: any ShapeStyle, stroke: Color, lineWidth: CGFloat, lettersOn: Bool)
+  init(pitch: Int, keyType: KeyType, note: Note?, baseWidth: CGFloat, widthDivisor: CGFloat, fill: any ShapeStyle, stroke: Color, lineWidth: CGFloat, lettersOn: Bool)
 }
 
 extension KeyProtocol {
-  var widthMultiplier: CGFloat { geoWidth / widthMod }
+  var widthMultiplier: CGFloat { baseWidth / widthDivisor }
   
   var radius: CGFloat {
     switch keyType {
     case .C, .D, .E, .F, .G, .A, .B:
-      return Radius.whiteKey.rawValue * widthMultiplier
+      return KeyRadius.whiteKey.rawValue * widthMultiplier
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      return Radius.blackKey.rawValue * widthMultiplier
+      return KeyRadius.blackKey.rawValue * widthMultiplier
     }
   }
   
   var width: CGFloat {
     switch keyType {
     case .C, .E, .G, .A:
-      return Width.whiteKeyCEGA.rawValue * widthMultiplier
+      return KeyWidth.whiteKeyCEGA.rawValue * widthMultiplier
     case .D, .F, .B:
-      return Width.whiteKeyDFB.rawValue * widthMultiplier
+      return KeyWidth.whiteKeyDFB.rawValue * widthMultiplier
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      return Width.blackKey.rawValue * widthMultiplier
+      return KeyWidth.blackKey.rawValue * widthMultiplier
     }
   }
   
   var height: CGFloat {
     switch keyType {
     case .C, .D, .E, .F, .G, .A, .B:
-      return widthMultiplier * Height.whiteKey.rawValue
+      return widthMultiplier * KeyHeight.whiteKey.rawValue
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      return widthMultiplier * Height.blackKey.rawValue
+      return widthMultiplier * KeyHeight.blackKey.rawValue
     }
   }
   
@@ -86,22 +86,22 @@ extension KeyProtocol {
   }
   
   var position: CGFloat {
-    geoWidth.getKeyPosition(position: keyPosition, widthMod: widthMod)
+    baseWidth.getKeyPosition(position: keyPosition, widthDivisor: widthDivisor)
   }
   
-  var KeyWidthAddend: CGFloat { Width.getAddend(keyType) }
+  var keyWidthAddend: CGFloat { KeyWidth.getAddend(keyType) }
   
-  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat = 23, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
-    self.init(pitch: pitch, keyType: keyType, note: note, geoWidth: geoWidth, widthMod: widthMod, fill: fill, stroke: stroke, lineWidth: lineWidth, lettersOn: lettersOn)
+  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
+    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: fill, stroke: stroke, lineWidth: lineWidth, lettersOn: lettersOn)
     
     self.initialKey = initialKey
     self.finalKey = finalKey
     self.keyPosition = keyPosition
   }
   
-  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, geoWidth: CGFloat, widthMod: CGFloat = 23, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
+  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
     
-    self.init(pitch: pitch, keyType: keyType, note: note, geoWidth: geoWidth, widthMod: widthMod, fill: keyType.defaultFillColor, stroke: .black, lineWidth: 1, lettersOn: lettersOn)
+    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: keyType.defaultFillColor, stroke: .black, lineWidth: 1, lettersOn: lettersOn)
     
     self.initialKey = initialKey
     self.finalKey = finalKey

@@ -30,7 +30,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:StackedPitchesTest.xctestplan">
+            reference = "container:StackedPitchesTest.xctestplan"
+            default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>

@@ -19,10 +19,10 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
-  var keyShapePath: KeyShapePath
+  var keyShapePath: KeyShapePathType
     
   typealias NoteShape = KeyShape
-  var keyShape: NoteShape { KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePath: keyShapePath)
+  var keyShape: NoteShape { KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: keyShapePath)
   }
   
   var keyRect: CGRect { CGRect(x: 0, y: 0, width: width, height: height) }
@@ -41,6 +41,7 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
       
       keyShape.path(
         in: keyRect)
+      .fill(.clear)
       .stroke(stroke, lineWidth: lineWidth)
     }
     .rotation3DEffect(

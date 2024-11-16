@@ -25,6 +25,20 @@ struct ChordFactory {
     return chords
   }
   
+  static var allSimpleChords: [Chord] {
+    var chords: [Chord] = []
+    let roots: [RootKeyNote] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
+    
+    for root in roots {
+      for chordType in ChordType.allSimpleChordTypes {
+        chords.append(Chord(root, chordType))
+      }
+    }
+    
+    return chords
+  }
+  
+  
   static var allChordsInC: [Chord] {
     var chords: [Chord] = []
     let root: RootKeyNote = .c
@@ -54,15 +68,23 @@ struct ChordFactory {
     // First chord's ``RootKeyNote`` assigned to a constant for convenient reuse
     let lowerRootKeyNote = firstChord.rootKeyNote
        
+    /// combine both `Chord`s' degreeNumber arrays
+    let combinedDegrees = firstChord.degreeNumbers.combineSetFilterSort(secondChord.degreeNumbers)
+    
+    print(combinedDegrees)
+    
     /// Tranposes the `degreeNumber` array to the key of C *(**0** in a range of **0-11**)
     let combinedDegreesInC = firstChord.degreeNumbers.combinedAndTransposed(with: secondChord.degreeNumbers, to: lowerRootKeyNote)
+    
+    print(combinedDegreesInC)
     
     var combinedRootKeyNotes = firstChord.combinedRootKeyNotes(with: secondChord)
         
     // check for matching ChordType based on combinedDegreesinC, assign chord from matching chordType to resultChord, and check for equivalentChords
     if let chordType = ChordType(fromDegreeNumbersToMatch: combinedDegreesInC) {
       resultChord = Chord(
-        RootKeyNote(firstChord.root.rootKeyName),
+//        RootKeyNote(firstChord.root.rootKeyName),
+        lowerRootKeyNote,
         chordType,
         isSlashChord: false,
         slashChordBassNote: nil
@@ -70,9 +92,12 @@ struct ChordFactory {
       
       equivalentChords = EquivalentChordFinder.checkForEquivalentChords(degreeNumbers: combinedDegreesInC, rootKeyNotes: combinedRootKeyNotes)
     } else {
-      while combinedRootKeyNotes.count >= 1 {
+      print("No match for initial root")
+      outerloop: while combinedRootKeyNotes.count >= 1 {
         for rootKeyNote in combinedRootKeyNotes {
-          if let chordType = ChordType(fromDegreeNumbers: combinedDegreesInC, transposedTo: rootKeyNote) {
+          print("Trying \(rootKeyNote.keyName.rawValue)")
+          if let chordType = ChordType(fromDegreeNumbers: combinedDegrees, transposedTo: rootKeyNote) {
+            print("Found a match for \(rootKeyNote.keyName.rawValue)!")
             resultChord = Chord(
               rootKeyNote,
               chordType,
@@ -80,10 +105,12 @@ struct ChordFactory {
               slashChordBassNote: rootKeyNote
             )
             
+            print(resultChord!.preciseName)
+            
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
 
             equivalentChords = EquivalentChordFinder.checkForEquivalentChords(degreeNumbers: combinedDegreesInC, rootKeyNotes: combinedRootKeyNotes)
-            break
+            break outerloop
           } else {
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
           }
@@ -92,41 +119,6 @@ struct ChordFactory {
     }
         
     return (resultChord, equivalentChords)
-  }
-  
-  static func compareDegreesInC() {
-    //    var count = 0
-    //    for chord in allChordsInC {
-    //      let allNotes = chord.allNotes.map { $0.noteNumber.rawValue }
-    //      if chord.degreeNumbers != allNotes {
-    //        print(chord.chordType.degreeTags.map { $0.rawValue } )
-    //        print(chord.degreeNumbers)
-    //        print("all notes by Degree: ", chord.allNotes)
-    //        print(allNotes)
-    //        print("----------")
-    //    }
-    //    print(count)
-  }
-  
-  static func deltaChords(_ chord: Chord, delta: Int) -> [Chord] {
-    let degreeNumbers = chord.degreeNumbers
-    var chords: [Chord] = []
-    
-    for chord in allChords {
-      //      let degsSub = degreeNumbers.toSet().subtracting(chord.degreeNumbers.toSet())
-      let chordSub = chord.degreeNumbers.toSet().subtracting(degreeNumbers.toSet())
-      
-      if /*degsSub.count == delta || */chordSub.count == delta {
-        //        if degsSub.count == delta {
-        //          print(degsSub)
-        //        } else if chordSub.count == delta {
-        //          print(chordSub)
-        //        }
-        chords.append(chord)
-      }
-    }
-    
-    return chords
   }
     
   static func combos(count: Int) {

@@ -11,7 +11,7 @@ struct KeyboardDisplayView: View {
   var chord: Chord
   var keyboard: Keyboard
   
-  var geoWidth: CGFloat = 150
+  var baseWidth: CGFloat = 150
   var initialKeyType: KeyType = .C
   var startingOctave: Int = 4
   var octaves: Int = 2
@@ -33,7 +33,7 @@ struct KeyboardDisplayView: View {
     chord: Chord(.c, .ma),
     keyboard:
       Keyboard(
-        geoWidth: 250,
+        baseWidth: 250,
         initialKeyType: .C,
         startingOctave: 4,
         octaves: 3),

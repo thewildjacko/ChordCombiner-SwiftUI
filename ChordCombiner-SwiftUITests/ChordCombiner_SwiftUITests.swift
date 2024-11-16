@@ -77,4 +77,16 @@ struct ChordCombiner_SwiftUITests {
     #expect(chord.voicingCalculator.stackedPitches == chord.voicingCalculator.stackedPitchesByDegree, "\n\(chord.preciseName)\n------\n\(chord.voicingCalculator.stackedPitches)\n\(chord.voicingCalculator.stackedPitchesByDegree)\nShould be able to get stacked pitches by sorting degrees by size\n")
   }
   
+  @Test("combineChords works correctly")
+  func combineChordsWorksCorrectly() async throws {
+    let lowerChord = Chord(.a, .ma7)
+    let upperChord = Chord(.d, .ma)
+    
+    let resultChord = ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).resultChord
+
+    print(resultChord?.preciseName)
+    
+    #expect(resultChord?.preciseName == "Dma9(♯11)", "ChordFactory.combineChords should not find an initial match for lowerChord \(lowerChord.preciseName) and upperChord \(upperChord.preciseName), but should keep searching through available roots and eventually land on a match for D.")
+  }
+  
 }

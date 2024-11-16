@@ -23,22 +23,18 @@ enum KeyType: Int {
   
   var nextKeyPosition: CGFloat {
     switch self {
-    case .C, .Eb, .F:
+    case .C, .Eb:
       return 9.5
-    case .Db:
-      return 13.5
-    case .D, .Gb:
+    case .Db, .D:
+      return 14
+    case .E, .B:
+      return 23.5
+    case .F, .Bb:
+      return 9
+    case .Gb, .A:
       return 14.5
-    case .E:
-      return 23
     case .G, .Ab:
       return 11.5
-    case .A:
-      return 15.5
-    case .Bb:
-      return 7.5
-    case .B:
-      return 24
     }
   }
   
@@ -71,7 +67,7 @@ enum KeyType: Int {
     }
   }
   
-  var keyShapePath: KeyShapePath {
+  var keyShapePath: KeyShapePathType {
     switch self {
     case .C:
       return .CShape
@@ -88,18 +84,20 @@ enum KeyType: Int {
     case .B:
       return .BShape
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      return .BlackandEdgeWhiteKeyShape
+      return .blackAndEdgeWhiteKeyShape
     }
   }
   
-  var defaultFillColor: Color {
+  var isBlackKey: Bool {
     switch self {
     case .C, .D, .E, .F, .G, .A, .B:
-      return .white
+      return false
     case .Db, .Eb, .Gb, .Ab, .Bb:
-      return .black
+      return true
     }
   }
+  
+  var defaultFillColor: Color { self.isBlackKey ? .black : .white }
   
   func toPitch(startingOctave: Int) -> Int { noteNumber.rawValue + (startingOctave + 1) * 12 }
 }

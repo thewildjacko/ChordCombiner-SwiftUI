@@ -34,8 +34,8 @@ extension Int: Mathable {
   ///
   /// - Parameter modeLength: The Integer length of the mode, i.e. the number of modes that are available in the scale.
   func degreeNumberInMode(modeLength: Int) -> Int {
-    let mod = self % modeLength
-    return mod >= 0 ? mod : mod + modeLength
+    let modulo = self % modeLength
+    return modulo >= 0 ? modulo : modulo + modeLength
   }
   
   /// a function for returning ``ComparisonOutcome`` enum cases from a two Ints
@@ -109,7 +109,7 @@ extension Int: Mathable {
 }
 
 extension CGFloat {
-  func getKeyPosition(position: CGFloat, widthMod: CGFloat) -> CGFloat {
-    return self * position / widthMod
+  func getKeyPosition(position: CGFloat, widthDivisor: CGFloat) -> CGFloat {
+    return self * position / widthDivisor
   }
 }

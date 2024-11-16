@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias RootAccidental = Accidental.RootAccidental
+
 protocol SettableAccidental {
   var accidental: RootAccidental { get set }
 }

@@ -79,10 +79,8 @@ extension Array where Element == Int {
   }
   
   func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
-//    print(self)
     for degreeNumber in self {
       if let index = keys.firstIndex(where: { $0.pitch == degreeNumber }) {
-//        print(degreeNumber, keys[index].pitch)
         keys[index].toggleHighlight(color: color)
       }
     }
@@ -94,24 +92,6 @@ extension Array where Element == Int {
         keys[index].highlight(color: color)
       }
     }
-  }
-
-  
-  // MARK: currently unused
-  
-  /// takes in a parameter `rootNumber: NoteNumber` and operates on an array of Integer degreeNumbers **(0-11)**, returning a new array with each element  translated down in pitch by a number of half steps *(half step = 1)* equal to the rawValue of the `rootNumber`
-  func converted(to rootNumber: NoteNumber) -> [Int] {
-    self.map { $0.minusDegreeNumber(rootNumber.rawValue)}
-  }
-  
-  /// appends a supplied value to an array if the value is not already present in the array
-  mutating func appendIfDoesNotContain(_ value: Int) {
-    if !self.contains(value) { self.append(value) }
-  }
-  
-  /// Filters an array by removing elements that are contained in a second array supplied as a parameter
-  func easyFilter(_ otherArray: [Int]) -> [Int] {
-    return self.filter { !otherArray.contains($0) }
   }
 }
 

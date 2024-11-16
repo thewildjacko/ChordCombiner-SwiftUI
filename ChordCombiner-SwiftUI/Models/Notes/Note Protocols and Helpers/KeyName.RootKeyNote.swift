@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias RootKeyNote = KeyName.RootKeyNote
+
 extension KeyName {
   /**
    A `KeyName` sub-enum, limited only to flat, natural and sharp keys, used to init a Root

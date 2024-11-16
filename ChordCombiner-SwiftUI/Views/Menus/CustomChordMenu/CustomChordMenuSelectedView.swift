@@ -67,7 +67,7 @@ struct CustomChordMenuSelectedView: View {
     keyboard:
         .constant(
           Keyboard(
-            geoWidth: 330,
+            baseWidth: 330,
             initialKeyType: .C,
             startingOctave: 4,
             octaves: 2
@@ -75,7 +75,7 @@ struct CustomChordMenuSelectedView: View {
         ),
     combinedKeyboard: .constant(
       Keyboard(
-        geoWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 5
+        baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 5
       )
     ),
     chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
