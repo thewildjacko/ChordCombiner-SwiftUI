@@ -16,6 +16,7 @@ protocol ChordsAndScales: RootNote, GettableKeyName, EnharmonicID, DegreeNumbers
   var keys: [KeyName] { get }
   var commonName: String { get }
   var notes: [Note] { get set }
+  var rootKeyNotes: [RootKeyNote] { get }
   var noteNames: [String] {get}
   var noteNumbers: [NoteNumber] { get }
   var notesByNoteNumber: [NoteNumber: Note] { get }
@@ -27,7 +28,8 @@ extension ChordsAndScales {
   var keyName: KeyName { rootKeyNote.keyName }
   
   var keys: [KeyName] { notes.map { $0.keyName } }
-  
+  var rootKeyNotes: [RootKeyNote] { notes.map { RootKeyNote($0.keyName) } }
+
   var noteNames: [String] { notes.map { $0.noteName } }
   
   var notesByNoteNumber: [NoteNumber: Note] {
@@ -50,5 +52,5 @@ extension ChordsAndScales {
     return (names: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.names)),
             numeric: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.numeric)),
             long: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.long)))
-  }  
+  }
 }

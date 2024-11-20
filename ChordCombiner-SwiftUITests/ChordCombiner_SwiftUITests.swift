@@ -82,9 +82,9 @@ struct ChordCombiner_SwiftUITests {
     let lowerChord = Chord(.a, .ma7)
     let upperChord = Chord(.d, .ma)
     
-    let resultChord = ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).resultChord
+    let resultChord = ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord)
 
-    print(resultChord?.preciseName)
+    print(resultChord?.preciseName ?? "")
     
     #expect(resultChord?.preciseName == "Dma9(♯11)", "ChordFactory.combineChords should not find an initial match for lowerChord \(lowerChord.preciseName) and upperChord \(upperChord.preciseName), but should keep searching through available roots and eventually land on a match for D.")
   }

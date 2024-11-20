@@ -26,7 +26,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var preciseName: String { root.noteName + chordType.preciseName }
   
   var notes: [Note] = []
-    
+  
   var noteNumbers: [NoteNumber] { notes.map { $0.noteNumber } }
   
   var voicingCalculator: VoicingCalculator
@@ -96,7 +96,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       return false
     }
     
-    let result = ChordFactory.combineChords(firstChord: chordToMatch, secondChord: newChord).resultChord
+    let result = ChordFactory.combineChords(firstChord: chordToMatch, secondChord: newChord)
     
     if chordProperty is Letter {
       if let result = result { print((chordProperty as! Letter).rawValue, result.preciseName) }
@@ -145,7 +145,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
 extension Chord {
   init?(firstChord: Chord, secondChord: Chord) {
-    if let chord = ChordFactory.combineChords(firstChord: firstChord, secondChord: secondChord).resultChord {
+    if let chord = ChordFactory.combineChords(firstChord: firstChord, secondChord: secondChord) {
       self = chord
     } else {
       return nil
@@ -165,18 +165,21 @@ extension Chord: DegreeNumbers {
 extension Chord {
   /// All ``RootKeyNotes`` from `self` and parameter `secondChord` sorted in order of the two chords' combined `allNotes` arrays, filtering out duplicate values and `lowerRootKeyNote`.
   func combinedRootKeyNotes(with secondChord: Chord) -> [RootKeyNote] {
-    /// All ``RootKeyNotes`` in `self`
-    let firstChordRootKeyNotes = notes.map { RootKeyNote($0.keyName) }
-    
     /// All ``RootKeyNotes`` in `self` minus  own `rootKeyNote`
-    let firstChordRemainingRootKeyNotes = firstChordRootKeyNotes.filter { $0 != rootKeyNote }
+    let firstChordRemainingRootKeyNotes = rootKeyNotes.filter { $0 != rootKeyNote }
     
     /// All ``RootKeyNotes`` in `secondChord` not present in `self`
-    let secondChordUniqueRootKeyNotes = secondChord.notes.map { RootKeyNote($0.keyName) }
-      .filter { !firstChordRootKeyNotes.contains($0) }
+    let secondChordUniqueRootKeyNotes = secondChord.rootKeyNotes.filter { !rootKeyNotes.contains($0) }
 
     /// All ``RootKeyNotes`` sorted in order of both chords' combined `allNotes` arrays, filtering out duplicate values and own `rootKeyNote`.
     return firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
+  }
+  
+  var equivalentChords: [Chord] {
+    EquivalentChordFinder.checkForEquivalentChords(
+      degreeNumbers: degreeNumbers,
+      rootKeyNotes: rootKeyNotes.filter { $0 != rootKeyNote }
+    )
   }
 }
 

@@ -1,26 +1,45 @@
 //
-//  CustomChordMenuSelectedView.swift
+//  CustomChordMenuSelectedView 2.swift
 //  ChordCombiner-SwiftUI
 //
-//  Created by Jake Smolowe on 10/15/24.
+//  Created by Jake Smolowe on 11/19/24.
 //
+
 
 import SwiftUI
 
 struct CustomChordMenuSelectedView: View {
   var multiChord: MultiChord
+  @State var chord: Chord? = nil
   
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
   
-  var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
-    CustomChordMenuSelectedChordTitleModel(multiChord: multiChord, chordProperties: chordProperties)
+  var text: String {
+    isLowerChordMenu ? "Select Lower Chord" : "Select Upper Chord"
+  }
+  
+  var chordSymbolTitleFont: Font {
+    isLowerChordMenu ?
+    multiChord.lowerChord != nil ?
+      .largeTitle : .headline :
+    multiChord.upperChord != nil ?
+      .largeTitle : .headline
+  }
+  
+  var isLowerChordMenu: Bool {
+    get { chordProperties == multiChord.lowerChordProperties ? true : false }
+  }
+  
+  
+  var singleChordKeyboardTitleSelector: SingleChordKeyboardTitleSelector {
+    SingleChordKeyboardTitleSelector(chord: chord)
   }
   
   var body: some View {
     VStack {
-      TitleView(text: customChordMenuSelectedChordTitleModel.promptText, font: .headline, weight: .heavy, isMenuTitle: false)
+      TitleView(text: text, font: .headline, weight: .heavy, isMenuTitle: false)
       
       NavigationLink(
         destination:
@@ -30,13 +49,13 @@ struct CustomChordMenuSelectedView: View {
             combinedKeyboard: $combinedKeyboard,
             chordProperties: $chordProperties
           )
-          .navigationTitle(customChordMenuSelectedChordTitleModel.promptText)
+          .navigationTitle(text)
           .navigationBarTitleDisplayMode(.inline)
       ) {
         VStack(spacing: 15) {
             TitleView(
-              text: customChordMenuSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-              font: customChordMenuSelectedChordTitleModel.chordSymbolTitleFont,
+              text: singleChordKeyboardTitleSelector.chordTitle,
+              font: chordSymbolTitleFont,
               weight: .heavy,
               color: .button
             )

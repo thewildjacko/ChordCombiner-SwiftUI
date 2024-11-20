@@ -10,8 +10,20 @@ import Observation
 
 @Observable
 final class MultiChord: ObservableObject {
+  enum ChordSelectionStatus {
+    case neitherChordIsSelected
+    case lowerChordIsSelected
+    case upperChordIsSelected
+    case bothChordsAreSelected
+  }
+  
+  enum ResultChordStatus {
+    case combinedChord, slashChord, notFound
+  }
+  
   var lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   var upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
+  
   var lowerKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
   var upperKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
   var combinedKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
@@ -36,24 +48,35 @@ final class MultiChord: ObservableObject {
     return Chord(RootKeyNote(letter, accidental), chordType)
   }
   
+  var chordSelectionStatus: ChordSelectionStatus {
+    switch (lowerChord != nil, upperChord != nil) {
+    case (false, false):
+      .neitherChordIsSelected
+    case (true, false):
+      .lowerChordIsSelected
+    case (false, true):
+       .upperChordIsSelected
+    case (true, true):
+      .bothChordsAreSelected
+    }
+  }
+  
   var resultChord: Chord? {
     guard let lowerChord = lowerChord, let upperChord = upperChord else {
       return nil
     }
     
-    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).resultChord    
+    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord)
   }
   
-  var equivalentChords: [Chord] {
-    guard let lowerChord = lowerChord, let upperChord = upperChord else {
-      return []
+  var resultChordStatus: ResultChordStatus {
+    guard let lowerChord = lowerChord,
+          let resultChord = resultChord else {
+      return .notFound
     }
     
-    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord).equivalentChords
+    return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
   }
-  
-  let color: Color = .lowerChordHighlight
-  let secondColor: Color = .lowerChordHighlight
   
   var multiChordVoicingCalculator: MultiChordVoicingCalculator? {
     guard let lowerChord = lowerChord,
@@ -79,25 +102,7 @@ final class MultiChord: ObservableObject {
     self.lowerKeyboard = lowerKeyboard
     self.upperKeyboard = upperKeyboard
     self.combinedKeyboard = combinedKeyboard
-  }
-    
-  func singleChordTitle(forLowerChord: Bool) -> String {
-    let chordPrompt = "Please select a chord"
-    
-    if forLowerChord {
-      guard let chordName = lowerChord?.commonName else {
-        return chordPrompt
-      }
-      
-      return chordName
-    } else {
-      guard let chordName = upperChord?.commonName else {
-        return chordPrompt
-      }
-      
-      return chordName
-    }
-  }
+  }    
 }
 
 extension MultiChord: Equatable {

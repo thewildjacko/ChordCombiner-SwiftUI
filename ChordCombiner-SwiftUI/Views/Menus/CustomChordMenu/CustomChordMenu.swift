@@ -20,36 +20,18 @@ struct CustomChordMenu: View {
   
   let keyboardHighlighter: KeyboardHighlighter = KeyboardHighlighter()
   
-  var isLowerChordMenu: Bool {
-    get { chordProperties == multiChord.lowerChordProperties ? true : false }
+  var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
+    CustomChordMenuSelectedChordTitleModel(multiChord: multiChord, chordProperties: chordProperties)
   }
   
   var chordMenuPropertyMatcher: ChordMenuPropertyMatcher {
-    ChordMenuPropertyMatcher(multiChord: multiChord, isLowerChordMenu: isLowerChordMenu, matchingLetters: $matchingLetters, matchingAccidentals: $matchingAccidentals, matchingChordTypes: $matchingChordTypes)
-  }
-  
-  var selectedChord: Chord? {
-    isLowerChordMenu ? multiChord.lowerChord : multiChord.upperChord
-  }
-  
-  var chordToMatch: Chord? {
-    isLowerChordMenu ? multiChord.upperChord : multiChord.lowerChord
-  }
-  
-  var selectedChordColor: Color {
-    isLowerChordMenu ? .lowerChordHighlight : .upperChordHighlight
-  }
-  
-  var chordToMatchColor: Color {
-    isLowerChordMenu ? .upperChordHighlight : .lowerChordHighlight
-  }
-  
-  var chordSymbolTitleFont: Font {
-    isLowerChordMenu ?
-    multiChord.lowerChord != nil ?
-      .largeTitle : .headline :
-    multiChord.upperChord != nil ?
-      .largeTitle : .headline
+    ChordMenuPropertyMatcher(
+      multiChord: multiChord,
+      isLowerChordMenu: customChordMenuSelectedChordTitleModel.isLowerChordMenu,
+      matchingLetters: $matchingLetters,
+      matchingAccidentals: $matchingAccidentals,
+      matchingChordTypes: $matchingChordTypes
+    )
   }
   
   var rootKeyNote: RootKeyNote? {
@@ -61,36 +43,26 @@ struct CustomChordMenu: View {
     return RootKeyNote(letter, accidental)
   }
   
-  //  var showingMatchesText: String {
-  //    guard let chord = chord else {
-  //      return "Please select a chord"
-  //    }
-  //
-  //    guard let lowerChord = multiChord.lowerChord,
-  //          let upperChord = multiChord.upperChord else {
-  //      return "Select upper and lower chords to show matches"
-  //    }
-  //
-  //    return chord == multiChord.lowerChord ? "(showing matches for upper chord \(upperChord.preciseName))" : "(showing matches for lower chord \(lowerChord.preciseName))"
-  //  }
-  
   var body: some View {
     VStack {
       VStack(spacing: 8) {
         
         VStack {
-          TitleView(
-            text: multiChord.singleChordTitle(forLowerChord: isLowerChordMenu),
-            font: chordSymbolTitleFont,
-            weight: .heavy,
-            isMenuTitle: false
-          )
+          HStack {
+            TitleView(
+              text: customChordMenuSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
+              font: customChordMenuSelectedChordTitleModel.chordSymbolTitleFont,
+              weight: .heavy,
+              isMenuTitle: false
+            )
+            SingleChordDetailNavigationLinkView(chord: customChordMenuSelectedChordTitleModel.selectedChord, color: customChordMenuSelectedChordTitleModel.selectedChordColor)
+          }
           
           selectedKeyboard
         }
         
         TitleView(
-          text: /*showingMatchesText*/"",
+          text: customChordMenuSelectedChordTitleModel.showingMatchesText,
           font: .caption,
           weight: .semibold,
           color: .glowText
@@ -137,7 +109,7 @@ struct CustomChordMenu: View {
         matchingChordTypes: $matchingChordTypes,
         chordTypes: ChordType.allSimpleChordTypes,
         rootKeyNote: rootKeyNote,
-        color: selectedChordColor
+        color: customChordMenuSelectedChordTitleModel.selectedChordColor
       )
       
       TitleColorDivider()
@@ -150,22 +122,50 @@ struct CustomChordMenu: View {
     .onAppear {
       chordMenuPropertyMatcher.matchChords()
       
-      keyboardHighlighter.highlightKeyboards(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, selectedKeyboard: &selectedKeyboard, selectedChordColor: selectedChordColor, combinedKeyboard: &combinedKeyboard)
+      keyboardHighlighter.highlightKeyboards(
+        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
+        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        multiChord: multiChord,
+        selectedKeyboard: &selectedKeyboard,
+        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        combinedKeyboard: &combinedKeyboard
+      )
     }
-    .onChange(of: selectedChord?.letter, {
+    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.letter, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
       
-      keyboardHighlighter.highlightKeyboards(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, selectedKeyboard: &selectedKeyboard, selectedChordColor: selectedChordColor, combinedKeyboard: &combinedKeyboard)
+      keyboardHighlighter.highlightKeyboards(
+        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
+        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        multiChord: multiChord,
+        selectedKeyboard: &selectedKeyboard,
+        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        combinedKeyboard: &combinedKeyboard
+      )
     })
-    .onChange(of: selectedChord?.accidental, {
+    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.accidental, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
       
-      keyboardHighlighter.highlightKeyboards(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, selectedKeyboard: &selectedKeyboard, selectedChordColor: selectedChordColor, combinedKeyboard: &combinedKeyboard)
+      keyboardHighlighter.highlightKeyboards(
+        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
+        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        multiChord: multiChord,
+        selectedKeyboard: &selectedKeyboard,
+        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        combinedKeyboard: &combinedKeyboard
+      )
     })
-    .onChange(of: selectedChord?.chordType, {
+    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.chordType, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
       
-      keyboardHighlighter.highlightKeyboards(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, selectedKeyboard: &selectedKeyboard, selectedChordColor: selectedChordColor, combinedKeyboard: &combinedKeyboard)
+      keyboardHighlighter.highlightKeyboards(
+        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
+        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        multiChord: multiChord,
+        selectedKeyboard: &selectedKeyboard,
+        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        combinedKeyboard: &combinedKeyboard
+      )
     })
   }
 }

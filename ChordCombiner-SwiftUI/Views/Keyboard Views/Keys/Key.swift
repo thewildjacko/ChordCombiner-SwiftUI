@@ -54,13 +54,15 @@ struct Key: View, KeyProtocol, Identifiable {
   }
   
   mutating func highlight<T: ShapeStyle>(color: T) {
+    print("highlighting key \(pitch)!")
     fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : fill
     highlighted = true
   }
   
   mutating func clearHighlight() {
-    fill = keyType.defaultFillColor
+    print("clearing key \(pitch)!")
     highlighted = false
+    fill = keyType.defaultFillColor
   }
   
   init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
@@ -88,7 +90,8 @@ struct Key: View, KeyProtocol, Identifiable {
   }
   
   var body: some View {
-    ZStack {
+    print("key \(pitch) computed!")
+    return ZStack {
       KeyShapeGroup(
         finalKey: finalKey,
         width: width,
@@ -118,9 +121,11 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 }
 
-extension Key {
-  
-}
+//extension Key: Equatable {
+//  static func == (lhs: Key, rhs: Key) -> Bool {
+//    lhs.pitch == rhs.pitch && lhs.note == rhs.note && lhs.lettersOn == rhs.lettersOn && lhs.highlighted == rhs.highlighted
+//  }
+//}
 
 #Preview {
   GeometryReader { geometry in

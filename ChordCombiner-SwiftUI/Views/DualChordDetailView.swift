@@ -10,31 +10,20 @@ import SwiftUI
 struct DualChordDetailView: View {
   var multiChord: MultiChord
   
+  var titleText: String {
+    return multiChord.resultChord != nil ?
+    multiChord.displayDetails(detailType: .commonName) :
+    multiChord.displayDetails(detailType: .preciseName)
+  }
+  
+  var titleFont: Font {
+    multiChord.resultChord != nil ? .largeTitle : .title
+  }
+  
   var body: some View {
     VStack(spacing: 20) {
-      if multiChord.resultChord != nil {
-        VStack(spacing: 5) {
-          TitleView(
-            text: multiChord.displayDetails(detailType: .commonName),
-            weight: .heavy
-          )
-          if let resultChord = multiChord.resultChord {
-            if resultChord.commonName != resultChord.preciseName {
-              TitleView(
-                text: multiChord.displayDetails(detailType: .preciseName),
-                font: .caption
-              )
-            }
-          }
-        }
-      } else {
-        TitleView(
-          text: multiChord.displayDetails(detailType: .preciseName),
-          font: .title,
-          weight: .heavy
-        )
-      }
-      
+      DualChordTitleView(multiChord: multiChord, titleText: titleText, titleFont: titleFont)
+            
       multiChord.combinedKeyboard
       
       Form {
@@ -48,15 +37,7 @@ struct DualChordDetailView: View {
           DetailRow(title: "Upper Chord", text: multiChord.displayDetails(detailType: .upperChordName))
         }
         
-        if !multiChord.equivalentChords.isEmpty {
-          Section(header: Text("Equivalent Chords")) {
-            List {
-              ForEach(multiChord.equivalentChords) { chord in
-                TitleView(text: chord.preciseName, font: .headline)
-              }
-            }
-          }
-        }
+        EquivalentChordsSectionView(chord: multiChord.resultChord)
       }
 
       Spacer()
@@ -65,6 +46,31 @@ struct DualChordDetailView: View {
   }
 }
 
-#Preview {
+#Preview("Both chords selected") {
+  DualChordDetailView(
+    multiChord: MultiChord(
+      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
+      upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
+    )
+  )
+}
+
+#Preview("Lower chord selected") {
+  DualChordDetailView(
+    multiChord: MultiChord(
+      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
+    )
+  )
+}
+
+#Preview("Upper chord selected") {
+  DualChordDetailView(
+    multiChord: MultiChord(
+      upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
+    )
+  )
+}
+
+#Preview("No chords selected") {
   DualChordDetailView(multiChord: MultiChord())
 }

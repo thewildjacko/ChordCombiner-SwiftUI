@@ -10,76 +10,63 @@ import SwiftUI
 struct DualChordKeyboardView: View {
   var multiChord: MultiChord
   
-  var chordSymbolText: String {
-    guard let resultChord = multiChord.resultChord,
-          let multiChordVoicingCalculator = multiChord.multiChordVoicingCalculator else {
-      switch (multiChord.lowerChord == nil, multiChord.upperChord == nil) {
-      case (true, true):
-        return "waiting for chord selection..."
-      case (true, false):
-        return multiChord.upperChord?.displayDetails(detailType: .commonName) ?? "Please select an upper chord"
-      case (false, true):
-        return  multiChord.lowerChord?.displayDetails(detailType: .commonName) ?? "Please select a lower Chord chord"
-      case (false, false):
-        guard let lowerChordName = multiChord.lowerChord?.preciseName, let upperChordName = multiChord.upperChord?.preciseName else {
-          return "No chords selected!"
-        }
-        return "\(upperChordName)/\(lowerChordName)"
-      }
-    }
+  var dualChordKeyboardChordSymbolTitleSelector: DualChordKeyboardChordSymbolTitleSelector {
+    DualChordKeyboardChordSymbolTitleSelector(multiChord: multiChord)
+  }
     
-    return resultChord.root == multiChordVoicingCalculator.lowerRoot ?
-    resultChord.commonName :
-    "\(resultChord.commonName)/\(multiChordVoicingCalculator.lowerRoot.noteName)"
+  var titleText: String { dualChordKeyboardChordSymbolTitleSelector.chordSymbolText
   }
   
-  var chordSymbolCaptionText: String {
-    guard let resultChord = multiChord.resultChord else { return "" }
-    
-    return "(\(resultChord.preciseName))"
+  var titleFont: Font {
+    if let _ = multiChord.resultChord {
+      return .title
+    } else {
+      switch multiChord.chordSelectionStatus {
+      case .lowerChordIsSelected, .upperChordIsSelected:
+        return .title
+      default:
+        return .headline
+      }
+    }
   }
-    
+  
   var body: some View {
     VStack(spacing: 20) {
       HStack {
-        VStack(spacing: 5) {
-          if let resultChord = multiChord.resultChord {
-            TitleView(
-              text: chordSymbolText,
-              font: .title,
-              weight: .heavy
-            )
-            if resultChord.commonName != resultChord.preciseName && resultChord.chordType != .ma {
-              TitleView(
-                text: chordSymbolCaptionText,
-                font: .caption
-              )
-            }
-          } else {
-            TitleView(
-              text: chordSymbolText,
-              font: multiChord.lowerChord != nil || multiChord.upperChord != nil ? .title : .headline,
-              weight: .heavy
-            )
-          }
-        }
-        
-        if multiChord.lowerChord != nil || multiChord.upperChord != nil {
-          NavigationLink(
-            destination:
-              DualChordDetailView(multiChord: multiChord)
-          ) {
-            Image(systemName: "info.circle")
-              .font(.title3)
-              .foregroundStyle(.title)
-          }
-        }
+        DualChordTitleView(multiChord: multiChord, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont)  
+        DualChordDetailNavigationLinkView(multiChord: multiChord)
       }
+      
       multiChord.combinedKeyboard
     }
   }
 }
 
-#Preview {
+#Preview("Both chords selected") {
+  DualChordKeyboardView(
+    multiChord: MultiChord(
+      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
+      upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
+    )
+  )
+}
+
+#Preview("Lower chord selected") {
+  DualChordKeyboardView(
+    multiChord: MultiChord(
+      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
+    )
+  )
+}
+
+#Preview("Upper chord selected") {
+  DualChordKeyboardView(
+    multiChord: MultiChord(
+      upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
+    )
+  )
+}
+
+#Preview("No chords selected") {
   DualChordKeyboardView(multiChord: MultiChord())
 }

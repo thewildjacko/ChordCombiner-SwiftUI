@@ -17,11 +17,7 @@ struct MultiChordKeyboardView: View {
     upperKeyboard: Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
     combinedKeyboard: Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
   )
-  
-  @State var isInitial: Bool = true
-  var color: Color = .lowerChordHighlight
-  var secondColor: Color = .lowerChordHighlight
-  
+    
   var body: some View {
     VStack {
       Spacer()

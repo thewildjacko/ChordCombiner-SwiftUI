@@ -282,7 +282,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
     case .sharp12th:
       return "♯12"
     case .flat13th:
-      return "♯13"
+      return "♭13"
     case .major13th:
       return "13"
     case .diminished14th:

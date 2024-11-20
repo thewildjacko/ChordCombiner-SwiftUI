@@ -37,8 +37,7 @@ struct KeyboardDisplayScrollView: View {
                     glowRadius: 0,
                     chord: chord,
                     color: .lowerChordHighlight
-                  ),
-                color: .lowerChordHighlight
+                  )
               )
             } else {
               Text(chord.preciseName)

@@ -48,6 +48,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     keyTypesByCount()
     setWidthAndHeight()
     addKeys()
+    
+    self.keyCount = keys.count
   }
   
   init(baseWidth: CGFloat, keyCount: Int? = nil, initialKeyType: KeyType = .C, startingOctave: Int = 4, octaves: Int? = nil, glowColor: Color = .clear, glowRadius: CGFloat = 0, chord: Chord, color: Color, lettersOn: Bool = false) {
@@ -174,6 +176,14 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     }
   }
   
+  mutating func setNotesStacked<T: ShapeStyle>(pitchesByNote: [Note: Int], color: T) {
+    for (note, pitch) in pitchesByNote {
+      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+        keys[index].note = note
+      }
+    }
+  }
+  
   mutating func clearHighlightedKeys() {
     if !highlightedPitches.isEmpty {
       for pitch in highlightedPitches {
@@ -208,59 +218,16 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       }
     }
   }
-  
-  mutating func highlightCombinedKeysWithoutClearing() {}
-  
-  mutating func setNotesStacked<T: ShapeStyle>(pitchesByNote: [Note: Int], color: T) {
-    for (note, pitch) in pitchesByNote {
-      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
-        keys[index].note = note
-      }
-    }
-  }
-  
+    
   mutating func highlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
     degreeNumbers.highlightIfSelected(keys: &keys, color: color)
   }
-  
-  mutating func toggleHighlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
-    degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
-  }
-  
-  mutating func toggleHighlightKeysSplit<T: ShapeStyle>(degreeNumbers: [Int], secondDegs: [Int], color: T, secondColor: T) {
-        degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
-        secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
-  }
-
-  mutating func toggleHighlightKeysCombined(degreeNumbers: [Int], secondDegs: [Int], commonToneDegs: [Int], color: Color, secondColor: Color) {
-        degreeNumbers.toggleHighlightIfSelected(keys: &keys, color: color)
-        secondDegs.toggleHighlightIfSelected(keys: &keys, color: secondColor)
-        commonToneDegs.toggleHighlightIfSelected(keys: &keys, color: LinearGradient.commonTone(secondColor, color))
-  }
-  
-  mutating func toggleHighlightStackedCombinedOrSplit(onlyInLower: [Int], onlyInUpper: [Int], commonTones: [Int], lowerStackedPitches: [Int], upperStackedPitches: [Int], resultChordExists: Bool, isSlashChord: Bool, color: Color, secondColor: Color) {
-        if resultChordExists && !isSlashChord {
-//                print("combining!")
-          toggleHighlightKeysCombined(
-            degreeNumbers: onlyInLower,
-            secondDegs: onlyInUpper,
-            commonToneDegs: commonTones,
-            color: color,
-            secondColor: secondColor)
-        } else {
-//                print("splitting!")
-          toggleHighlightKeysSplit(
-            degreeNumbers: lowerStackedPitches,
-            secondDegs: upperStackedPitches,
-            color: color,
-            secondColor: secondColor)
-        }
-  }
-
-  
+      
   //  MARK: body
   var body: some View {
-    ZStack(alignment: .topLeading) {
+    print("keyboard \(id) computed!")
+    
+    return ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
         ZStack {
           ForEach(keys) { key in
@@ -279,11 +246,15 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
 }
 
+//extension Keyboard: Equatable {
+//  static func == (lhs: Keyboard, rhs: Keyboard) -> Bool {
+//    lhs.initialKeyType == rhs.initialKeyType && lhs.keys == rhs.keys && lhs.width == rhs.width
+//  }
+//}
+
 #Preview {
   VStack {
     Keyboard(baseWidth: 950, keyCount: 13, initialKeyType: .C, startingOctave: 4, octaves: 3, glowColor: .lowerChordHighlight, glowRadius: 5)
       .position(x: 550, y: 600)
   }
 }
-
-

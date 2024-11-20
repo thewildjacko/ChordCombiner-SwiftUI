@@ -9,7 +9,7 @@ import Foundation
 import Algorithms
 
 struct ChordFactory {
-  var equivalentChords: [Chord]
+//  var equivalentChords: [Chord]
   
   //  MARK: static properties
   static var allChords: [Chord] {
@@ -52,18 +52,15 @@ struct ChordFactory {
   
   /// This method takes two ``Chord`` objects, and uses **`ChordType.typeByDegreesFiltered(degreeCount: CombinedDegreeCount`** to check if their combined **`degreeNumbers`** form a **unified chord** *(single chord symbol with no alternate bass)*, a **slash chord** *(single chord symbol over an alternate bass)*, or a **polychord** *(two chord symbols, one over the other)*.
   ///
-  /// - Returns a tuplet where the first value, `resultChord: Chord?`, equals the result of the above check: an optional ``Chord`` if the combined degreeNumbers form a unified chord or slash chord, or **nil** if they form a polychord. The second value, `equivalentChords: [Chord]` is an array of the other equivalent `Chords`, if any, that have the same degreeNumbers as `resultChord`.
+  /// - Returns the result of the above check: an optional ``Chord`` if the combined degreeNumbers form a unified chord or slash chord, or **nil** if they form a polychord.
   ///
   /// 1. First checks to see whether `combinedDegreesInC` matches a ``ChordType`` in `firstChord`'s original key
   /// - If **yes**, sets `resultChord` to a ``Chord`` using `firstChord`'s ``RootKeyNote`` and the resulting ``ChordType``. The match is a **unified chord**.
-  ///   - Checks the remaining roots for equivalent `Chords`.
   /// - If **no**, moves on to the next root and looks for a ``Chord`` using the same method as above, but sets the chord as a **slash chord**, assigning `slashChordRootKeyNote` to the root that matched.
-  ///   - Searches for equivalent chords as above.
   /// - If **all roots fail to produce a match**, returns **`nil`** for the first tuplet value and an empty array for the second. The chord is a **polychord**.
-  static func combineChords(firstChord: Chord, secondChord: Chord) -> (resultChord: Chord?, equivalentChords: [Chord]) {
-    // Assigns initial values for the result tuplet.
+  static func combineChords(firstChord: Chord, secondChord: Chord) -> Chord? {
+    // Assigns initial value for the result.
     var resultChord: Chord? = nil
-    var equivalentChords: [Chord] = []
     
     // First chord's ``RootKeyNote`` assigned to a constant for convenient reuse
     let lowerRootKeyNote = firstChord.rootKeyNote
@@ -89,8 +86,6 @@ struct ChordFactory {
         isSlashChord: false,
         slashChordBassNote: nil
       )
-      
-      equivalentChords = EquivalentChordFinder.checkForEquivalentChords(degreeNumbers: combinedDegreesInC, rootKeyNotes: combinedRootKeyNotes)
     } else {
       print("No match for initial root")
       outerloop: while combinedRootKeyNotes.count >= 1 {
@@ -108,8 +103,6 @@ struct ChordFactory {
             print(resultChord!.preciseName)
             
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
-
-            equivalentChords = EquivalentChordFinder.checkForEquivalentChords(degreeNumbers: combinedDegreesInC, rootKeyNotes: combinedRootKeyNotes)
             break outerloop
           } else {
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
@@ -118,7 +111,7 @@ struct ChordFactory {
       }
     }
         
-    return (resultChord, equivalentChords)
+    return resultChord
   }
     
   static func combos(count: Int) {
