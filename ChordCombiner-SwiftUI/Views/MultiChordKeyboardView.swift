@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChordCombinerView: View {
+struct MultiChordKeyboardView: View {
   
   //  MARK: @State and instance variables
   @Bindable var multiChord: MultiChord = MultiChord(
@@ -61,5 +61,5 @@ struct ChordCombinerView: View {
 }
 
 #Preview {
-  ChordCombinerView()
+  MultiChordKeyboardView()
 }
