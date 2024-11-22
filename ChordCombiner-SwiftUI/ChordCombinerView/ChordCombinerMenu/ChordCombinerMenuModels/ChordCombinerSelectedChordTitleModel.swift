@@ -1,5 +1,5 @@
 //
-//  CustomChordMenuSelectedChordTitleModel.swift
+//  ChordCombinerSelectedChordTitleModel.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 11/19/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomChordMenuSelectedChordTitleModel {
+struct ChordCombinerSelectedChordTitleModel {
   let chordCombinerViewModel: ChordCombinerViewModel
   let chordProperties: ChordProperties
   

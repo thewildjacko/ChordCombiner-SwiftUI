@@ -1,5 +1,5 @@
 //
-//  CustomChordMenuTagsView.swift
+//  ChordCombinerTagsView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/20/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomChordMenuTagsView<T: ChordAndScaleProperty>: View {
+struct ChordCombinerTagsView<T: ChordAndScaleProperty>: View {
   @Binding var selectedProperty: T?
   @Binding var matchingProperties: Set<T>
   

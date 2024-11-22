@@ -1,5 +1,5 @@
 //
-//  CustomChordMenuSelectedView.swift
+//  ChordCombinerMenuCoverView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/15/24.
@@ -7,36 +7,36 @@
 
 import SwiftUI
 
-struct CustomChordMenuSelectedView: View {
+struct ChordCombinerMenuCoverView: View {
   var chordCombinerViewModel: ChordCombinerViewModel
   
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
   
-  var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
-    CustomChordMenuSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
+  var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel {
+    ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
   }
   
   var body: some View {
     VStack {
-      TitleView(text: customChordMenuSelectedChordTitleModel.promptText, font: .headline, weight: .heavy, isMenuTitle: false)
+      TitleView(text: chordCombinerSelectedChordTitleModel.promptText, font: .headline, weight: .heavy, isMenuTitle: false)
       
       NavigationLink(
         destination:
-          CustomChordMenu(
+          ChordCombinerChordSelectionMenu(
             chordCombinerViewModel: chordCombinerViewModel,
             selectedKeyboard: $keyboard,
             combinedKeyboard: $combinedKeyboard,
             chordProperties: $chordProperties
           )
-          .navigationTitle(customChordMenuSelectedChordTitleModel.promptText)
+          .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
           .navigationBarTitleDisplayMode(.inline)
       ) {
         VStack(spacing: 15) {
             TitleView(
-              text: customChordMenuSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-              font: customChordMenuSelectedChordTitleModel.chordSymbolTitleFont,
+              text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
+              font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
               weight: .heavy,
               color: .button
             )
@@ -49,7 +49,7 @@ struct CustomChordMenuSelectedView: View {
 }
 
 #Preview {
-  CustomChordMenuSelectedView(
+  ChordCombinerMenuCoverView(
     chordCombinerViewModel: ChordCombinerViewModel(),
     keyboard:
         .constant(

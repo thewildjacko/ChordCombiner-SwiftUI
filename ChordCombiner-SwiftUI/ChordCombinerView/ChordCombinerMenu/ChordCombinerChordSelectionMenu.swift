@@ -1,5 +1,5 @@
 //
-//  CustomChordMenu.swift
+//  ChordCombinerChordSelectionMenu.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/12/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomChordMenu: View {
+struct ChordCombinerChordSelectionMenu: View {
   var chordCombinerViewModel: ChordCombinerViewModel
   
   @Binding var selectedKeyboard: Keyboard
@@ -20,14 +20,14 @@ struct CustomChordMenu: View {
   
   let keyboardHighlighter: KeyboardHighlighter = KeyboardHighlighter()
   
-  var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
-    CustomChordMenuSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
+  var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel {
+    ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
   }
   
   var chordMenuPropertyMatcher: ChordMenuPropertyMatcher {
     ChordMenuPropertyMatcher(
       chordCombinerViewModel: chordCombinerViewModel,
-      isLowerChordMenu: customChordMenuSelectedChordTitleModel.isLowerChordMenu,
+      isLowerChordMenu: chordCombinerSelectedChordTitleModel.isLowerChordMenu,
       matchingLetters: $matchingLetters,
       matchingAccidentals: $matchingAccidentals,
       matchingChordTypes: $matchingChordTypes
@@ -49,26 +49,26 @@ struct CustomChordMenu: View {
         VStack {
           HStack {
             TitleView(
-              text: customChordMenuSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-              font: customChordMenuSelectedChordTitleModel.chordSymbolTitleFont,
+              text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
+              font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
               weight: .heavy,
               isMenuTitle: false
             )
-            SingleChordDetailNavigationLinkView(chord: customChordMenuSelectedChordTitleModel.selectedChord, color: customChordMenuSelectedChordTitleModel.selectedChordColor)
+            SingleChordDetailNavigationLinkView(chord: chordCombinerSelectedChordTitleModel.selectedChord, color: chordCombinerSelectedChordTitleModel.selectedChordColor)
           }
           
           selectedKeyboard
         }
         
         TitleView(
-          text: customChordMenuSelectedChordTitleModel.showingMatchesText,
+          text: chordCombinerSelectedChordTitleModel.showingMatchesText,
           font: .caption,
           weight: .semibold,
           color: .glowText
         )
         
         HStack(alignment: .bottom) {
-          CustomChordMenuTagsView(
+          ChordCombinerTagsView(
             selectedProperty: $chordProperties.letter,
             matchingProperties: $matchingLetters,
             tagProperties: Letter.allCases,
@@ -86,7 +86,7 @@ struct CustomChordMenu: View {
             .titleColorOverlay()
           
           
-          CustomChordMenuTagsView(
+          ChordCombinerTagsView(
             selectedProperty: $chordProperties.accidental,
             matchingProperties: $matchingAccidentals,
             tagProperties: RootAccidental.allCases,
@@ -103,12 +103,12 @@ struct CustomChordMenu: View {
       
       TitleColorDivider()
       
-      CustomChordMenuKeyboardDisplayScrollView(
+      ChordCombinerKeyboardScrollView(
         selectedChordType: $chordProperties.chordType,
         matchingChordTypes: $matchingChordTypes,
         chordTypes: ChordType.allSimpleChordTypes,
         rootKeyNote: rootKeyNote,
-        color: customChordMenuSelectedChordTitleModel.selectedChordColor
+        color: chordCombinerSelectedChordTitleModel.selectedChordColor
       )
       
       TitleColorDivider()
@@ -121,39 +121,39 @@ struct CustomChordMenu: View {
       Spacer()
     }
     .padding()
-    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.letter, {
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
       
       keyboardHighlighter.highlightKeyboards(
-        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
-        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
         chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
       )
     })
-    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.accidental, {
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
       
       keyboardHighlighter.highlightKeyboards(
-        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
-        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
         chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
       )
     })
-    .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.chordType, {
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
       
       keyboardHighlighter.highlightKeyboards(
-        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
-        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
+        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
         chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
+        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
       )
     })
@@ -161,7 +161,7 @@ struct CustomChordMenu: View {
 }
 
 #Preview {
-  CustomChordMenu(
+  ChordCombinerChordSelectionMenu(
     chordCombinerViewModel: ChordCombinerViewModel(),
     selectedKeyboard:
         .constant(

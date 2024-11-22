@@ -1,5 +1,5 @@
 //
-//  CustomChordMenuKeyboardDisplayScrollView.swift
+//  ChordCombinerKeyboardScrollView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/14/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomChordMenuKeyboardDisplayScrollView: View {
+struct ChordCombinerKeyboardScrollView: View {
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
   
@@ -70,7 +70,7 @@ struct CustomChordMenuKeyboardDisplayScrollView: View {
 }
 
 #Preview {
-  CustomChordMenuKeyboardDisplayScrollView(
+  ChordCombinerKeyboardScrollView(
     selectedChordType: .constant(.ma7),
     matchingChordTypes: .constant([.mi, .ma, .ma6]),
     chordTypes: ChordType.allSimpleChordTypes,

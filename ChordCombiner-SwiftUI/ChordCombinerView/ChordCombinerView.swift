@@ -22,7 +22,7 @@ struct ChordCombinerView: View {
     VStack {
       Spacer()
       
-      CustomChordMenuSelectedView(
+      ChordCombinerMenuCoverView(
         chordCombinerViewModel: chordCombinerViewModel,
         keyboard: $chordCombinerViewModel.lowerKeyboard,
         combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
@@ -36,7 +36,7 @@ struct ChordCombinerView: View {
       
       Spacer()
       
-      CustomChordMenuSelectedView(
+      ChordCombinerMenuCoverView(
         chordCombinerViewModel: chordCombinerViewModel,
         keyboard: $chordCombinerViewModel.upperKeyboard,
         combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
