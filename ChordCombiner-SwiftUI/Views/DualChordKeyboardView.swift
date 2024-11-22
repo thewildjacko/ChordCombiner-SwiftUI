@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DualChordKeyboardView: View {
   var multiChord: MultiChord
+  @Binding var keyboard: Keyboard
   
   var dualChordKeyboardChordSymbolTitleSelector: DualChordKeyboardChordSymbolTitleSelector {
     DualChordKeyboardChordSymbolTitleSelector(multiChord: multiChord)
@@ -37,7 +38,7 @@ struct DualChordKeyboardView: View {
         DualChordDetailNavigationLinkView(multiChord: multiChord)
       }
       
-      multiChord.combinedKeyboard
+      keyboard
     }
   }
 }
@@ -47,6 +48,13 @@ struct DualChordKeyboardView: View {
     multiChord: MultiChord(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
+    ), keyboard: .constant(
+      Keyboard(
+        baseWidth: 351,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 5
+      )
     )
   )
 }
@@ -55,6 +63,13 @@ struct DualChordKeyboardView: View {
   DualChordKeyboardView(
     multiChord: MultiChord(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
+    ), keyboard: .constant(
+      Keyboard(
+        baseWidth: 351,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 5
+      )
     )
   )
 }
@@ -63,10 +78,27 @@ struct DualChordKeyboardView: View {
   DualChordKeyboardView(
     multiChord: MultiChord(
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
+    ), keyboard: .constant(
+      Keyboard(
+        baseWidth: 351,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 5
+      )
     )
   )
 }
 
 #Preview("No chords selected") {
-  DualChordKeyboardView(multiChord: MultiChord())
+  DualChordKeyboardView(
+    multiChord: MultiChord(),
+    keyboard: .constant(
+      Keyboard(
+        baseWidth: 351,
+        initialKeyType: .C,
+        startingOctave: 4,
+        octaves: 5
+      )
+    )
+  )
 }

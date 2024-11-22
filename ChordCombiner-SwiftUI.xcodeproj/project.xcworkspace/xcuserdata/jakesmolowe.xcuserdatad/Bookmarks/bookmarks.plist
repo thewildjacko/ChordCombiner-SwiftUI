@@ -117,6 +117,51 @@
 			<key>type</key>
 			<string>batch-find-query</string>
 		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>61</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>60</string>
+					<key>Timestamp</key>
+					<string>753922656.172567</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Models/Keyboard/KeyboardHighlighter.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>    // FIXME: Set notes to display for each highlighted key -&gt; missing setNotesStacked call here
+</string>
+				<key>leading</key>
+				<string>    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: upperSplitPitches, color: .upperChordHighlight, circleType: .upper)
+    
+</string>
+				<key>trailing</key>
+				<string>  }
+  
+  func highlightKeyboards(selectedChord: Chord?, chordToMatch: Chord?, multiChord: MultiChord, selectedKeyboard: inout Keyboard, selectedChordColor: Color, combinedKeyboard: inout Keyboard) {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
 	</array>
 </dict>
 </plist>

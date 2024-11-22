@@ -68,12 +68,12 @@ struct ChordFactory {
     /// combine both `Chord`s' degreeNumber arrays
     let combinedDegrees = firstChord.degreeNumbers.combineSetFilterSort(secondChord.degreeNumbers)
     
-    print(combinedDegrees)
+//    print(combinedDegrees)
     
     /// Tranposes the `degreeNumber` array to the key of C *(**0** in a range of **0-11**)
     let combinedDegreesInC = firstChord.degreeNumbers.combinedAndTransposed(with: secondChord.degreeNumbers, to: lowerRootKeyNote)
     
-    print(combinedDegreesInC)
+//    print(combinedDegreesInC)
     
     var combinedRootKeyNotes = firstChord.combinedRootKeyNotes(with: secondChord)
         
@@ -87,12 +87,12 @@ struct ChordFactory {
         slashChordBassNote: nil
       )
     } else {
-      print("No match for initial root")
+//      print("No match for initial root")
       outerloop: while combinedRootKeyNotes.count >= 1 {
         for rootKeyNote in combinedRootKeyNotes {
-          print("Trying \(rootKeyNote.keyName.rawValue)")
+//          print("Trying \(rootKeyNote.keyName.rawValue)")
           if let chordType = ChordType(fromDegreeNumbers: combinedDegrees, transposedTo: rootKeyNote) {
-            print("Found a match for \(rootKeyNote.keyName.rawValue)!")
+//            print("Found a match for \(rootKeyNote.keyName.rawValue)!")
             resultChord = Chord(
               rootKeyNote,
               chordType,
@@ -100,7 +100,7 @@ struct ChordFactory {
               slashChordBassNote: rootKeyNote
             )
             
-            print(resultChord!.preciseName)
+//            print(resultChord!.preciseName)
             
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
             break outerloop

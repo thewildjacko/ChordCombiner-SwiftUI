@@ -99,7 +99,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     let result = ChordFactory.combineChords(firstChord: chordToMatch, secondChord: newChord)
     
     if chordProperty is Letter {
-      if let result = result { print((chordProperty as! Letter).rawValue, result.preciseName) }
+//      if let result = result { print((chordProperty as! Letter).rawValue, result.preciseName) }
     }
         
 //    print("newChord \(newChord.preciseName) and chordToMatch \(chordToMatch.preciseName) combine to create \(result?.preciseName ?? "no chord")")

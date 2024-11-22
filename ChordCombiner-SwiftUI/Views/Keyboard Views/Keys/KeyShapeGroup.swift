@@ -15,7 +15,7 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
-  var fill: any ShapeStyle
+  var fill: Color
   var stroke: Color
   var lineWidth: CGFloat
   var z_Index: Double
@@ -29,18 +29,10 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
 
   var body: some View {
     ZStack(alignment: .topLeading) {
-      if fill is Color {
-        keyShape.path(
-          in: keyRect)
-        .fill(fill as! Color)
-      } else {
-        keyShape.path(
-          in: keyRect)
-        .fill(fill as! LinearGradient)
-      }
+      keyShape.path(in: keyRect)
+        .fill(fill)
       
-      keyShape.path(
-        in: keyRect)
+      keyShape.path(in: keyRect)
       .fill(.clear)
       .stroke(stroke, lineWidth: lineWidth)
     }

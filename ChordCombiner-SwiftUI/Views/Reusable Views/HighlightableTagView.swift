@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HighlightableTagView: View {
+struct HighlightableTagView: View, Equatable {
   let text: String
   var highlightCondition: Bool
   var highlightColor: Color = .tagBackgroundHighlighted
@@ -31,7 +31,9 @@ struct HighlightableTagView: View {
   }
   
   var body: some View {
-    Text(text)
+//    print("tagView \(text) computed!")
+    
+    return Text(text)
       .highlightableTagView(
         highlightCondition: highlightCondition,
         highlightColor: highlightColor,

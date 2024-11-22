@@ -15,13 +15,13 @@ struct KeyboardEquatableTestView: View {
 //      .equatable()
     
     Button {
-      keyboard.highlightKeysWithoutClearing(pitches: [60], color: .lowerChordHighlight)
+      keyboard.highlightKeys(pitches: [62], color: .lowerChordHighlight)
     } label: {
       Text("Highlight key")
     }
 
     Button {
-      keyboard.highlightKeysAfterClearing(pitches: [60], color: .red)
+      keyboard.clearAndHighlightKeys(pitches: [62], color: .red)
     } label: {
       Text("Highlight key")
     }

@@ -78,18 +78,41 @@ extension Array where Element == Int {
     return combinedDegreeArray.transposed(to: rootKeyNote)
   }
   
-  func toggleHighlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
-    for degreeNumber in self {
-      if let index = keys.firstIndex(where: { $0.pitch == degreeNumber }) {
+  func toggleHighlightIfSelected(keys: inout [Key], color: Color) {
+    for pitch in self {
+      if let index = pitch.indexFromKeys(keys: &keys) {
         keys[index].toggleHighlight(color: color)
       }
     }
   }
   
-  func highlightIfSelected<T: ShapeStyle>(keys: inout [Key], color: T) {
-    for degreeNumber in self {
-      if let index = keys.firstIndex(where: { $0.pitch == degreeNumber }) {
+  func highlightIfSelected(keys: inout [Key], highlightedPitches: inout Set<Int>, color: Color) {
+    for pitch in self {
+      highlightedPitches.insert(pitch)
+      
+      if let index = pitch.indexFromKeys(keys: &keys) {
         keys[index].highlight(color: color)
+      }
+    }
+  }
+  
+  func lettersOnIfSelected(keys: inout [Key]) {
+    for pitch in self {
+      if let index = pitch.indexFromKeys(keys: &keys) {
+        if keys[index].lettersOn == false {
+          keys[index].lettersOn = true
+        }
+      }
+    }
+  }
+  
+  func circlesOnIfSelected(keys: inout [Key], circleType: KeyCirclesView.CircleType) {
+    for pitch in self {
+      if let index = pitch.indexFromKeys(keys: &keys) {
+        if keys[index].circlesOn == false {
+          keys[index].circlesOn = true
+          keys[index].circleType = circleType
+        }
       }
     }
   }
@@ -99,6 +122,16 @@ extension Array where Element: Hashable {
   /// returns a set from a given array
   func toSet() -> Set<Element> {
     Set(self)
+  }
+}
+
+extension Array where Element == Key {
+  mutating func highlightIfSelected(pitches: [Int], color: Color) {
+    for key in self {
+      if let index = pitches.firstIndex(where: { $0 == key.pitch }) {
+        self[index].highlight(color: color)
+      }
+    }
   }
 }
 

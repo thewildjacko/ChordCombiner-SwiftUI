@@ -46,7 +46,6 @@ struct CustomChordMenu: View {
   var body: some View {
     VStack {
       VStack(spacing: 8) {
-        
         VStack {
           HStack {
             TitleView(
@@ -114,23 +113,14 @@ struct CustomChordMenu: View {
       
       TitleColorDivider()
       
-      DualChordKeyboardView(multiChord: multiChord)
+      DualChordKeyboardView(
+        multiChord: multiChord,
+        keyboard: $combinedKeyboard
+      )
       
       Spacer()
     }
     .padding()
-    .onAppear {
-      chordMenuPropertyMatcher.matchChords()
-      
-      keyboardHighlighter.highlightKeyboards(
-        selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
-        chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
-        multiChord: multiChord,
-        selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
-        combinedKeyboard: &combinedKeyboard
-      )
-    }
     .onChange(of: customChordMenuSelectedChordTitleModel.selectedChord?.letter, {
       chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
       

@@ -76,19 +76,6 @@ struct TitleFormatViewModifier: ViewModifier {
   }
 }
 
-struct MenuTitleFormatViewModifier: ViewModifier {
-  var font: Font = .largeTitle
-  var weight: Font.Weight = .regular
-  
-  func body(content: Content) -> some View {
-    content
-      .font(font)
-      .fontWeight(weight)
-      .fixedSize()
-      .fontWeight(.heavy)
-  }
-}
-
 struct TitleColorOverlay: ViewModifier {
   func body(content: Content) -> some View {
     content
@@ -116,6 +103,17 @@ struct Glow: ViewModifier {
     content
       .shadow(color: color, radius: pulseRadius)
       .shadow(color: color, radius: pulseRadius)
+  }
+}
+
+struct KeySymbolShape: ViewModifier {
+  let width: CGFloat
+  let color: Color
+  
+  func body(content: Content) -> some View {
+    content
+      .frame(width: width)
+      .foregroundStyle(color)
   }
 }
 
@@ -157,10 +155,6 @@ extension View {
   
   func titleFormat(font: Font = .largeTitle, weight: Font.Weight = .regular, color: Color = .title) -> some View {
     modifier(TitleFormatViewModifier(font: font, weight: weight, color: color))
-  }
-  
-  func menuTitleFormat(font: Font = .largeTitle, weight: Font.Weight = .regular) -> some View {
-    modifier(MenuTitleFormatViewModifier(font: font, weight: weight))
   }
   
   func titleColorOverlay() -> some View {

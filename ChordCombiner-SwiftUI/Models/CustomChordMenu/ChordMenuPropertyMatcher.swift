@@ -11,20 +11,12 @@ struct ChordMenuPropertyMatcher {
   let multiChord: MultiChord
   let isLowerChordMenu: Bool
   
+  @State var isInitial: Bool = true
+  
   @Binding var matchingLetters: Set<Letter>
   @Binding var matchingAccidentals: Set<RootAccidental>
   @Binding var matchingChordTypes: Set<ChordType>
-  
-  func clearLetters() { matchingLetters.removeAll() }
-  func clearAccidentals() { matchingAccidentals.removeAll() }
-  func clearChordTypes() { matchingChordTypes.removeAll() }
-  
-  func clearMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
-    if propertyChanged == .accidental || propertyChanged == .chordType { clearLetters() }
-    if propertyChanged == .letter || propertyChanged == .chordType { clearAccidentals() }
-    if propertyChanged == .letter || propertyChanged == .accidental { clearChordTypes() }
-  }
-  
+    
   func setChordsForMatches() -> (firstChord: Chord?, secondChord: Chord?) {
     guard let lowerChord = multiChord.lowerChord,
           let upperChord = multiChord.upperChord else {
@@ -45,7 +37,9 @@ struct ChordMenuPropertyMatcher {
     }
     
     if secondChord.variantCombinesWith(chordFrom: chordProperty, chordToMatch: firstChord) {
-      chordProperty.insertMatching(matchingProperties: &matchingProperties)
+      if !matchingProperties.contains(chordProperty) { matchingProperties.insert(chordProperty) }
+    } else {
+      if matchingProperties.contains(chordProperty) { matchingProperties.remove(chordProperty) }
     }
   }
   
@@ -67,12 +61,6 @@ struct ChordMenuPropertyMatcher {
     }
   }
   
-  func matchChords() {
-    matchByLetter()
-    matchByAccidental()
-    matchByChordType()
-  }
-  
   func renewChordMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
     if propertyChanged == .accidental || propertyChanged == .chordType { matchByLetter() }
     if propertyChanged == .letter || propertyChanged == .chordType { matchByAccidental() }
@@ -80,7 +68,7 @@ struct ChordMenuPropertyMatcher {
   }
   
   func clearAndMatchChords(propertyChanged: ChordProperties.ChordPropertyChanged) {
-    clearMatches(propertyChanged: propertyChanged)
+//    clearMatches(propertyChanged: propertyChanged)
     renewChordMatches(propertyChanged: propertyChanged)
   }
 }

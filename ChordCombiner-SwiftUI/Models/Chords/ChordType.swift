@@ -789,7 +789,7 @@ extension ChordType {
   init?(fromDegreeNumbers degreeNumbers: [Int], transposedTo rootKeyNote: RootKeyNote) {
     let degreeNumbersTransposed = degreeNumbers.transposed(to: rootKeyNote)
     
-    print(degreeNumbersTransposed)
+//    print(degreeNumbersTransposed)
     
     self.init(fromDegreeNumbersToMatch: degreeNumbersTransposed)
   }

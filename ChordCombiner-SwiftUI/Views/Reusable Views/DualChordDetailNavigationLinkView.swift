@@ -10,6 +10,7 @@ import SwiftUI
 struct DualChordDetailNavigationLinkView: View {
   let multiChord: MultiChord
   
+  // FIXME: this will only show lowerChord
   var chord: Chord? {
     if let lowerChord = multiChord.lowerChord {
       return lowerChord
@@ -20,6 +21,7 @@ struct DualChordDetailNavigationLinkView: View {
     }
   }
   
+  // FIXME: this will only return lowerChordHighlight color
   var color: Color { multiChord.lowerChord != nil ? .lowerChordHighlight : .upperChordHighlight }
   
   @ViewBuilder
@@ -27,26 +29,9 @@ struct DualChordDetailNavigationLinkView: View {
     if multiChord.resultChord != nil {
       NavigationLink(destination: DualChordDetailView(multiChord: multiChord)) { InfoLinkImageView() }
     } else {
+      // FIXME: this should be a DualChordDetailView or DualChordDetailSplitView (create this)
+      // TODO: create DualChordDetailSplitView
       SingleChordDetailNavigationLinkView(chord: chord, color: color)
-      //        if let chord = chord {
-      //          NavigationLink(
-      //            destination:
-      //              SingleChordDetailView(
-      //                chord: chord, keyboard:
-      //                  Keyboard(
-      //                    baseWidth: 351,
-      //                    initialKeyType: .C,
-      //                    startingOctave: 4,
-      //                    octaves: 2,
-      //                    chord: chord,
-      //                    color: color
-      //                  )
-      //              )
-      //          ) {
-      //            InfoLinkImageView()
-      //          }
-      //        }
-      //      }
     }
   }
 }

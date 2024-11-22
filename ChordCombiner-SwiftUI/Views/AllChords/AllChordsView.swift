@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllChordsView: View {
-  @State private var chordTypeSections = ChordType.chordTypeSections
+  @State private var chordTypeSections: [ChordTypeSection] = ChordType.chordTypeSections
   @State private var selectedSections: Set<ChordTypeSection> = []
   @State private var selectedLetter: Letter = .c
   @State private var selectedAccidental: RootAccidental = .natural
@@ -27,20 +27,12 @@ struct AllChordsView: View {
       
       TitleColorDivider()
       
-      ScrollView {
-        VStack(alignment: .leading) {
-          ForEach(chordTypeSections, id: \.tagName) { section in
-            ChordTypeSectionView(
-              section: section,
-              rootKeyNote: $rootKeyNote, 
-              isExpanded: expandedSections.contains(section.tagName),
-              expandedSections: $expandedSections,
-              kbDisplay: false
-            )
-          }
-        }
-      }
-      .listStyle(.insetGrouped)
+      ChordTypeSectionsScrollView(
+        chordTypeSections: $chordTypeSections,
+        selectedSections: $selectedSections,
+        rootKeyNote: $rootKeyNote,
+        expandedSections: $expandedSections
+      )
     }
     .padding(.bottom, 20)
     .background { Color(.tagViewBackground) }

@@ -16,21 +16,26 @@ struct Key: View, KeyProtocol, Identifiable {
   var baseWidth: CGFloat
   var widthDivisor: CGFloat
   var keyPosition: CGFloat = 0
-  var fill: any ShapeStyle
+  var fill: Color
   var stroke: Color = .black
   var lineWidth: CGFloat = 1
   
   var initialKey: Bool = false
   var finalKey: Bool = false
   var lettersOn: Bool = false
-  var highlighted = false
+  var highlighted: Bool = false
   
-  var letterFontSizeMultiplier: CGFloat {
-    keyType.defaultFillColor == .white ? 0.7 : 0.6
-  }
+  var circlesOn: Bool = false
+  var circleType: KeyCirclesView.CircleType
   
-  var letterTextColor: Color {
-    highlighted ? .black : keyType.defaultFillColor == .white ? .black : .white
+  let letterTextColor: Color = .title
+
+  private let letterSizeMultiplier: CGFloat = 0.7
+  private var circleSizeMultiplier: CGFloat { keyType.defaultFillColor == .black ? 0.9 : 0.8 }
+  private var circleLineWidth: CGFloat { keyType.defaultFillColor == .black ? 1 : 0.5 }
+  
+  private var letterWidth: CGFloat {
+    (KeyWidth.whiteKeyCEGA.rawValue + KeyWidth.whiteKeyDFB.rawValue)/2 * widthMultiplier
   }
   
   var keyShape: any KeyShapeProtocol {
@@ -48,24 +53,54 @@ struct Key: View, KeyProtocol, Identifiable {
     CGRect(x: 0, y: 0, width: width, height: height)
   }
   
-  mutating func toggleHighlight<T: ShapeStyle>(color: T) {
-    fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : keyType.defaultFillColor
+  var keyLetterView: KeyLetterView {
+    KeyLetterView(width: letterWidth, sizeMultiplier: letterSizeMultiplier, textColor: letterTextColor, note: note, lettersOn: lettersOn)
+  }
+  
+  var keyCirclesView: KeyCirclesView {
+    KeyCirclesView(
+      width: width,
+      sizeMultiplier: circleSizeMultiplier,
+      circlesOn: circlesOn,
+      circleType: circleType,
+      lineWidth: circleLineWidth
+    )
+  }
+  
+  private var keyShapeGroup: KeyShapeGroup {
+    KeyShapeGroup(
+      finalKey: finalKey,
+      width: width,
+      height: height,
+      radius: radius,
+      widthMultiplier: widthMultiplier,
+      position: position,
+      fill: fill,
+      stroke: stroke,
+      lineWidth: lineWidth,
+      z_Index: z_Index,
+      keyShapePath: keyType.keyShapePath
+    )
+  }
+  
+  mutating func toggleHighlight(color: Color) {
+    fill = fill == keyType.defaultFillColor ? color : keyType.defaultFillColor
     highlighted.toggle()
   }
   
-  mutating func highlight<T: ShapeStyle>(color: T) {
-    print("highlighting key \(pitch)!")
-    fill = fill is Color && fill as! Color == keyType.defaultFillColor ? color : fill
+  mutating func highlight(color: Color) {
+//    print("highlighting key \(pitch)!")
+    fill = fill == keyType.defaultFillColor ? color : fill
     highlighted = true
   }
   
   mutating func clearHighlight() {
-    print("clearing key \(pitch)!")
+//    print("clearing key \(pitch)!")
     highlighted = false
     fill = keyType.defaultFillColor
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, fill: Color, stroke: Color = .black, lineWidth: CGFloat = 1, lettersOn: Bool = false, circlesOn: Bool = false,  circleType: KeyCirclesView.CircleType = .common) {
     self.pitch = pitch
     self.keyType = keyType
     self.note = note
@@ -75,9 +110,11 @@ struct Key: View, KeyProtocol, Identifiable {
     self.stroke = stroke
     self.lineWidth = lineWidth
     self.lettersOn = lettersOn
+    self.circlesOn = circlesOn
+    self.circleType = circleType
   }
   
-  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, lettersOn: Bool = false) {
+  init(pitch: Int = 0, keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat, lettersOn: Bool = false, circlesOn: Bool = false,  circleType: KeyCirclesView.CircleType = .common) {
     self.init(
       pitch: pitch,
       keyType: keyType,
@@ -90,42 +127,26 @@ struct Key: View, KeyProtocol, Identifiable {
   }
   
   var body: some View {
-    print("key \(pitch) computed!")
+//    print("key \(pitch) computed!")
     return ZStack {
-      KeyShapeGroup(
-        finalKey: finalKey,
-        width: width,
-        height: height,
-        radius: radius,
-        widthMultiplier: widthMultiplier,
-        position: position,
-        fill: fill,
-        stroke: stroke,
-        lineWidth: lineWidth,
-        z_Index: z_Index,
-        keyShapePath: keyType.keyShapePath
-      )
+      keyShapeGroup
       
-      if lettersOn {
-        if let note = note {
-          TitleView(
-            text: note.noteName,
-            font: .system(size: width * letterFontSizeMultiplier),
-            color: letterTextColor
-          )
-          .position(x: position, y: height * 3/4)
-          .zIndex(2)
-        }
-      }
+      keyLetterView
+        .position(x: position, y: -15)
+        .zIndex(2)
+      
+      keyCirclesView
+        .position(x: position, y: height * 5/6)
+        .zIndex(2)
     }
   }
 }
 
-//extension Key: Equatable {
-//  static func == (lhs: Key, rhs: Key) -> Bool {
-//    lhs.pitch == rhs.pitch && lhs.note == rhs.note && lhs.lettersOn == rhs.lettersOn && lhs.highlighted == rhs.highlighted
-//  }
-//}
+extension Key: Equatable {
+  static func == (lhs: Key, rhs: Key) -> Bool {
+    lhs.pitch == rhs.pitch && lhs.note == rhs.note && lhs.lettersOn == rhs.lettersOn && lhs.fill == rhs.fill && lhs.circlesOn == rhs.circlesOn && lhs.circleType == rhs.circleType && lhs.highlighted == rhs.highlighted
+  }
+}
 
 #Preview {
   GeometryReader { geometry in

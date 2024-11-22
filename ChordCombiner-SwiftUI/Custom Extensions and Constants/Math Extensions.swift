@@ -106,6 +106,14 @@ extension Int: Mathable {
       }
     }
   }
+  
+  func indexFromKeys(keys: inout [Key]) -> Array<Key>.Index? {
+    if let index = keys.firstIndex(where: { $0.pitch == self }) {
+      return index
+    } else {
+      return nil
+    }
+  }
 }
 
 extension CGFloat {

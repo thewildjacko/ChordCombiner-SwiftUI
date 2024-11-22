@@ -71,6 +71,8 @@ enum KeyConstants {
   /// Adjusts the height of the black keys based on their width (which is determined first)
   public static let blackKeyHeightToWidthRatio: CGFloat = Height.blackKey.rawValue/Width.blackKey.rawValue
   
+  public static let blackToWhiteKeyWidthRatio: CGFloat = Width.blackKey.rawValue/Width.blackKey.rawValue
+  
   /// Angles used to construct the corners of the keys
   enum ArcAngle {
     case one

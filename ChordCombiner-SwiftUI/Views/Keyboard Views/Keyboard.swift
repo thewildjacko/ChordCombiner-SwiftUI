@@ -64,7 +64,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       lettersOn: lettersOn
     )
     
-    highlightKeysSingle(degreeNumbers: chord.voicingCalculator.stackedPitches, color: color)
+    highlightKeys(pitches: chord.voicingCalculator.stackedPitches, color: color)
   }
   
   //  MARK: initializer methods
@@ -176,7 +176,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     }
   }
   
-  mutating func setNotesStacked<T: ShapeStyle>(pitchesByNote: [Note: Int], color: T) {
+  mutating func setNotesStacked(pitchesByNote: [Note: Int]) {
     for (note, pitch) in pitchesByNote {
       if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
         keys[index].note = note
@@ -187,9 +187,14 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   mutating func clearHighlightedKeys() {
     if !highlightedPitches.isEmpty {
       for pitch in highlightedPitches {
-        if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
+        if let index = pitch.indexFromKeys(keys: &keys) {
           keys[index].clearHighlight()
-          keys[index].lettersOn.toggle()
+          if keys[index].lettersOn == true {
+            keys[index].lettersOn = false
+          }
+          if keys[index].circlesOn == true {
+            keys[index].circlesOn = false
+          }
         }
       }
       
@@ -197,35 +202,37 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     }
   }
   
-  mutating func highlightKeysAfterClearing<T: ShapeStyle>(pitches: [Int], color: T) {
-    clearHighlightedKeys()
-        
-    for pitch in pitches {
-      highlightedPitches.insert(pitch)
-      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
-        keys[index].highlight(color: color)
-        keys[index].lettersOn.toggle()
-      }
-    }
+  mutating func highlightKeys(pitches: [Int], color: Color) {
+    pitches.highlightIfSelected(keys: &keys, highlightedPitches: &highlightedPitches, color: color)
   }
   
-  mutating func highlightKeysWithoutClearing<T: ShapeStyle>(pitches: [Int], color: T) {
-    for pitch in pitches {
-      highlightedPitches.insert(pitch)
-      if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
-        keys[index].highlight(color: color)
-        keys[index].lettersOn.toggle()
-      }
-    }
+  mutating func turnLettersOn(pitches: [Int]) {
+    pitches.lettersOnIfSelected(keys: &keys)
   }
-    
-  mutating func highlightKeysSingle<T: ShapeStyle>(degreeNumbers: [Int], color: T) {
-    degreeNumbers.highlightIfSelected(keys: &keys, color: color)
+  
+  mutating func turnCirclesOn(pitches: [Int], circleType: KeyCirclesView.CircleType) {
+    pitches.circlesOnIfSelected(keys: &keys, circleType: circleType)
   }
-      
+  
+  mutating func clearAndHighlightKeys(pitches: [Int], color: Color) {
+    clearHighlightedKeys()
+    highlightKeys(pitches: pitches, color: color)
+  }
+  
+  mutating func highlightKeys_LettersOn(pitches: [Int], color: Color) {
+    highlightKeys(pitches: pitches, color: color)
+    turnLettersOn(pitches: pitches)
+  }
+  
+  mutating func highlightKeys_LettersAndCirclesOn(pitches: [Int], color: Color, circleType: KeyCirclesView.CircleType) {
+    highlightKeys(pitches: pitches, color: color)
+    turnLettersOn(pitches: pitches)
+    turnCirclesOn(pitches: pitches, circleType: circleType)
+  }
+          
   //  MARK: body
   var body: some View {
-    print("keyboard \(id) computed!")
+//    print("keyboard \(id) computed!")
     
     return ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
@@ -246,11 +253,11 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   }
 }
 
-//extension Keyboard: Equatable {
-//  static func == (lhs: Keyboard, rhs: Keyboard) -> Bool {
-//    lhs.initialKeyType == rhs.initialKeyType && lhs.keys == rhs.keys && lhs.width == rhs.width
-//  }
-//}
+extension Keyboard: Equatable {
+  static func == (lhs: Keyboard, rhs: Keyboard) -> Bool {
+    lhs.initialKeyType == rhs.initialKeyType && lhs.keys == rhs.keys && lhs.width == rhs.width
+  }
+}
 
 #Preview {
   VStack {

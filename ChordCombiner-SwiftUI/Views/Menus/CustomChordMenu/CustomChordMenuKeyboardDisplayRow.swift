@@ -42,7 +42,9 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   }
   
   var body: some View {
-    HStack(alignment: .firstTextBaseline) {
+//    print("keyboard \(chordType.preciseName) computed!")
+    
+    return HStack(alignment: .firstTextBaseline) {
       VStack(alignment: .leading, spacing: 10) {
         TitleView(
           text: titleText,
@@ -60,5 +62,11 @@ struct CustomChordMenuKeyboardDisplayRow: View {
         TitleView(text: "match found!", font: .caption, weight: .bold, color: .glowText)
       }
     }
+  }
+}
+
+extension CustomChordMenuKeyboardDisplayRow: Equatable {
+  static func == (lhs: CustomChordMenuKeyboardDisplayRow, rhs: CustomChordMenuKeyboardDisplayRow) -> Bool {
+    lhs.chord == rhs.chord && lhs.chordType == rhs.chordType && lhs.titleText == rhs.titleText && lhs.titleColor == rhs.titleColor && lhs.glowColor == rhs.glowColor && lhs.glowRadius == rhs.glowRadius && lhs.keyboard == rhs.keyboard && lhs.keyboardColor == rhs.keyboardColor
   }
 }

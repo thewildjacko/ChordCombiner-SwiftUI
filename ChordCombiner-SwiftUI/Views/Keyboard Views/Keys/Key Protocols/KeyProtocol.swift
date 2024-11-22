@@ -26,13 +26,14 @@ protocol KeyProtocol {
   var radius: CGFloat { get }
   var width: CGFloat { get }
   var height: CGFloat { get }
-  var fill: any ShapeStyle { get set }
+  var fill: Color { get set }
   var stroke: Color { get set }
   var lineWidth: CGFloat { get set }
   var z_Index: Double { get }
   var lettersOn: Bool { get set }
+  var circlesOn: Bool { get set }
   
-  init(pitch: Int, keyType: KeyType, note: Note?, baseWidth: CGFloat, widthDivisor: CGFloat, fill: any ShapeStyle, stroke: Color, lineWidth: CGFloat, lettersOn: Bool)
+  init(pitch: Int, keyType: KeyType, note: Note?, baseWidth: CGFloat, widthDivisor: CGFloat, fill: Color, stroke: Color, lineWidth: CGFloat, lettersOn: Bool, circlesOn: Bool, circleType: KeyCirclesView.CircleType)
 }
 
 extension KeyProtocol {
@@ -67,7 +68,7 @@ extension KeyProtocol {
     }
   }
   
-  var fill: any ShapeStyle {
+  var fill: Color {
     switch keyType {
     case .C, .D, .E, .F, .G, .A, .B:
       return .white
@@ -91,17 +92,17 @@ extension KeyProtocol {
   
   var keyWidthAddend: CGFloat { KeyWidth.getAddend(keyType) }
   
-  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, fill: any ShapeStyle, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
-    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: fill, stroke: stroke, lineWidth: lineWidth, lettersOn: lettersOn)
+  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, fill: Color, stroke: Color = .black, lineWidth: CGFloat = 1, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false, circlesOn: Bool = false,  circleType: KeyCirclesView.CircleType = .common) {
+    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: fill, stroke: stroke, lineWidth: lineWidth, lettersOn: lettersOn, circlesOn: circlesOn, circleType: circleType)
     
     self.initialKey = initialKey
     self.finalKey = finalKey
     self.keyPosition = keyPosition
   }
   
-  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false) {
+  init(pitch: Int, _ keyType: KeyType = .C, note: Note? = nil, baseWidth: CGFloat, widthDivisor: CGFloat = 23, initialKey: Bool = false, finalKey: Bool = false, keyPosition: CGFloat = 0, lettersOn: Bool = false, circlesOn: Bool = false,  circleType: KeyCirclesView.CircleType = .common) {
     
-    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: keyType.defaultFillColor, stroke: .black, lineWidth: 1, lettersOn: lettersOn)
+    self.init(pitch: pitch, keyType: keyType, note: note, baseWidth: baseWidth, widthDivisor: widthDivisor, fill: keyType.defaultFillColor, stroke: .black, lineWidth: 1, lettersOn: lettersOn, circlesOn: circlesOn, circleType: circleType)
     
     self.initialKey = initialKey
     self.finalKey = finalKey

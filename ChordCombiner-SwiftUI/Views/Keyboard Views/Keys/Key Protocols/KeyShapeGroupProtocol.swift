@@ -18,7 +18,7 @@ protocol KeyShapeGroupProtocol {
   var height: CGFloat { get set }
   var radius: CGFloat { get set }
   var widthMultiplier: CGFloat { get set }
-  var fill: any ShapeStyle { get set }
+  var fill: Color { get set }
   var stroke: Color { get set }
   var lineWidth: CGFloat { get set }
   var z_Index: Double { get set }
