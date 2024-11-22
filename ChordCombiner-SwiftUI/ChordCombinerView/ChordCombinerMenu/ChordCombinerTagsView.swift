@@ -23,7 +23,7 @@ struct ChordCombinerTagsView<T: ChordAndScaleProperty>: View {
   var body: some View {
     if isHorizontal {
       HStack(spacing: spacing) {
-        ChordPropertyTagView(
+        ChordCombinerPropertyTagView(
           selectedProperty: $selectedProperty,
           matchingProperties: $matchingProperties,
           tagProperties: tagProperties,
@@ -36,7 +36,7 @@ struct ChordCombinerTagsView<T: ChordAndScaleProperty>: View {
       }
     } else {
       VStack(spacing: spacing) {
-        ChordPropertyTagView(
+        ChordCombinerPropertyTagView(
           selectedProperty: $selectedProperty,
           matchingProperties: $matchingProperties,
           tagProperties: tagProperties,

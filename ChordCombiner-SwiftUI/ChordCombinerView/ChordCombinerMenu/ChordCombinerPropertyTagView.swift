@@ -1,5 +1,5 @@
 //
-//  ChordPropertyTagView.swift
+//  ChordCombinerPropertyTagView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/20/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChordPropertyTagView<T: ChordAndScaleProperty>: View {
+struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
   @Binding var selectedProperty: T?
   @Binding var matchingProperties: Set<T>
   
