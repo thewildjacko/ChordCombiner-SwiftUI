@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChordMenuPropertyMatcher {
-  let multiChord: MultiChord
+  let chordCombinerViewModel: ChordCombinerViewModel
   let isLowerChordMenu: Bool
   
   @State var isInitial: Bool = true
@@ -18,8 +18,8 @@ struct ChordMenuPropertyMatcher {
   @Binding var matchingChordTypes: Set<ChordType>
     
   func setChordsForMatches() -> (firstChord: Chord?, secondChord: Chord?) {
-    guard let lowerChord = multiChord.lowerChord,
-          let upperChord = multiChord.upperChord else {
+    guard let lowerChord = chordCombinerViewModel.lowerChord,
+          let upperChord = chordCombinerViewModel.upperChord else {
       return (nil, nil)
     }
     

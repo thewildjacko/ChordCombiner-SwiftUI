@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum Tab {
-  case singleChord, multiChord, allChords
+  case singleChord, chordCombinerViewModel, allChords
 }
 
 struct ContentView: View {
-  @State private var selectedTab: Tab = .multiChord
+  @State private var selectedTab: Tab = .chordCombinerViewModel
 //  
 //  @State var cMa13sh11 = Chord(.c, .ma13_sh11)
 //  @State var chordDictionary: [Chord: [Chord]] = [Chord(.c, .ma13_sh11):Chord(.c, .ma13_sh11).containingChords()]
@@ -30,7 +30,7 @@ struct ContentView: View {
       List {
         NavigationLink(
           destination:
-            MultiChordKeyboardView()
+            ChordCombinerView()
             .navigationTitle("Chord Combiner")
         ) { Text("Chord Combiner") }
         

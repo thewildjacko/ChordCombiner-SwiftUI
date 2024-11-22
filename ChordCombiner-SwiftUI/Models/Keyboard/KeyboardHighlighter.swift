@@ -20,11 +20,11 @@ struct KeyboardHighlighter {
     selectedKeyboard.setNotesStacked(pitchesByNote: selectedChord.voicingCalculator.stackedPitchesByNote)
   }
   
-  func highlightCombinedChord(selectedChord: Chord?, chordToMatch: Chord?, multiChord: MultiChord, combinedKeyboard: inout Keyboard) {
+  func highlightCombinedChord(selectedChord: Chord?, chordToMatch: Chord?, chordCombinerViewModel: ChordCombinerViewModel, combinedKeyboard: inout Keyboard) {
     guard let _ = selectedChord,
           let _ = chordToMatch,
-          let resultChord = multiChord.resultChord,
-          let multiChordVoicingCalculator = multiChord.multiChordVoicingCalculator else {
+          let resultChord = chordCombinerViewModel.resultChord,
+          let chordCombinerVoicingCalculator = chordCombinerViewModel.chordCombinerVoicingCalculator else {
       return
     }
     
@@ -33,24 +33,24 @@ struct KeyboardHighlighter {
     combinedKeyboard.clearHighlightedKeys()
     
     // Highlight new chord and turn letters & symbols on
-    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: multiChordVoicingCalculator.lowerTonesToHighlight, color: .lowerChordHighlight, circleType: .lower)
-    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: multiChordVoicingCalculator.upperTonesToHighlight, color: .upperChordHighlight, circleType: .upper)
-    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: multiChordVoicingCalculator.commonTonesToHighlight, color: .lowerChordHighlight, circleType: .common)
+    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: chordCombinerVoicingCalculator.lowerTonesToHighlight, color: .lowerChordHighlight, circleType: .lower)
+    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: chordCombinerVoicingCalculator.upperTonesToHighlight, color: .upperChordHighlight, circleType: .upper)
+    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: chordCombinerVoicingCalculator.commonTonesToHighlight, color: .lowerChordHighlight, circleType: .common)
     
     // Set notes to display for each highlighted key
     combinedKeyboard.setNotesStacked(pitchesByNote: resultChord.voicingCalculator.stackedPitchesByNote)
   }
   
-  func highlightSplitChord(selectedChord: Chord?, chordToMatch: Chord?, multiChord: MultiChord, combinedKeyboard: inout Keyboard) {
+  func highlightSplitChord(selectedChord: Chord?, chordToMatch: Chord?, chordCombinerViewModel: ChordCombinerViewModel, combinedKeyboard: inout Keyboard) {
     guard let _ = selectedChord,
           let _ = chordToMatch,
-          let multiChordVoicingCalculator = multiChord.multiChordVoicingCalculator else {
+          let chordCombinerVoicingCalculator = chordCombinerViewModel.chordCombinerVoicingCalculator else {
       return
     }
     
     print("splitting!")
     
-    let (lowerSplitPitches, upperSplitPitches) = multiChordVoicingCalculator.stackedSplit(lowerPitches: multiChordVoicingCalculator.lowerStackedPitches, upperPitches: multiChordVoicingCalculator.upperStackedPitches)
+    let (lowerSplitPitches, upperSplitPitches) = chordCombinerVoicingCalculator.stackedSplit(lowerPitches: chordCombinerVoicingCalculator.lowerStackedPitches, upperPitches: chordCombinerVoicingCalculator.upperStackedPitches)
     // Clear previously highlighted chord
     combinedKeyboard.clearHighlightedKeys()
     
@@ -61,20 +61,20 @@ struct KeyboardHighlighter {
     // FIXME: Set notes to display for each highlighted key -> missing setNotesStacked call here
   }
   
-  func highlightKeyboards(selectedChord: Chord?, chordToMatch: Chord?, multiChord: MultiChord, selectedKeyboard: inout Keyboard, selectedChordColor: Color, combinedKeyboard: inout Keyboard) {
+  func highlightKeyboards(selectedChord: Chord?, chordToMatch: Chord?, chordCombinerViewModel: ChordCombinerViewModel, selectedKeyboard: inout Keyboard, selectedChordColor: Color, combinedKeyboard: inout Keyboard) {
     highlightSelectedChord(selectedChord: selectedChord, selectedKeyboard: &selectedKeyboard, selectedChordColor: selectedChordColor)
     
     // resultChord is a combined or slash chord
-    if let _ = multiChord.resultChord {
-      highlightCombinedChord(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, combinedKeyboard: &combinedKeyboard)
+    if let _ = chordCombinerViewModel.resultChord {
+      highlightCombinedChord(selectedChord: selectedChord, chordToMatch: chordToMatch, chordCombinerViewModel: chordCombinerViewModel, combinedKeyboard: &combinedKeyboard)
     } else { // combineChords returns a polychord or one or both lower/upper chords aren't selected yet
-      switch (multiChord.lowerChord, multiChord.upperChord) {
+      switch (chordCombinerViewModel.lowerChord, chordCombinerViewModel.upperChord) {
       case (let lowerChord, nil): // lowerChord is selected
         highlightSelectedChord(selectedChord: lowerChord, selectedKeyboard: &combinedKeyboard, selectedChordColor: .lowerChordHighlight)
       case (nil, let upperChord): // upperChord is selected
         highlightSelectedChord(selectedChord: upperChord, selectedKeyboard: &combinedKeyboard, selectedChordColor: .upperChordHighlight)
       default: // combineChords returns a polychord
-        highlightSplitChord(selectedChord: selectedChord, chordToMatch: chordToMatch, multiChord: multiChord, combinedKeyboard: &combinedKeyboard)
+        highlightSplitChord(selectedChord: selectedChord, chordToMatch: chordToMatch, chordCombinerViewModel: chordCombinerViewModel, combinedKeyboard: &combinedKeyboard)
       }
     }
   }

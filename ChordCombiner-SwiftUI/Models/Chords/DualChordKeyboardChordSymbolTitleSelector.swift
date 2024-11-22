@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct DualChordKeyboardChordSymbolTitleSelector {
-  let multiChord: MultiChord
+  let chordCombinerViewModel: ChordCombinerViewModel
   
   var resultChordSymbol: String {
-    guard let resultChord = multiChord.resultChord,
-          let lowerChord = multiChord.lowerChord else { return "" }
+    guard let resultChord = chordCombinerViewModel.resultChord,
+          let lowerChord = chordCombinerViewModel.lowerChord else { return "" }
     
-    return multiChord.resultChordStatus == .combinedChord ? resultChord.commonName : "\(resultChord.commonName)/\(lowerChord.root.noteName)"
+    return chordCombinerViewModel.resultChordStatus == .combinedChord ? resultChord.commonName : "\(resultChord.commonName)/\(lowerChord.root.noteName)"
   }
   
   var chordSymbolText: String {
-    guard let _ = multiChord.resultChord else {
-      switch multiChord.chordSelectionStatus {
+    guard let _ = chordCombinerViewModel.resultChord else {
+      switch chordCombinerViewModel.chordSelectionStatus {
       case .neitherChordIsSelected:
         return "waiting for chord selection..."
       case .lowerChordIsSelected:
-        return multiChord.lowerChord?.displayDetails(detailType: .commonName) ?? "Please select a lower chord"
+        return chordCombinerViewModel.lowerChord?.displayDetails(detailType: .commonName) ?? "Please select a lower chord"
       case .upperChordIsSelected:
-        return multiChord.upperChord?.displayDetails(detailType: .commonName) ?? "Please select an upper chord"
+        return chordCombinerViewModel.upperChord?.displayDetails(detailType: .commonName) ?? "Please select an upper chord"
       case .bothChordsAreSelected:
-        return multiChord.displayDetails(detailType: .preciseName)
+        return chordCombinerViewModel.displayDetails(detailType: .preciseName)
       }
     }
     
@@ -35,7 +35,7 @@ struct DualChordKeyboardChordSymbolTitleSelector {
   }
   
   var chordSymbolCaptionText: String {
-    guard let resultChord = multiChord.resultChord else { return "" }
+    guard let resultChord = chordCombinerViewModel.resultChord else { return "" }
     
     return "(\(resultChord.preciseName))"
   }

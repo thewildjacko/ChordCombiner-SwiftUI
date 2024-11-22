@@ -1,5 +1,5 @@
 //
-//  MultiChordKeyboardView.swift
+//  ChordCombinerView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 8/22/24.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct MultiChordKeyboardView: View {
+struct ChordCombinerView: View {
   
   //  MARK: @State and instance variables
-  @Bindable var multiChord: MultiChord = MultiChord(
+  @Bindable var chordCombinerViewModel: ChordCombinerViewModel = ChordCombinerViewModel(
     lowerChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil),
     upperChordProperties: ChordProperties(letter: nil, accidental: .natural, chordType: nil),
     lowerKeyboard: Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
@@ -23,10 +23,10 @@ struct MultiChordKeyboardView: View {
       Spacer()
       
       CustomChordMenuSelectedView(
-        multiChord: multiChord,
-        keyboard: $multiChord.lowerKeyboard,
-        combinedKeyboard: $multiChord.combinedKeyboard,
-        chordProperties: $multiChord.lowerChordProperties
+        chordCombinerViewModel: chordCombinerViewModel,
+        keyboard: $chordCombinerViewModel.lowerKeyboard,
+        combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
+        chordProperties: $chordCombinerViewModel.lowerChordProperties
       )
       
       Spacer()
@@ -37,10 +37,10 @@ struct MultiChordKeyboardView: View {
       Spacer()
       
       CustomChordMenuSelectedView(
-        multiChord: multiChord,
-        keyboard: $multiChord.upperKeyboard,
-        combinedKeyboard: $multiChord.combinedKeyboard,
-        chordProperties: $multiChord.upperChordProperties
+        chordCombinerViewModel: chordCombinerViewModel,
+        keyboard: $chordCombinerViewModel.upperKeyboard,
+        combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
+        chordProperties: $chordCombinerViewModel.upperChordProperties
       )
       
       Spacer()
@@ -50,8 +50,8 @@ struct MultiChordKeyboardView: View {
       Spacer()
       
       DualChordKeyboardView(
-        multiChord: multiChord,
-        keyboard: $multiChord.combinedKeyboard
+        chordCombinerViewModel: chordCombinerViewModel,
+        keyboard: $chordCombinerViewModel.combinedKeyboard
       )
       
       Spacer()
@@ -61,5 +61,5 @@ struct MultiChordKeyboardView: View {
 }
 
 #Preview {
-  MultiChordKeyboardView()
+  ChordCombinerView()
 }

@@ -1,5 +1,5 @@
 //
-//  MultiChord.swift
+//  ChordCombinerViewModel.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 8/21/24.
@@ -9,7 +9,7 @@ import SwiftUI
 import Observation
 
 @Observable
-final class MultiChord: ObservableObject {
+final class ChordCombinerViewModel: ObservableObject {
   enum ChordSelectionStatus {
     case neitherChordIsSelected
     case lowerChordIsSelected
@@ -78,13 +78,13 @@ final class MultiChord: ObservableObject {
     return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
   }
   
-  var multiChordVoicingCalculator: MultiChordVoicingCalculator? {
+  var chordCombinerVoicingCalculator: ChordCombinerVoicingCalculator? {
     guard let lowerChord = lowerChord,
           let upperChord = upperChord else {
       return nil
     }
     
-    return MultiChordVoicingCalculator(
+    return ChordCombinerVoicingCalculator(
       lowerChordVoicingCalculator: lowerChord.voicingCalculator,
       upperChordVoicingCalculator: upperChord.voicingCalculator,
       resultChordVoicingCalculator: resultChord?.voicingCalculator ?? nil)
@@ -105,13 +105,13 @@ final class MultiChord: ObservableObject {
   }    
 }
 
-extension MultiChord: Equatable {
-  static func == (lhs: MultiChord, rhs: MultiChord) -> Bool {
+extension ChordCombinerViewModel: Equatable {
+  static func == (lhs: ChordCombinerViewModel, rhs: ChordCombinerViewModel) -> Bool {
     return lhs.lowerChord == rhs.lowerChord && lhs.upperChord == rhs.upperChord && lhs.resultChord == rhs.resultChord
   }
 }
 
-extension MultiChord {
+extension ChordCombinerViewModel {
   enum DetailType {
     case commonName,
          preciseName,
@@ -129,7 +129,7 @@ extension MultiChord {
     }
     
     guard let resultChord = resultChord,
-          let multiChordVoicingCalculator = multiChordVoicingCalculator else {
+          let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
       switch detailType {
       case .commonName:
         return "\(upperChord.commonName)/\(lowerChord.commonName)"
@@ -143,12 +143,12 @@ extension MultiChord {
         return (lowerChord.noteNames + upperChord.noteNames)
           .joined(separator: ", ")
       case .degreeNames:
-        guard let multiChordVoicingCalculator = multiChordVoicingCalculator else {
+        guard let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
           return (lowerChord.degreeNames.numeric + upperChord.degreeNames.numeric)
             .joined(separator: ", ")
         }
         
-        return (lowerChord.degreeNames.numeric + multiChordVoicingCalculator.upperDegreeNamesInLowerKey)
+        return (lowerChord.degreeNames.numeric + chordCombinerVoicingCalculator.upperDegreeNamesInLowerKey)
           .joined(separator: ", ")
       }
     }
@@ -162,10 +162,10 @@ extension MultiChord {
     case .upperChordName:
       return upperChord.preciseName
     case .noteNames:
-      return multiChordVoicingCalculator.resultChordNoteNames.map { $0.noteName }
+      return chordCombinerVoicingCalculator.resultChordNoteNames.map { $0.noteName }
         .joined(separator: ", ")
     case .degreeNames:
-      return multiChordVoicingCalculator.resultChordDegreeNames.joined(separator: ", ")
+      return chordCombinerVoicingCalculator.resultChordDegreeNames.joined(separator: ", ")
     }
   }
 }

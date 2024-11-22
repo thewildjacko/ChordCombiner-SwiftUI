@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CustomChordMenuSelectedView: View {
-  var multiChord: MultiChord
+  var chordCombinerViewModel: ChordCombinerViewModel
   
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
   
   var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
-    CustomChordMenuSelectedChordTitleModel(multiChord: multiChord, chordProperties: chordProperties)
+    CustomChordMenuSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
   }
   
   var body: some View {
@@ -25,7 +25,7 @@ struct CustomChordMenuSelectedView: View {
       NavigationLink(
         destination:
           CustomChordMenu(
-            multiChord: multiChord,
+            chordCombinerViewModel: chordCombinerViewModel,
             selectedKeyboard: $keyboard,
             combinedKeyboard: $combinedKeyboard,
             chordProperties: $chordProperties
@@ -50,7 +50,7 @@ struct CustomChordMenuSelectedView: View {
 
 #Preview {
   CustomChordMenuSelectedView(
-    multiChord: MultiChord(),
+    chordCombinerViewModel: ChordCombinerViewModel(),
     keyboard:
         .constant(
           Keyboard(

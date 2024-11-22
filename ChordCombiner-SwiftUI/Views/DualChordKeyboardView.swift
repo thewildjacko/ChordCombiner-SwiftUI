@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct DualChordKeyboardView: View {
-  var multiChord: MultiChord
+  var chordCombinerViewModel: ChordCombinerViewModel
   @Binding var keyboard: Keyboard
   
   var dualChordKeyboardChordSymbolTitleSelector: DualChordKeyboardChordSymbolTitleSelector {
-    DualChordKeyboardChordSymbolTitleSelector(multiChord: multiChord)
+    DualChordKeyboardChordSymbolTitleSelector(chordCombinerViewModel: chordCombinerViewModel)
   }
     
   var titleText: String { dualChordKeyboardChordSymbolTitleSelector.chordSymbolText
   }
   
   var titleFont: Font {
-    if let _ = multiChord.resultChord {
+    if let _ = chordCombinerViewModel.resultChord {
       return .title
     } else {
-      switch multiChord.chordSelectionStatus {
+      switch chordCombinerViewModel.chordSelectionStatus {
       case .lowerChordIsSelected, .upperChordIsSelected:
         return .title
       default:
@@ -34,8 +34,8 @@ struct DualChordKeyboardView: View {
   var body: some View {
     VStack(spacing: 20) {
       HStack {
-        DualChordTitleView(multiChord: multiChord, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont)  
-        DualChordDetailNavigationLinkView(multiChord: multiChord)
+        DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont)  
+        DualChordDetailNavigationLinkView(chordCombinerViewModel: chordCombinerViewModel)
       }
       
       keyboard
@@ -45,7 +45,7 @@ struct DualChordKeyboardView: View {
 
 #Preview("Both chords selected") {
   DualChordKeyboardView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
     ), keyboard: .constant(
@@ -61,7 +61,7 @@ struct DualChordKeyboardView: View {
 
 #Preview("Lower chord selected") {
   DualChordKeyboardView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
     ), keyboard: .constant(
       Keyboard(
@@ -76,7 +76,7 @@ struct DualChordKeyboardView: View {
 
 #Preview("Upper chord selected") {
   DualChordKeyboardView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
     ), keyboard: .constant(
       Keyboard(
@@ -91,7 +91,7 @@ struct DualChordKeyboardView: View {
 
 #Preview("No chords selected") {
   DualChordKeyboardView(
-    multiChord: MultiChord(),
+    chordCombinerViewModel: ChordCombinerViewModel(),
     keyboard: .constant(
       Keyboard(
         baseWidth: 351,

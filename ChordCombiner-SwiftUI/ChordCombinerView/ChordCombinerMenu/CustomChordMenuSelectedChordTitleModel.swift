@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CustomChordMenuSelectedChordTitleModel {
-  let multiChord: MultiChord
+  let chordCombinerViewModel: ChordCombinerViewModel
   let chordProperties: ChordProperties
   
   var isLowerChordMenu: Bool {
-    chordProperties == multiChord.lowerChordProperties ? true : false
+    chordProperties == chordCombinerViewModel.lowerChordProperties ? true : false
   }
   
   var promptText: String {
@@ -20,11 +20,11 @@ struct CustomChordMenuSelectedChordTitleModel {
   }
   
   var selectedChord: Chord? {
-    isLowerChordMenu ? multiChord.lowerChord : multiChord.upperChord
+    isLowerChordMenu ? chordCombinerViewModel.lowerChord : chordCombinerViewModel.upperChord
   }
   
   var chordToMatch: Chord? {
-    isLowerChordMenu ? multiChord.upperChord : multiChord.lowerChord
+    isLowerChordMenu ? chordCombinerViewModel.upperChord : chordCombinerViewModel.lowerChord
   }
   
   var selectedChordColor: Color {
@@ -40,19 +40,19 @@ struct CustomChordMenuSelectedChordTitleModel {
   }
   
   var showingMatchesText: String {
-    guard let lowerChord = multiChord.lowerChord,
-          let upperChord = multiChord.upperChord else {
+    guard let lowerChord = chordCombinerViewModel.lowerChord,
+          let upperChord = chordCombinerViewModel.upperChord else {
       return "Select upper and lower chords to show matches"
     }
 
-    return selectedChord == multiChord.lowerChord ? "(showing matches for upper chord \(upperChord.preciseName))" : "(showing matches for lower chord \(lowerChord.preciseName))"
+    return selectedChord == chordCombinerViewModel.lowerChord ? "(showing matches for upper chord \(upperChord.preciseName))" : "(showing matches for lower chord \(lowerChord.preciseName))"
   }
   
   var chordSymbolTitleFont: Font {
     isLowerChordMenu ?
-    multiChord.lowerChord != nil ?
+    chordCombinerViewModel.lowerChord != nil ?
       .largeTitle : .headline :
-    multiChord.upperChord != nil ?
+    chordCombinerViewModel.upperChord != nil ?
       .largeTitle : .headline
   }
 }

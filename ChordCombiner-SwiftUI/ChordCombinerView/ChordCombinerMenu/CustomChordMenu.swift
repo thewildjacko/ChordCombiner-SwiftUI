@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomChordMenu: View {
-  var multiChord: MultiChord
+  var chordCombinerViewModel: ChordCombinerViewModel
   
   @Binding var selectedKeyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
@@ -21,12 +21,12 @@ struct CustomChordMenu: View {
   let keyboardHighlighter: KeyboardHighlighter = KeyboardHighlighter()
   
   var customChordMenuSelectedChordTitleModel: CustomChordMenuSelectedChordTitleModel {
-    CustomChordMenuSelectedChordTitleModel(multiChord: multiChord, chordProperties: chordProperties)
+    CustomChordMenuSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
   }
   
   var chordMenuPropertyMatcher: ChordMenuPropertyMatcher {
     ChordMenuPropertyMatcher(
-      multiChord: multiChord,
+      chordCombinerViewModel: chordCombinerViewModel,
       isLowerChordMenu: customChordMenuSelectedChordTitleModel.isLowerChordMenu,
       matchingLetters: $matchingLetters,
       matchingAccidentals: $matchingAccidentals,
@@ -114,7 +114,7 @@ struct CustomChordMenu: View {
       TitleColorDivider()
       
       DualChordKeyboardView(
-        multiChord: multiChord,
+        chordCombinerViewModel: chordCombinerViewModel,
         keyboard: $combinedKeyboard
       )
       
@@ -127,7 +127,7 @@ struct CustomChordMenu: View {
       keyboardHighlighter.highlightKeyboards(
         selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
         chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
-        multiChord: multiChord,
+        chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
         selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
@@ -139,7 +139,7 @@ struct CustomChordMenu: View {
       keyboardHighlighter.highlightKeyboards(
         selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
         chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
-        multiChord: multiChord,
+        chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
         selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
@@ -151,7 +151,7 @@ struct CustomChordMenu: View {
       keyboardHighlighter.highlightKeyboards(
         selectedChord: customChordMenuSelectedChordTitleModel.selectedChord,
         chordToMatch: customChordMenuSelectedChordTitleModel.chordToMatch,
-        multiChord: multiChord,
+        chordCombinerViewModel: chordCombinerViewModel,
         selectedKeyboard: &selectedKeyboard,
         selectedChordColor: customChordMenuSelectedChordTitleModel.selectedChordColor,
         combinedKeyboard: &combinedKeyboard
@@ -162,7 +162,7 @@ struct CustomChordMenu: View {
 
 #Preview {
   CustomChordMenu(
-    multiChord: MultiChord(),
+    chordCombinerViewModel: ChordCombinerViewModel(),
     selectedKeyboard:
         .constant(
           Keyboard(

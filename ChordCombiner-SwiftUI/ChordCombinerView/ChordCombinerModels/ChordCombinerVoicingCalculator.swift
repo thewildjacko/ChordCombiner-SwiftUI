@@ -1,5 +1,5 @@
 //
-//  MultiChordVoicingCalculator.swift
+//  ChordCombinerVoicingCalculator.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 8/22/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MultiChordVoicingCalculator {
+struct ChordCombinerVoicingCalculator {
   var lowerChordVoicingCalculator: VoicingCalculator
   var upperChordVoicingCalculator: VoicingCalculator
   var resultChordVoicingCalculator: VoicingCalculator? = nil {

@@ -8,36 +8,36 @@
 import SwiftUI
 
 struct DualChordDetailView: View {
-  var multiChord: MultiChord
+  var chordCombinerViewModel: ChordCombinerViewModel
   
   var titleText: String {
-    return multiChord.resultChord != nil ?
-    multiChord.displayDetails(detailType: .commonName) :
-    multiChord.displayDetails(detailType: .preciseName)
+    return chordCombinerViewModel.resultChord != nil ?
+    chordCombinerViewModel.displayDetails(detailType: .commonName) :
+    chordCombinerViewModel.displayDetails(detailType: .preciseName)
   }
   
   var titleFont: Font {
-    multiChord.resultChord != nil ? .largeTitle : .title
+    chordCombinerViewModel.resultChord != nil ? .largeTitle : .title
   }
   
   var body: some View {
     VStack(spacing: 20) {
-      DualChordTitleView(multiChord: multiChord, titleText: titleText, titleFont: titleFont)
+      DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: titleText, titleFont: titleFont)
             
-      multiChord.combinedKeyboard
+      chordCombinerViewModel.combinedKeyboard
       
       Form {
         List {
-          DetailRow(title: "Notes", text: multiChord.displayDetails(detailType: .noteNames))
-          DetailRow(title: "Degrees", text: multiChord.displayDetails(detailType: .degreeNames))
+          DetailRow(title: "Notes", text: chordCombinerViewModel.displayDetails(detailType: .noteNames))
+          DetailRow(title: "Degrees", text: chordCombinerViewModel.displayDetails(detailType: .degreeNames))
         }
         
         Section(header: Text("Component Chords")) {
-          DetailRow(title: "Lower Chord", text: multiChord.displayDetails(detailType: .lowerChordName))
-          DetailRow(title: "Upper Chord", text: multiChord.displayDetails(detailType: .upperChordName))
+          DetailRow(title: "Lower Chord", text: chordCombinerViewModel.displayDetails(detailType: .lowerChordName))
+          DetailRow(title: "Upper Chord", text: chordCombinerViewModel.displayDetails(detailType: .upperChordName))
         }
         
-        EquivalentChordsSectionView(chord: multiChord.resultChord)
+        EquivalentChordsSectionView(chord: chordCombinerViewModel.resultChord)
       }
 
       Spacer()
@@ -48,7 +48,7 @@ struct DualChordDetailView: View {
 
 #Preview("Both chords selected") {
   DualChordDetailView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
     )
@@ -57,7 +57,7 @@ struct DualChordDetailView: View {
 
 #Preview("Lower chord selected") {
   DualChordDetailView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
     )
   )
@@ -65,12 +65,12 @@ struct DualChordDetailView: View {
 
 #Preview("Upper chord selected") {
   DualChordDetailView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
     )
   )
 }
 
 #Preview("No chords selected") {
-  DualChordDetailView(multiChord: MultiChord())
+  DualChordDetailView(chordCombinerViewModel: ChordCombinerViewModel())
 }

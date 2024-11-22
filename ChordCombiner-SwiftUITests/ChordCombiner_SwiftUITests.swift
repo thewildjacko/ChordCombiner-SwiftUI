@@ -9,10 +9,10 @@ import Testing
 @testable import ChordCombiner_SwiftUI
 
 struct ChordCombiner_SwiftUITests {
-  var multiChordResultChordTest: MultiChord
+  var chordCombinerViewModelResultChordTest: ChordCombinerViewModel
   
   init() {
-    multiChordResultChordTest = MultiChord(
+    chordCombinerViewModelResultChordTest = ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
     )
@@ -21,7 +21,7 @@ struct ChordCombiner_SwiftUITests {
   @Test("Chords Combine Correctly")
   func chordsCombineCorrectly() async throws {
     // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    #expect(multiChordResultChordTest.resultChord == Chord(.c, .ma13_sh11), "The lower and upper chords should combine to create a Cma13 chord")
+    #expect(chordCombinerViewModelResultChordTest.resultChord == Chord(.c, .ma13_sh11), "The lower and upper chords should combine to create a Cma13 chord")
   }
   
   @Test("All simple chord types are correct", arguments: ChordType.allSimpleChordTypes)

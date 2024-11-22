@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct DualChordDetailNavigationLinkView: View {
-  let multiChord: MultiChord
+  let chordCombinerViewModel: ChordCombinerViewModel
   
   // FIXME: this will only show lowerChord
   var chord: Chord? {
-    if let lowerChord = multiChord.lowerChord {
+    if let lowerChord = chordCombinerViewModel.lowerChord {
       return lowerChord
-    } else if let upperChord = multiChord.upperChord {
+    } else if let upperChord = chordCombinerViewModel.upperChord {
       return upperChord
     } else {
       return nil
@@ -22,12 +22,12 @@ struct DualChordDetailNavigationLinkView: View {
   }
   
   // FIXME: this will only return lowerChordHighlight color
-  var color: Color { multiChord.lowerChord != nil ? .lowerChordHighlight : .upperChordHighlight }
+  var color: Color { chordCombinerViewModel.lowerChord != nil ? .lowerChordHighlight : .upperChordHighlight }
   
   @ViewBuilder
   var body: some View {
-    if multiChord.resultChord != nil {
-      NavigationLink(destination: DualChordDetailView(multiChord: multiChord)) { InfoLinkImageView() }
+    if chordCombinerViewModel.resultChord != nil {
+      NavigationLink(destination: DualChordDetailView(chordCombinerViewModel: chordCombinerViewModel)) { InfoLinkImageView() }
     } else {
       // FIXME: this should be a DualChordDetailView or DualChordDetailSplitView (create this)
       // TODO: create DualChordDetailSplitView
@@ -38,7 +38,7 @@ struct DualChordDetailNavigationLinkView: View {
 
 #Preview {
   DualChordDetailNavigationLinkView(
-    multiChord: MultiChord(
+    chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
     )
