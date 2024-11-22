@@ -96,7 +96,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       return false
     }
     
-    let result = ChordFactory.combineChords(firstChord: chordToMatch, secondChord: newChord)
+    let result = ChordCombiner.combineChords(firstChord: chordToMatch, secondChord: newChord)
     
     if chordProperty is Letter {
 //      if let result = result { print((chordProperty as! Letter).rawValue, result.preciseName) }
@@ -145,7 +145,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
 extension Chord {
   init?(firstChord: Chord, secondChord: Chord) {
-    if let chord = ChordFactory.combineChords(firstChord: firstChord, secondChord: secondChord) {
+    if let chord = ChordCombiner.combineChords(firstChord: firstChord, secondChord: secondChord) {
       self = chord
     } else {
       return nil

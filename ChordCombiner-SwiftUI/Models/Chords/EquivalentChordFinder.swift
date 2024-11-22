@@ -1,5 +1,5 @@
 //
-//  ChordHelperClasses.swift
+//  EquivalentChordFinder.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/23/24.

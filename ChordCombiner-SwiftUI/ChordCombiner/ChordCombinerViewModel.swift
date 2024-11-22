@@ -10,17 +10,7 @@ import Observation
 
 @Observable
 final class ChordCombinerViewModel: ObservableObject {
-  enum ChordSelectionStatus {
-    case neitherChordIsSelected
-    case lowerChordIsSelected
-    case upperChordIsSelected
-    case bothChordsAreSelected
-  }
-  
-  enum ResultChordStatus {
-    case combinedChord, slashChord, notFound
-  }
-  
+  // MARK: Instance properties
   var lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   var upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
   
@@ -48,34 +38,12 @@ final class ChordCombinerViewModel: ObservableObject {
     return Chord(RootKeyNote(letter, accidental), chordType)
   }
   
-  var chordSelectionStatus: ChordSelectionStatus {
-    switch (lowerChord != nil, upperChord != nil) {
-    case (false, false):
-      .neitherChordIsSelected
-    case (true, false):
-      .lowerChordIsSelected
-    case (false, true):
-       .upperChordIsSelected
-    case (true, true):
-      .bothChordsAreSelected
-    }
-  }
-  
   var resultChord: Chord? {
     guard let lowerChord = lowerChord, let upperChord = upperChord else {
       return nil
     }
     
-    return ChordFactory.combineChords(firstChord: lowerChord, secondChord: upperChord)
-  }
-  
-  var resultChordStatus: ResultChordStatus {
-    guard let lowerChord = lowerChord,
-          let resultChord = resultChord else {
-      return .notFound
-    }
-    
-    return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
+    return ChordCombiner.combineChords(firstChord: lowerChord, secondChord: upperChord)
   }
   
   var chordCombinerVoicingCalculator: ChordCombinerVoicingCalculator? {
@@ -90,6 +58,7 @@ final class ChordCombinerViewModel: ObservableObject {
       resultChordVoicingCalculator: resultChord?.voicingCalculator ?? nil)
   }
   
+  //MARK: Initializers
   init(
     lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
     upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
@@ -105,13 +74,55 @@ final class ChordCombinerViewModel: ObservableObject {
   }    
 }
 
+// MARK: Equatable
 extension ChordCombinerViewModel: Equatable {
   static func == (lhs: ChordCombinerViewModel, rhs: ChordCombinerViewModel) -> Bool {
     return lhs.lowerChord == rhs.lowerChord && lhs.upperChord == rhs.upperChord && lhs.resultChord == rhs.resultChord
   }
 }
 
+// MARK: ChordSelectionStatus
 extension ChordCombinerViewModel {
+  enum ChordSelectionStatus {
+    case neitherChordIsSelected
+    case lowerChordIsSelected
+    case upperChordIsSelected
+    case bothChordsAreSelected
+  }
+  
+  var chordSelectionStatus: ChordSelectionStatus {
+    switch (lowerChord != nil, upperChord != nil) {
+    case (false, false):
+        .neitherChordIsSelected
+    case (true, false):
+        .lowerChordIsSelected
+    case (false, true):
+        .upperChordIsSelected
+    case (true, true):
+        .bothChordsAreSelected
+    }
+  }
+}
+
+// MARK: ResultChordStatus
+extension ChordCombinerViewModel {
+  enum ResultChordStatus {
+    case combinedChord, slashChord, notFound
+  }
+  
+  var resultChordStatus: ResultChordStatus {
+    guard let lowerChord = lowerChord,
+          let resultChord = resultChord else {
+      return .notFound
+    }
+    
+    return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
+  }
+}
+
+// MARK: DetailType & displayDetails
+extension ChordCombinerViewModel {
+  
   enum DetailType {
     case commonName,
          preciseName,

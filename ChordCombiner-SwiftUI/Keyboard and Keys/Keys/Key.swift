@@ -132,7 +132,7 @@ struct Key: View, KeyProtocol, Identifiable {
       keyShapeGroup
       
       keyLetterView
-        .position(x: position, y: -15)
+        .position(x: position, y: -10)
         .zIndex(2)
       
       keyCirclesView
