@@ -1,5 +1,5 @@
 //
-//  ChordMenuPropertyMatcher.swift
+//  ChordCombinerPropertyMatcher.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 11/13/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChordMenuPropertyMatcher {
+struct ChordCombinerPropertyMatcher {
   let chordCombinerViewModel: ChordCombinerViewModel
   let isLowerChordMenu: Bool
   

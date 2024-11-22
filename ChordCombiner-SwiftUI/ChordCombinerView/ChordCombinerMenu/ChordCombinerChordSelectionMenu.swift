@@ -24,8 +24,8 @@ struct ChordCombinerChordSelectionMenu: View {
     ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
   }
   
-  var chordMenuPropertyMatcher: ChordMenuPropertyMatcher {
-    ChordMenuPropertyMatcher(
+  var chordCombinerPropertyMatcher: ChordCombinerPropertyMatcher {
+    ChordCombinerPropertyMatcher(
       chordCombinerViewModel: chordCombinerViewModel,
       isLowerChordMenu: chordCombinerSelectedChordTitleModel.isLowerChordMenu,
       matchingLetters: $matchingLetters,
@@ -122,7 +122,7 @@ struct ChordCombinerChordSelectionMenu: View {
     }
     .padding()
     .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter, {
-      chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
       
       keyboardHighlighter.highlightKeyboards(
         selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
@@ -134,7 +134,7 @@ struct ChordCombinerChordSelectionMenu: View {
       )
     })
     .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, {
-      chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
       
       keyboardHighlighter.highlightKeyboards(
         selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
@@ -146,7 +146,7 @@ struct ChordCombinerChordSelectionMenu: View {
       )
     })
     .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, {
-      chordMenuPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
       
       keyboardHighlighter.highlightKeyboards(
         selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
