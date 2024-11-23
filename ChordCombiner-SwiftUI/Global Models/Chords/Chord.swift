@@ -175,7 +175,7 @@ extension Chord {
     return firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
   }
   
-  var equivalentChords: [Chord] {
+  func getEquivalentChords() -> [Chord] {
     EquivalentChordFinder.checkForEquivalentChords(
       degreeNumbers: degreeNumbers,
       rootKeyNotes: rootKeyNotes.filter { $0 != rootKeyNote }

@@ -8,9 +8,7 @@
 import Foundation
 import Algorithms
 
-struct ChordFactory {
-//  var equivalentChords: [Chord]
-  
+struct ChordFactory {  
   //  MARK: static properties
   static var allChords: [Chord] {
     var chords: [Chord] = []

@@ -13,10 +13,10 @@ struct EquivalentChordsSectionView: View {
   @ViewBuilder
     var body: some View {
       if let chord = chord {
-        if !chord.equivalentChords.isEmpty {
+        if !chord.getEquivalentChords().isEmpty {
           Section(header: Text("Equivalent Chords")) {
             List {
-              ForEach(chord.equivalentChords) { chord in
+              ForEach(chord.getEquivalentChords()) { chord in
                 TitleView(text: chord.preciseName, font: .headline)
               }
             }
