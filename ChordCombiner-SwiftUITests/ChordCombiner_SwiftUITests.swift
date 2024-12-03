@@ -89,4 +89,12 @@ struct ChordCombiner_SwiftUITests {
     #expect(resultChord?.preciseName == "Dma9(♯11)", "ChordCombiner.combineChords should not find an initial match for lowerChord \(lowerChord.preciseName) and upperChord \(upperChord.preciseName), but should keep searching through available roots and eventually land on a match for D.")
   }
   
+  @Test("chordToNotes works correctly")
+  func chordToNotesWorksCorrectly() async throws {
+    let chordGrapher = ChordGrapher(chord: Chord(.c, .ma))
+    
+    print(chordGrapher.chordToNotes)
+    
+    #expect(chordGrapher.chordToNotes == "Cma -> { \"C\" \"E\" \"G\" }", "chordToNotes should produce the name of the chord followed by an arrow, then the note names in quotes surrounded by brackets.")
+  }
 }
