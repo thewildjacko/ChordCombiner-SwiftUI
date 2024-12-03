@@ -34,8 +34,8 @@ struct DualChordKeyboardView: View {
   var body: some View {
     VStack(spacing: 20) {
       HStack {
-        DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont)  
-        DualChordDetailNavigationLinkView(chordCombinerViewModel: chordCombinerViewModel)
+        DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont, showCaption: false)  
+        DualChordDetailNavigationLinkView(chordCombinerViewModel: chordCombinerViewModel, showCaption: true)
       }
       
       keyboard

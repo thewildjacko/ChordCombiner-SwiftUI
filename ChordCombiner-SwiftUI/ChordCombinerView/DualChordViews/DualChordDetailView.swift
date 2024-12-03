@@ -20,9 +20,11 @@ struct DualChordDetailView: View {
     chordCombinerViewModel.resultChord != nil ? .largeTitle : .title
   }
   
+  var showCaption: Bool
+  
   var body: some View {
     VStack(spacing: 20) {
-      DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: titleText, titleFont: titleFont)
+      DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: titleText, titleFont: titleFont, showCaption: showCaption)
             
       chordCombinerViewModel.combinedKeyboard
       
@@ -51,7 +53,8 @@ struct DualChordDetailView: View {
     chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
-    )
+    ),
+    showCaption: true
   )
 }
 
@@ -59,7 +62,8 @@ struct DualChordDetailView: View {
   DualChordDetailView(
     chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
-    )
+    ),
+    showCaption: true
   )
 }
 
@@ -67,10 +71,12 @@ struct DualChordDetailView: View {
   DualChordDetailView(
     chordCombinerViewModel: ChordCombinerViewModel(
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
-    )
+    ),
+    showCaption: true
   )
 }
 
 #Preview("No chords selected") {
-  DualChordDetailView(chordCombinerViewModel: ChordCombinerViewModel())
+  DualChordDetailView(chordCombinerViewModel: ChordCombinerViewModel(),
+                      showCaption: true)
 }

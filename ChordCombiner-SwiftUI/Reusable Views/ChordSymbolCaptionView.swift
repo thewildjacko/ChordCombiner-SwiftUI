@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChordSymbolCaptionView: View {
   let chord: Chord?
-  
+  var showCaption: Bool = true
   var captionText: String {
     if let chord = chord {
       return "(\(chord.preciseName))"
@@ -19,12 +19,14 @@ struct ChordSymbolCaptionView: View {
   
   @ViewBuilder
   var body: some View {
-    if let chord = chord {
-      if chord.commonName != chord.preciseName && chord.chordType != .ma {
-        TitleView(
-          text: captionText,
-          font: .caption
-        )
+    if showCaption {
+      if let chord = chord {
+        if chord.commonName != chord.preciseName && chord.chordType != .ma {
+          TitleView(
+            text: captionText,
+            font: .caption
+          )
+        }
       }
     }
   }

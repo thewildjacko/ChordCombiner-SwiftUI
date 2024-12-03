@@ -9,8 +9,9 @@ import SwiftUI
 
 struct DualChordTitleView: View {
   let chordCombinerViewModel: ChordCombinerViewModel
-  var titleText: String
-  var titleFont: Font
+  let titleText: String
+  let titleFont: Font
+  var showCaption: Bool = true
   
   var body: some View {    
     VStack(spacing: 5) {
@@ -20,7 +21,7 @@ struct DualChordTitleView: View {
         weight: .heavy
       )
       
-      ChordSymbolCaptionView(chord: chordCombinerViewModel.resultChord)
+      ChordSymbolCaptionView(chord: chordCombinerViewModel.resultChord, showCaption: showCaption)
     }
   }
 }
