@@ -48,6 +48,16 @@ struct ChordFactory {
     return chords
   }
   
+  static var allExtendedChordsInC: [Chord] {
+    var chords: [Chord] = []
+    let root: RootKeyNote = .c
+    
+    for chordType in ChordType.allCases {
+      chords.append(Chord(root, chordType))
+    }
+    
+    return chords.filter { !$0.isTriad() && !$0.isFourNoteSimpleChord() }
+  }
   
     
   static func combos(count: Int) {

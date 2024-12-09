@@ -149,3 +149,9 @@ extension Note: Hashable {
     hasher.combine(noteNumber)
   }
 }
+
+extension Note {
+  func getDotNotationName() -> String {
+    return noteName.toDotNotation()
+  }
+}

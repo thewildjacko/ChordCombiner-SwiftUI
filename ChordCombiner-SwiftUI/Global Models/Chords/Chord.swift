@@ -107,39 +107,31 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     return result != nil ? true : false
   }
   
-  func containingChords() -> [Chord] {
-    var chordMatches: [Chord] = []
-    
-    for chord in ChordFactory.allSimpleChords where chord.preciseName != preciseName && degreeNumbers.includes(chord.degreeNumbers) && chord.degreeNumbers.count < degreeNumbers.count {
-      if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
-        chordMatches.append(Chord(rootNumber: chord.root.noteNumber, chordType: chord.chordType, enharmonic: noteNumber.value.keyName.enharmonic))
-      }
-    }
-    
-    return chordMatches
+  func contains(_ chord: Chord) -> Bool {
+    chord.preciseName != preciseName && degreeNumbers.includes(chord.degreeNumbers) && chord.degreeNumbers.count < degreeNumbers.count
   }
   
-  var usedChords: [Chord] = []
+  func contains(_ note: Note) -> Bool {
+    notes.contains(note)
+  }
   
-  func recursiveContainingChords(usedChords: inout [Chord], chordDictionary: inout [Chord:[Chord]]) {
-    var chordContainer: [Chord] = []
+  func containingChords(callingMethod: String = #function) -> [Chord] {
+    print("In `\(#function)`, called by `\(callingMethod)`")
     
-    chordContainer = containingChords()
+    var chordMatches: [Chord] = []
     
-    guard !chordContainer.isEmpty else {
-      return
-    }
-    
-    chordDictionary.updateValue(chordContainer, forKey: self)
-//    print(preciseName)
-//    print(chordContainer.map { $0.preciseName }, chordContainer.count )
-    
-    for chord in chordContainer {
-      if !usedChords.contains(chord) {
-        chord.recursiveContainingChords(usedChords: &usedChords, chordDictionary: &chordDictionary)
-        usedChords.append(chord)
+    let clock = ContinuousClock()
+    let elapsed = clock.measure {
+      for chord in ChordFactory.allSimpleChords where self.contains(chord) {
+        if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
+          chordMatches.append(Chord(rootNumber: chord.root.noteNumber, chordType: chord.chordType, enharmonic: noteNumber.value.keyName.enharmonic))
+        }
       }
     }
+    
+    print("It took \(elapsed) to find all chords contained in \(preciseName).")
+    
+    return chordMatches
   }
 }
 
@@ -216,4 +208,17 @@ extension Chord: Hashable {
     hasher.combine(chordType)
     hasher.combine(root)
   }
+}
+
+extension Chord {
+  func getDotNotationName() -> String {
+    return preciseName.toDotNotation()
+  }
+}
+
+/// ChordType Identity tests
+extension Chord {
+  func isTriad() -> Bool { chordType.isTriad }
+  func isFourNoteSimpleChord() -> Bool { chordType.isFourNoteSimpleChord }
+  func isExtended() -> Bool { chordType.isExtendedChord }
 }

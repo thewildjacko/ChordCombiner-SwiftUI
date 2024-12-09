@@ -19,6 +19,9 @@
             "name" : "ChordCombiner_SwiftUITests",
             "testFunctions" : [
               "allChordTypesAreSimpleOrExtended(_:)",
+              "chordToNotesWorksCorrectly()",
+              "doNotesWithoutChordsExist(_:)",
+              "doTriadsWithoutFourNoteChordsExist(_:)",
               "simpleAndExtendedChordTypesDontOverlap(_:)"
             ]
           }

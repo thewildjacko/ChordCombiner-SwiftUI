@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Algorithms
 
 extension Chord {
   /// Returns a set of the combined elements of two Chord degreeNumber arrays
@@ -154,6 +155,13 @@ extension Array where Element == Note {
       return isEnharmonicEquivalent
     }
   }
+  
+  /// Operates on a ``Note`` array by mapping each element to a ``Chord`` array, returning a 2-dimensional array of ``Chord`` arrays filtered by whether they contain the given ``Note``
+  func chordsContainNote(chords: [Chord]) -> [[Chord]] {
+    return self.map { note in
+      chords.filterInChordsContainingNote(note)
+    }
+  }
 }
 
 extension Array where Element == ChordType {
@@ -171,3 +179,53 @@ extension Array where Element == Degree {
     !self.toSet().intersection(otherArray).isEmpty
   }
 }
+
+extension Array where Element == Chord {
+  init(sortedByNotes notes: [Note], fromChords chords: [Chord]) {
+    var result: [Chord] = []
+    
+    for (note, chord) in product(notes, chords) {
+      if chord.root.noteNumber == note.noteNumber {
+        result.append(chord)
+      }
+    }
+    
+    self = result
+  }
+  
+  func filterInFourNoteChords() -> [Chord] {
+    self.filter { $0.isFourNoteSimpleChord() }
+  }
+  
+  func filterInTriads() -> [Chord] {
+    self.filter { $0.isTriad() }
+  }
+  
+  func filterInExtendedChords() -> [Chord] {
+    self.filter { $0.isExtended() }
+  }
+  
+  func filterInChordsContainingNoChords() -> [Chord] {
+    self.filter { $0.containingChords().isEmpty }
+  }
+  
+  func filterInChordsContainingNote(_ note: Note) -> [Chord] {
+    self.filter { $0.contains(note) }
+  }
+  
+  func contains(_ note: Note) -> Bool {
+    !self.filter { $0.contains(note) }.isEmpty
+  }
+  
+  func contains(_ chord: Chord) -> Bool {
+    !self.filter { $0.contains(chord) }.isEmpty
+  }
+  
+  func toDotNotationString(bracketed: Bool) -> String {
+    let joinedDotNotationString = self.map { $0.getDotNotationName() }
+      .joined(separator: " ")
+    
+    return bracketed ? joinedDotNotationString.bracketedAndPadded() : joinedDotNotationString
+  }
+}
+
