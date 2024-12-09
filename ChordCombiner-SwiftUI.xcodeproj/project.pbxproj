@@ -468,8 +468,8 @@
 		1D5F6AA72C2483F600193B58 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				1DD836D42CFFD40B00ED2DF2 /* Note.swift */,
 				1D8F4E1E2C8B768F000DEF30 /* Root.swift */,
+				1DD836D42CFFD40B00ED2DF2 /* Note.swift */,
 				1D5F6ABF2C2488C600193B58 /* Note Protocols and Helpers */,
 				1D5F6AC12C2488DF00193B58 /* Note Enums */,
 			);

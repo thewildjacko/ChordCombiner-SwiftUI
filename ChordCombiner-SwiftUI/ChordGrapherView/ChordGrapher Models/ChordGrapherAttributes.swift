@@ -53,6 +53,6 @@ struct ChordGrapherAttributes {
   func graphPrefix(edgeColor: String) -> String {
     let edge = edge(color: edgeColor)
     
-    return "ordering=out ratio=1.0 \(edge) \(charSet)"
+    return "ordering=out ratio=0.5 \(edge) \(charSet)"
   }
 }

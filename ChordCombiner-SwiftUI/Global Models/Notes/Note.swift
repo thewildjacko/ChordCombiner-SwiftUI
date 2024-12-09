@@ -33,7 +33,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   }
   
   var keyName: KeyName {
-    switch degree {
+    return switch degree {
     case .root, .octave, .perfect15th:
       keySwitcher.root(rootNumber: rootNumber)
     case .minor2nd, .flat9th:

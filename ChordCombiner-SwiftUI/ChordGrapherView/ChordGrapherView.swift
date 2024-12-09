@@ -90,35 +90,42 @@ struct ChordGrapherView: View {
     return mapURL
   }
   
+  
+  // TODO: ERROR HANDLING
   @ViewBuilder
   func imageView(url: URL?) -> some View {
-    AsyncImage(url: url) { image in
-      image
-        .resizable()
-        .scaledToFit()
-      //        .aspectRatio(contentMode: .fit)
-        .scaleEffect(currentZoom + totalZoom)
-        .gesture(
-          MagnifyGesture()
-            .onChanged { value in
-              currentZoom = value.magnification - 1
+    if let url = url {
+      AsyncImage(url: url) { image in
+        image
+          .resizable()
+          .scaledToFit()
+        //        .aspectRatio(contentMode: .fit)
+          .scaleEffect(currentZoom + totalZoom)
+          .gesture(
+            MagnifyGesture()
+              .onChanged { value in
+                currentZoom = value.magnification - 1
+              }
+              .onEnded { value in
+                totalZoom += currentZoom
+                currentZoom = 0
+              }
+          )
+          .accessibilityZoomAction { action in
+            if action.direction == .zoomIn {
+              totalZoom += 1
+            } else {
+              totalZoom -= 1
             }
-            .onEnded { value in
-              totalZoom += currentZoom
-              currentZoom = 0
-            }
-        )
-        .accessibilityZoomAction { action in
-          if action.direction == .zoomIn {
-            totalZoom += 1
-          } else {
-            totalZoom -= 1
           }
-        }
-      
-    } placeholder: {
-      ProgressView()
-        .frame(alignment: .center)
+        
+      } placeholder: {
+        ProgressView()
+          .frame(alignment: .center)
+      }
+    } else {
+      // error view with error message
+      Text("Error: URL Incorrect")
     }
   }
   
