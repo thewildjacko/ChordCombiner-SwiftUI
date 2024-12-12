@@ -21,31 +21,15 @@ protocol StartingOctave {
 }
 
 protocol StartingPitch {
-  var startingPitch: Int { get }
+  var startingPitch: Int { get set }
 }
 
 protocol OctaveAndPitch: StartingOctave, StartingPitch { }
 
 protocol DegreeAndPitchNumberOperator: RootNote, DegreeNumbers, StartingOctave  {
-  var noteNumbers: [NoteNumber] { get }
-  var raisedPitches: [Int] { get }
-  var raisedRoot: Int { get }
-  var pitchesRaisedAboveRoot: [Int] { get }
+  var noteNumbers: [NoteNumber] { get set }
+  var raisedPitches: [Int] { get set }
+  var raisedRoot: Int { get set }
+  var pitchesRaisedAboveRoot: [Int] { get set }
   var stackedPitches: [Int] { get }
-}
-
-extension DegreeAndPitchNumberOperator {
-  var raisedPitches: [Int] {
-    return degreeNumbers.map { $0.toPitch(startingOctave: startingOctave) }
-  }
-
-  var raisedRoot: Int {
-    rootNote.note.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
-  }
-  
-  var pitchesRaisedAboveRoot: [Int] {
-    return raisedPitches.map {
-      $0.raiseAbove(pitch: raisedRoot, degreeNumbers: nil)
-    }
-  }
 }

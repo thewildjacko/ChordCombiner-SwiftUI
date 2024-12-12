@@ -494,10 +494,3 @@ struct KeySwitcher: Enharmonic, Codable {
 protocol KeySwitch: Enharmonic {
   var keySwitcher: KeySwitcher { get }
 }
-
-extension KeySwitch {
-  /// returns a `KeySwitch` set to sharp or flat
-  var keySwitcher: KeySwitcher {
-    return KeySwitcher(enharmonic: enharmonic)
-  }
-}

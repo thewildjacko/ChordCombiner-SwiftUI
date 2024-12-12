@@ -956,18 +956,3 @@ extension ChordType {
   static let allChordTypesMinusOmitsSorted: [ChordType] = allChordTypesMinusOmits.flatMap { $0 }
 }
 
-struct ChordTypeSection {
-  var id: Int
-  var title: String
-  var tagName: String
-  var chordTypes: [ChordType]
-}
-
-extension ChordTypeSection: Hashable {
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(id)
-    hasher.combine(title)
-    hasher.combine(tagName)
-    hasher.combine(chordTypes)
-  }
-}

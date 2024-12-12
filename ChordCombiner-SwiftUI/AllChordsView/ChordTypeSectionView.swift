@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ChordTypeSectionView: View {
+struct NonBinding_ChordTypeSectionView: View {
   let section: ChordTypeSection
-  @Binding var rootKeyNote: RootKeyNote
+  let rootKeyNote: RootKeyNote
   var isExpanded: Bool
   @Binding var expandedSections: Set<String>
-  @State var kbDisplay: Bool = false
+  @State var keyboardDisplay: Bool = false
   
   var body: some View {
     content
@@ -23,7 +23,39 @@ struct ChordTypeSectionView: View {
       ChordTypeSectionTitleView(
         section: section,
         isExpanded: isExpanded,
-        kbDisplay: $kbDisplay,
+        keyboardDisplay: $keyboardDisplay,
+        expandedSections: $expandedSections
+      )
+            
+      if isExpanded {
+        NonBinding_KeyboardDisplayScrollView(
+          section: section,
+          rootKeyNote: rootKeyNote,
+          keyboardDisplay: $keyboardDisplay
+        )
+      }
+    }
+    .padding([.horizontal, .bottom], 8)
+  }
+}
+
+struct ChordTypeSectionView: View {
+  let section: ChordTypeSection
+  @Binding var rootKeyNote: RootKeyNote
+  var isExpanded: Bool
+  @Binding var expandedSections: Set<String>
+  @State var keyboardDisplay: Bool = false
+  
+  var body: some View {
+    content
+  }
+    
+  private var content: some View {
+    VStack(alignment: .leading) {
+      ChordTypeSectionTitleView(
+        section: section,
+        isExpanded: isExpanded,
+        keyboardDisplay: $keyboardDisplay,
         expandedSections: $expandedSections
       )
             
@@ -31,7 +63,7 @@ struct ChordTypeSectionView: View {
         KeyboardDisplayScrollView(
           section: section,
           rootKeyNote: $rootKeyNote,
-          kbDisplay: $kbDisplay
+          keyboardDisplay: $keyboardDisplay
         )
       }
     }

@@ -7,22 +7,28 @@
 
 import SwiftUI
 
+
 struct ChordCombinerChordSelectionMenu: View {
+  let keyboardHighlighter: KeyboardHighlighter = KeyboardHighlighter()
+
   var chordCombinerViewModel: ChordCombinerViewModel
   
   @Binding var selectedKeyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
-  @Binding var chordProperties: ChordProperties
+  @Binding var chordProperties: ChordProperties {
+    mutating didSet {
+      setChordCombinerSelectedChordTitleModel()
+      setRootKeyNote()
+    }
+  }
   
   @State var matchingLetters: Set<Letter> = []
   @State var matchingAccidentals: Set<RootAccidental> = []
   @State var matchingChordTypes: Set<ChordType> = []
   
-  let keyboardHighlighter: KeyboardHighlighter = KeyboardHighlighter()
+  var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
   
-  var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel {
-    ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
-  }
+  var rootKeyNote: RootKeyNote? = nil
   
   var chordCombinerPropertyMatcher: ChordCombinerPropertyMatcher {
     ChordCombinerPropertyMatcher(
@@ -34,129 +40,122 @@ struct ChordCombinerChordSelectionMenu: View {
     )
   }
   
-  var rootKeyNote: RootKeyNote? {
-    guard let letter = chordProperties.letter,
-          let accidental = chordProperties.accidental else {
-      return nil
-    }
+  
+  
+  init(chordCombinerViewModel: ChordCombinerViewModel, selectedKeyboard: Binding<Keyboard>, combinedKeyboard: Binding<Keyboard>, chordProperties: Binding<ChordProperties>) {
+    self.chordCombinerViewModel = chordCombinerViewModel
+    self._selectedKeyboard = selectedKeyboard
+    self._combinedKeyboard = combinedKeyboard
+    self._chordProperties = chordProperties
     
-    return RootKeyNote(letter, accidental)
+    setChordCombinerSelectedChordTitleModel()
+    setRootKeyNote()
+  }
+  
+  mutating func setChordCombinerSelectedChordTitleModel() {
+    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
+      chordCombinerViewModel: chordCombinerViewModel,
+      chordProperties: chordProperties
+    )
+  }
+  
+  mutating func setRootKeyNote() {
+    if let letter = chordProperties.letter,
+          let accidental = chordProperties.accidental {
+      rootKeyNote = RootKeyNote(letter, accidental)
+    } else {
+      rootKeyNote = nil
+    }
+  }
+  
+  func highlightKeyboardOnSelect() {
+    if chordCombinerSelectedChordTitleModel.selectedChord != nil {
+      keyboardHighlighter.highlightKeyboards(
+        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
+        chordCombinerViewModel: chordCombinerViewModel,
+        selectedKeyboard: &selectedKeyboard,
+        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
+        combinedKeyboard: &combinedKeyboard
+      )
+    }
   }
   
   var body: some View {
     VStack {
       VStack(spacing: 8) {
-        VStack {
-          HStack {
-            TitleView(
-              text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-              font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
-              weight: .heavy,
-              isMenuTitle: false
-            )
-            SingleChordDetailNavigationLinkView(chord: chordCombinerSelectedChordTitleModel.selectedChord, color: chordCombinerSelectedChordTitleModel.selectedChordColor)
-          }
-          
-          selectedKeyboard
-        }
-        
-        TitleView(
-          text: chordCombinerSelectedChordTitleModel.showingMatchesText,
-          font: .caption,
-          weight: .semibold,
-          color: .glowText
+        SingleChordTitleNavigationStackView(
+          selectedKeyboard: $selectedKeyboard,
+          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
         )
         
-        HStack(alignment: .bottom) {
-          ChordCombinerTagsView(
-            selectedProperty: $chordProperties.letter,
-            matchingProperties: $matchingLetters,
-            tagProperties: Letter.allCases,
-            isHorizontal: true,
-            font: .headline,
-            horizontalPadding: 10,
-            verticalPadding: 1.5,
-            cornerRadius: 5,
-            spacing: 8,
-            highlightColor: .tagBackgroundHighlighted
-          )
-          
-          Divider()
-            .frame(height: 30)
-            .titleColorOverlay()
-          
-          
-          ChordCombinerTagsView(
-            selectedProperty: $chordProperties.accidental,
-            matchingProperties: $matchingAccidentals,
-            tagProperties: RootAccidental.allCases,
-            isHorizontal: true,
-            font: .headline,
-            horizontalPadding: 5,
-            verticalPadding: 1.5,
-            cornerRadius: 5,
-            spacing: 8,
-            highlightColor: .tagBackgroundHighlighted
-          )
-        }
+        ChordCombinerPropertySelectionView(
+          chordProperties: $chordProperties,
+          matchingLetters: $matchingLetters,
+          matchingAccidentals: $matchingAccidentals,
+          matchingChordTypes: $matchingChordTypes,
+          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
+        )
+        
+        DualChordKeyboardView(
+          chordCombinerViewModel: chordCombinerViewModel,
+          keyboard: $combinedKeyboard
+        )
+        
+        Spacer()
       }
-      
-      TitleColorDivider()
-      
-      ChordCombinerKeyboardScrollView(
-        selectedChordType: $chordProperties.chordType,
-        matchingChordTypes: $matchingChordTypes,
-        chordTypes: ChordType.allSimpleChordTypes,
-        rootKeyNote: rootKeyNote,
-        color: chordCombinerSelectedChordTitleModel.selectedChordColor
-      )
-      
-      TitleColorDivider()
-      
-      DualChordKeyboardView(
-        chordCombinerViewModel: chordCombinerViewModel,
-        keyboard: $combinedKeyboard
-      )
-      
-      Spacer()
+      .padding()
+      .onAppear(perform: {
+        if let _ = chordCombinerViewModel.lowerChord, let _ = chordCombinerViewModel.upperChord {
+          chordCombinerPropertyMatcher.matchChords()
+        }
+      })
+      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord, { oldValue, newValue in
+        highlightKeyboardOnSelect()
+      })
+      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter, {
+        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
+        
+        highlightKeyboardOnSelect()
+        
+//        keyboardHighlighter.highlightKeyboards(
+//          selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+//          chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
+//          chordCombinerViewModel: chordCombinerViewModel,
+//          selectedKeyboard: &selectedKeyboard,
+//          selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
+//          combinedKeyboard: &combinedKeyboard
+//        )
+      })
+      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, { oldValue, _ in
+        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
+        
+        if oldValue != nil { highlightKeyboardOnSelect() }
+        
+//        keyboardHighlighter.highlightKeyboards(
+//          selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+//          chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
+//          chordCombinerViewModel: chordCombinerViewModel,
+//          selectedKeyboard: &selectedKeyboard,
+//          selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
+//          combinedKeyboard: &combinedKeyboard
+//        )
+      })
+      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, { oldValue, _ in
+        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
+        
+        if oldValue != nil { highlightKeyboardOnSelect() }
+        
+//        keyboardHighlighter.highlightKeyboards(
+//          selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+//          chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
+//          chordCombinerViewModel: chordCombinerViewModel,
+//          selectedKeyboard: &selectedKeyboard,
+//          selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
+//          combinedKeyboard: &combinedKeyboard
+//        )
+      })
     }
-    .padding()
-    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter, {
-      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
-      
-      keyboardHighlighter.highlightKeyboards(
-        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
-        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
-        chordCombinerViewModel: chordCombinerViewModel,
-        selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
-        combinedKeyboard: &combinedKeyboard
-      )
-    })
-    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, {
-      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
-      
-      keyboardHighlighter.highlightKeyboards(
-        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
-        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
-        chordCombinerViewModel: chordCombinerViewModel,
-        selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
-        combinedKeyboard: &combinedKeyboard
-      )
-    })
-    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, {
-      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
-      
-      keyboardHighlighter.highlightKeyboards(
-        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
-        chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
-        chordCombinerViewModel: chordCombinerViewModel,
-        selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor,
-        combinedKeyboard: &combinedKeyboard
-      )
-    })
   }
 }
 

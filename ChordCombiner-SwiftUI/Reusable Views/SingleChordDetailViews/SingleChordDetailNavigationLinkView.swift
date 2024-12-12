@@ -17,7 +17,8 @@ struct SingleChordDetailNavigationLinkView: View {
       NavigationLink(
         destination:
           SingleChordDetailView(
-            chord: chord, keyboard:
+            chord: chord,
+            keyboard:
               Keyboard(
                 baseWidth: 351,
                 initialKeyType: .C,

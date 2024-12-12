@@ -8,80 +8,128 @@
 import Foundation
 
 struct VoicingCalculator: GettableKeyName {
-  var degreeNumbers: [Int]
-  var rootNote: Root
+  static let initialVC: VoicingCalculator = VoicingCalculator(degreeNumbers: [], rootNote: Root(.c), chordType: .ma, startingOctave: 4, keyName: .c, notesByNoteNumber: [:])
+  
+  // MARK: Stored properties
+  var rootNote: Root {
+    didSet {
+      root = rootNote.note
+      rootKeyNote = rootNote.rootKeyNote
+      raisedRoot = rootNote.note.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+    }
+  }
+  
+  var root: Note
+  var rootKeyNote: RootKeyNote
+  
   var chordType: ChordType
   var startingOctave: Int
-  var keyName: KeyName
+  var keyName: KeyName {
+    didSet {
+      startingPitch = keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+    }
+  }
   
-  var notesByNoteNumber: [NoteNumber: Note]
-  var allNotes: [Note] { Array(notesByNoteNumber.values).sorted { $0.degree.size < $1.degree.size } }
+  var startingPitch: Int = 0
   
-  var root: Note { rootNote.note }
-  var rootKeyNote: RootKeyNote { rootNote.rootKeyNote }
-  var baseChord: Chord { Chord(rootKeyNote, chordType.baseChordType) }
+  var degreeNumbers: [Int] {
+    didSet { setDegreeAndPitchNumberOperatorProperties() }
+  }
+  
+  var notesByNoteNumber: NotesByNoteNumber = [:] {
+    didSet {
+      notes = Array(notesByNoteNumber.values).sorted { $0.degree.size < $1.degree.size }
+    }
+  }
   
   var isSlashChord: Bool = false
   var slashChordBassNote: RootKeyNote? = nil
+
+  var notes: [Note] = []
   
-  var allChordNotesInKeyFiltered: [Note] {
+  var degreeNumbersRaisedAboveRoot: [Int] = []
+
+  // MARK: DegreeAndPitchNumberOperator compliance
+  var noteNumbers: [NoteNumber] = []
+    
+  var raisedRoot: Int
+  
+  var raisedPitches: [Int] = [] {
+    didSet {
+      pitchesRaisedAboveRoot = raisedPitches.map {
+        $0.raiseAbove(pitch: raisedRoot, degreeNumbers: nil)
+      }
+    }
+  }
+  
+  var pitchesRaisedAboveRoot: [Int] = []
+  
+  // MARK: Computed Properties
+  var stackedPitches: [Int] {
+    return pitchesRaisedAboveRoot.map {
+      $0.raiseAboveDegreesIfAbsent(baseChord().voicingCalculator.pitchesRaisedAboveRoot)
+    }
+  }
+  
+  var stackedPitchesByNote: [Note: Int] {
+    Dictionary(uniqueKeysWithValues: zip(notes, stackedPitches))
+  }
+  
+  var stackedPitchesByDegree: [Int] {
+    return notes.map { $0.toStackedPitch(startingOctave: startingOctave, chordType: chordType) }
+  }
+  
+  // MARK: Initializer
+  init(degreeNumbers: [Int], rootNote: Root, chordType: ChordType, startingOctave: Int, keyName: KeyName, notesByNoteNumber: NotesByNoteNumber, isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
+
+    self.rootNote = rootNote
+    root = rootNote.note
+    rootKeyNote = rootNote.rootKeyNote
+    raisedRoot = rootNote.note.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+
+    self.chordType = chordType
+    self.startingOctave = startingOctave
+    self.keyName = keyName
+    startingPitch = keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+    
+    self.notesByNoteNumber.reserveCapacity(12)
+    self.notesByNoteNumber = notesByNoteNumber
+    self.isSlashChord = isSlashChord
+    self.slashChordBassNote = slashChordBassNote
+    
+    self.degreeNumbers = degreeNumbers
+    
+    setDegreeAndPitchNumberOperatorProperties()
+    
+    pitchesRaisedAboveRoot = raisedPitches.map {
+      $0.raiseAbove(pitch: raisedRoot, degreeNumbers: nil)
+    }
+    
+    notes = Array(notesByNoteNumber.values).sorted { $0.degree.size < $1.degree.size }
+  }
+  
+  // MARK: Instance methods
+  func baseChord() -> Chord { return Chord(rootKeyNote, chordType.baseChordType) }
+  
+  func allChordNotesInKeyFiltered() -> [Note] {
     var allChordNotesInKey = rootKeyNote.allChordNotesInKey()
     
-    for note in allNotes {
+    for note in notes {
       allChordNotesInKey.removeAll(where: { note.noteName == $0.noteName && note.degree != $0.degree })
     }
 
     return allChordNotesInKey
   }
   
-  init(degreeNumbers: [Int], rootNote: Root, chordType: ChordType, startingOctave: Int, keyName: KeyName, notesByNoteNumber: [NoteNumber: Note], isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
-    
-    self.degreeNumbers = degreeNumbers
-    self.rootNote = rootNote
-    self.chordType = chordType
-    self.startingOctave = startingOctave
-    self.keyName = keyName
-    self.notesByNoteNumber = notesByNoteNumber
-    self.isSlashChord = isSlashChord
-    self.slashChordBassNote = slashChordBassNote
-  }
-}
-
-extension VoicingCalculator: DegreeAndPitchNumberOperator {
-  var noteNumbers: [NoteNumber] { degreeNumbers.map { NoteNumber($0) } }
-  
-  var degreeNumbersRaisedAboveRoot: [Int] {
-    degreeNumbers.map { $0.raiseAboveRoot(rootKeyNote: rootKeyNote) }
+  mutating func setDegreeAndPitchNumberOperatorProperties() {
+    noteNumbers = degreeNumbers.map { NoteNumber($0) }
+    degreeNumbersRaisedAboveRoot = degreeNumbers.map { $0.raiseAboveRoot(rootKeyNote: rootKeyNote) }
+    raisedPitches = degreeNumbers.map { $0.toPitch(startingOctave: startingOctave) }
   }
   
-  var raisedPitches: [Int] {
-    return degreeNumbers.map { $0.toPitch(startingOctave: startingOctave) }
-  }
-  
-  var pitchesRaisedAboveRoot: [Int] {
-    return raisedPitches.map {
-      $0.raiseAbove(pitch: raisedRoot, degreeNumbers: nil)
-    }
-  }
-  
-  var stackedPitches: [Int] {
-    return pitchesRaisedAboveRoot.map {
-      $0.raiseAboveDegreesIfAbsent(baseChord.voicingCalculator.pitchesRaisedAboveRoot)
-    }
-  }
-  
-  
-  var stackedPitchesByNote: [Note: Int] {
-    Dictionary(uniqueKeysWithValues: zip(allNotes, stackedPitches))
-  }
-  
-  var stackedPitchesByDegree: [Int] {
-    return allNotes.map { $0.toStackedPitch(startingOctave: startingOctave, chordType: chordType) }
-  }
-}
-
-extension VoicingCalculator: OctaveAndPitch {
-  var startingPitch: Int {
-    keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+  mutating func setRootProperties() {
+    root = rootNote.note
+    rootKeyNote = rootNote.rootKeyNote
+    raisedRoot = rootNote.note.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
   }
 }

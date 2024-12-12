@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ChordProperties: Equatable {
+  static let initial: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
+  
   enum ChordPropertyChanged {
     case letter, accidental, chordType
   }

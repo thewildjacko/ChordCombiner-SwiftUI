@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct Keyboard: View, Identifiable, OctaveAndPitch {
+  static let initialSingleChordKeyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
+  static let initialDualChordKeyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+  
   var id: UUID = UUID()
   //  MARK: @State properties
-  var height: CGFloat = 0
   @State var width: CGFloat
-  var highlightedPitches: Set<Int> = []
   
   //  MARK: instance properties
   
+  var height: CGFloat = 0
+  var highlightedPitches: Set<Int> = []
+
   var keyCount: Int?
   var initialKeyType: KeyType = .C
   var startingOctave: Int = 4
-  var startingPitch: Int {
-    initialKeyType.toPitch(startingOctave: startingOctave)
-  }
+  var startingPitch: Int
   
   var keyTypes: [KeyType] = []
   var octaves: Int?
@@ -39,6 +41,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     self.keyCount = keyCount
     self.startingOctave = startingOctave
     self.initialKeyType = initialKeyType
+    startingPitch = initialKeyType.toPitch(startingOctave: startingOctave)
+    
     self.keyTypes.append(initialKeyType)
     self.octaves = octaves
     self.glowColor = glowColor
@@ -130,11 +134,11 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         keys.append(
           Key(
             pitch: pitch,
-            keyType,
+              keyType: keyType,
             baseWidth: width,
             widthDivisor: widthDivisor,
-            initialKey: true,
             keyPosition: keyType.initialKeyPosition,
+            initialKey: true,
             lettersOn: lettersOn
           )
         )
@@ -144,7 +148,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         keys.append(
           Key(
             pitch: pitch,
-            keyType,
+            keyType: keyType,
             baseWidth: width,
             widthDivisor: widthDivisor,
             keyPosition: keyPosition,
@@ -157,11 +161,11 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         keys.append(
           Key(
             pitch: pitch,
-            keyType,
+            keyType: keyType,
             baseWidth: width,
             widthDivisor: widthDivisor,
-            finalKey: true,
             keyPosition: keyPosition,
+            finalKey: true,
             lettersOn: lettersOn
           )
         )
@@ -176,10 +180,26 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     }
   }
   
+  mutating func clearNotes() {
+    for index in keys.indices {
+      if keys[index].note != nil {
+        keys[index].note = nil
+      }
+    }
+  }
+  
   mutating func setNotesStacked(pitchesByNote: [Note: Int]) {
     for (note, pitch) in pitchesByNote {
       if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
         keys[index].note = note
+      }
+    }
+  }
+  
+  mutating func setNotesSplit(notes: [Note], pitches: [Int]) {
+    for i in (0..<notes.count) {
+      if let index = keys.firstIndex(where: { $0.pitch == pitches[i] }) {
+        keys[index].note = notes[i]
       }
     }
   }
@@ -189,6 +209,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       for pitch in highlightedPitches {
         if let index = pitch.indexFromKeys(keys: &keys) {
           keys[index].clearHighlight()
+          keys[index].note = nil
           if keys[index].lettersOn == true {
             keys[index].lettersOn = false
           }
@@ -210,7 +231,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     pitches.lettersOnIfSelected(keys: &keys)
   }
   
-  mutating func turnCirclesOn(pitches: [Int], circleType: KeyCirclesView.CircleType) {
+  mutating func turnCirclesOn(pitches: [Int], circleType: KeyCircleType) {
     pitches.circlesOnIfSelected(keys: &keys, circleType: circleType)
   }
   
@@ -224,7 +245,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     turnLettersOn(pitches: pitches)
   }
   
-  mutating func highlightKeys_LettersAndCirclesOn(pitches: [Int], color: Color, circleType: KeyCirclesView.CircleType) {
+  mutating func highlightKeys_LettersAndCirclesOn(pitches: [Int], color: Color, circleType: KeyCircleType) {
     highlightKeys(pitches: pitches, color: color)
     turnLettersOn(pitches: pitches)
     turnCirclesOn(pitches: pitches, circleType: circleType)

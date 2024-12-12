@@ -7,83 +7,22 @@
 
 import Foundation
 
-struct ChordCombinerVoicingCalculator {
+struct ChordCombinerVoicingCalculator: SettableNotesByNoteNumber {
   var lowerChordVoicingCalculator: VoicingCalculator
   var upperChordVoicingCalculator: VoicingCalculator
   var resultChordVoicingCalculator: VoicingCalculator? = nil {
-    didSet {
-      resultChordStackedPitches = resultChordVoicingCalculator?.stackedPitches ?? []
-    }
+    didSet { setResultChordVoicingCalculatorProperties() }
   }
   
-  init(lowerChordVoicingCalculator: VoicingCalculator, upperChordVoicingCalculator: VoicingCalculator, resultChordVoicingCalculator: VoicingCalculator? = nil) {
-    self.lowerChordVoicingCalculator = lowerChordVoicingCalculator
-    self.upperChordVoicingCalculator = upperChordVoicingCalculator
-    self.resultChordVoicingCalculator = resultChordVoicingCalculator
-    
-    setResultChordCombinedHighlightedPitches()
-  }
+  var notesByNoteNumber: NotesByNoteNumber = [:]
   
-  var notesByNoteNumber: [NoteNumber: Note] {
-    var notesByNoteNumber: [NoteNumber: Note] = [:]
-    notesByNoteNumber.reserveCapacity(12)
-    
-    notesByNoteNumber = lowerChordVoicingCalculator.notesByNoteNumber.merging(upperChordVoicingCalculator.notesByNoteNumber) { (_, second) in
-      second
-    }
-    return notesByNoteNumber
-  }
-  
-  var lowerStackedPitches: [Int] {
-    lowerChordVoicingCalculator.stackedPitches
-  }
-
-  var upperStackedPitches: [Int] {
-    upperChordVoicingCalculator.stackedPitches
-  }
-  
-  var resultChordStackedPitches: [Int] {
-    get {
-      return resultChordVoicingCalculator?.stackedPitches ?? []
-    }
-    set { }
-  }
-  
-  var lowerRoot: Note {
-    lowerChordVoicingCalculator.rootNote.note
-  }
-  
-  var upperRoot: Note {
-    upperChordVoicingCalculator.rootNote.note
-  }
-
-  var lowerDegreeNumbers: [Int] {
-    lowerChordVoicingCalculator.degreeNumbers
-  }
-
-  var upperDegreeNumbers: [Int] {
-    upperChordVoicingCalculator.degreeNumbers
-  }
-  
-  var onlyInLower: [Int] {
-    lowerDegreeNumbers.subtracting(upperDegreeNumbers)
-  }
-  
-  var onlyInUpper: [Int] {
-    upperDegreeNumbers.subtracting(lowerDegreeNumbers)
-  }
-  
-  var commonTones: [Int] {
-    lowerDegreeNumbers.intersection(upperDegreeNumbers)
-  }
+  private(set) var resultChordStackedPitches: [Int] = []
   
   var lowerTonesToHighlight: [Int] = []
   var upperTonesToHighlight: [Int] = []
   var commonTonesToHighlight: [Int] = []
   
-  var resultChordDegreesInOctaveSorted: [Int] {
-    return resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeNumberInOctave }) ?? []
-  }
+  private(set) var resultChordDegreesInOctaveSorted: [Int] = []
   
   var resultChordNoteNames: [Note] {
     var notes: [Note] = []
@@ -112,9 +51,9 @@ struct ChordCombinerVoicingCalculator {
   var upperDegreeNamesInLowerKey: [String] {
     var upperNotesInLowerKey: [Note] = []
     
-    for degreeNumber in upperDegreeNumbers {
+    for degreeNumber in upperChordVoicingCalculator.degreeNumbers {
       if let upperNote = upperChordVoicingCalculator.notesByNoteNumber[NoteNumber(degreeNumber)] {
-        for lowerNote in lowerChordVoicingCalculator.allChordNotesInKeyFiltered where lowerNote.noteName == upperNote.noteName {
+        for lowerNote in lowerChordVoicingCalculator.allChordNotesInKeyFiltered() where lowerNote.noteName == upperNote.noteName {
           upperNotesInLowerKey.append(lowerNote)
         }
       }
@@ -123,7 +62,49 @@ struct ChordCombinerVoicingCalculator {
     return upperNotesInLowerKey.map { $0.degreeName.numeric }
   }
   
+  init(lowerChordVoicingCalculator: VoicingCalculator, upperChordVoicingCalculator: VoicingCalculator, resultChordVoicingCalculator: VoicingCalculator? = nil) {
+    self.lowerChordVoicingCalculator = lowerChordVoicingCalculator
+    self.upperChordVoicingCalculator = upperChordVoicingCalculator
+    self.resultChordVoicingCalculator = resultChordVoicingCalculator
+    
+    setNotesByNoteNumber(
+      lowerChordVoicingCalculator.notesByNoteNumber
+        .merging(upperChordVoicingCalculator.notesByNoteNumber) { (_, second) in
+          second
+        }
+    )
+    
+    setResultChordVoicingCalculatorProperties()
+    setResultChordCombinedHighlightedPitches()
+    
+  }
+  
+  // MARK: Initializer helper methods
+  mutating func setResultChordVoicingCalculatorProperties() {
+    resultChordStackedPitches = resultChordVoicingCalculator?.stackedPitches ?? []
+    resultChordDegreesInOctaveSorted = resultChordVoicingCalculator?.stackedPitches.sorted().map({ $0.degreeNumberInOctave }) ?? []
+  }
+  
+  mutating func setNotesByNoteNumber() {
+    notesByNoteNumber.reserveCapacity(12)
+    
+    notesByNoteNumber = lowerChordVoicingCalculator.notesByNoteNumber
+      .merging(upperChordVoicingCalculator.notesByNoteNumber) { (_, second) in
+      second
+    }
+  }
+  
+  // MARK: Instance methods
   mutating func setResultChordCombinedHighlightedPitches() {
+    let onlyInLower: [Int] = lowerChordVoicingCalculator.degreeNumbers
+        .subtracting(upperChordVoicingCalculator.degreeNumbers)
+    
+    let onlyInUpper: [Int] = upperChordVoicingCalculator.degreeNumbers
+        .subtracting(lowerChordVoicingCalculator.degreeNumbers)
+    
+    let commonTones: [Int] = lowerChordVoicingCalculator.degreeNumbers
+        .intersection(upperChordVoicingCalculator.degreeNumbers)
+    
     lowerTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInLower)
     upperTonesToHighlight = resultChordStackedPitches.includeIfSameNote(onlyInUpper)
     commonTonesToHighlight = resultChordStackedPitches.includeIfSameNote(commonTones)

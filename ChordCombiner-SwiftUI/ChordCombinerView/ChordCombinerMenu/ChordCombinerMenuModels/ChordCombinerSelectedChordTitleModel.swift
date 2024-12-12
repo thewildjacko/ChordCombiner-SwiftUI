@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChordCombinerSelectedChordTitleModel {
+  static let initial = ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: ChordCombinerViewModel(), chordProperties: ChordProperties())
+  
   let chordCombinerViewModel: ChordCombinerViewModel
   let chordProperties: ChordProperties
   

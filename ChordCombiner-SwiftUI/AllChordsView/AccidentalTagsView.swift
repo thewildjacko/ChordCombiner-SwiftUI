@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AccidentalTagsView: View {
-  var chord = Chord(.c, .ma7)
   @Binding var selectedAccidental: RootAccidental
   
   var body: some View {

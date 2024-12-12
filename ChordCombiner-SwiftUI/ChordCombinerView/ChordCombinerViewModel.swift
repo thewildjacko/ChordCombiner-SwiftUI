@@ -11,12 +11,12 @@ import Observation
 @Observable
 final class ChordCombinerViewModel: ObservableObject {
   // MARK: Instance properties
-  var lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
-  var upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
+  var lowerChordProperties: ChordProperties = ChordProperties.initial
+  var upperChordProperties: ChordProperties = ChordProperties.initial
   
-  var lowerKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  var upperKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2)
-  var combinedKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+  var lowerKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard
+  var upperKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard
+  var combinedKeyboard: Keyboard = Keyboard.initialDualChordKeyboard
   
   var lowerChord: Chord? {
     guard let letter = lowerChordProperties.letter,
@@ -58,20 +58,20 @@ final class ChordCombinerViewModel: ObservableObject {
       resultChordVoicingCalculator: resultChord?.voicingCalculator ?? nil)
   }
   
-  //MARK: Initializers
+  //MARK: Initializer
   init(
-    lowerChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
-    upperChordProperties: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil),
-    lowerKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
-    upperKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 2),
-    combinedKeyboard: Keyboard = Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+    lowerChordProperties: ChordProperties = ChordProperties.initial,
+    upperChordProperties: ChordProperties = ChordProperties.initial,
+    lowerKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard,
+    upperKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard,
+    combinedKeyboard: Keyboard = Keyboard.initialDualChordKeyboard
   ) {
     self.lowerChordProperties = lowerChordProperties
     self.upperChordProperties = upperChordProperties
     self.lowerKeyboard = lowerKeyboard
     self.upperKeyboard = upperKeyboard
     self.combinedKeyboard = combinedKeyboard
-  }    
+  }
 }
 
 // MARK: Equatable

@@ -10,7 +10,7 @@ import SwiftUI
 struct ChordTypeSectionTitleView: View {
   var section: ChordTypeSection
   var isExpanded: Bool
-  @Binding var kbDisplay: Bool
+  @Binding var keyboardDisplay: Bool
   @Binding var expandedSections: Set<String>
   
   func selectDeselect(_ section: ChordTypeSection) {
@@ -39,9 +39,9 @@ struct ChordTypeSectionTitleView: View {
           Keyboard(baseWidth: 40, keyCount: 12, initialKeyType: .C, startingOctave: 4)
             .padding(.trailing, 5)
             .onTapGesture {
-              kbDisplay.toggle()
+              keyboardDisplay.toggle()
             }
-          Toggle("", isOn: $kbDisplay)
+          Toggle("", isOn: $keyboardDisplay)
             .labelsHidden()
         }
       }
@@ -53,7 +53,7 @@ struct ChordTypeSectionTitleView: View {
   ChordTypeSectionTitleView(
     section: ChordType.chordTypeSections[5],
     isExpanded: true,
-    kbDisplay: Binding.constant(true),
+    keyboardDisplay: Binding.constant(true),
     expandedSections: Binding.constant([])
   )
 }

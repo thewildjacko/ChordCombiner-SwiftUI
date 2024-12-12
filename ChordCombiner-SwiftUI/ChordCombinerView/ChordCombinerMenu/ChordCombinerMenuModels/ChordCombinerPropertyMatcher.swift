@@ -11,8 +11,6 @@ struct ChordCombinerPropertyMatcher {
   let chordCombinerViewModel: ChordCombinerViewModel
   let isLowerChordMenu: Bool
   
-  @State var isInitial: Bool = true
-  
   @Binding var matchingLetters: Set<Letter>
   @Binding var matchingAccidentals: Set<RootAccidental>
   @Binding var matchingChordTypes: Set<ChordType>
@@ -61,6 +59,12 @@ struct ChordCombinerPropertyMatcher {
     }
   }
   
+  func matchChords() {
+    matchByLetter()
+    matchByAccidental()
+    matchByChordType()
+  }
+  
   func renewChordMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
     if propertyChanged == .accidental || propertyChanged == .chordType { matchByLetter() }
     if propertyChanged == .letter || propertyChanged == .chordType { matchByAccidental() }
@@ -68,7 +72,6 @@ struct ChordCombinerPropertyMatcher {
   }
   
   func clearAndMatchChords(propertyChanged: ChordProperties.ChordPropertyChanged) {
-//    clearMatches(propertyChanged: propertyChanged)
     renewChordMatches(propertyChanged: propertyChanged)
   }
 }

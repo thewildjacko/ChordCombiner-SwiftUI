@@ -12,12 +12,14 @@ enum KeyShapePathType {
 }
 
 struct KeyShapePath {
-  private var finalKey: Bool
-  private var width: CGFloat
-  private var height: CGFloat
-  private var radius: CGFloat
-  private var widthMultiplier: CGFloat
-  private var keyShapePathType: KeyShapePathType
+  private let finalKey: Bool
+  private let width: CGFloat
+  private let height: CGFloat
+  private let radius: CGFloat
+  private let widthMultiplier: CGFloat
+  private let keyShapePathType: KeyShapePathType
+  
+  private(set) var path: Path = Path()
   
   init(finalKey: Bool, width: CGFloat, height: CGFloat, radius: CGFloat, widthMultiplier: CGFloat, keyShapePathType: KeyShapePathType) {
     self.finalKey = finalKey
@@ -26,6 +28,14 @@ struct KeyShapePath {
     self.radius = radius
     self.widthMultiplier = widthMultiplier
     self.keyShapePathType = keyShapePathType
+    
+    path = getPathType()
+  }
+  
+  func getPathType() -> Path {
+    let pathType: KeyShapePathType = finalKey && keyShapePathType == .CShape ? .blackAndEdgeWhiteKeyShape : keyShapePathType
+    
+    return getPath(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: pathType)
   }
   
   func getPath(width: CGFloat, height: CGFloat, radius: CGFloat, widthMultiplier: CGFloat, keyShapePathType: KeyShapePathType) -> Path {
@@ -131,10 +141,5 @@ struct KeyShapePath {
     }
   }
   
-  var path: Path {
-    let pathType: KeyShapePathType = finalKey && keyShapePathType == .CShape ? .blackAndEdgeWhiteKeyShape : keyShapePathType
-    
-    return getPath(width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: pathType)
-  }
 }
 

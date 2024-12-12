@@ -15,14 +15,14 @@ struct ChordTypeSectionsScrollView: View {
   
   var body: some View {
     ScrollView {
-      LazyVStack(alignment: .leading) {
+      VStack(alignment: .leading) {
         ForEach(chordTypeSections, id: \.tagName) { section in
           ChordTypeSectionView(
             section: section,
             rootKeyNote: $rootKeyNote,
             isExpanded: expandedSections.contains(section.tagName),
             expandedSections: $expandedSections,
-            kbDisplay: false
+            keyboardDisplay: false
           )
         }
       }

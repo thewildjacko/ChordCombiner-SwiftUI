@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct ChordCombinerMenuCoverView: View {
-  var chordCombinerViewModel: ChordCombinerViewModel
+  var chordCombinerViewModel: ChordCombinerViewModel {
+    didSet { setChordCombinerSelectedChordTitleModel() }
+  }
   
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
   
-  var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel {
-    ChordCombinerSelectedChordTitleModel(chordCombinerViewModel: chordCombinerViewModel, chordProperties: chordProperties)
+  var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
+  
+  init(chordCombinerViewModel: ChordCombinerViewModel, keyboard: Binding<Keyboard>, combinedKeyboard: Binding<Keyboard>, chordProperties: Binding<ChordProperties>) {
+    self.chordCombinerViewModel = chordCombinerViewModel
+    self._keyboard = keyboard
+    self._combinedKeyboard = combinedKeyboard
+    self._chordProperties = chordProperties
+    
+    setChordCombinerSelectedChordTitleModel()
+  }
+  
+  mutating func setChordCombinerSelectedChordTitleModel() {
+    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
+      chordCombinerViewModel: chordCombinerViewModel,
+      chordProperties: chordProperties
+    )
   }
   
   var body: some View {

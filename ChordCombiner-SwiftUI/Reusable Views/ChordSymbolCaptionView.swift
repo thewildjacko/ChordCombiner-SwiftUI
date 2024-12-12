@@ -9,13 +9,18 @@
 import SwiftUI
 
 struct ChordSymbolCaptionView: View {
-  let chord: Chord?
+  var chord: Chord? { didSet { setCaptionText() } }
   var showCaption: Bool = true
-  var captionText: String {
-    if let chord = chord {
-      return "(\(chord.preciseName))"
-    } else { return "" }
+  var captionText: String = ""
+  
+  init(chord: Chord?, showCaption: Bool = true) {
+    self.chord = chord
+    self.showCaption = showCaption
+    
+    setCaptionText()
   }
+  
+  mutating func setCaptionText() { captionText = chord?.preciseName ?? "" }
   
   @ViewBuilder
   var body: some View {

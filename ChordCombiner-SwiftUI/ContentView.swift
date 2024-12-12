@@ -7,13 +7,7 @@
 
 import SwiftUI
 
-enum Tab {
-  case singleChord, chordCombinerViewModel, allChords
-}
-
-struct ContentView: View {
-  @State private var selectedTab: Tab = .chordCombinerViewModel
-  
+struct ContentView: View {  
   var body: some View {
     NavigationStack {
       List {
@@ -22,14 +16,6 @@ struct ContentView: View {
             ChordCombinerView()
             .navigationTitle("Chord Combiner")
         ) { Text("Chord Combiner") }
-        
-        NavigationLink(
-          destination:
-            AllChordsView()
-            .navigationTitle("All Chords")
-        ) {
-          Text("All Chords")
-        }
         
         NavigationLink(
           destination:

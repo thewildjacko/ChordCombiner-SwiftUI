@@ -79,14 +79,6 @@ extension Array where Element == Int {
     return combinedDegreeArray.transposed(to: rootKeyNote)
   }
   
-  func toggleHighlightIfSelected(keys: inout [Key], color: Color) {
-    for pitch in self {
-      if let index = pitch.indexFromKeys(keys: &keys) {
-        keys[index].toggleHighlight(color: color)
-      }
-    }
-  }
-  
   func highlightIfSelected(keys: inout [Key], highlightedPitches: inout Set<Int>, color: Color) {
     for pitch in self {
       highlightedPitches.insert(pitch)
@@ -107,7 +99,7 @@ extension Array where Element == Int {
     }
   }
   
-  func circlesOnIfSelected(keys: inout [Key], circleType: KeyCirclesView.CircleType) {
+  func circlesOnIfSelected(keys: inout [Key], circleType: KeyCircleType) {
     for pitch in self {
       if let index = pitch.indexFromKeys(keys: &keys) {
         if keys[index].circlesOn == false {

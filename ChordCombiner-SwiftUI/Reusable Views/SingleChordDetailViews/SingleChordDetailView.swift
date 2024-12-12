@@ -30,12 +30,26 @@ struct SingleChordDetailView: View {
         List {
           DetailRow(title: "Notes", text: chord.displayDetails(detailType: .noteNames))
           DetailRow(title: "Degrees", text: chord.displayDetails(detailType: .degreeNames))
+          NavigationLink(
+            destination:
+              ChordGrapherView(chordGrapher: ChordGrapher(chord: chord))
+              .navigationTitle("Chord Graph")
+          ) {
+            HStack {
+              Text("Chord Graph:")
+              Spacer()
+              Image(systemName: "chevron.right")
+            }
+          }
         }
         
+        
+        
         BaseChordSectionView(chord: chord)
+        
         EquivalentChordsSectionView(chord: chord)
       }
-
+      
       Spacer()
     }
     .padding(.vertical)
@@ -45,6 +59,6 @@ struct SingleChordDetailView: View {
 #Preview {
   SingleChordDetailView(
     chord: Chord(.c, .ma13_sh11),
-    keyboard: Keyboard(baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 3)
+    keyboard: Keyboard.initialDualChordKeyboard
   )
 }

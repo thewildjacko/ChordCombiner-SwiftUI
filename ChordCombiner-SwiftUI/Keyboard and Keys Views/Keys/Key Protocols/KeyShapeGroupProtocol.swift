@@ -23,7 +23,3 @@ protocol KeyShapeGroupProtocol {
   var lineWidth: CGFloat { get set }
   var z_Index: Double { get set }
 }
-
-extension KeyShapeGroupProtocol {
-  var keyRect: CGRect { CGRect(x: 0, y: 0, width: width, height: height) }
-}

@@ -7,17 +7,25 @@
 
 import SwiftUI
 
-
 struct KeyShape: KeyShapeProtocol, Shape {
-  var finalKey: Bool
-  var width: CGFloat
-  var height: CGFloat
-  var radius: CGFloat
-  var widthMultiplier: CGFloat
-  var keyShapePathType: KeyShapePathType
+  let finalKey: Bool
+  let width: CGFloat
+  let height: CGFloat
+  let radius: CGFloat
+  let widthMultiplier: CGFloat
+  let keyShapePathType: KeyShapePathType
   
-  var keyShapePath: KeyShapePath {
-    KeyShapePath(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: keyShapePathType)
+  private var keyShapePath: KeyShapePath
+  
+  init(finalKey: Bool, width: CGFloat, height: CGFloat, radius: CGFloat, widthMultiplier: CGFloat, keyShapePathType: KeyShapePathType) {
+    self.finalKey = finalKey
+    self.width = width
+    self.height = height
+    self.radius = radius
+    self.widthMultiplier = widthMultiplier
+    self.keyShapePathType = keyShapePathType
+    
+    keyShapePath = KeyShapePath(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: keyShapePathType)
   }
   
   func path(in rect: CGRect) -> Path { return keyShapePath.path }

@@ -15,7 +15,6 @@ import SwiftUI
  
  */
 struct LetterTagsView: View {
-  var chord = Chord(.c, .ma7)
   @Binding var selectedLetter: Letter
   
   var body: some View {

@@ -11,7 +11,7 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
   var finalKey: Bool
   
   var width: CGFloat
-  var height: CGFloat
+  var height: CGFloat { didSet { setKeyRect() } }
   var radius: CGFloat
   var widthMultiplier: CGFloat
   var position: CGFloat
@@ -22,11 +22,29 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
   var keyShapePath: KeyShapePathType
     
   typealias NoteShape = KeyShape
-  var keyShape: NoteShape { KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: keyShapePath)
+  var keyShape: NoteShape
+  
+  var keyRect: CGRect = CGRect()
+
+  init(finalKey: Bool, width: CGFloat, height: CGFloat, radius: CGFloat, widthMultiplier: CGFloat, position: CGFloat, fill: Color, stroke: Color, lineWidth: CGFloat, z_Index: Double, keyShapePath: KeyShapePathType) {
+    self.finalKey = finalKey
+    self.width = width
+    self.height = height
+    self.radius = radius
+    self.widthMultiplier = widthMultiplier
+    self.position = position
+    self.fill = fill
+    self.stroke = stroke
+    self.lineWidth = lineWidth
+    self.z_Index = z_Index
+    self.keyShapePath = keyShapePath
+    
+    keyShape = KeyShape(finalKey: finalKey, width: width, height: height, radius: radius, widthMultiplier: widthMultiplier, keyShapePathType: keyShapePath)
+    setKeyRect()
   }
   
-  var keyRect: CGRect { CGRect(x: 0, y: 0, width: width, height: height) }
-
+  mutating func setKeyRect() { keyRect = CGRect(x: 0, y: 0, width: width, height: height) }
+  
   var body: some View {
     ZStack(alignment: .topLeading) {
       keyShape.path(in: keyRect)

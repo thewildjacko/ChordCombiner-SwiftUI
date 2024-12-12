@@ -99,6 +99,53 @@ enum KeyType: Int {
   
   var defaultFillColor: Color { self.isBlackKey ? .black : .white }
   
+  var baseRadius: CGFloat {
+    switch self {
+    case .C, .D, .E, .F, .G, .A, .B:
+      return KeyRadius.whiteKey.rawValue 
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return KeyRadius.blackKey.rawValue 
+    }
+  }
+  
+  var baseWidth: CGFloat {
+    switch self {
+    case .C, .E, .G, .A:
+      return KeyWidth.whiteKeyCEGA.rawValue 
+    case .D, .F, .B:
+      return KeyWidth.whiteKeyDFB.rawValue 
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return KeyWidth.blackKey.rawValue 
+    }
+  }
+  
+  var baseHeight: CGFloat {
+    switch self {
+    case .C, .D, .E, .F, .G, .A, .B:
+      return KeyHeight.whiteKey.rawValue
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return KeyHeight.blackKey.rawValue
+    }
+  }
+  
+  var fill: Color {
+    switch self {
+    case .C, .D, .E, .F, .G, .A, .B:
+      return .white
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return .black
+    }
+  }
+  
+  var z_Index: Double {
+    switch self {
+    case .C, .D, .E, .F, .G, .A, .B:
+      return 0
+    case .Db, .Eb, .Gb, .Ab, .Bb:
+      return 1.0
+    }
+  }
+  
   func toPitch(startingOctave: Int) -> Int { noteNumber.rawValue + (startingOctave + 1) * 12 }
 }
 

@@ -34,6 +34,16 @@ struct DualChordDetailView: View {
           DetailRow(title: "Degrees", text: chordCombinerViewModel.displayDetails(detailType: .degreeNames))
         }
         
+        if let resultChord = chordCombinerViewModel.resultChord {
+          NavigationLink(
+            destination:
+              ChordGrapherView(chordGrapher: ChordGrapher(chord: resultChord))
+              .navigationTitle("Chord Graph")
+          ) {
+            Text("Chord Graph:")
+          }
+        }
+        
         Section(header: Text("Component Chords")) {
           DetailRow(title: "Lower Chord", text: chordCombinerViewModel.displayDetails(detailType: .lowerChordName))
           DetailRow(title: "Upper Chord", text: chordCombinerViewModel.displayDetails(detailType: .upperChordName))

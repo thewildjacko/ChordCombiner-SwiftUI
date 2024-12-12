@@ -7,58 +7,60 @@
 
 import SwiftUI
 
-struct KeyboardDisplayScrollView: View {
+struct NonBinding_KeyboardDisplayScrollView: View {
   let section: ChordTypeSection
-  @Binding var rootKeyNote: RootKeyNote
-  @Binding var kbDisplay: Bool
-
+  var rootKeyNote: RootKeyNote
+  @Binding var keyboardDisplay: Bool
+  
   let rows = [
     GridItem(.flexible()),
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
   
-    var body: some View {
-      ScrollView(.horizontal) {
-        LazyHGrid(rows: rows, spacing: 20) {
-          ForEach(section.chordTypes) { chordType in
-            let chord = Chord(rootKeyNote, chordType)
-            
-            if kbDisplay {
-              KeyboardDisplayView(
-                chord: chord,
-                keyboard:
-                  Keyboard(
-                    baseWidth: 250,
-                    initialKeyType: .C,
-                    startingOctave: 4,
-                    octaves: 3,
-                    glowColor: .clear,
-                    glowRadius: 0,
-                    chord: chord,
-                    color: .lowerChordHighlight
-                  )
-              )
-            } else {
-              Text(chord.preciseName)
-                .roundRectTagView(
-                  font: .title2,
-                  horizontalPadding: 8,
-                  verticalPadding: 5,
-                  cornerRadius: 12
-                )
-            }
-          }
+  var body: some View {
+    ScrollView(.horizontal) {
+      LazyHGrid(rows: rows, spacing: 20) {
+        ForEach(section.chordTypes) { chordType in
+          let chord = Chord(rootKeyNote, chordType)
+          
+          ChordDisplayView(chord: chord, keyboardDisplay: keyboardDisplay)
         }
       }
-      .frame(maxHeight: .infinity)
     }
+    .frame(maxHeight: .infinity)
+  }
+}
+
+struct KeyboardDisplayScrollView: View {
+  let section: ChordTypeSection
+  @Binding var rootKeyNote: RootKeyNote
+  @Binding var keyboardDisplay: Bool
+  
+  let rows = [
+    GridItem(.flexible()),
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
+  var body: some View {
+    ScrollView(.horizontal) {
+      LazyHGrid(rows: rows, spacing: 20) {
+        ForEach(section.chordTypes) { chordType in
+          let chord = Chord(rootKeyNote, chordType)
+          
+          ChordDisplayView(chord: chord, keyboardDisplay: keyboardDisplay)
+        }
+      }
+    }
+    .frame(maxHeight: .infinity)
+  }
 }
 
 #Preview {
     KeyboardDisplayScrollView(
       section: ChordType.chordTypeSections[5],
       rootKeyNote: Binding.constant(.c),
-      kbDisplay: Binding.constant(true)
+      keyboardDisplay: Binding.constant(true)
     )
 }
