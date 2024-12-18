@@ -9,31 +9,35 @@ import SwiftUI
 
 struct DualChordDetailView: View {
   var chordCombinerViewModel: ChordCombinerViewModel
-  
+
   var titleText: String {
     return chordCombinerViewModel.resultChord != nil ?
     chordCombinerViewModel.displayDetails(detailType: .commonName) :
     chordCombinerViewModel.displayDetails(detailType: .preciseName)
   }
-  
+
   var titleFont: Font {
     chordCombinerViewModel.resultChord != nil ? .largeTitle : .title
   }
-  
+
   var showCaption: Bool
-  
+
   var body: some View {
     VStack(spacing: 20) {
-      DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: titleText, titleFont: titleFont, showCaption: showCaption)
-            
+      DualChordTitleView(
+        chordCombinerViewModel: chordCombinerViewModel,
+        titleText: titleText,
+        titleFont: titleFont,
+        showCaption: showCaption)
+
       chordCombinerViewModel.combinedKeyboard
-      
+
       Form {
         List {
           DetailRow(title: "Notes", text: chordCombinerViewModel.displayDetails(detailType: .noteNames))
           DetailRow(title: "Degrees", text: chordCombinerViewModel.displayDetails(detailType: .degreeNames))
         }
-        
+
         if let resultChord = chordCombinerViewModel.resultChord {
           NavigationLink(
             destination:
@@ -43,12 +47,12 @@ struct DualChordDetailView: View {
             Text("Chord Graph:")
           }
         }
-        
+
         Section(header: Text("Component Chords")) {
           DetailRow(title: "Lower Chord", text: chordCombinerViewModel.displayDetails(detailType: .lowerChordName))
           DetailRow(title: "Upper Chord", text: chordCombinerViewModel.displayDetails(detailType: .upperChordName))
         }
-        
+
         EquivalentChordsSectionView(chord: chordCombinerViewModel.resultChord)
       }
 

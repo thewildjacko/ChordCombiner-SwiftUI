@@ -10,7 +10,7 @@ import SwiftUI
 struct SingleChordDetailNavigationLinkView: View {
   var chord: Chord?
   var color: Color
-  
+
   @ViewBuilder
   var body: some View {
     if let chord = chord {
@@ -21,7 +21,7 @@ struct SingleChordDetailNavigationLinkView: View {
             keyboard:
               Keyboard(
                 baseWidth: 351,
-                initialKeyType: .C,
+                initialKeyType: .c,
                 startingOctave: 4,
                 octaves: 2,
                 chord: chord,
@@ -41,4 +41,3 @@ struct SingleChordDetailNavigationLinkView: View {
     color: .lowerChordHighlight
   )
 }
-

@@ -9,7 +9,7 @@
 import Foundation
 
 /// long, medium and numeric names for scale/chord degrees
-enum Degree: CaseIterable, GettableNoteNumber, Codable {
+enum Degree: CaseIterable, Codable {
   case root
   case minor2nd
   case major2nd
@@ -43,43 +43,10 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
   case minor14th
   case major14th
   case perfect15th
-  
-  /// noteNumber
-  var noteNumber: NoteNumber {
-    switch self {
-    case .root, .octave, .perfect15th:
-      return .zero
-    case .minor2nd, .flat9th:
-      return .one
-    case .major2nd, .major9th:
-      return .two
-    case .sharp2nd, .minor3rd, .sharp9th, .minor10th:
-      return .three
-    case .major3rd, .major10th:
-      return .four
-    case .perfect4th, .perfect11th:
-      return .five
-    case .sharp4th, .sharp11th:
-      return .six
-    case .diminished5th, .flat12th:
-      return .six
-    case .perfect5th, .perfect12th:
-      return .seven
-    case .sharp5th, .sharp12th:
-      return .eight
-    case .minor6th, .flat13th:
-      return .eight
-    case .major6th, .major13th:
-      return .nine
-    case .diminished7th, .diminished14th:
-      return .nine
-    case .minor7th, .minor14th:
-      return .ten
-    case .major7th, .major14th:
-      return .eleven
-    }
-  }
-  
+}
+
+// MARK: Computed properties
+extension Degree {
   /// long form names
   var long: String {
     switch self {
@@ -151,7 +118,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
       return "Perfect 15th"
     }
   }
-  
+
   /// partly spelled-out degree names
   var name: String {
     switch self {
@@ -223,7 +190,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
       return "15th"
     }
   }
-  
+
   /// concise names (3 characters or less)
   var numeric: String {
     switch self {
@@ -295,7 +262,7 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
       return "15th"
     }
   }
-  
+
   var size: Int {
     switch self {
     case .root:
@@ -350,48 +317,42 @@ enum Degree: CaseIterable, GettableNoteNumber, Codable {
       24
     }
   }
-    
-  // MARK: allNotesInKey
-  static func allNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
-    return Degree.allCases.map { Note($0, of: rootKeyNote)}
-  }
-  
-  // MARK: allChordNotesInKey
-  static func allChordNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
-    let chordTones: [Degree] = [
-      .root,
-      .major2nd,
-      .minor3rd,
-      .major3rd,
-      .perfect4th,
-      .sharp4th,
-      .diminished5th,
-      .perfect5th,
-      .sharp5th,
-      .minor6th,
-      .major6th,
-      .diminished7th,
-      .minor7th,
-      .major7th,
-      .flat9th,
-      .major9th,
-      .sharp9th,
-      .perfect11th,
-      .sharp11th,
-      .flat13th,
-      .major13th
-    ]
-    
-    return chordTones.map { Note($0, of: rootKeyNote)}
-  }
-  
-  // MARK: setNotesByDegree
-  static func setNotesByDegrees(rootKeyNote: RootKeyNote, degreeTags: [Degree]) -> [Note] {
-    return degreeTags.map { Note($0, of: rootKeyNote)}
-  }
-  
-  static func degreeNumbersInC(degreeTags: [Degree]) -> [Int] {
-    return degreeTags.map { $0.noteNumber.rawValue }.sorted()
-  }
 }
 
+extension Degree: GettableNoteNumber {
+  /// noteNumber
+  var noteNumber: NoteNumber {
+    switch self {
+    case .root, .octave, .perfect15th:
+      return .zero
+    case .minor2nd, .flat9th:
+      return .one
+    case .major2nd, .major9th:
+      return .two
+    case .sharp2nd, .minor3rd, .sharp9th, .minor10th:
+      return .three
+    case .major3rd, .major10th:
+      return .four
+    case .perfect4th, .perfect11th:
+      return .five
+    case .sharp4th, .sharp11th:
+      return .six
+    case .diminished5th, .flat12th:
+      return .six
+    case .perfect5th, .perfect12th:
+      return .seven
+    case .sharp5th, .sharp12th:
+      return .eight
+    case .minor6th, .flat13th:
+      return .eight
+    case .major6th, .major13th:
+      return .nine
+    case .diminished7th, .diminished14th:
+      return .nine
+    case .minor7th, .minor14th:
+      return .ten
+    case .major7th, .major14th:
+      return .eleven
+    }
+  }
+}

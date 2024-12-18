@@ -14,23 +14,29 @@ struct KeyCircle: Shape {
   var startAngle: Angle
   var endAngle: Angle
   var clockwise: Bool
-  
+
   private var radius: CGFloat { width/2 }
-  
+
   init(width: CGFloat, startAngle: Angle, endAngle: Angle, clockwise: Bool) {
     self.width = width
     self.startAngle = startAngle
     self.endAngle = endAngle
     self.clockwise = clockwise
   }
-  
+
   func path(in rect: CGRect) -> Path {
     Path { path in
       let rotationAdjustment = Angle.degrees(180)
       let modifiedStart = startAngle - rotationAdjustment
       let modifiedEnd = endAngle - rotationAdjustment
-      
-      path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: radius, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: clockwise)
+
+      path.addArc(
+        center: CGPoint(x: rect.midX, y: rect.midY),
+        radius: radius,
+        startAngle: modifiedStart,
+        endAngle: modifiedEnd,
+        clockwise: clockwise)
+
       path.closeSubpath()
     }
   }
@@ -39,7 +45,7 @@ struct KeyCircle: Shape {
 extension KeyCircle {
   enum CircleType {
     case lower, upper, common
-    
+
     var startAngle: Angle {
       switch self {
       case .upper:
@@ -48,7 +54,7 @@ extension KeyCircle {
           .degrees(0)
       }
     }
-    
+
     var endAngle: Angle {
       switch self {
       case .lower:
@@ -59,7 +65,7 @@ extension KeyCircle {
           .degrees(360)
       }
     }
-    
+
     var color: Color {
       switch self {
       case .common:
@@ -68,7 +74,7 @@ extension KeyCircle {
           .black
       }
     }
-    
+
     var strokeColor: Color {
       switch self {
       case .common:

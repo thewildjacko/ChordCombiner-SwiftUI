@@ -5,15 +5,14 @@
 //  Created by Jake Smolowe on 11/16/24.
 //
 
-
 import SwiftUI
 
 struct SingleChordDetailView: View {
   let chord: Chord
   let keyboard: Keyboard
-  
+
   var baseChord: Chord { chord.getBaseChord() }
-  
+
   var body: some View {
     VStack(spacing: 5) {
       TitleView(
@@ -21,11 +20,11 @@ struct SingleChordDetailView: View {
         font: .largeTitle,
         weight: .heavy
       )
-      
+
       ChordSymbolCaptionView(chord: chord)
-      
+
       keyboard
-      
+
       Form {
         List {
           DetailRow(title: "Notes", text: chord.displayDetails(detailType: .noteNames))
@@ -42,14 +41,12 @@ struct SingleChordDetailView: View {
             }
           }
         }
-        
-        
-        
+
         BaseChordSectionView(chord: chord)
-        
+
         EquivalentChordsSectionView(chord: chord)
       }
-      
+
       Spacer()
     }
     .padding(.vertical)
@@ -58,7 +55,7 @@ struct SingleChordDetailView: View {
 
 #Preview {
   SingleChordDetailView(
-    chord: Chord(.c, .ma13_sh11),
+    chord: Chord(.c, .ma13sh11),
     keyboard: Keyboard.initialDualChordKeyboard
   )
 }

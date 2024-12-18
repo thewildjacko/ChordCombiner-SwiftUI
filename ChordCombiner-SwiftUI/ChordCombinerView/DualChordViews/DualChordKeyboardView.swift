@@ -10,16 +10,16 @@ import SwiftUI
 struct DualChordKeyboardView: View {
   var chordCombinerViewModel: ChordCombinerViewModel
   @Binding var keyboard: Keyboard
-  
-  var dualChordKeyboardChordSymbolTitleSelector: DualChordKeyboardChordSymbolTitleSelector {
-    DualChordKeyboardChordSymbolTitleSelector(chordCombinerViewModel: chordCombinerViewModel)
+
+  var dualChordKeyboardChordTitleModel: DualChordKeyboardChordTitleModel {
+    DualChordKeyboardChordTitleModel(chordCombinerViewModel: chordCombinerViewModel)
   }
-    
-  var titleText: String { dualChordKeyboardChordSymbolTitleSelector.chordSymbolText
+
+  var titleText: String { dualChordKeyboardChordTitleModel.chordSymbolText
   }
-  
+
   var titleFont: Font {
-    if let _ = chordCombinerViewModel.resultChord {
+    if chordCombinerViewModel.resultChord != nil {
       return .title
     } else {
       switch chordCombinerViewModel.chordSelectionStatus {
@@ -30,14 +30,18 @@ struct DualChordKeyboardView: View {
       }
     }
   }
-  
+
   var body: some View {
     VStack(spacing: 20) {
       HStack {
-        DualChordTitleView(chordCombinerViewModel: chordCombinerViewModel, titleText: dualChordKeyboardChordSymbolTitleSelector.chordSymbolText, titleFont: titleFont, showCaption: false)  
+        DualChordTitleView(
+          chordCombinerViewModel: chordCombinerViewModel,
+          titleText: dualChordKeyboardChordTitleModel.chordSymbolText,
+          titleFont: titleFont,
+          showCaption: false)
         DualChordDetailNavigationLinkView(chordCombinerViewModel: chordCombinerViewModel, showCaption: true)
       }
-      
+
       keyboard
     }
   }
@@ -48,57 +52,25 @@ struct DualChordKeyboardView: View {
     chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
       upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
-    ), keyboard: .constant(
-      Keyboard(
-        baseWidth: 351,
-        initialKeyType: .C,
-        startingOctave: 4,
-        octaves: 5
-      )
-    )
-  )
+    ), keyboard: .constant(Keyboard.initialDualChordKeyboard))
 }
 
 #Preview("Lower chord selected") {
   DualChordKeyboardView(
     chordCombinerViewModel: ChordCombinerViewModel(
       lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
-    ), keyboard: .constant(
-      Keyboard(
-        baseWidth: 351,
-        initialKeyType: .C,
-        startingOctave: 4,
-        octaves: 5
-      )
-    )
-  )
+    ), keyboard: .constant(Keyboard.initialDualChordKeyboard))
 }
 
 #Preview("Upper chord selected") {
   DualChordKeyboardView(
     chordCombinerViewModel: ChordCombinerViewModel(
       upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
-    ), keyboard: .constant(
-      Keyboard(
-        baseWidth: 351,
-        initialKeyType: .C,
-        startingOctave: 4,
-        octaves: 5
-      )
-    )
-  )
+    ), keyboard: .constant(Keyboard.initialDualChordKeyboard))
 }
 
 #Preview("No chords selected") {
   DualChordKeyboardView(
     chordCombinerViewModel: ChordCombinerViewModel(),
-    keyboard: .constant(
-      Keyboard(
-        baseWidth: 351,
-        initialKeyType: .C,
-        startingOctave: 4,
-        octaves: 5
-      )
-    )
-  )
+    keyboard: .constant(Keyboard.initialDualChordKeyboard))
 }

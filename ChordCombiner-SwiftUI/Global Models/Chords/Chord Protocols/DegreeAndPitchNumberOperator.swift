@@ -26,7 +26,7 @@ protocol StartingPitch {
 
 protocol OctaveAndPitch: StartingOctave, StartingPitch { }
 
-protocol DegreeAndPitchNumberOperator: RootNote, DegreeNumbers, StartingOctave  {
+protocol DegreeAndPitchNumberOperator: RootNote, DegreeNumbers, StartingOctave {
   var noteNumbers: [NoteNumber] { get set }
   var raisedPitches: [Int] { get set }
   var raisedRoot: Int { get set }

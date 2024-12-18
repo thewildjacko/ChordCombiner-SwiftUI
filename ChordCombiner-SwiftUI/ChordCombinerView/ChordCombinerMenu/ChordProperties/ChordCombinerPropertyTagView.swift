@@ -10,7 +10,7 @@ import SwiftUI
 struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
   @Binding var selectedProperty: T?
   @Binding var matchingProperties: Set<T>
-  
+
   var tagProperties: [T]
   var font: Font = .caption
   var horizontalPadding: CGFloat = 9

@@ -7,34 +7,49 @@
 import Foundation
 
 struct ChordCombiner {
-  /// This method takes two ``Chord`` objects, and uses **`ChordType.typeByDegreesFiltered(degreeCount: CombinedDegreeCount`** to check if their combined **`degreeNumbers`** form a **unified chord** *(single chord symbol with no alternate bass)*, a **slash chord** *(single chord symbol over an alternate bass)*, or a **polychord** *(two chord symbols, one over the other)*.
+  /// Combines the **`degreeNumbers`** of two ``Chord``s to check to see what type of result they produce
   ///
-  /// - Returns the result of the above check: an optional ``Chord`` if the combined degreeNumbers form a unified chord or slash chord, or **nil** if they form a polychord.
+  ///   - Parameters:
+  ///     - firstChord: The lower (left hand) chord
+  ///     - secondChord: The upper (right hand) chord
   ///
-  /// 1. First checks to see whether `combinedDegreesInC` matches a ``ChordType`` in `firstChord`'s original key
-  /// - If **yes**, sets `resultChord` to a ``Chord`` using `firstChord`'s ``RootKeyNote`` and the resulting ``ChordType``. The match is a **unified chord**.
-  /// - If **no**, moves on to the next root and looks for a ``Chord`` using the same method as above, but sets the chord as a **slash chord**, assigning `slashChordRootKeyNote` to the root that matched.
-  /// - If **all roots fail to produce a match**, returns **`nil`** for the first tuplet value and an empty array for the second. The chord is a **polychord**.
+  ///   - Returns: `Chord?` if `degreeNumbers` form a unified or slash chord, or **nil** if they form a polychord.
+  ///
+  /// Uses **`ChordType.typeByDegreesFiltered(degreeCount: CombinedDegreeCount`** to perform the check.
+  ///
+  /// 3 possible results:
+  ///
+  /// 1. A **unified chord** *(single chord symbol with no alternate bass)*
+  /// 2. A **slash chord** *(single chord symbol over an alternate bass)*
+  /// 3. A **polychord** *(two chord symbols, one over the other)*
+  ///
+  /// Overview:
+  ///
+  /// - First checks to see whether `combinedDegreesInC` matches a ``ChordType`` in `firstChord`'s original key
+  ///   - If **yes**:
+  ///     - Uses the ``ChordType`` result and `firstChord`'s ``RootKeyNote`` to return a ``Chord``.
+  ///   - The match is a **unified chord**.
+  /// - If **no**, tranposes `degreeNumbers` to the next available `RootKeyNote` and checks again.
+  ///   - If a match is found, sets the chord as a **slash chord**, assigning `slashChordRootKeyNote` to the new root.
+  /// - If **all roots fail to produce a match**, returns **`nil`**. The chord is a **polychord**.
   static func combineChords(firstChord: Chord, secondChord: Chord) -> Chord? {
     // Assigns initial value for the result.
-    var resultChord: Chord? = nil
-    
+    var resultChord: Chord?
+
     // First chord's ``RootKeyNote`` assigned to a constant for convenient reuse
     let lowerRootKeyNote = firstChord.rootKeyNote
-    
+
     /// combine both `Chord`s' degreeNumber arrays
     let combinedDegrees = firstChord.degreeNumbers.combineSetFilterSort(secondChord.degreeNumbers)
-    
-    //    print(combinedDegrees)
-    
+
     /// Tranposes the `degreeNumber` array to the key of C *(**0** in a range of **0-11**)
-    let combinedDegreesInC = firstChord.degreeNumbers.combinedAndTransposed(with: secondChord.degreeNumbers, to: lowerRootKeyNote)
-    
-    //    print(combinedDegreesInC)
-    
+    let combinedDegreesInC = firstChord.degreeNumbers
+      .combinedAndTransposed(with: secondChord.degreeNumbers, to: lowerRootKeyNote)
+
     var combinedRootKeyNotes = firstChord.combinedRootKeyNotes(with: secondChord)
-    
-    // check for matching ChordType based on combinedDegreesinC, assign chord from matching chordType to resultChord, and check for equivalentChords
+
+    // 1. Check for matching ChordType based on combinedDegreesinC
+    // 2. Assign chord from matching chordType to resultChord
     if let chordType = ChordType(fromDegreeNumbersToMatch: combinedDegreesInC) {
       resultChord = Chord(
         //        RootKeyNote(firstChord.root.rootKeyName),
@@ -54,11 +69,11 @@ struct ChordCombiner {
               rootKeyNote,
               chordType,
               isSlashChord: true,
-              slashChordBassNote: rootKeyNote
+              slashChordBassNote: lowerRootKeyNote
             )
-            
+
             //            print(resultChord!.preciseName)
-            
+
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
             break outerloop
           } else {
@@ -67,7 +82,7 @@ struct ChordCombiner {
         }
       }
     }
-    
+
     return resultChord
   }
 }

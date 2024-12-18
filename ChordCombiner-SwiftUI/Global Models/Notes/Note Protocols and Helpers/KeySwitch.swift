@@ -11,483 +11,341 @@ import Foundation
 /// selects flat or sharp version of KeyName based on enharmonic
 struct KeySwitcher: Enharmonic, Codable {
   var enharmonic: EnharmonicSymbol
-  
-  func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName, _ blackKeyFlats: KeyName, _ blackKeySharps: KeyName) -> KeyName {
-    switch enharmonic {
-    case .flat:
-      return flatKey
-    case .sharp:
-      return sharpKey
-    case .blackKeyFlats:
-      return blackKeyFlats
-    case .blackKeySharps:
-      return blackKeySharps
-    }
+
+  static let flat = KeySwitcher(enharmonic: .flat)
+  static let sharp = KeySwitcher(enharmonic: .sharp)
+}
+
+// MARK: pickKey functions
+extension KeySwitcher {
+  func pickKey(_ flatKey: KeyName, _ sharpKey: KeyName) -> KeyName {
+    return enharmonic == .flat ? flatKey : sharpKey
   }
-  
+
+  // pickKey(.c, .bSh) 8
+  // pickKey(.dB, .cSh) 9
+  // (.eBB, .d) 6
+  // .d 3
+  // .eB 3
+  // pickKey(.eB, .dSh) 9
+  // pickKey(.fB, .e) 7
+  // pickKey(.f, .eSh) 8
+  // pickKey(.gBB, .f) 3
+  // pickKey(.gB, .fSh) 9
+  // .g 3
+  // pickKey(.aBB, .g) 5
+  // : .aB 3
+  // pickKey(.aB, .gSh) 9
+  // .a 3
+  // .bB 3
+  // pickKey(.bBB, .a) 7
+  // pickKey(.bB, .aSh) 9
+  // pickKey(.cB, .b) 8
+  // pickKey(.dBB, .c) 4
+
   func root(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.c, .bSh, .c, .c)
-    case .one:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .two:
-      return .d
-    case .three:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .four:
-      return pickKey(.fB, .e, .e, .e)
-    case .five:
-      return pickKey(.f, .eSh, .f, .f)
-    case .six:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .seven:
-      return .g
-    case .eight:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .nine:
-      return .a
-    case .ten:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .eleven:
-      return pickKey(.cB, .b, .b, .b)
-    }
+    let keyMap: [NoteNumber: KeyName] = [
+      .zero: pickKey(.c, .bSh),
+      .one: pickKey(.dB, .cSh),
+      .two: .d,
+      .three: pickKey(.eB, .dSh),
+      .four: pickKey(.fB, .e),
+      .five: pickKey(.f, .eSh),
+      .six: pickKey(.gB, .fSh),
+      .seven: .g,
+      .eight: pickKey(.aB, .gSh),
+      .nine: .a,
+      .ten: pickKey(.bB, .aSh),
+      .eleven: pickKey(.cB, .b)
+    ]
+
+    return keyMap[rootNumber] ?? .c
   }
-  
+
   func minor9th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .one:
-      return pickKey(.e_bb, .d, .d, .d)
-    case .two:
-      return .eB
-    case .three:
-      return pickKey(.fB, .e, .e, .e)
-    case .four:
-      return pickKey(.g_bb, .f, .f, .f)
-    case .five:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .six:
-      return pickKey(.a_bb, .g, .g, .g)
-    case .seven:
-      return .aB
-    case .eight:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .nine:
-      return .bB
-    case .ten:
-      return pickKey(.cB, .b, .b, .b)
-    case .eleven:
-      return pickKey(.d_bb, .c, .c, .c)
-    }
-  }
-  
-  func major9th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.d, .cX, .d, .d)
-    case .one:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .two:
-      return .e
-    case .three:
-      return pickKey(.f, .eSh, .f, .f)
-    case .four:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .five:
-      return pickKey(.g, .fX, .g, .g)
-    case .six:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .seven:
-      return .a
-    case .eight:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .nine:
-      return .b
-    case .ten:
-      return pickKey(.c, .bSh, .c, .c)
-    case .eleven:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    }
-  }
-  
-  func sharp9th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return .dSh
-    case .one:
-      return pickKey(.e, .dX, .e, .e)
-    case .two:
-      return .eSh
-    case .three:
-      return pickKey(.fSh, .eX, .fSh, .eX)
-    case .four:
-      return pickKey(.g, .fX, .g, .g)
-    case .five:
-      return .gSh
-    case .six:
-      return pickKey(.a, .gX, .a, .a)
-    case .seven:
-      return .aSh
-    case .eight:
-      return pickKey(.b, .aX, .b, .b)
-    case .nine:
-      return .bSh
-    case .ten:
-      return pickKey(.cSh, .bX, .cSh, .bX)
-    case .eleven:
-      return pickKey(.d, .cX, .d, .d)
-    }
-  }
-  
-  func minor3rd(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .one:
-      return pickKey(.fB, .e, .e, .e)
-    case .two:
-      return .f
-    case .three:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .four:
-      return pickKey(.a_bb, .g, .g, .g)
-    case .five:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .six:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .seven:
-      return .bB
-    case .eight:
-      return pickKey(.cB, .b, .b, .b)
-    case .nine:
-      return .c
-    case .ten:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .eleven:
-      return pickKey(.e_bb, .d, .d, .d)
-    }
-  }
-  
-  func major3rd(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.e, .dX, .e, .e)
-    case .one:
-      return pickKey(.f, .eSh, .f, .f)
-    case .two:
-      return .fSh
-    case .three:
-      return pickKey(.g, .fX, .g, .g)
-    case .four:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .five:
-      return pickKey(.a, .gX, .a, .a)
-    case .six:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .seven:
-      return .b
-    case .eight:
-      return pickKey(.c, .bSh, .c, .c)
-    case .nine:
-      return .cSh
-    case .ten:
-      return pickKey(.d, .cX, .d, .d)
-    case .eleven:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    }
-  }
-  
-  func perfect4th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.f, .eSh, .f, .f)
-    case .one:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .two:
-      return .g
-    case .three:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .four:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .five:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .six:
-      return pickKey(.cB, .b, .b, .b)
-    case .seven:
-      return .c
-    case .eight:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .nine:
-      return .d
-    case .ten:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .eleven:
-      return pickKey(.fB, .e, .e, .e)
-    }
-  }
-  
-  func sharp4th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.fSh, .eX, .fSh, .eX)
-    case .one:
-      return pickKey(.g, .fX, .g, .g)
-    case .two:
-      return .gSh
-    case .three:
-      return pickKey(.a, .gX, .a, .a)
-    case .four:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .five:
-      return pickKey(.b, .aX, .b, .b)
-    case .six:
-      return pickKey(.c, .bSh, .c, .c)
-    case .seven:
-      return .cSh
-    case .eight:
-      return pickKey(.d, .cX, .d, .d)
-    case .nine:
-      return .dSh
-    case .ten:
-      return pickKey(.e, .dX, .e, .e)
-    case .eleven:
-      return pickKey(.f, .eSh, .f, .f)
-    }
-  }
-  
-  func dim5th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .one:
-      return pickKey(.a_bb, .g, .g, .g)
-    case .two:
-      return .aB
-    case .three:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .four:
-      return pickKey(.c_bb, .bB, .c_bb, .bB)
-    case .five:
-      return pickKey(.cB, .b, .b, .b)
-    case .six:
-      return pickKey(.d_bb, .c, .c, .c)
-    case .seven:
-      return .dB
-    case .eight:
-      return pickKey(.e_bb, .d, .d, .d)
-    case .nine:
-      return .eB
-    case .ten:
-      return pickKey(.fB, .e, .e, .e)
-    case .eleven:
-      return pickKey(.g_bb, .f, .f, .f)
-    }
-  }
-  
-  func perfect5th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.g, .fX, .g, .g)
-    case .one:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .two:
-      return .a
-    case .three:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .four:
-      return pickKey(.cB, .b, .b, .b)
-    case .five:
-      return pickKey(.c, .bSh, .c, .c)
-    case .six:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .seven:
-      return .d
-    case .eight:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .nine:
-      return .e
-    case .ten:
-      return pickKey(.f, .eSh, .f, .f)
-    case .eleven:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    }
-  }
-  
-  func sharp5th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return .gSh
-    case .one:
-      return pickKey(.a, .gX, .a, .a)
-    case .two:
-      return .aSh
-    case .three:
-      return pickKey(.b, .aX, .b, .b)
-    case .four:
-      return pickKey(.c, .bSh, .c, .c)
-    case .five:
-      return pickKey(.cSh, .bX, .cSh, .bX)
-    case .six:
-      return pickKey(.d, .cX, .d, .d)
-    case .seven:
-      return .dSh
-    case .eight:
-      return pickKey(.e, .dX, .e, .e)
-    case .nine:
-      return .eSh
-    case .ten:
-      return pickKey(.fSh, .eX, .fSh, .eX)
-    case .eleven:
-      return pickKey(.g, .fX, .g, .g)
-    }
-  }
-  
-  func minor6th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .one:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .two:
-      return .bB
-    case .three:
-      return pickKey(.cB, .b, .b, .b)
-    case .four:
-      return pickKey(.d_bb, .c, .c, .c)
-    case .five:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .six:
-      return pickKey(.e_bb, .d, .d, .d)
-    case .seven:
-      return .eB
-    case .eight:
-      return pickKey(.fB, .e, .e, .e)
-    case .nine:
-      return .f
-    case .ten:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .eleven:
-      return pickKey(.a_bb, .g, .g, .g)
-    }
-  }
-  
-  func major6th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.a, .gX, .a, .a)
-    case .one:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .two:
-      return .b
-    case .three:
-      return pickKey(.c, .bSh, .c, .c)
-    case .four:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .five:
-      return pickKey(.d, .cX, .d, .d)
-    case .six:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .seven:
-      return .e
-    case .eight:
-      return pickKey(.f, .eSh, .f, .f)
-    case .nine:
-      return .fSh
-    case .ten:
-      return pickKey(.g, .fX, .g, .g)
-    case .eleven:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    }
-  }
-  
-  func dim7th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.b_bb, .a, .a, .a)
-    case .one:
-      return pickKey(.c_bb, .bB, .c_bb, .bB)
-    case .two:
-      return .cB
-    case .three:
-      return pickKey(.d_bb, .c, .c, .c)
-    case .four:
-      return .dB
-    case .five:
-      return pickKey(.e_bb, .d, .d, .d)
-    case .six:
-      return pickKey(.f_bb, .eB, .f_bb, .eB)
-    case .seven:
-      return .fB
-    case .eight:
-      return pickKey(.g_bb, .f, .f, .f)
-    case .nine:
-      return .gB
-    case .ten:
-      return pickKey(.a_bb, .g, .g, .g)
-    case .eleven:
-      return .aB
-    }
-  }
-  
-  func minor7th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    case .one:
-      return pickKey(.cB, .b, .b, .b)
-    case .two:
-      return .c
-    case .three:
-      return pickKey(.dB, .cSh, .dB, .cSh)
-    case .four:
-      return pickKey(.e_bb, .d, .d, .d)
-    case .five:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .six:
-      return pickKey(.fB, .e, .e, .e)
-    case .seven:
-      return .f
-    case .eight:
-      return pickKey(.gB, .fSh, .gB, .fSh)
-    case .nine:
-      return .g
-    case .ten:
-      return pickKey(.aB, .gSh, .aB, .gSh)
-    case .eleven:
-      return pickKey(.b_bb, .a, .a, .a)
-    }
-  }
-  
-  func major7th(rootNumber: NoteNumber) -> KeyName {
-    switch rootNumber {
-    case .zero:
-      return pickKey(.b, .aX, .b, .b)
-    case .one:
-      return pickKey(.c, .bSh, .c, .c)
-    case .two:
-      return .cSh
-    case .three:
-      return pickKey(.d, .cX, .d, .d)
-    case .four:
-      return pickKey(.eB, .dSh, .eB, .dSh)
-    case .five:
-      return pickKey(.e, .dX, .e, .e)
-    case .six:
-      return pickKey(.f, .eSh, .f, .f)
-    case .seven:
-      return .fSh
-    case .eight:
-      return pickKey(.g, .fX, .g, .g)
-    case .nine:
-      return .gSh
-    case .ten:
-      return pickKey(.a, .gX, .a, .a)
-    case .eleven:
-      return pickKey(.bB, .aSh, .bB, .aSh)
-    }
-  }
+    let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.dB, .cSh),
+       .one: pickKey(.eBB, .d),
+       .two: .eB,
+       .three: pickKey(.fB, .e),
+       .four: pickKey(.gBB, .f),
+       .five: pickKey(.gB, .fSh),
+       .six: pickKey(.aBB, .g),
+       .seven: .aB,
+       .eight: pickKey(.bBB, .a),
+       .nine: .bB,
+       .ten: pickKey(.cB, .b),
+       .eleven: pickKey(.dBB, .c)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func major9th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.d, .cX),
+       .one: pickKey(.eB, .dSh),
+       .two: .e,
+       .three: pickKey(.f, .eSh),
+       .four: pickKey(.gB, .fSh),
+       .five: pickKey(.g, .fX),
+       .six: pickKey(.aB, .gSh),
+       .seven: .a,
+       .eight: pickKey(.bB, .aSh),
+       .nine: .b,
+       .ten: pickKey(.c, .bSh),
+       .eleven: pickKey(.dB, .cSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func sharp9th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: .dSh,
+       .one: pickKey(.e, .dX),
+       .two: .eSh,
+       .three: pickKey(.fSh, .eX),
+       .four: pickKey(.g, .fX),
+       .five: .gSh,
+       .six: pickKey(.a, .gX),
+       .seven: .aSh,
+       .eight: pickKey(.b, .aX),
+       .nine: .bSh,
+       .ten: pickKey(.cSh, .bX),
+       .eleven: pickKey(.d, .cX)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func minor3rd(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.eB, .dSh),
+       .one: pickKey(.fB, .e),
+       .two: .f,
+       .three: pickKey(.gB, .fSh),
+       .four: pickKey(.aBB, .g),
+       .five: pickKey(.aB, .gSh),
+       .six: pickKey(.bBB, .a),
+       .seven: .bB,
+       .eight: pickKey(.cB, .b),
+       .nine: .c,
+       .ten: pickKey(.dB, .cSh),
+       .eleven: pickKey(.eBB, .d)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func major3rd(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.e, .dX),
+       .one: pickKey(.f, .eSh),
+       .two: .fSh,
+       .three: pickKey(.g, .fX),
+       .four: pickKey(.aB, .gSh),
+       .five: pickKey(.a, .gX),
+       .six: pickKey(.bB, .aSh),
+       .seven: .b,
+       .eight: pickKey(.c, .bSh),
+       .nine: .cSh,
+       .ten: pickKey(.d, .cX),
+       .eleven: pickKey(.eB, .dSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func perfect4th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.f, .eSh),
+       .one: pickKey(.gB, .fSh),
+       .two: .g,
+       .three: pickKey(.aB, .gSh),
+       .four: pickKey(.bBB, .a),
+       .five: pickKey(.bB, .aSh),
+       .six: pickKey(.cB, .b),
+       .seven: .c,
+       .eight: pickKey(.dB, .cSh),
+       .nine: .d,
+       .ten: pickKey(.eB, .dSh),
+       .eleven: pickKey(.fB, .e)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func sharp4th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.fSh, .eX),
+       .one: pickKey(.g, .fX),
+       .two: .gSh,
+       .three: pickKey(.a, .gX),
+       .four: pickKey(.bB, .aSh),
+       .five: pickKey(.b, .aX),
+       .six: pickKey(.c, .bSh),
+       .seven: .cSh,
+       .eight: pickKey(.d, .cX),
+       .nine: .dSh,
+       .ten: pickKey(.e, .dX),
+       .eleven: pickKey(.f, .eSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func dim5th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.gB, .fSh),
+       .one: pickKey(.aBB, .g),
+       .two: .aB,
+       .three: pickKey(.bBB, .a),
+       .four: pickKey(.cBB, .bB),
+       .five: pickKey(.cB, .b),
+       .six: pickKey(.dBB, .c),
+       .seven: .dB,
+       .eight: pickKey(.eBB, .d),
+       .nine: .eB,
+       .ten: pickKey(.fB, .e),
+       .eleven: pickKey(.gBB, .f)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func perfect5th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.g, .fX),
+       .one: pickKey(.aB, .gSh),
+       .two: .a,
+       .three: pickKey(.bB, .aSh),
+       .four: pickKey(.cB, .b),
+       .five: pickKey(.c, .bSh),
+       .six: pickKey(.dB, .cSh),
+       .seven: .d,
+       .eight: pickKey(.eB, .dSh),
+       .nine: .e,
+       .ten: pickKey(.f, .eSh),
+       .eleven: pickKey(.gB, .fSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func sharp5th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: .gSh,
+       .one: pickKey(.a, .gX),
+       .two: .aSh,
+       .three: pickKey(.b, .aX),
+       .four: pickKey(.c, .bSh),
+       .five: pickKey(.cSh, .bX),
+       .six: pickKey(.d, .cX),
+       .seven: .dSh,
+       .eight: pickKey(.e, .dX),
+       .nine: .eSh,
+       .ten: pickKey(.fSh, .eX),
+       .eleven: pickKey(.g, .fX)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func minor6th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.aB, .gSh),
+       .one: pickKey(.bBB, .a),
+       .two: .bB,
+       .three: pickKey(.cB, .b),
+       .four: pickKey(.dBB, .c),
+       .five: pickKey(.dB, .cSh),
+       .six: pickKey(.eBB, .d),
+       .seven: .eB,
+       .eight: pickKey(.fB, .e),
+       .nine: .f,
+       .ten: pickKey(.gB, .fSh),
+       .eleven: pickKey(.aBB, .g)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func major6th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.a, .gX),
+       .one: pickKey(.bB, .aSh),
+       .two: .b,
+       .three: pickKey(.c, .bSh),
+       .four: pickKey(.dB, .cSh),
+       .five: pickKey(.d, .cX),
+       .six: pickKey(.eB, .dSh),
+       .seven: .e,
+       .eight: pickKey(.f, .eSh),
+       .nine: .fSh,
+       .ten: pickKey(.g, .fX),
+       .eleven: pickKey(.aB, .gSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func dim7th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.bBB, .a),
+       .one: pickKey(.cBB, .bB),
+       .two: .cB,
+       .three: pickKey(.dBB, .c),
+       .four: .dB,
+       .five: pickKey(.eBB, .d),
+       .six: pickKey(.fBB, .eB),
+       .seven: .fB,
+       .eight: pickKey(.gBB, .f),
+       .nine: .gB,
+       .ten: pickKey(.aBB, .g),
+       .eleven: .aB
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func minor7th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.bB, .aSh),
+       .one: pickKey(.cB, .b),
+       .two: .c,
+       .three: pickKey(.dB, .cSh),
+       .four: pickKey(.eBB, .d),
+       .five: pickKey(.eB, .dSh),
+       .six: pickKey(.fB, .e),
+       .seven: .f,
+       .eight: pickKey(.gB, .fSh),
+       .nine: .g,
+       .ten: pickKey(.aB, .gSh),
+       .eleven: pickKey(.bBB, .a)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
+
+     func major7th(rootNumber: NoteNumber) -> KeyName {
+       let keyMap: [NoteNumber: KeyName] = [
+       .zero: pickKey(.b, .aX),
+       .one: pickKey(.c, .bSh),
+       .two: .cSh,
+       .three: pickKey(.d, .cX),
+       .four: pickKey(.eB, .dSh),
+       .five: pickKey(.e, .dX),
+       .six: pickKey(.f, .eSh),
+       .seven: .fSh,
+       .eight: pickKey(.g, .fX),
+       .nine: .gSh,
+       .ten: pickKey(.a, .gX),
+       .eleven: pickKey(.bB, .aSh)
+       ]
+
+       return keyMap[rootNumber] ?? .c
+     }
 }
 
 /// a protocol to allow notes to adopt `EnharmonicSymbol` and `KeySwitch` variables

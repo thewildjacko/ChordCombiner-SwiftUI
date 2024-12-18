@@ -5,23 +5,22 @@
 //  Created by Jake Smolowe on 11/18/24.
 //
 
-
 import SwiftUI
 
 struct ChordSymbolCaptionView: View {
   var chord: Chord? { didSet { setCaptionText() } }
   var showCaption: Bool = true
   var captionText: String = ""
-  
+
   init(chord: Chord?, showCaption: Bool = true) {
     self.chord = chord
     self.showCaption = showCaption
-    
+
     setCaptionText()
   }
-  
+
   mutating func setCaptionText() { captionText = chord?.preciseName ?? "" }
-  
+
   @ViewBuilder
   var body: some View {
     if showCaption {
@@ -38,5 +37,5 @@ struct ChordSymbolCaptionView: View {
 }
 
 #Preview {
-  ChordSymbolCaptionView(chord: Chord(.c, .ma13_omit9))
+  ChordSymbolCaptionView(chord: Chord(.c, .ma13omit9))
 }

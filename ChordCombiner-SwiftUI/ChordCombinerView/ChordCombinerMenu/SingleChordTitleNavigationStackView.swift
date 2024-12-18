@@ -9,9 +9,9 @@ import SwiftUI
 
 struct SingleChordTitleNavigationStackView: View {
   @Binding var selectedKeyboard: Keyboard
-  
+
   let chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel
-  
+
   var body: some View {
     VStack {
       HStack {
@@ -21,9 +21,11 @@ struct SingleChordTitleNavigationStackView: View {
           weight: .heavy,
           isMenuTitle: false
         )
-        SingleChordDetailNavigationLinkView(chord: chordCombinerSelectedChordTitleModel.selectedChord, color: chordCombinerSelectedChordTitleModel.selectedChordColor)
+        SingleChordDetailNavigationLinkView(
+          chord: chordCombinerSelectedChordTitleModel.selectedChord,
+          color: chordCombinerSelectedChordTitleModel.selectedChordColor)
       }
-      
+
       selectedKeyboard
     }
   }

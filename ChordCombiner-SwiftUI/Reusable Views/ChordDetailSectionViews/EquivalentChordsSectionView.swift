@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EquivalentChordsSectionView: View {
   let chord: Chord?
-  
+
   @ViewBuilder
     var body: some View {
       if let chord = chord {
@@ -27,6 +27,5 @@ struct EquivalentChordsSectionView: View {
 }
 
 #Preview {
-  EquivalentChordsSectionView(chord: Chord(.c, .ma13_sh11))
+  EquivalentChordsSectionView(chord: Chord(.c, .ma13sh11))
 }
-

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TitleColorDivider: View {
-  
+
     var body: some View {
       Divider()
         .titleColorOverlay()

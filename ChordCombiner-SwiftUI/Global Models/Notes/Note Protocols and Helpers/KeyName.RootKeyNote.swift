@@ -13,161 +13,198 @@ typealias RootKeyNote = KeyName.RootKeyNote
 extension KeyName {
   /**
    A `KeyName` sub-enum, limited only to flat, natural and sharp keys, used to init a Root
-   
+
    Use typealias `RootKeyNote` for brevity
-   
+
    **Initialization**
-   
+
    1. `KeyName` (single parameter init)
    2. `Letter` and `RootAccidental`
    */
-  
+
   enum RootKeyNote: CaseIterable, Codable, GettableKeyName {
+    // swiftlint:disable identifier_name
     case c, d, e, f, g, a, b
     case cB, dB, eB, fB, gB, aB, bB
     case cSh, dSh, eSh, fSh, gSh, aSh, bSh
-  
-    
+    // swiftlint:enable identifier_name
+
     static var majorRoots: [RootKeyNote] {
       [.c,
        .f, .bB, .eB, .aB, .dB, .gB, .cB,
        .g, .d, .a, .e, .b, .fSh, .cSh]
     }
-    
+
     static var majorExclusions: [RootKeyNote] {
       [.fB, .gSh, .dSh, .aSh, .eSh, .bSh]
     }
-    
+
     // a d g c f Bb Eb Ab | Db Gb Cb Fb
     // e b f# c# g# d# a# | e# b#
-    
+
     static var minorRoots: [RootKeyNote] {
       [.a,
        .d, .g, .c, .f, .bB, .eB, .aB,
        .e, .b, .fSh, .cSh, .gSh, .dSh, .aSh]
     }
-    
-    
+
     static var minorExclusions: [RootKeyNote] {
       [.dB, .gB, .cB, .fB, .eSh, .bSh]
     }
-    
-    /**
-     
-     Initializes a RootKeyNote using a single parameter
-     - Parameter keyName: takes any `KeyName`, (including double flat / double sharp keys) and converts into a RootKeyNote with a flat, natural or sharp.
-     
-     */
-    init(_ keyName: KeyName) {
+
+    static func naturals(keyName: KeyName) -> RootKeyNote {
       switch keyName {
-      case .c, .d_bb:
-        self = .c
-      case .d, .cX, .e_bb:
-        self = .d
+      case .c, .dBB:
+        return .c
+      case .d, .cX, .eBB:
+        return .d
       case .e, .dX:
-        self = .e
-      case .f, .g_bb:
-        self = .f
-      case .g, .fX, .a_bb:
-        self = .g
-      case .a, .gX, .b_bb:
-        self = .a
+        return .e
+      case .f, .gBB:
+        return .f
+      case .g, .fX, .aBB:
+        return .g
+      case .a, .gX, .bBB:
+        return .a
       case .b, .aX:
-        self = .b
-      case .cB:
-        self = .cB
-      case .dB:
-        self = .dB
-      case .eB, .f_bb:
-        self = .eB
-      case .fB:
-        self = .fB
-      case .gB:
-        self = .gB
-      case .aB:
-        self = .aB
-      case .bB, .c_bb:
-        self = .bB
-      case .cSh, .bX:
-        self = .cSh
-      case .dSh:
-        self = .dSh
-      case .eSh:
-        self = .eSh
-      case .fSh, .eX:
-        self = .fSh
-      case .gSh:
-        self = .gSh
-      case .aSh:
-        self = .aSh
-      case .bSh:
-        self = .bSh
+        return .b
+      default:
+        return .c
       }
     }
-    
-    
-    /**
-     Initializes a RootKeyNote using two parameters, a `Letter` and a `RootAccidental`
-     - Parameter letter: the letter name of a key
-     - Parameter accidental: the accidental of a key
-     */
-    
+
+    static func flats(keyName: KeyName) -> RootKeyNote {
+      switch keyName {
+      case .cB:
+        return .cB
+      case .dB:
+        return .dB
+      case .eB, .fBB:
+        return .eB
+      case .fB:
+        return .fB
+      case .gB:
+        return .gB
+      case .aB:
+        return .aB
+      case .bB, .cBB:
+        return .bB
+      default:
+        return .cB
+      }
+    }
+
+    static func sharps(keyName: KeyName) -> RootKeyNote {
+      switch keyName {
+      case .cSh, .bX:
+        return .cSh
+      case .dSh:
+        return .dSh
+      case .eSh:
+        return .eSh
+      case .fSh, .eX:
+        return .fSh
+      case .gSh:
+        return .gSh
+      case .aSh:
+        return .aSh
+      case .bSh:
+        return .bSh
+      default:
+        return .cSh
+      }
+    }
+
+    static func flats(letter: Letter) -> RootKeyNote {
+      switch letter {
+      case .c:
+        return .cB
+      case .d:
+        return .dB
+      case .e:
+        return .eB
+      case .f:
+        return .fB
+      case .g:
+        return .gB
+      case .a:
+        return .aB
+      case .b:
+        return .bB
+      }
+    }
+
+    static func naturals(letter: Letter) -> RootKeyNote {
+      switch letter {
+      case .c:
+        return .c
+      case .d:
+        return .d
+      case .e:
+        return .e
+      case .f:
+        return .f
+      case .g:
+        return .g
+      case .a:
+        return .a
+      case .b:
+        return .b
+      }
+    }
+
+    static func sharps(letter: Letter) -> RootKeyNote {
+      switch letter {
+      case .c:
+        return .cSh
+      case .d:
+        return .dSh
+      case .e:
+        return .eSh
+      case .f:
+        return .fSh
+      case .g:
+        return .gSh
+      case .a:
+        return .aSh
+      case .b:
+        return .bSh
+      }
+    }
+
+    // MARK: Initializers
+    /// Initializes a RootKeyNote using a single parameter
+    ///
+    /// - Parameter keyName: any `KeyName` (including double flat / double sharp keys)
+    ///
+    /// - Returns: a RootKeyNote with a flat, natural or sharp.
+    init(_ keyName: KeyName) {
+      switch keyName {
+      case .c, .dBB, .d, .cX, .eBB, .e, .dX, .f, .gBB,
+          .g, .fX, .aBB, .a, .gX, .bBB, .b, .aX:
+        self = RootKeyNote.naturals(keyName: keyName)
+      case .cB, .dB, .eB, .fBB, .fB, .gB, .aB, .bB, .cBB:
+        self = RootKeyNote.flats(keyName: keyName)
+      case .cSh, .bX, .dSh, .eSh, .fSh, .eX, .gSh, .aSh, .bSh:
+        self = RootKeyNote.sharps(keyName: keyName)
+      }
+    }
+
+    /// Initializes a RootKeyNote using two parameters, a `Letter` and a `RootAccidental`
+    ///
+    /// - Parameter letter: the letter name of a key
+    /// - Parameter accidental: the accidental of a key
     init(_ letter: Letter, _ accidental: RootAccidental) {
       switch accidental {
       case .flat:
-        switch letter {
-        case .c:
-          self = .cB
-        case .d:
-          self = .dB
-        case .e:
-          self = .eB
-        case .f:
-          self = .fB
-        case .g:
-          self = .gB
-        case .a:
-          self = .aB
-        case .b:
-          self = .bB
-        }
+        self = RootKeyNote.flats(letter: letter)
       case .natural:
-        switch letter {
-        case .c:
-          self = .c
-        case .d:
-          self = .d
-        case .e:
-          self = .e
-        case .f:
-          self = .f
-        case .g:
-          self = .g
-        case .a:
-          self = .a
-        case .b:
-          self = .b
-        }
+        self = RootKeyNote.naturals(letter: letter)
       case .sharp:
-        switch letter {
-        case .c:
-          self = .cSh
-        case .d:
-          self = .dSh
-        case .e:
-          self = .eSh
-        case .f:
-          self = .fSh
-        case .g:
-          self = .gSh
-        case .a:
-          self = .aSh
-        case .b:
-          self = .bSh
-        }
+        self = RootKeyNote.sharps(letter: letter)
       }
     }
-    
+
     /// The `KeyName` of the root; use to initiate other roots or scale/chord degrees
     var keyName: KeyName {
       switch self {
@@ -215,11 +252,11 @@ extension KeyName {
         return .bSh
       }
     }
-    
+
     func allNotesInKey() -> [Note] {
       Degree.allNotesInKey(rootKeyNote: self)
     }
-    
+
     func allChordNotesInKey() -> [Note] {
       Degree.allChordNotesInKey(rootKeyNote: self)
     }

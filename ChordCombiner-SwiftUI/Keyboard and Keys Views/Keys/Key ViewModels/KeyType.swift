@@ -8,204 +8,194 @@
 import SwiftUI
 
 enum KeyType: Int {
-  case C = 0, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
-  
+  // swiftlint:disable:next identifier_name
+  case c = 0, dB, d, eB, e, f, gB, g, aB, a, bB, b
+
   var initialKeyPosition: CGFloat {
     switch self {
-    case .C, .E, .G, .A:
+    case .c, .e, .g, .a:
       return 11.5
-    case .D, .F, .B:
+    case .d, .f, .b:
       return 12
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return 7
     }
   }
-  
+
   var nextKeyPosition: CGFloat {
     switch self {
-    case .C, .Eb:
+    case .c, .eB:
       return 9.5
-    case .Db, .D:
+    case .dB, .d:
       return 14
-    case .E, .B:
+    case .e, .b:
       return 23.5
-    case .F, .Bb:
+    case .f, .bB:
       return 9
-    case .Gb, .A:
+    case .gB, .a:
       return 14.5
-    case .G, .Ab:
+    case .g, .aB:
       return 11.5
     }
   }
-  
+
   var nextKey: KeyType {
     switch self {
-    case .C:
-      return .Db
-    case .Db:
-      return .D
-    case .D:
-      return .Eb
-    case .Eb:
-      return .E
-    case .E:
-      return .F
-    case .F:
-      return .Gb
-    case .Gb:
-      return .G
-    case .G:
-      return .Ab
-    case .Ab:
-      return .A
-    case .A:
-      return .Bb
-    case .Bb:
-      return .B
-    case .B:
-      return .C
+    case .c:
+      return .dB
+    case .dB:
+      return .d
+    case .d:
+      return .eB
+    case .eB:
+      return .e
+    case .e:
+      return .f
+    case .f:
+      return .gB
+    case .gB:
+      return .g
+    case .g:
+      return .aB
+    case .aB:
+      return .a
+    case .a:
+      return .bB
+    case .bB:
+      return .b
+    case .b:
+      return .c
     }
   }
-  
+
   var keyShapePath: KeyShapePathType {
     switch self {
-    case .C:
+    case .c:
       return .CShape
-    case .D:
+    case .d:
       return .DShape
-    case .E:
+    case .e:
       return .EShape
-    case .F:
+    case .f:
       return .FShape
-    case .G:
+    case .g:
       return .GShape
-    case .A:
+    case .a:
       return .AShape
-    case .B:
+    case .b:
       return .BShape
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return .blackAndEdgeWhiteKeyShape
     }
   }
-  
+
   var isBlackKey: Bool {
     switch self {
-    case .C, .D, .E, .F, .G, .A, .B:
+    case .c, .d, .e, .f, .g, .a, .b:
       return false
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return true
     }
   }
-  
+
   var defaultFillColor: Color { self.isBlackKey ? .black : .white }
-  
+
   var baseRadius: CGFloat {
     switch self {
-    case .C, .D, .E, .F, .G, .A, .B:
-      return KeyRadius.whiteKey.rawValue 
-    case .Db, .Eb, .Gb, .Ab, .Bb:
-      return KeyRadius.blackKey.rawValue 
+    case .c, .d, .e, .f, .g, .a, .b:
+      return KeyRadius.whiteKey.rawValue
+    case .dB, .eB, .gB, .aB, .bB:
+      return KeyRadius.blackKey.rawValue
     }
   }
-  
+
   var baseWidth: CGFloat {
     switch self {
-    case .C, .E, .G, .A:
-      return KeyWidth.whiteKeyCEGA.rawValue 
-    case .D, .F, .B:
-      return KeyWidth.whiteKeyDFB.rawValue 
-    case .Db, .Eb, .Gb, .Ab, .Bb:
-      return KeyWidth.blackKey.rawValue 
+    case .c, .e, .g, .a:
+      return KeyWidth.whiteKeyCEGA.rawValue
+    case .d, .f, .b:
+      return KeyWidth.whiteKeyDFB.rawValue
+    case .dB, .eB, .gB, .aB, .bB:
+      return KeyWidth.blackKey.rawValue
     }
   }
-  
+
   var baseHeight: CGFloat {
     switch self {
-    case .C, .D, .E, .F, .G, .A, .B:
+    case .c, .d, .e, .f, .g, .a, .b:
       return KeyHeight.whiteKey.rawValue
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return KeyHeight.blackKey.rawValue
     }
   }
-  
+
   var fill: Color {
     switch self {
-    case .C, .D, .E, .F, .G, .A, .B:
+    case .c, .d, .e, .f, .g, .a, .b:
       return .white
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return .black
     }
   }
-  
-  var z_Index: Double {
+
+  var zIndex: Double {
     switch self {
-    case .C, .D, .E, .F, .G, .A, .B:
+    case .c, .d, .e, .f, .g, .a, .b:
       return 0
-    case .Db, .Eb, .Gb, .Ab, .Bb:
+    case .dB, .eB, .gB, .aB, .bB:
       return 1.0
     }
   }
-  
+
   func toPitch(startingOctave: Int) -> Int { noteNumber.rawValue + (startingOctave + 1) * 12 }
 }
 
 extension KeyType: GettableNoteNumber {
   var noteNumber: NoteNumber {
     switch self {
-    case .C:
+    case .c:
       return .zero
-    case .Db:
+    case .dB:
       return .one
-    case .D:
+    case .d:
       return .two
-    case .Eb:
+    case .eB:
       return .three
-    case .E:
+    case .e:
       return .four
-    case .F:
+    case .f:
       return .five
-    case .Gb:
+    case .gB:
       return .six
-    case .G:
+    case .g:
       return .seven
-    case .Ab:
+    case .aB:
       return .eight
-    case .A:
+    case .a:
       return .nine
-    case .Bb:
+    case .bB:
       return .ten
-    case .B:
+    case .b:
       return .eleven
     }
   }
-  
+
   init(noteNumber: NoteNumber) {
-    switch noteNumber {
-    case .zero:
-      self = .C
-    case .one:
-      self = .Db
-    case .two:
-      self = .D
-    case .three:
-      self = .Eb
-    case .four:
-      self = .E
-    case .five:
-      self = .F
-    case .six:
-      self = .Gb
-    case .seven:
-      self = .G
-    case .eight:
-      self = .Ab
-    case .nine:
-      self = .A
-    case .ten:
-      self = .Bb
-    case .eleven:
-      self = .B
-    }
+    let keyTypeMap: [NoteNumber: KeyType] = [
+      .zero: .c,
+      .one: .dB,
+      .two: .d,
+      .three: .eB,
+      .four: .e,
+      .five: .f,
+      .six: .gB,
+      .seven: .g,
+      .eight: .aB,
+      .nine: .a,
+      .ten: .bB,
+      .eleven: .b
+    ]
+
+    self = keyTypeMap[noteNumber] ?? .c
   }
 }
-

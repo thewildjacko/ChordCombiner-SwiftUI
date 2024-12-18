@@ -20,11 +20,21 @@
             "testFunctions" : [
               "allChordTypesAreSimpleOrExtended(_:)",
               "chordToNotesWorksCorrectly()",
+              "dictionaryVSSwitch()",
               "doNotesWithoutChordsExist(_:)",
               "doTriadsWithoutFourNoteChordsExist(_:)",
               "simpleAndExtendedChordTypesDontOverlap(_:)"
             ]
+          },
+          {
+            "name" : "ChordCombinerTests",
+            "testFunctions" : [
+              "dictionaryVSSwitch()"
+            ]
           }
+        ],
+        "testFunctions" : [
+          "groupedVSSwitch()"
         ]
       },
       "target" : {

@@ -9,14 +9,15 @@
 import Foundation
 
 protocol SettableLetter {
-  var letter: Letter  { get set }
+  var letter: Letter { get set }
 }
 
 /// Enum to get the letter name of a note
-enum Letter: String, ChordAndScaleProperty{
+enum Letter: String, ChordAndScaleProperty {
   var id: Self { return self }
-  
-  case c = "C", d = "D" , e = "E", f = "F", g = "G", a = "A", b = "B"
+
+  // swiftlint:disable:next identifier_name
+  case c = "C", d = "D", e = "E", f = "F", g = "G", a = "A", b = "B"
   /// get Letter case from Int 0-6
   init(_ letterNum: Int) {
     switch letterNum {
@@ -45,4 +46,3 @@ extension Letter: Equatable {
     return lhs.rawValue == rhs.rawValue
   }
 }
-

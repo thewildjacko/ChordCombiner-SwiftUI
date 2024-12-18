@@ -6,9 +6,10 @@
 //
 
 import Testing
+import Foundation
 @testable import ChordCombiner_SwiftUI
 
-struct ChordCombiner_SwiftUITests {
+struct ChordCombinerTests {
   var chordCombinerViewModelResultChordTest: ChordCombinerViewModel
   
   init() {
@@ -21,7 +22,7 @@ struct ChordCombiner_SwiftUITests {
   @Test("Chords Combine Correctly")
   func chordsCombineCorrectly() async throws {
     // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    #expect(chordCombinerViewModelResultChordTest.resultChord == Chord(.c, .ma13_sh11), "The lower and upper chords should combine to create a Cma13 chord")
+    #expect(chordCombinerViewModelResultChordTest.resultChord == Chord(.c, .ma13sh11), "The lower and upper chords should combine to create a Cma13 chord")
   }
   
   @Test("All simple chord types are correct", arguments: ChordType.allSimpleChordTypes)
@@ -63,8 +64,6 @@ struct ChordCombiner_SwiftUITests {
     #expect(!overlaps, "Simple and Extended ChordTypes shouldn't overlap")
   }
   
-  
-  
   @Test("Chord: degreeNumbers matches degreeNumberSet", arguments: ChordFactory.allChordsInC)
   func degreeNumbersMatchesDegreeNumberSet(_ chord: Chord) async throws {
     let degreeNumbersMatchesDegreeNumberSet: Bool = chord.degreeNumbers.count == chord.degreeNumberSet.count
@@ -74,7 +73,13 @@ struct ChordCombiner_SwiftUITests {
   
   @Test("Stacked pitchesByDegree matches stackedPitches", arguments: ChordFactory.allChordsInC)
   func stackedPitchesByDegreeMatchesStackedPitches(_ chord: Chord) async throws {
-    #expect(chord.voicingCalculator.stackedPitches == chord.voicingCalculator.stackedPitchesByDegree, "\n\(chord.preciseName)\n------\n\(chord.voicingCalculator.stackedPitches)\n\(chord.voicingCalculator.stackedPitchesByDegree)\nShould be able to get stacked pitches by sorting degrees by size\n")
+    #expect(chord.voicingCalculator.stackedPitches ==
+            chord.voicingCalculator.stackedPitchesByDegree,
+            """
+            \n\(chord.preciseName)\n------\n\(chord.voicingCalculator.stackedPitches)\n\(chord.voicingCalculator
+            .stackedPitchesByDegree)
+            \nShould be able to get stacked pitches by sorting degrees by size\n
+            """)
   }
   
   @Test("combineChords works correctly")
@@ -83,10 +88,16 @@ struct ChordCombiner_SwiftUITests {
     let upperChord = Chord(.d, .ma)
     
     let resultChord = ChordCombiner.combineChords(firstChord: lowerChord, secondChord: upperChord)
-
+    
     print(resultChord?.preciseName ?? "")
     
-    #expect(resultChord?.preciseName == "Dma9(♯11)", "ChordCombiner.combineChords should not find an initial match for lowerChord \(lowerChord.preciseName) and upperChord \(upperChord.preciseName), but should keep searching through available roots and eventually land on a match for D.")
+    #expect(resultChord?.preciseName ==
+            """
+Dma9(♯11)", "ChordCombiner.combineChords should not find 
+an initial match for lowerChord \(lowerChord.preciseName) and upperChord \(upperChord.preciseName), but should keep searching
+ through available roots and eventually land on a match for D.
+"""
+    )
   }
   
   @Test("Do notes without chords exist?", arguments: ChordFactory.allChordsInC)

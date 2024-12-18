@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailRow: View {
   var title: String
   var text: String
-  
+
   var body: some View {
     HStack {
       Text(title)

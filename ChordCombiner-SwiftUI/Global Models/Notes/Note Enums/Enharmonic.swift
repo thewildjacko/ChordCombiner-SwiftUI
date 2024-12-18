@@ -9,27 +9,21 @@
 import Foundation
 
 protocol Enharmonic {
-  var enharmonic: EnharmonicSymbol { get set }  // sets whether note belongs to sharp key or flat key
+  var enharmonic: EnharmonicSymbol { get }  // sets whether note belongs to sharp key or flat key
 }
 
 protocol EnharmonicID: Enharmonic, SettableLetter, SettableAccidental { }
 
 /// enum to determine whether a key is "flat" or "sharp"
 enum EnharmonicSymbol: Int, CaseIterable, CustomStringConvertible, Codable {
-  case flat = 0, sharp, blackKeyFlats, blackKeySharps
-  
+  case flat = 0, sharp
+
   var description: String {
     switch self {
     case .flat:
       return "♭"
     case .sharp:
       return "♯"
-    case .blackKeyFlats:
-      return "black key ♭'s / white key ♮'s"
-    case .blackKeySharps:
-      return "black key ♯'s / white key ♮'s"
     }
   }
 }
-
-

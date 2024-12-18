@@ -21,5 +21,5 @@ protocol KeyShapeGroupProtocol {
   var fill: Color { get set }
   var stroke: Color { get set }
   var lineWidth: CGFloat { get set }
-  var z_Index: Double { get set }
+  var zIndex: Double { get set }
 }

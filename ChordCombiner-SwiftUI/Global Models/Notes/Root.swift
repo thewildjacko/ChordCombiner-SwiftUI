@@ -10,12 +10,12 @@ import Foundation
 struct Root {
   var rootKeyNote: RootKeyNote { didSet { note = Note(rootKeyNote) } }
   private(set) var note: Note
-  
+
   init(_ rootKeyNote: RootKeyNote) {
     self.rootKeyNote = rootKeyNote
     note = Note(rootKeyNote)
   }
-  
+
   init(_ note: Note) {
     self.rootKeyNote = RootKeyNote(note.keyName)
     self.note = Note(rootKeyNote)

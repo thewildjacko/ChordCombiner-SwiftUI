@@ -5,17 +5,16 @@
 //  Created by Jake Smolowe on 12/6/24.
 //
 
-
 import Foundation
 
 struct ChordGrapherAttributes {
   var elementsContained: ElementsContained
-  
+
   init(elementsContained: ElementsContained) { self.elementsContained = elementsContained }
-  
+
   let digraph = String.GrapherConstants.digraph.rawValue
   let charSet = "charset=\"utf8\""
-  
+
   var firstChildLevelNodeShape: String {
     var firstNodeShape = ""
     switch elementsContained {
@@ -26,10 +25,10 @@ struct ChordGrapherAttributes {
     case .notes:
       firstNodeShape = "circle"
     }
-    
+
     return nodeShape(shape: firstNodeShape, width: 0.5)
   }
-  
+
   /// returns a dot-notation string describing the shape of a node
   func nodeShape(shape: String, width: CGFloat? = nil) -> String {
     if let width = width {
@@ -38,7 +37,7 @@ struct ChordGrapherAttributes {
       return "node [shape=\(shape)]"
     }
   }
-  
+
   /// returns a dot-notation string describing the color and penWidth of an edge
   func edge(color: String, penWidth: CGFloat? = nil) -> String {
     if let penWidth = penWidth {
@@ -47,12 +46,12 @@ struct ChordGrapherAttributes {
       return "edge [color=\"\(color)\"]"
     }
   }
-  
+
   func arrowHead(type: String) -> String { return "edge [arrowhead=\(type)]" }
-  
+
   func graphPrefix(edgeColor: String) -> String {
     let edge = edge(color: edgeColor)
-    
+
     return "ordering=out ratio=0.5 \(edge) \(charSet)"
   }
 }

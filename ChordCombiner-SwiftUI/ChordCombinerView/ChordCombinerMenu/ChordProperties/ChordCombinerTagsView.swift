@@ -10,7 +10,7 @@ import SwiftUI
 struct ChordCombinerTagsView<T: ChordAndScaleProperty>: View {
   @Binding var selectedProperty: T?
   @Binding var matchingProperties: Set<T>
-  
+
   var tagProperties: [T]
   var isHorizontal: Bool = true
   var font: Font = .caption
@@ -19,7 +19,7 @@ struct ChordCombinerTagsView<T: ChordAndScaleProperty>: View {
   var cornerRadius: CGFloat = 8
   var spacing: CGFloat = 10
   var highlightColor: Color = .tagBackgroundHighlighted
-  
+
   var body: some View {
     if isHorizontal {
       HStack(spacing: spacing) {

@@ -12,6 +12,7 @@ protocol GettableKeyName {
   var keyName: KeyName { get }
 }
 
+// swiftlint:disable identifier_name
 /// Use `KeyName` to initiate `RootGens`, which then can initiate `Notes`, `ScaleDetails`, `Triads` and `FourNoteChords`
 enum KeyName: String, CaseIterable, Codable {
   // natural white notes
@@ -39,13 +40,13 @@ enum KeyName: String, CaseIterable, Codable {
   case aSh = "A♯"
   case bSh = "B♯"
   // double flat notes
-  case c_bb = "C𝄫"
-  case d_bb = "D𝄫"
-  case e_bb = "E𝄫"
-  case f_bb = "F𝄫"
-  case g_bb = "G𝄫"
-  case a_bb = "A𝄫"
-  case b_bb = "B𝄫"
+  case cBB = "C𝄫"
+  case dBB = "D𝄫"
+  case eBB = "E𝄫"
+  case fBB = "F𝄫"
+  case gBB = "G𝄫"
+  case aBB = "A𝄫"
+  case bBB = "B𝄫"
   // double sharp notes
   case cX = "C𝄪"
   case dX = "D𝄪"
@@ -54,11 +55,12 @@ enum KeyName: String, CaseIterable, Codable {
   case gX = "G𝄪"
   case aX = "A𝄪"
   case bX = "B𝄪"
-    
-  ///The KeyName's accidental
+
+  // swiftlint:enable identifier_name
+  /// The KeyName's accidental
   var accidental: Accidental {
     switch self {
-    case .d_bb, .e_bb, .f_bb, .g_bb, .a_bb, .b_bb, .c_bb:
+    case .dBB, .eBB, .fBB, .gBB, .aBB, .bBB, .cBB:
       return .dblFlat
     case .dB, .eB, .fB, .gB, .aB, .bB, .cB:
       return .flat
@@ -70,28 +72,28 @@ enum KeyName: String, CaseIterable, Codable {
       return .dblSharp
     }
   }
-  
+
   /// The KeyName's Letter
   var letter: Letter {
     switch self {
-    case .c_bb, .cB, .c, .cSh, .cX:
+    case .cBB, .cB, .c, .cSh, .cX:
       return .c
-    case .d_bb, .dB, .d, .dSh, .dX:
+    case .dBB, .dB, .d, .dSh, .dX:
       return .d
-    case .e_bb, .eB, .e, .eSh, .eX:
+    case .eBB, .eB, .e, .eSh, .eX:
       return .e
-    case .f_bb, .fB, .f, .fSh, .fX:
+    case .fBB, .fB, .f, .fSh, .fX:
       return .f
-    case .g_bb, .gB, .g, .gSh, .gX:
+    case .gBB, .gB, .g, .gSh, .gX:
       return .g
-    case .a_bb, .aB, .a, .aSh, .aX:
+    case .aBB, .aB, .a, .aSh, .aX:
       return .a
-    case .b_bb, .bB, .b, .bSh, .bX:
+    case .bBB, .bB, .b, .bSh, .bX:
       return .b
     }
   }
-  
-  ///Prints the KeyName's `name`, `Letter`, `Accidental`, `EnharmonicSymbol` and `noteNumber` to the console
+
+  /// Prints the KeyName's `name`, `Letter`, `Accidental`, `EnharmonicSymbol` and `noteNumber` to the console
   func keyStats() {
     print(rawValue, "(\(letter))", accidental.rawValue, enharmonic, noteNumber.rawValue)
   }
@@ -100,49 +102,43 @@ enum KeyName: String, CaseIterable, Codable {
 extension KeyName: Enharmonic {
   /// EnharmonicSymbol value to determine how `Notes` initiated using this KeyName will print
   var enharmonic: EnharmonicSymbol {
-    get {
-      switch self {
-      case .c, .dB, .eB, .fB, .f, .gB, .aB, .bB, .cB, .d_bb, .e_bb, .f_bb, .g_bb, .a_bb, .b_bb, .c_bb:
-        return .flat
-      case .cSh, .d, .dSh, .e, .eSh, .fSh, .g, .gSh, .a, .aSh, .b, .bSh, .cX, .dX, .eX, .fX, .gX, .aX, .bX:
-        return .sharp
-      }
+    switch self {
+    case .c, .dB, .eB, .fB, .f, .gB, .aB, .bB, .cB, .dBB, .eBB, .fBB, .gBB, .aBB, .bBB, .cBB:
+      return .flat
+    case .cSh, .d, .dSh, .e, .eSh, .fSh, .g, .gSh, .a, .aSh, .b, .bSh, .cX, .dX, .eX, .fX, .gX, .aX, .bX:
+      return .sharp
     }
-    set { }
   }
 }
 
 extension KeyName: GettableNoteNumber {
   /// The KeyName's `NoteNumber` _0-_11
   var noteNumber: NoteNumber {
-    get {
-      switch self {
-      case .c, .bSh, .d_bb:
-        return .zero
-      case .cSh, .dB, .bX:
-        return .one
-      case .d, .cX, .e_bb:
-        return .two
-      case .dSh, .eB, .f_bb:
-        return .three
-      case .e, .fB, .dX:
-        return .four
-      case .eSh, .f, .g_bb:
-        return .five
-      case .fSh, .gB, .eX:
-        return .six
-      case .g, .fX, .a_bb:
-        return .seven
-      case .gSh, .aB:
-        return .eight
-      case .a, .gX, .b_bb:
-        return .nine
-      case .aSh, .bB, .c_bb:
-        return .ten
-      case .cB, .b, .aX:
-        return .eleven
-      }
+    switch self {
+    case .c, .bSh, .dBB:
+      return .zero
+    case .cSh, .dB, .bX:
+      return .one
+    case .d, .cX, .eBB:
+      return .two
+    case .dSh, .eB, .fBB:
+      return .three
+    case .e, .fB, .dX:
+      return .four
+    case .eSh, .f, .gBB:
+      return .five
+    case .fSh, .gB, .eX:
+      return .six
+    case .g, .fX, .aBB:
+      return .seven
+    case .gSh, .aB:
+      return .eight
+    case .a, .gX, .bBB:
+      return .nine
+    case .aSh, .bB, .cBB:
+      return .ten
+    case .cB, .b, .aX:
+      return .eleven
     }
-//    set { }
   }
 }

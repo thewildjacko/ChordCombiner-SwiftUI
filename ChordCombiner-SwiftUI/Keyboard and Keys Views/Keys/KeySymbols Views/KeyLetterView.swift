@@ -8,20 +8,32 @@
 import SwiftUI
 
 struct KeyLetterView: View {
+  static let initial = KeyLetterView(
+    width: 0,
+    sizeMultiplier: 0,
+    textColor: .title,
+    note: Note(.c),
+    lettersOn: false)
+
   let width: CGFloat
   let sizeMultiplier: CGFloat
   let textColor: Color
   var note: Note?
   var lettersOn: Bool
-  
-  init(width: CGFloat, sizeMultiplier: CGFloat, textColor: Color, note: Note? = nil, lettersOn: Bool) {
+
+  init(
+    width: CGFloat,
+    sizeMultiplier: CGFloat,
+    textColor: Color,
+    note: Note? = nil,
+    lettersOn: Bool) {
     self.width = width
     self.sizeMultiplier = sizeMultiplier
     self.textColor = textColor
     self.note = note
     self.lettersOn = lettersOn
   }
-  
+
   @ViewBuilder
   var body: some View {
     if lettersOn {

@@ -17,15 +17,15 @@ protocol SettableAccidental {
 /// the accidental of a note, key, or root, e.g. flat, sharp, natural, double flat or double sharp.
 enum Accidental: String, CaseIterable, Identifiable, Codable {
   var id: Self { return self }
-  
+
   case flat = "♭", natural = "♮", sharp = "♯", dblFlat = "𝄫", dblSharp = "𝄪"
-  
+
   /// accidental enum limited to flats, naturals and sharps, specifically for initializing `Roots`
   enum RootAccidental: String, ChordAndScaleProperty {
     var id: Self { return self }
-    
+
     case flat = "♭", natural = "♮", sharp = "♯"
-    
+
     /// get `RootAccidental` from pickerView row or other row-based UI
     init(_ accidentalNum: Int) {
       switch accidentalNum {
@@ -52,6 +52,6 @@ enum Accidental: String, CaseIterable, Identifiable, Codable {
         self = .natural
       }
     }
-    
+
   }
 }

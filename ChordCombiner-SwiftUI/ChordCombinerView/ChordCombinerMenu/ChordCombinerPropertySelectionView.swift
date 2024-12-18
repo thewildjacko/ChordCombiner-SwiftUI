@@ -12,18 +12,18 @@ struct ChordCombinerPropertySelectionView: View {
   @Binding var matchingLetters: Set<Letter>
   @Binding var matchingAccidentals: Set<RootAccidental>
   @Binding var matchingChordTypes: Set<ChordType>
-  
+
   let chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel
-  
+
   var rootKeyNote: RootKeyNote? {
     guard let letter = chordProperties.letter,
           let accidental = chordProperties.accidental else {
       return nil
     }
-    
+
     return RootKeyNote(letter, accidental)
   }
-  
+
   var body: some View {
     VStack {
       TitleView(
@@ -32,7 +32,7 @@ struct ChordCombinerPropertySelectionView: View {
         weight: .semibold,
         color: .glowText
       )
-      
+
       HStack(alignment: .bottom) {
         ChordCombinerTagsView(
           selectedProperty: $chordProperties.letter,
@@ -46,12 +46,11 @@ struct ChordCombinerPropertySelectionView: View {
           spacing: 8,
           highlightColor: .tagBackgroundHighlighted
         )
-        
+
         Divider()
           .frame(height: 30)
           .titleColorOverlay()
-        
-        
+
         ChordCombinerTagsView(
           selectedProperty: $chordProperties.accidental,
           matchingProperties: $matchingAccidentals,
@@ -66,9 +65,9 @@ struct ChordCombinerPropertySelectionView: View {
         )
       }
     }
-    
+
     TitleColorDivider()
-    
+
     ChordCombinerKeyboardScrollView(
       selectedChordType: $chordProperties.chordType,
       matchingChordTypes: $matchingChordTypes,
@@ -76,7 +75,7 @@ struct ChordCombinerPropertySelectionView: View {
       rootKeyNote: rootKeyNote,
       color: chordCombinerSelectedChordTitleModel.selectedChordColor
     )
-    
+
     TitleColorDivider()
   }
 }

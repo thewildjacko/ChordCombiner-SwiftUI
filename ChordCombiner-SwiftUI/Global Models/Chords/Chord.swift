@@ -8,24 +8,28 @@
 import Foundation
 
 struct Chord: ChordsAndScales, KeySwitch, Identifiable {
-  //  MARK: instance properties
+  static let initial = Chord(.c, .ma)
+  // MARK: instance properties
   var id = UUID()
-  
+
   var rootNote: Root = Root(.c) { didSet { setRootProperties() } }
   var root: Note = Note(.c)
   var rootKeyNote: RootKeyNote = .c
   var keyName: KeyName = .c
-  
+
   var startingOctave: Int = 4
-  
+
   var chordType: ChordType = .ma { didSet { refresh() } }
   var enharmonic: EnharmonicSymbol = .flat
   var accidental: RootAccidental = .natural { didSet { refresh() } }
   var letter: Letter = .c { didSet { refresh() } }
-  
-  var commonName: String { root.noteName + chordType.commonName }  
+
+  var isSlashChord: Bool = false
+  var slashChordBassNote: RootKeyNote?
+
+  var commonName: String { root.noteName + chordType.commonName }
   var preciseName: String { root.noteName + chordType.preciseName }
-  
+
   var notes: [Note] = [] { didSet { setNoteProperties() } }
   var rootKeyNotes: [RootKeyNote] = []
   var noteNumbers: [NoteNumber] = []
@@ -34,11 +38,11 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   // DegreeNumbers conformance
   var degreeNumbers: [Int] = [] { didSet { degreeNumberSet = Set(degreeNumbers) } }
   var degreeNumberSet: Set<Int> = []
-  
+
   var noteNames: [String] = []
-  
-  var degreeNames: DegreeNames = (names: [], numeric: [], long: [])
-  
+
+  var degreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
+
   var voicingCalculator: VoicingCalculator = VoicingCalculator(
     degreeNumbers: [],
     rootNote: Root(.c),
@@ -49,25 +53,32 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     isSlashChord: false,
     slashChordBassNote: .c
   )
-  
+
   var keySwitcher: KeySwitcher {
     return KeySwitcher(enharmonic: enharmonic)
   }
-  
-  //  MARK: initializers
-  init(rootNumber: NoteNumber = .zero, chordType: ChordType, enharmonic: EnharmonicSymbol = .flat, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
-    self.chordType = chordType
-    self.enharmonic = enharmonic
-    self.startingOctave = startingOctave
-    
+
+  // MARK: initializers
+  init(rootNumber: NoteNumber = .zero,
+       chordType: ChordType,
+       enharmonic: EnharmonicSymbol = .flat,
+       startingOctave: Int = 4,
+       isSlashChord: Bool = false,
+       slashChordBassNote: RootKeyNote? = nil) {
+     self.chordType = chordType
+     self.enharmonic = enharmonic
+     self.startingOctave = startingOctave
+     self.isSlashChord = isSlashChord
+     self.slashChordBassNote = slashChordBassNote
+
     rootNote = Root(Note(rootNumber: rootNumber, enharmonic: enharmonic, degree: .root))
     setRootProperties()
-    
+
     letter = root.keyName.letter
     accidental = RootAccidental(root.keyName.accidental)
-    
+
     self.notes = Degree.setNotesByDegrees(rootKeyNote: rootKeyNote, degreeTags: chordType.degreeTags)
-    
+
     setNoteProperties()
 
     voicingCalculator = VoicingCalculator(
@@ -81,8 +92,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       slashChordBassNote: slashChordBassNote
     )
   }
-  
-  init(_ rootKeyNote: RootKeyNote, _ chordType: ChordType, startingOctave: Int = 4, isSlashChord: Bool = false, slashChordBassNote: RootKeyNote? = nil) {
+
+  init(_ rootKeyNote: RootKeyNote,
+       _ chordType: ChordType,
+       startingOctave: Int = 4,
+       isSlashChord: Bool = false,
+       slashChordBassNote: RootKeyNote? = nil) {
     self.init(
       rootNumber: rootKeyNote.keyName.noteNumber,
       chordType: chordType,
@@ -90,16 +105,16 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       startingOctave: startingOctave,
       isSlashChord: isSlashChord,
       slashChordBassNote: slashChordBassNote
-    )    
+    )
   }
-  
-  //  MARK: initializer helper methods
+
+  // MARK: initializer helper methods
   mutating func setRootProperties() {
     root = rootNote.note
     rootKeyNote = rootNote.rootKeyNote
     keyName = rootKeyNote.keyName
   }
-  
+
   mutating func setNoteProperties() {
     setNotesByNoteNumber(notes.keyed { $0.noteNumber })
     rootKeyNotes = notes.map { RootKeyNote($0.keyName) }
@@ -107,73 +122,75 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     noteNumbers = notes.map { $0.noteNumber }
     degreeNumbers = notes.map { $0.noteNumber.rawValue }
     degreeNumberSet = Set(degreeNumbers)
-    
-    degreeNames = (
+
+    degreeNames = DegreeNameGroup(
       names: notes.map { $0.degreeName.name },
       numeric: notes.map { $0.degreeName.numeric },
       long: notes.map { $0.degreeName.long }
     )
   }
-  
-  //  MARK: instance methods
+
+  // MARK: instance methods
   mutating func refresh() {
-    self = Chord(RootKeyNote(letter, accidental), chordType)
+    self = Chord(
+      RootKeyNote(letter, accidental),
+      chordType,
+      isSlashChord: isSlashChord,
+      slashChordBassNote: slashChordBassNote)
   }
-  
+
   func getBaseChord() -> Chord {
     return Chord(rootKeyNote, chordType.baseChordType)
   }
-  
+
   func variantCombinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, chordToMatch: Chord) -> Bool {
-    var newChord: Chord
+    var newChord: Chord = Chord.initial
 //    print("chordProperty: \(chordProperty.rawValue)")
     switch chordProperty {
     case is Letter:
-      newChord = Chord(RootKeyNote(chordProperty as! Letter, accidental), chordType)
+      if let letter = chordProperty as? Letter {
+        newChord = Chord(RootKeyNote(letter, accidental), chordType)
+      }
     case is RootAccidental:
-      newChord = Chord(RootKeyNote(letter, chordProperty as! RootAccidental), chordType)
+      if let accidental = chordProperty as? RootAccidental {
+        newChord = Chord(RootKeyNote(letter, accidental), chordType)
+      }
     case is ChordType:
-      newChord = Chord(RootKeyNote(letter, accidental), chordProperty as! ChordType)
+      if let chordType = chordProperty as? ChordType {
+        newChord = Chord(RootKeyNote(letter, accidental), chordType)
+      }
     default:
-      print("Incompatible chord property!")
+//      print("Incompatible chord property!")
       return false
     }
-    
+
     let result = ChordCombiner.combineChords(firstChord: chordToMatch, secondChord: newChord)
-    
-    if chordProperty is Letter {
-//      if let result = result { print((chordProperty as! Letter).rawValue, result.preciseName) }
-    }
-        
-//    print("newChord \(newChord.preciseName) and chordToMatch \(chordToMatch.preciseName) combine to create \(result?.preciseName ?? "no chord")")
-    
+
     return result != nil ? true : false
   }
-  
+
   func contains(_ chord: Chord) -> Bool {
-    chord.preciseName != preciseName && degreeNumbers.includes(chord.degreeNumbers) && chord.degreeNumbers.count < degreeNumbers.count
+    return chord.preciseName != preciseName &&
+    degreeNumbers.includes(chord.degreeNumbers) &&
+    chord.degreeNumbers.count < degreeNumbers.count
   }
-  
+
   func contains(_ note: Note) -> Bool {
     notes.contains(note)
   }
-  
-  func containingChords(callingMethod: String = #function) -> [Chord] {
-    print("In `\(#function)`, called by `\(callingMethod)`")
-    
+
+  func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
-    
-    let clock = ContinuousClock()
-    let elapsed = clock.measure {
-      for chord in ChordFactory.allSimpleChords where self.contains(chord) {
-        if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
-          chordMatches.append(Chord(rootNumber: chord.root.noteNumber, chordType: chord.chordType, enharmonic: noteNumber.value.keyName.enharmonic))
-        }
+    for chord in ChordFactory.allSimpleChords where self.contains(chord) {
+      if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
+        chordMatches.append(
+          Chord(
+            rootNumber: chord.root.noteNumber,
+            chordType: chord.chordType,
+            enharmonic: noteNumber.value.keyName.enharmonic))
       }
     }
-    
-    print("It took \(elapsed) to find all chords contained in \(preciseName).")
-    
+
     return chordMatches
   }
 }
@@ -189,18 +206,20 @@ extension Chord {
 }
 
 extension Chord {
-  /// All ``RootKeyNotes`` from `self` and parameter `secondChord` sorted in order of the two chords' combined ``notes`` arrays, filtering out duplicate values and `lowerRootKeyNote`.
+  /// All ``RootKeyNotes`` from `self` and parameter `secondChord` sorted in order of their combined ``notes``
+  /// - Filters out duplicate values and `lowerRootKeyNote`.
   func combinedRootKeyNotes(with secondChord: Chord) -> [RootKeyNote] {
     /// All ``RootKeyNotes`` in `self` minus  own `rootKeyNote`
     let firstChordRemainingRootKeyNotes = rootKeyNotes.filter { $0 != rootKeyNote }
-    
+
     /// All ``RootKeyNotes`` in `secondChord` not present in `self`
     let secondChordUniqueRootKeyNotes = secondChord.rootKeyNotes.filter { !rootKeyNotes.contains($0) }
 
-    /// All ``RootKeyNotes`` sorted in order of both chords' combined ``notes`` arrays, filtering out duplicate values and own `rootKeyNote`.
+    /// All ``RootKeyNotes`` from both chords, sorted in order of their combined ``notes``
+    /// - Filters out duplicate values and own `rootKeyNote`.
     return firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
   }
-  
+
   func getEquivalentChords() -> [Chord] {
     EquivalentChordFinder.checkForEquivalentChords(
       degreeNumbers: degreeNumbers,
@@ -216,7 +235,7 @@ extension Chord {
          noteNames,
          degreeNames
   }
-  
+
   func displayDetails(detailType: DetailType) -> String {
     switch detailType {
     case .commonName:
@@ -255,4 +274,8 @@ extension Chord {
   func isTriad() -> Bool { chordType.isTriad }
   func isFourNoteSimpleChord() -> Bool { chordType.isFourNoteSimpleChord }
   func isExtended() -> Bool { chordType.isExtendedChord }
+
+  func rootMatchesNoteNumber(_ note: Note) -> Bool {
+    self.root.noteNumber == note.noteNumber
+  }
 }

@@ -10,23 +10,23 @@ import SwiftUI
 struct ChordCombinerKeyboardScrollView: View {
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
-  
+
   var chordTypes: [ChordType]
   var rootKeyNote: RootKeyNote?
   var color: Color
-  
+
   let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
-  
+
   var body: some View {
     ScrollViewReader { proxy in
       List {
         ForEach(chordTypes) { chordType in
           if let rootKeyNote = rootKeyNote {
             let chord = Chord(rootKeyNote, chordType)
-            
+
             CustomChordMenuKeyboardDisplayRow(
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,

@@ -13,7 +13,7 @@ struct TitleView: View, Equatable {
   var weight: Font.Weight = .regular
   var color: Color = .title
   var isMenuTitle: Bool = false
-  
+
   var body: some View {
 //    print("Title \(text) computed!")
     return Text(text)

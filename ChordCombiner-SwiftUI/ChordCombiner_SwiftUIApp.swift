@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct ChordCombiner_SwiftUIApp: App {
+struct ChordCombinerApp: App {
     var body: some Scene {
         WindowGroup {
           ChordCombinerView()

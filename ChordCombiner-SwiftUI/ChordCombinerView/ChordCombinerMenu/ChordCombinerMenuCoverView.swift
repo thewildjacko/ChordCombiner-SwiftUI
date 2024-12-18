@@ -11,33 +11,41 @@ struct ChordCombinerMenuCoverView: View {
   var chordCombinerViewModel: ChordCombinerViewModel {
     didSet { setChordCombinerSelectedChordTitleModel() }
   }
-  
+
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
-  
+
   var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
-  
-  init(chordCombinerViewModel: ChordCombinerViewModel, keyboard: Binding<Keyboard>, combinedKeyboard: Binding<Keyboard>, chordProperties: Binding<ChordProperties>) {
+
+  init(
+    chordCombinerViewModel: ChordCombinerViewModel,
+    keyboard: Binding<Keyboard>,
+    combinedKeyboard: Binding<Keyboard>,
+    chordProperties: Binding<ChordProperties>) {
     self.chordCombinerViewModel = chordCombinerViewModel
     self._keyboard = keyboard
     self._combinedKeyboard = combinedKeyboard
     self._chordProperties = chordProperties
-    
+
     setChordCombinerSelectedChordTitleModel()
   }
-  
+
   mutating func setChordCombinerSelectedChordTitleModel() {
     chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
       chordCombinerViewModel: chordCombinerViewModel,
       chordProperties: chordProperties
     )
   }
-  
+
   var body: some View {
     VStack {
-      TitleView(text: chordCombinerSelectedChordTitleModel.promptText, font: .headline, weight: .heavy, isMenuTitle: false)
-      
+      TitleView(
+        text: chordCombinerSelectedChordTitleModel.promptText,
+        font: .headline,
+        weight: .heavy,
+        isMenuTitle: false)
+
       NavigationLink(
         destination:
           ChordCombinerChordSelectionMenu(
@@ -56,7 +64,7 @@ struct ChordCombinerMenuCoverView: View {
               weight: .heavy,
               color: .button
             )
-          
+
           keyboard
         }
       }
@@ -67,20 +75,7 @@ struct ChordCombinerMenuCoverView: View {
 #Preview {
   ChordCombinerMenuCoverView(
     chordCombinerViewModel: ChordCombinerViewModel(),
-    keyboard:
-        .constant(
-          Keyboard(
-            baseWidth: 330,
-            initialKeyType: .C,
-            startingOctave: 4,
-            octaves: 2
-          )
-        ),
-    combinedKeyboard: .constant(
-      Keyboard(
-        baseWidth: 351, initialKeyType: .C,  startingOctave: 4, octaves: 5
-      )
-    ),
-    chordProperties: .constant(ChordProperties(letter: nil, accidental: nil, chordType: nil))
-  )
+    keyboard: .constant(Keyboard.initialSingleChordKeyboard),
+    combinedKeyboard: .constant(Keyboard.initialDualChordKeyboard),
+    chordProperties: .constant(ChordProperties.initial))
 }

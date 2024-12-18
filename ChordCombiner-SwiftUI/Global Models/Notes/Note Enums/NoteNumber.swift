@@ -15,7 +15,7 @@ protocol GettableNoteNumber {
 /// enum assigns 0-11 for C-B
 enum NoteNumber: Int, CaseIterable, CustomStringConvertible, Codable {
   case zero = 0, one, two, three, four, five, six, seven, eight, nine, ten, eleven
-    
+
   var description: String {
     switch self {
     case .zero:
@@ -44,42 +44,19 @@ enum NoteNumber: Int, CaseIterable, CustomStringConvertible, Codable {
       return "_11"
     }
   }
-  
+
   init(_ number: Int) {
-    switch number {
-    case 0:
-      self = .zero
-    case 1:
-      self = .one
-    case 2:
-      self = .two
-    case 3:
-      self = .three
-    case 4:
-      self = .four
-    case 5:
-      self = .five
-    case 6:
-      self = .six
-    case 7:
-      self = .seven
-    case 8:
-      self = .eight
-    case 9:
-      self = .nine
-    case 10:
-      self = .ten
-    case 11:
-      self = .eleven
-    default:
-      self = .zero
-    }
+    let noteNumberMap: [Int: NoteNumber] = Dictionary(
+      uniqueKeysWithValues: zip(Array(0...11), NoteNumber.allCases)
+    )
+
+      self = noteNumberMap[number] ?? .zero
   }
-  
+
   func plusNoteNum(_ otherNoteNumber: NoteNumber) -> NoteNumber {
     NoteNumber((rawValue + otherNoteNumber.rawValue).degreeNumberInOctave)
   }
-  
+
   func minusNoteNum(_ otherNoteNumber: NoteNumber) -> NoteNumber {
     NoteNumber((rawValue - otherNoteNumber.rawValue).degreeNumberInOctave)
   }

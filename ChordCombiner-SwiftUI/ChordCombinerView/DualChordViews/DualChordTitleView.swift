@@ -12,15 +12,15 @@ struct DualChordTitleView: View {
   let titleText: String
   let titleFont: Font
   var showCaption: Bool = true
-  
-  var body: some View {    
+
+  var body: some View {
     VStack(spacing: 5) {
       TitleView(
         text: titleText,
         font: titleFont,
         weight: .heavy
       )
-      
+
       ChordSymbolCaptionView(chord: chordCombinerViewModel.resultChord, showCaption: showCaption)
     }
   }

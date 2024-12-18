@@ -17,8 +17,17 @@ struct HighlightableTagView: View, Equatable {
   var cornerRadius: CGFloat = 8
   var glowColor: Color = .clear
   var glowRadius: CGFloat = 0
-  
-  init(text: String, highlightCondition: Bool, highlightColor: Color = .tagBackgroundHighlighted, font: Font = .caption, horizontalPadding: CGFloat = 9, verticalPadding: CGFloat = 5, cornerRadius: CGFloat = 8, glowColor: Color = .clear, glowRadius: CGFloat = 0) {
+
+  init(
+    text: String,
+    highlightCondition: Bool,
+    highlightColor: Color = .tagBackgroundHighlighted,
+    font: Font = .caption,
+    horizontalPadding: CGFloat = 9,
+    verticalPadding: CGFloat = 5,
+    cornerRadius: CGFloat = 8,
+    glowColor: Color = .clear,
+    glowRadius: CGFloat = 0) {
     self.text = text
     self.highlightCondition = highlightCondition
     self.highlightColor = highlightColor
@@ -29,10 +38,10 @@ struct HighlightableTagView: View, Equatable {
     self.glowColor = glowColor
     self.glowRadius = glowRadius
   }
-  
+
   var body: some View {
 //    print("tagView \(text) computed!")
-    
+
     return Text(text)
       .highlightableTagView(
         highlightCondition: highlightCondition,

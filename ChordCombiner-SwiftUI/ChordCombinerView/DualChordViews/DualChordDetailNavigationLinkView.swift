@@ -10,7 +10,7 @@ import SwiftUI
 struct DualChordDetailNavigationLinkView: View {
   let chordCombinerViewModel: ChordCombinerViewModel
   let showCaption: Bool
-  
+
   // FIXME: this will only show lowerChord
   var chord: Chord? {
     if let lowerChord = chordCombinerViewModel.lowerChord {
@@ -21,14 +21,19 @@ struct DualChordDetailNavigationLinkView: View {
       return nil
     }
   }
-  
+
   // FIXME: this will only return lowerChordHighlight color
   var color: Color { chordCombinerViewModel.lowerChord != nil ? .lowerChordHighlight : .upperChordHighlight }
-  
+
   @ViewBuilder
   var body: some View {
     if chordCombinerViewModel.resultChord != nil {
-      NavigationLink(destination: DualChordDetailView(chordCombinerViewModel: chordCombinerViewModel, showCaption: showCaption)) { InfoLinkImageView() }
+      NavigationLink(
+        destination: DualChordDetailView(
+          chordCombinerViewModel: chordCombinerViewModel,
+          showCaption: showCaption)) {
+            InfoLinkImageView()
+          }
     } else {
       // FIXME: this should be a DualChordDetailView or DualChordDetailSplitView (create this)
       // TODO: create DualChordDetailSplitView
@@ -46,4 +51,3 @@ struct DualChordDetailNavigationLinkView: View {
     showCaption: true
   )
 }
-
