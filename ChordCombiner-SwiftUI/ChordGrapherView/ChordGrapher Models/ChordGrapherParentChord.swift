@@ -43,7 +43,7 @@ struct ChordGrapherParentChord {
   init(chord: Chord) {
     self.chord = chord
 
-    containingChords = chord.containingChordsConcurrent()
+    containingChords = chord.containingChords()
 
     notes = chord.notes
 

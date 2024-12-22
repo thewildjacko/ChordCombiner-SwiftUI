@@ -344,7 +344,7 @@ extension Array where Element == Chord {
       var chordMatches: [Chord] = []
 
       for chord in subChordArray
-      where chord.containingChordsConcurrent().isEmpty {
+      where chord.containingChords().isEmpty {
         chordMatches.append(chord)
       }
 

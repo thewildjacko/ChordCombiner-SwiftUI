@@ -13,10 +13,17 @@ struct DetailRow: View {
 
   var body: some View {
     HStack {
-      Text(title)
-        .fontWeight(.bold)
+      TitleView(
+        text: title,
+        font: .body,
+        weight: .bold)
+
       Spacer()
-      Text(text)
+
+      TitleView(
+        text: text,
+        font: .body,
+        weight: .regular)
     }
   }
 }

@@ -27,7 +27,7 @@ struct SingleChordDetailNavigationView: View {
             chord: chord,
             keyboard:
               Keyboard(
-                baseWidth: 351,
+                width: 351,
                 initialKeyType: .c,
                 startingOctave: 4,
                 octaves: 3,

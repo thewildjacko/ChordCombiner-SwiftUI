@@ -48,7 +48,6 @@ struct GraphImagePlacerView: View {
   @ViewBuilder
   var body: some View {
     if columns > 0 {
-
       HStack(spacing: spacing) {
         ForEach((1...columns), id: \.self) { _ in
           image
@@ -74,6 +73,7 @@ struct ChordGraphImageView: View {
   var body: some View {
     innerView()
       .padding()
+      .background(.primaryBackground)
       .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.preciseName)
       .task {
         try? await imageService.downloadImage(url: chordGrapher.makeURL())
@@ -101,7 +101,10 @@ struct ChordGraphImageView: View {
       if imageService.progress == 0 {
         VStack(spacing: 10) {
           ProgressView()
-          Text("Connecting to the network...")
+          TitleView(
+            text: "Connecting to the network...",
+            font: .body,
+            weight: .regular)
         }
       } else if imageService.progress < 1 {
         Spacer()
@@ -194,7 +197,6 @@ extension ChordGraphImageView {
 
 #Preview {
   let chordGrapher = ChordGrapher(chord: Chord(.c, .ma9))
-  let chordGrapherView = ChordGrapherView(chordGrapher: chordGrapher)
 
   ChordGraphImageView(chordGrapher: chordGrapher)
 }

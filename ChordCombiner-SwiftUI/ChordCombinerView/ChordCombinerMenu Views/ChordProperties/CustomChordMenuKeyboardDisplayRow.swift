@@ -22,7 +22,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   var keyboard: Keyboard {
     if let chord = chord, let keyboardColor = keyboardColor {
       Keyboard(
-        baseWidth: 150,
+        width: 150,
         initialKeyType: .c,
         startingOctave: 4,
         octaves: 2,
@@ -33,7 +33,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
       )
     } else {
       Keyboard(
-        baseWidth: 150,
+        width: 150,
         initialKeyType: .c,
         startingOctave: 4,
         octaves: 2
@@ -67,6 +67,8 @@ struct CustomChordMenuKeyboardDisplayRow: View {
 
 extension CustomChordMenuKeyboardDisplayRow: Equatable {
   static func == (lhs: CustomChordMenuKeyboardDisplayRow, rhs: CustomChordMenuKeyboardDisplayRow) -> Bool {
+    lhs.selectedChordType == rhs.selectedChordType &&
+    lhs.matchingChordTypes == rhs.matchingChordTypes &&
     lhs.chord == rhs.chord &&
     lhs.chordType == rhs.chordType &&
     lhs.titleText == rhs.titleText &&
@@ -76,4 +78,17 @@ extension CustomChordMenuKeyboardDisplayRow: Equatable {
     lhs.keyboard == rhs.keyboard &&
     lhs.keyboardColor == rhs.keyboardColor
   }
+}
+
+#Preview {
+  CustomChordMenuKeyboardDisplayRow(
+    selectedChordType: .constant(.ma7),
+    matchingChordTypes: .constant([.ma, .mi, .aug, .ma7]),
+    chordType: .ma7,
+    titleText: "Cma7",
+    titleColor: .glow,
+    glowColor: .glow,
+    glowRadius: 5,
+    chord: Chord(.c, .ma7),
+    keyboardColor: .lowerChordHighlight)
 }

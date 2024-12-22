@@ -52,6 +52,6 @@ struct KeyShape: KeyShapeProtocol, Shape {
     keyShapePathType: .DShape)
   .stroke(lineWidth: 3)
   .position(x: 350, y: 500)
-  .foregroundStyle(.black)
+  .foregroundStyle(.blackKey)
 
 }

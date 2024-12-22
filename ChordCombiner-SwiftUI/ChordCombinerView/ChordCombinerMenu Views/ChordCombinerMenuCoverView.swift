@@ -38,37 +38,36 @@ struct ChordCombinerMenuCoverView: View {
   }
 
   var body: some View {
-      VStack {
-        TitleView(
-          text: chordCombinerSelectedChordTitleModel.promptText,
-          font: .headline,
-          weight: .heavy,
-          isMenuTitle: false)
+    VStack {
+      TitleView(
+        text: chordCombinerSelectedChordTitleModel.promptText,
+        font: .headline,
+        weight: .heavy,
+        isMenuTitle: false)
 
-        NavigationLink(
-          destination:
-            ChordCombinerChordSelectionMenu(
-              selectedKeyboard: $keyboard,
-              combinedKeyboard: $combinedKeyboard,
-              chordProperties: $chordProperties,
-              islowerChordMenu: isLowerChordMenu
-            )
-            .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
-            .navigationBarTitleDisplayMode(.inline)
-        ) {
+      NavigationLink(
+        destination:
+          ChordCombinerChordSelectionMenu(
+            selectedKeyboard: $keyboard,
+            combinedKeyboard: $combinedKeyboard,
+            chordProperties: $chordProperties,
+            islowerChordMenu: isLowerChordMenu
+          )
+          .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
+          .navigationBarTitleDisplayMode(.inline)
+      ) {
+        VStack(spacing: 15) {
+          TitleView(
+            text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
+            font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
+            weight: .heavy,
+            color: .button
+          )
 
-          VStack(spacing: 15) {
-            TitleView(
-              text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-              font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
-              weight: .heavy,
-              color: .button
-            )
-
-            keyboard
-          }
+          keyboard
         }
       }
+    }
   }
 }
 

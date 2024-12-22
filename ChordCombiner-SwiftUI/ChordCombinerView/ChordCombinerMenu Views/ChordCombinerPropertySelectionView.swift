@@ -24,6 +24,16 @@ struct ChordCombinerPropertySelectionView: View {
     return RootKeyNote(letter, accidental)
   }
 
+  var chordCombinerKeyboardScrollView: ChordCombinerKeyboardScrollView {
+    ChordCombinerKeyboardScrollView(
+      selectedChordType: $chordProperties.chordType,
+      matchingChordTypes: $matchingChordTypes,
+      chordTypes: ChordType.allSimpleChordTypes,
+      rootKeyNote: rootKeyNote,
+      color: chordCombinerSelectedChordTitleModel.selectedChordColor
+    )
+  }
+
   var body: some View {
     VStack {
       TitleView(
@@ -68,13 +78,14 @@ struct ChordCombinerPropertySelectionView: View {
 
     TitleColorDivider()
 
-    ChordCombinerKeyboardScrollView(
-      selectedChordType: $chordProperties.chordType,
-      matchingChordTypes: $matchingChordTypes,
-      chordTypes: ChordType.allSimpleChordTypes,
-      rootKeyNote: rootKeyNote,
-      color: chordCombinerSelectedChordTitleModel.selectedChordColor
-    )
+    chordCombinerKeyboardScrollView
+//    ChordCombinerKeyboardScrollView(
+//      selectedChordType: $chordProperties.chordType,
+//      matchingChordTypes: $matchingChordTypes,
+//      chordTypes: ChordType.allSimpleChordTypes,
+//      rootKeyNote: rootKeyNote,
+//      color: chordCombinerSelectedChordTitleModel.selectedChordColor
+//    )
 
     TitleColorDivider()
   }

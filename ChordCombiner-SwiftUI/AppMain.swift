@@ -1,5 +1,5 @@
 //
-//  ChordCombiner_SwiftUIApp.swift
+//  AppMain.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 6/20/24.
@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 @main
-struct ChordCombinerApp: App {
+struct AppMain: App {
     var body: some Scene {
         WindowGroup {
           ChordCombinerView()

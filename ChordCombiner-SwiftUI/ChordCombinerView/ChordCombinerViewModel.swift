@@ -83,15 +83,15 @@ class ChordCombinerViewModel: ObservableObject {
       accidental: .natural,
       chordType: nil),
     lowerKeyboard: Keyboard = Keyboard(
-      baseWidth: 351,
+      width: 351,
       initialKeyType: .c,
       startingOctave: 4, octaves: 2),
     upperKeyboard: Keyboard = Keyboard(
-      baseWidth: 351,
+      width: 351,
       initialKeyType: .c,
       startingOctave: 4, octaves: 2),
     combinedKeyboard: Keyboard = Keyboard(
-      baseWidth: 351,
+      width: 351,
       initialKeyType: .c,
       startingOctave: 4, octaves: 3)
   ) {

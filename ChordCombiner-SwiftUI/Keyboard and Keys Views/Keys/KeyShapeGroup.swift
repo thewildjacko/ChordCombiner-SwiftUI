@@ -15,8 +15,8 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
     radius: 0,
     widthMultiplier: 0,
     position: 0,
-    fill: .white,
-    stroke: .black,
+    fill: .whiteKey,
+    stroke: .blackKey,
     lineWidth: 0.5,
     zIndex: 0,
     keyShapePath: .CShape)

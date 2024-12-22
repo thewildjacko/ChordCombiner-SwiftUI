@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct Keyboard: View, Identifiable, OctaveAndPitch {
-  static let initialSingleChordKeyboard = Keyboard(baseWidth: 200, initialKeyType: .c, startingOctave: 4, octaves: 2)
-  static let initialDualChordKeyboard = Keyboard(baseWidth: 200, initialKeyType: .c, startingOctave: 4, octaves: 3)
+  static let initialSingleChordKeyboard = Keyboard(
+    width: 200,
+    initialKeyType: .c,
+    startingOctave: 4,
+    octaves: 2)
+  static let initialSingleGlowKeyboard = Keyboard(
+    width: 200,
+    initialKeyType: .c,
+    startingOctave: 4,
+    octaves: 2,
+    glowColor: .glow,
+    glowRadius: 5,
+    chord: .initial,
+    color: .lowerChordHighlight)
+  static let initialDualChordKeyboard = Keyboard(
+    width: 200,
+    initialKeyType: .c,
+    startingOctave: 4,
+    octaves: 3)
 
   // MARK: @State properties
   @State var width: CGFloat {
@@ -40,7 +57,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var circlesOn: Bool = false
 
   // MARK: initializers
-  init(baseWidth: CGFloat,
+  init(width: CGFloat,
        keyCount: Int? = nil,
        initialKeyType: KeyType = .c,
        startingOctave: Int = 4,
@@ -49,7 +66,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
        glowRadius: CGFloat = 0,
        lettersOn: Bool = false,
        circlesOn: Bool = false) {
-    self.width = baseWidth
+    self.width = width
     self.keyCount = keyCount
     self.startingOctave = startingOctave
     self.initialKeyType = initialKeyType
@@ -69,7 +86,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     self.keyCount = keys.count
   }
 
-  init(baseWidth: CGFloat,
+  init(width: CGFloat,
        keyCount: Int? = nil,
        initialKeyType: KeyType = .c,
        startingOctave: Int = 4,
@@ -81,7 +98,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
        lettersOn: Bool = false,
        circlesOn: Bool = false) {
     self.init(
-      baseWidth: baseWidth,
+      width: width,
       keyCount: keyCount,
       initialKeyType: initialKeyType,
       startingOctave: startingOctave,
@@ -111,7 +128,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
             .frame(width: width, height: height)
             .glow(color: glowColor, radius: glowRadius))
         .frame(width: width, height: height)
-        .foregroundStyle(.clear)
       }
     }
   }
@@ -300,15 +316,26 @@ extension Keyboard {
   }
 }
 
+// MARK: Equatable
 extension Keyboard: Equatable {
   static func == (lhs: Keyboard, rhs: Keyboard) -> Bool {
-    lhs.initialKeyType == rhs.initialKeyType && lhs.keys == rhs.keys && lhs.width == rhs.width
+    lhs.initialKeyType == rhs.initialKeyType &&
+    lhs.keys == rhs.keys &&
+    lhs.width == rhs.width &&
+    lhs.glowColor == rhs.glowColor &&
+    lhs.glowRadius == rhs.glowRadius &&
+    lhs.lettersOn == rhs.lettersOn &&
+    lhs.circlesOn == rhs.circlesOn
   }
 }
 
 #Preview {
+  let keyboard = Keyboard.initialSingleGlowKeyboard
   VStack {
-    Keyboard.initialSingleChordKeyboard
-      .position(x: 550, y: 600)
+    keyboard
+      .position(x: 200, y: 400)
+      .onAppear {
+        print(keyboard.glowColor, keyboard.glowRadius)
+      }
   }
 }

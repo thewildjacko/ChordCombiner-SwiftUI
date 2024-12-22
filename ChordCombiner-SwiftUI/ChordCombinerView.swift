@@ -83,6 +83,7 @@ struct ChordCombinerView: View {
 
         print(FileManager.documentsDirectoryURL)
       }
+      .background(.primaryBackground)
     }
   }
 }

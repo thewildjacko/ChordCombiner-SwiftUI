@@ -71,16 +71,16 @@ extension KeyCircle {
       case .common:
           .upperChordHighlight
       default:
-          .black
+          .blackKey
       }
     }
 
     var strokeColor: Color {
       switch self {
       case .common:
-          .black
+          .blackKey
       default:
-          .black
+          .blackKey
       }
     }
   }

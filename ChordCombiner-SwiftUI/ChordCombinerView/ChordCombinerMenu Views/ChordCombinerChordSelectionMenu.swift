@@ -102,27 +102,22 @@ struct ChordCombinerChordSelectionMenu: View {
           chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
         )
 
-        DualChordKeyboardView(
-          keyboard: $combinedKeyboard
-        )
+        DualChordKeyboardView(keyboard: $combinedKeyboard)
 
         Spacer()
       }
       .padding()
+      .background(.primaryBackground)
       .onAppear(perform: {
         if chordCombinerViewModel.lowerChord != nil,
            chordCombinerViewModel.upperChord != nil {
           chordCombinerPropertyMatcher.matchChords()
         }
       })
-//      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord) {
-//        highlightKeyboardsOnSelect()
-//      }
       .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter) {
         chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
 
         highlightKeyboardsOnSelect()
-
       }
       .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, { oldValue, _ in
         chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)

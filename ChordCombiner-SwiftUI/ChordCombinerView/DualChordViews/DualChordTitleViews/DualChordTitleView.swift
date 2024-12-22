@@ -7,6 +7,25 @@
 
 import SwiftUI
 
+struct ChordTitleViewBuilder: View {
+  let titleText: String
+  let titleFont: Font
+  var showTitle: Bool = true
+
+  @ViewBuilder
+  var body: some View {
+    VStack(spacing: 5) {
+      if showTitle {
+        TitleView(
+          text: titleText,
+          font: titleFont,
+          weight: .heavy
+        )
+      }
+    }
+  }
+}
+
 struct DualChordTitleView: View {
   let chordCombinerViewModel = ChordCombinerViewModel.singleton()
   let titleText: String
@@ -23,25 +42,6 @@ struct DualChordTitleView: View {
       )
 
       ChordSymbolCaptionView(chord: chordCombinerViewModel.resultChord, showCaption: showCaption)
-    }
-  }
-}
-
-struct ChordTitleViewBuilder: View {
-  let titleText: String
-  let titleFont: Font
-  var showTitle: Bool = true
-
-  @ViewBuilder
-  var body: some View {
-    VStack(spacing: 5) {
-      if showTitle {
-        TitleView(
-          text: titleText,
-          font: titleFont,
-          weight: .heavy
-        )
-      }
     }
   }
 }

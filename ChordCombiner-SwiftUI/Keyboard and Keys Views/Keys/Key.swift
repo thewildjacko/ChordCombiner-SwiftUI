@@ -21,7 +21,7 @@ struct Key: View, KeyProtocol, Identifiable {
   var position: CGFloat = CGFloat()
 
   var fill: Color { didSet { setKeyShapeGroup() } }
-  var stroke: Color = .black
+  var stroke: Color = .blackKey
   var lineWidth: CGFloat = 0.5
 
   var initialKey: Bool = false
@@ -31,12 +31,12 @@ struct Key: View, KeyProtocol, Identifiable {
   var lettersOn: Bool = false { didSet { setKeyLetterView() } }
   let letterTextColor: Color = .title
   private let letterSizeMultiplier: CGFloat = 0.7
-  private var circleSizeMultiplier: CGFloat { keyType.defaultFillColor == .black ? 0.9 : 0.8 }
+  private var circleSizeMultiplier: CGFloat { keyType.defaultFillColor == .blackKey ? 0.9 : 0.8 }
 
   var circlesOn: Bool = false { didSet { setKeyCirclesView() } }
   var circleType: KeyCircleType { didSet { setKeyCirclesView() } }
 
-  private var circleLineWidth: CGFloat { keyType.defaultFillColor == .black ? 1 : 0.5 }
+  private var circleLineWidth: CGFloat { keyType.defaultFillColor == .blackKey ? 1 : 0.5 }
 
   private var letterWidth: CGFloat {
     (KeyWidth.whiteKeyCEGA.rawValue + KeyWidth.whiteKeyDFB.rawValue)/2 * widthMultiplier
@@ -55,8 +55,8 @@ struct Key: View, KeyProtocol, Identifiable {
        baseWidth: CGFloat,
        widthDivisor: CGFloat,
        keyPosition: CGFloat = 0,
-       fill: Color = .white,
-       stroke: Color = .black,
+       fill: Color = .whiteKey,
+       stroke: Color = .blackKey,
        lineWidth: CGFloat = 0.5,
        initialKey: Bool = false,
        finalKey: Bool = false,
@@ -212,10 +212,10 @@ extension Key: Equatable {
 
 #Preview {
   GeometryReader { geometry in
-    Key(keyType: .g, baseWidth: geometry.size.width, widthDivisor: 23, fill: .white)
+    Key(keyType: .g, baseWidth: geometry.size.width, widthDivisor: 23, fill: .whiteKey)
   }
   .position(x: 92, y: 192)
   .frame(width: 23 * 4, height: 96 * 4)
 
-  .border(.black)
+  .border(.blackKey)
 }

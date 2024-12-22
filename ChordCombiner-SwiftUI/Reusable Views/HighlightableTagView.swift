@@ -40,8 +40,6 @@ struct HighlightableTagView: View, Equatable {
   }
 
   var body: some View {
-//    print("tagView \(text) computed!")
-
     return Text(text)
       .highlightableTagView(
         highlightCondition: highlightCondition,

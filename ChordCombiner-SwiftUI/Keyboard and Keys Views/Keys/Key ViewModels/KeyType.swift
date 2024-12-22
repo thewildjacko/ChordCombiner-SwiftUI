@@ -23,33 +23,6 @@ enum KeyType: Int {
   }
 
   var nextKeyPosition: CGFloat {
-//    switch self {
-//    case .c:
-//      return 9.5
-//    case .dB:
-//      return 14
-//    case .d:
-//      return 14
-//    case .eB:
-//      return 9.5
-//    case .e:
-//      return 23.5
-//    case .f:
-//      return 19
-//    case .gB:
-//      return 14.5
-//    case .g:
-//      return 11.5
-//    case .aB:
-//      return 11.5
-//    case .a:
-//      return 14.5
-//    case .bB:
-//      return 9
-//    case .b:
-//      return 23.5
-//    }
-
     switch self {
     case .c, .eB:
       return 9.5
@@ -127,7 +100,7 @@ enum KeyType: Int {
     }
   }
 
-  var defaultFillColor: Color { self.isBlackKey ? .black : .white }
+  var defaultFillColor: Color { self.isBlackKey ? .blackKey : .whiteKey }
 
   var baseRadius: CGFloat {
     switch self {
@@ -161,9 +134,9 @@ enum KeyType: Int {
   var fill: Color {
     switch self {
     case .c, .d, .e, .f, .g, .a, .b:
-      return .white
+      return .whiteKey
     case .dB, .eB, .gB, .aB, .bB:
-      return .black
+      return .blackKey
     }
   }
 

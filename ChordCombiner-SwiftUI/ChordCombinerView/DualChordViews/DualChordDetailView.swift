@@ -10,20 +10,20 @@ import SwiftUI
 struct DualChordDetailView: View {
   @State var chordGrapher: ChordGrapher? {
     didSet {
-      disabled = false
+      grapherLoaded = false
       chordGrapherNavigationView =
       ChordGrapherNavigationView(
         chordGrapher: $chordGrapher,
-        disabled: $disabled)
+        grapherLoaded: $grapherLoaded)
     }
   }
 
-  @State var disabled: Bool = true
+  @State var grapherLoaded: Bool = true
 
   @State var chordGrapherNavigationView: ChordGrapherNavigationView =
   ChordGrapherNavigationView(
     chordGrapher: .constant(nil),
-    disabled: .constant(true))
+    grapherLoaded: .constant(true))
 
   var chordCombinerViewModel = ChordCombinerViewModel.singleton()
 
@@ -51,35 +51,24 @@ struct DualChordDetailView: View {
 
       chordCombinerViewModel.combinedKeyboard
 
-      Form {
-        List {
-          DetailRow(
-            title: "Notes",
-            text: chordCombinerViewModel.displayDetails(
-              detailType: .noteNames))
-          DetailRow(
-            title: "Degrees",
-            text: chordCombinerViewModel.displayDetails(
-              detailType: .degreeNames))
-          chordGrapherNavigationView
+      ChordDetailForm(
+        notesText: chordCombinerViewModel.displayDetails(
+          detailType: .noteNames),
+        degreesText: chordCombinerViewModel.displayDetails(
+          detailType: .degreeNames),
+        chordGrapher: $chordGrapher,
+        chordGrapherNavigationView: $chordGrapherNavigationView)
+      .onAppear {
+        Task {
+          await chordGrapher = ChordGrapher.getChordGrapher(
+            chord: chordCombinerViewModel.resultChord)
         }
-        .onAppear {
-          Task {
-            await chordGrapher = ChordGrapher.getChordGrapher(
-              chord: chordCombinerViewModel.resultChord)
-          }
-        }
-
-        ComponentChordsView()
-
-        BaseChordSectionView(chord: chordCombinerViewModel.resultChord)
-
-        EquivalentChordsSectionView(chord: chordCombinerViewModel.resultChord)
       }
 
       Spacer()
     }
     .padding(.vertical)
+    .background(.primaryBackground)
   }
 }
 

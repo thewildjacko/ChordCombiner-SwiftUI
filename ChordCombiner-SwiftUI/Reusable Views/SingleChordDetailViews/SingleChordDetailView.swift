@@ -13,20 +13,20 @@ struct SingleChordDetailView: View {
 
   @State var chordGrapher: ChordGrapher? {
     didSet {
-      disabled = false
+      grapherLoaded = false
       chordGrapherNavigationView =
       ChordGrapherNavigationView(
         chordGrapher: $chordGrapher,
-        disabled: $disabled)
+        grapherLoaded: $grapherLoaded)
     }
   }
 
-  @State var disabled: Bool = true
+  @State var grapherLoaded: Bool = true
 
   @State var chordGrapherNavigationView: ChordGrapherNavigationView =
   ChordGrapherNavigationView(
     chordGrapher: .constant(nil),
-    disabled: .constant(true))
+    grapherLoaded: .constant(true))
 
   var baseChord: Chord { chord.getBaseChord() }
 
@@ -45,13 +45,11 @@ struct SingleChordDetailView: View {
           keyboard.setNotesStacked(pitchesByNote: chord.voicingCalculator.stackedPitchesByNote)
         })
 
-      Form {
-        List {
-          DetailRow(title: "Notes", text: chord.displayDetails(detailType: .noteNames))
-          DetailRow(title: "Degrees", text: chord.displayDetails(detailType: .degreeNames))
-
-          chordGrapherNavigationView
-        }
+      ChordDetailForm(
+        notesText: chord.displayDetails(detailType: .noteNames),
+        degreesText: chord.displayDetails(detailType: .degreeNames),
+        chordGrapher: $chordGrapher,
+        chordGrapherNavigationView: $chordGrapherNavigationView)
         .onAppear {
           Task {
             await chordGrapher = ChordGrapher.getChordGrapher(
@@ -59,14 +57,10 @@ struct SingleChordDetailView: View {
           }
         }
 
-        BaseChordSectionView(chord: chord)
-
-        EquivalentChordsSectionView(chord: chord)
-      }
-
       Spacer()
     }
     .padding(.vertical)
+    .background(.primaryBackground)
   }
 }
 

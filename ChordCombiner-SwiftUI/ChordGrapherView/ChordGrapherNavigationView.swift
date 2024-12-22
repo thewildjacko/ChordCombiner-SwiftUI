@@ -9,22 +9,31 @@ import SwiftUI
 
 struct ChordGrapherNavigationView: View {
   @Binding var chordGrapher: ChordGrapher?
-  @Binding var disabled: Bool
+  @Binding var grapherLoaded: Bool
   var text: String {
-    disabled ? "loading Chord Graph..." : "view Chord Graph"
+    grapherLoaded ? "loading graph..." : "view graph"
   }
 
   @ViewBuilder
   var body: some View {
-    if let chordGrapher = chordGrapher {
-      Group {
-        NavigationLink(
-          destination:
-            ChordGraphImageView(chordGrapher: chordGrapher)
-        ) {
-          Text(text)
+    Section(header: Text("Chord Graph")) {
+      List {
+        if let chordGrapher = chordGrapher {
+          NavigationLink(
+            destination:
+              ChordGraphImageView(chordGrapher: chordGrapher)
+          ) {
+            TitleView(
+              text: text,
+              font: .body,
+              weight: .bold)
+          }
+        } else {
+          TitleView(
+            text: text,
+            font: .body,
+            weight: .regular)
         }
-        .disabled(disabled)
       }
     }
   }
