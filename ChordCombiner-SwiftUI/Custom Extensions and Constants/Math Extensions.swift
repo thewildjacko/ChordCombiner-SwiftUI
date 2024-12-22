@@ -136,7 +136,7 @@ extension Int: Mathable {
 }
 
 extension CGFloat {
-  func getKeyPosition(position: CGFloat, widthDivisor: CGFloat) -> CGFloat {
+  func getKeyPosition(keyType: KeyType, position: CGFloat, widthDivisor: CGFloat) -> CGFloat {
     return self * position / widthDivisor
   }
 }

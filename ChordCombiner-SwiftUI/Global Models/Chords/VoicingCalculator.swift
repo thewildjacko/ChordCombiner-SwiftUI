@@ -123,7 +123,9 @@ struct VoicingCalculator: GettableKeyName {
     }
 
   // MARK: Instance methods
-  func baseChord() -> Chord { return Chord(rootKeyNote, chordType.baseChordType) }
+  func baseChord() -> Chord {
+    return Chord(rootKeyNote, chordType.baseChordType)
+  }
 
   func allChordNotesInKeyFiltered() -> [Note] {
     var allChordNotesInKey = rootKeyNote.allChordNotesInKey()

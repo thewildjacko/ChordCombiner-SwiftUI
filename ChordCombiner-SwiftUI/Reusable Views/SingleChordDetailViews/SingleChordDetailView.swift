@@ -9,12 +9,29 @@ import SwiftUI
 
 struct SingleChordDetailView: View {
   let chord: Chord
-  let keyboard: Keyboard
+  @State var keyboard: Keyboard
+
+  @State var chordGrapher: ChordGrapher? {
+    didSet {
+      disabled = false
+      chordGrapherNavigationView =
+      ChordGrapherNavigationView(
+        chordGrapher: $chordGrapher,
+        disabled: $disabled)
+    }
+  }
+
+  @State var disabled: Bool = true
+
+  @State var chordGrapherNavigationView: ChordGrapherNavigationView =
+  ChordGrapherNavigationView(
+    chordGrapher: .constant(nil),
+    disabled: .constant(true))
 
   var baseChord: Chord { chord.getBaseChord() }
 
   var body: some View {
-    VStack(spacing: 5) {
+    VStack(spacing: 20) {
       TitleView(
         text: chord.displayDetails(detailType: .commonName),
         font: .largeTitle,
@@ -24,21 +41,21 @@ struct SingleChordDetailView: View {
       ChordSymbolCaptionView(chord: chord)
 
       keyboard
+        .onAppear(perform: {
+          keyboard.setNotesStacked(pitchesByNote: chord.voicingCalculator.stackedPitchesByNote)
+        })
 
       Form {
         List {
           DetailRow(title: "Notes", text: chord.displayDetails(detailType: .noteNames))
           DetailRow(title: "Degrees", text: chord.displayDetails(detailType: .degreeNames))
-          NavigationLink(
-            destination:
-              ChordGrapherView(chordGrapher: ChordGrapher(chord: chord))
-              .navigationTitle("Chord Graph")
-          ) {
-            HStack {
-              Text("Chord Graph:")
-              Spacer()
-              Image(systemName: "chevron.right")
-            }
+
+          chordGrapherNavigationView
+        }
+        .onAppear {
+          Task {
+            await chordGrapher = ChordGrapher.getChordGrapher(
+              chord: chord)
           }
         }
 

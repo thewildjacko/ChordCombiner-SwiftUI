@@ -8,12 +8,31 @@
 import SwiftUI
 
 struct DualChordDetailView: View {
-  var chordCombinerViewModel: ChordCombinerViewModel
+  @State var chordGrapher: ChordGrapher? {
+    didSet {
+      disabled = false
+      chordGrapherNavigationView =
+      ChordGrapherNavigationView(
+        chordGrapher: $chordGrapher,
+        disabled: $disabled)
+    }
+  }
+
+  @State var disabled: Bool = true
+
+  @State var chordGrapherNavigationView: ChordGrapherNavigationView =
+  ChordGrapherNavigationView(
+    chordGrapher: .constant(nil),
+    disabled: .constant(true))
+
+  var chordCombinerViewModel = ChordCombinerViewModel.singleton()
+
+  var dualChordKeyboardChordTitleModel: DualChordKeyboardChordTitleModel {
+    DualChordKeyboardChordTitleModel()
+  }
 
   var titleText: String {
-    return chordCombinerViewModel.resultChord != nil ?
-    chordCombinerViewModel.displayDetails(detailType: .commonName) :
-    chordCombinerViewModel.displayDetails(detailType: .preciseName)
+    DualChordKeyboardChordTitleModel().chordSymbolText
   }
 
   var titleFont: Font {
@@ -25,33 +44,35 @@ struct DualChordDetailView: View {
   var body: some View {
     VStack(spacing: 20) {
       DualChordTitleView(
-        chordCombinerViewModel: chordCombinerViewModel,
         titleText: titleText,
         titleFont: titleFont,
-        showCaption: showCaption)
+        showCaption: showCaption,
+        showTitle: true)
 
       chordCombinerViewModel.combinedKeyboard
 
       Form {
         List {
-          DetailRow(title: "Notes", text: chordCombinerViewModel.displayDetails(detailType: .noteNames))
-          DetailRow(title: "Degrees", text: chordCombinerViewModel.displayDetails(detailType: .degreeNames))
+          DetailRow(
+            title: "Notes",
+            text: chordCombinerViewModel.displayDetails(
+              detailType: .noteNames))
+          DetailRow(
+            title: "Degrees",
+            text: chordCombinerViewModel.displayDetails(
+              detailType: .degreeNames))
+          chordGrapherNavigationView
         }
-
-        if let resultChord = chordCombinerViewModel.resultChord {
-          NavigationLink(
-            destination:
-              ChordGrapherView(chordGrapher: ChordGrapher(chord: resultChord))
-              .navigationTitle("Chord Graph")
-          ) {
-            Text("Chord Graph:")
+        .onAppear {
+          Task {
+            await chordGrapher = ChordGrapher.getChordGrapher(
+              chord: chordCombinerViewModel.resultChord)
           }
         }
 
-        Section(header: Text("Component Chords")) {
-          DetailRow(title: "Lower Chord", text: chordCombinerViewModel.displayDetails(detailType: .lowerChordName))
-          DetailRow(title: "Upper Chord", text: chordCombinerViewModel.displayDetails(detailType: .upperChordName))
-        }
+        ComponentChordsView()
+
+        BaseChordSectionView(chord: chordCombinerViewModel.resultChord)
 
         EquivalentChordsSectionView(chord: chordCombinerViewModel.resultChord)
       }
@@ -63,34 +84,5 @@ struct DualChordDetailView: View {
 }
 
 #Preview("Both chords selected") {
-  DualChordDetailView(
-    chordCombinerViewModel: ChordCombinerViewModel(
-      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
-      upperChordProperties: ChordProperties(letter: .e, accidental: .natural, chordType: .sus4)
-    ),
-    showCaption: true
-  )
-}
-
-#Preview("Lower chord selected") {
-  DualChordDetailView(
-    chordCombinerViewModel: ChordCombinerViewModel(
-      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7)
-    ),
-    showCaption: true
-  )
-}
-
-#Preview("Upper chord selected") {
-  DualChordDetailView(
-    chordCombinerViewModel: ChordCombinerViewModel(
-      upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
-    ),
-    showCaption: true
-  )
-}
-
-#Preview("No chords selected") {
-  DualChordDetailView(chordCombinerViewModel: ChordCombinerViewModel(),
-                      showCaption: true)
+  DualChordDetailView(showCaption: true)
 }

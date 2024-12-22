@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 @main
 struct ChordCombinerApp: App {
@@ -14,4 +15,8 @@ struct ChordCombinerApp: App {
           ChordCombinerView()
         }
     }
+}
+
+extension Logger {
+  static let main = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "main")
 }

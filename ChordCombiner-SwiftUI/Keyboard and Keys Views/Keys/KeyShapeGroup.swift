@@ -17,7 +17,7 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
     position: 0,
     fill: .white,
     stroke: .black,
-    lineWidth: 1,
+    lineWidth: 0.5,
     zIndex: 0,
     keyShapePath: .CShape)
 
@@ -51,27 +51,27 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
     lineWidth: CGFloat,
     zIndex: Double,
     keyShapePath: KeyShapePathType) {
-    self.finalKey = finalKey
-    self.width = width
-    self.height = height
-    self.radius = radius
-    self.widthMultiplier = widthMultiplier
-    self.position = position
-    self.fill = fill
-    self.stroke = stroke
-    self.lineWidth = lineWidth
-    self.zIndex = zIndex
-    self.keyShapePath = keyShapePath
+      self.finalKey = finalKey
+      self.width = width
+      self.height = height
+      self.radius = radius
+      self.widthMultiplier = widthMultiplier
+      self.position = position
+      self.fill = fill
+      self.stroke = stroke
+      self.lineWidth = lineWidth
+      self.zIndex = zIndex
+      self.keyShapePath = keyShapePath
 
-    keyShape = KeyShape(
-      finalKey: finalKey,
-      width: width,
-      height: height,
-      radius: radius,
-      widthMultiplier: widthMultiplier,
-      keyShapePathType: keyShapePath)
+      keyShape = KeyShape(
+        finalKey: finalKey,
+        width: width,
+        height: height,
+        radius: radius,
+        widthMultiplier: widthMultiplier,
+        keyShapePathType: keyShapePath)
 
-    setKeyRect()
+      setKeyRect()
   }
 
   mutating func setKeyRect() {

@@ -9,11 +9,28 @@ import Foundation
 
 struct ChordGrapherAttributes {
   var elementsContained: ElementsContained
+  var rowElementsMax: Int
 
-  init(elementsContained: ElementsContained) { self.elementsContained = elementsContained }
+  var rankSep: Double {
+    switch rowElementsMax {
+    case let max where max < 5:
+      return 0.25
+    case let max where max <= 10:
+      return 0.5
+    case let max where max <= 20:
+      return 0.75
+    default:
+      return 1.5
+    }
+  }
+
+  init(elementsContained: ElementsContained, rowElementsMax: Int) { self.elementsContained = elementsContained
+    self.rowElementsMax = rowElementsMax
+  }
 
   let digraph = String.GrapherConstants.digraph.rawValue
   let charSet = "charset=\"utf8\""
+  let fontSize = "node [fontsize=\"10pt\"]"
 
   var firstChildLevelNodeShape: String {
     var firstNodeShape = ""
@@ -27,6 +44,10 @@ struct ChordGrapherAttributes {
     }
 
     return nodeShape(shape: firstNodeShape, width: 0.5)
+  }
+
+  func fontSize(_ pts: CGFloat = 10) -> String {
+    return "node [fontsize=\(pts)]"
   }
 
   /// returns a dot-notation string describing the shape of a node
@@ -51,7 +72,7 @@ struct ChordGrapherAttributes {
 
   func graphPrefix(edgeColor: String) -> String {
     let edge = edge(color: edgeColor)
-
-    return "ordering=out ratio=0.5 \(edge) \(charSet)"
+//    ratio=0.5 concentrate=true
+    return "ordering=out nodesep=0.1 ranksep=\(rankSep) \(edge) \(charSet) \(fontSize)"
   }
 }

@@ -36,7 +36,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var notesByNoteNumber: NotesByNoteNumber = [:]
 
   // DegreeNumbers conformance
-  var degreeNumbers: [Int] = [] { didSet { degreeNumberSet = Set(degreeNumbers) } }
+  var degreeNumbers: [Int] = [] { didSet { degreeNumberSet = degreeNumbers.toSet() } }
   var degreeNumberSet: Set<Int> = []
 
   var noteNames: [String] = []
@@ -118,10 +118,10 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   mutating func setNoteProperties() {
     setNotesByNoteNumber(notes.keyed { $0.noteNumber })
     rootKeyNotes = notes.map { RootKeyNote($0.keyName) }
-    noteNames = notes.map { $0.noteName }
+    noteNames = notes.noteNames()
     noteNumbers = notes.map { $0.noteNumber }
-    degreeNumbers = notes.map { $0.noteNumber.rawValue }
-    degreeNumberSet = Set(degreeNumbers)
+    degreeNumbers = notes.degreeNumbers()
+    degreeNumberSet = degreeNumbers.toSet()
 
     degreeNames = DegreeNameGroup(
       names: notes.map { $0.degreeName.name },
@@ -181,17 +181,70 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
   func containingChords() -> [Chord] {
     var chordMatches: [Chord] = []
-    for chord in ChordFactory.allSimpleChords where self.contains(chord) {
-      if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
-        chordMatches.append(
-          Chord(
-            rootNumber: chord.root.noteNumber,
-            chordType: chord.chordType,
-            enharmonic: noteNumber.value.keyName.enharmonic))
+
+//    print("Finding containing chords!")
+    let clock = ContinuousClock()
+    let elapsed = clock.measure {
+      for chord in ChordFactory.allSimpleChords where self.contains(chord) {
+        if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
+          chordMatches.append(
+            Chord(
+              rootNumber: chord.root.noteNumber,
+              chordType: chord.chordType,
+              enharmonic: noteNumber.value.keyName.enharmonic))
+        }
       }
     }
 
+//    print("It took \(elapsed) to find the containing chords!")
+
     return chordMatches
+  }
+
+  func containingChordsConcurrent() -> [Chord] {
+//    print("Finding containing chords concurrently!")
+
+    let keyAgnosticChords = ChordFactory.allSimpleChords
+    let totalChords = keyAgnosticChords.count
+    let batch = 10
+    let chordsInBatch = keyAgnosticChords.elementsInBatch(batch: Double(batch))
+    var tempChords: [[Chord]] = Array(repeating: [], count: batch)
+
+    let clock = ContinuousClock()
+    let elapsed = clock.measure {
+      var lock = os_unfair_lock()
+
+      DispatchQueue.concurrentPerform(iterations: batch) { iteration in
+        let startPoint = keyAgnosticChords.calculateStartPoint(
+          batch: batch,
+          iteration: iteration,
+          elementsInBatch: chordsInBatch)
+        let endPoint = keyAgnosticChords.calculateEndPoint(startPoint: startPoint, elementsInBatch: chordsInBatch)
+        let subChordArray = Array(keyAgnosticChords[startPoint..<startPoint + chordsInBatch])
+
+        var chordMatches: [Chord] = []
+
+        for chord in subChordArray where self.contains(chord) {
+          if let noteNumber = notesByNoteNumber.first(where: { $0.key == chord.root.noteNumber }) {
+            chordMatches.append(
+              Chord(
+                rootNumber: chord.root.noteNumber,
+                chordType: chord.chordType,
+                enharmonic: noteNumber.value.keyName.enharmonic))
+          }
+        }
+
+        os_unfair_lock_lock(&lock)
+        tempChords[iteration] = chordMatches
+        os_unfair_lock_unlock(&lock)
+      }
+    }
+
+//    print("It took \(elapsed) to find the containing chords concurrently!")
+
+    let finalChordMatches = tempChords.flatMap { $0 }
+
+    return finalChordMatches
   }
 }
 

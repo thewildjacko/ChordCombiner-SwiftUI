@@ -10,13 +10,10 @@ import Foundation
 @testable import ChordCombiner_SwiftUI
 
 struct ChordCombinerTests {
-  var chordCombinerViewModelResultChordTest: ChordCombinerViewModel
-  
+  var chordCombinerViewModelResultChordTest = ChordCombinerViewModel.singleton()
+
   init() {
-    chordCombinerViewModelResultChordTest = ChordCombinerViewModel(
-      lowerChordProperties: ChordProperties(letter: .c, accidental: .natural, chordType: .ma7),
-      upperChordProperties: ChordProperties(letter: .d, accidental: .natural, chordType: .ma)
-    )
+    chordCombinerViewModelResultChordTest = ChordCombinerViewModel.singleton()
   }
   
   @Test("Chords Combine Correctly")

@@ -23,10 +23,39 @@ enum KeyType: Int {
   }
 
   var nextKeyPosition: CGFloat {
+//    switch self {
+//    case .c:
+//      return 9.5
+//    case .dB:
+//      return 14
+//    case .d:
+//      return 14
+//    case .eB:
+//      return 9.5
+//    case .e:
+//      return 23.5
+//    case .f:
+//      return 19
+//    case .gB:
+//      return 14.5
+//    case .g:
+//      return 11.5
+//    case .aB:
+//      return 11.5
+//    case .a:
+//      return 14.5
+//    case .bB:
+//      return 9
+//    case .b:
+//      return 23.5
+//    }
+
     switch self {
     case .c, .eB:
       return 9.5
-    case .dB, .d:
+    case .dB:
+      return 14
+    case .d:
       return 14
     case .e, .b:
       return 23.5

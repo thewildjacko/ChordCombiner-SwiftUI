@@ -27,7 +27,7 @@ extension String {
     case digraph = "digraph "
     case diminished = "&#186;"
     case augmented = "&#43;"
-    case major = " ma"
+    case major = "ma"
     case sixnine = "6/9"
   }
 

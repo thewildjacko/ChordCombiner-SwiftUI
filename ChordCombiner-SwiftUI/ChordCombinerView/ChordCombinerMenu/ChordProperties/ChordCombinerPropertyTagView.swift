@@ -31,7 +31,9 @@ struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
         glowColor: matchingProperties.contains(property) ? .glow : .clear,
         glowRadius: matchingProperties.contains(property) ? 3 : 0
       )
-      .onTapGesture { selectedProperty = property }
+      .onTapGesture {
+        selectedProperty = property
+      }
     }
   }
 }

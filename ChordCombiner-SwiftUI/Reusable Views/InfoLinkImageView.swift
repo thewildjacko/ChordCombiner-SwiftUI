@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct InfoLinkImageView: View {
+  var font: Font = .title3
+
     var body: some View {
       Image(systemName: "info.circle")
-        .font(.title3)
+        .font(font)
         .foregroundStyle(.title)
     }
 }

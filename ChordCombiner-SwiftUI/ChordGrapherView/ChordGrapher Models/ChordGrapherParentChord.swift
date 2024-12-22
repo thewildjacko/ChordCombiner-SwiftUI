@@ -13,28 +13,28 @@ struct ChordGrapherParentChord {
   // MARK: stored properties
 
   /// the parent chord for the graph
-  let chord: Chord
+  var chord: Chord = .initial
 
   /// an array of all the triads and simple 4-note chords that the parent chord contains
-  let containingChords: [Chord]/* { chord.containingChords() }*/
+  var containingChords: [Chord] = []
 
   /// the name of the parent chord in dot notation
-  let dotName: String
+  var dotName: String = ""
 
   /// the notes of the parent chord
-  let notes: [Note]
+  var notes: [Note] = []
 
   /// a string joined from `notes`, mapped to dot notation
-  let dotNotes: String
+  var dotNotes: String = ""
 
   /// an array of all simple 4-note chords that the parent chord contains
-  let fourNoteChords: [Chord]
+  var fourNoteChords: [Chord] = []
 
   /// all chords in ``fourNoteSimpleChords`` that don't contain triads
-  let fourNoteChordsWithoutTriads: [Chord]
+  var fourNoteChordsWithoutTriads: [Chord] = []
 
   /// an array of all triads that the parent chord contains
-  let triads: [Chord]
+  var triads: [Chord] = []
 
   /// an array of ``Note``s that belong only to the parent chord, not to any containing chord
   var notesWithoutChords: [Note] = []
@@ -43,8 +43,36 @@ struct ChordGrapherParentChord {
   init(chord: Chord) {
     self.chord = chord
 
-    containingChords = chord.containingChords()
+    containingChords = chord.containingChordsConcurrent()
+
     notes = chord.notes
+
+    dotNotes = chord.notes.map { $0.getDotNotationName() }.joined(separator: " ")
+
+    dotName = chord.getDotNotationName()
+
+    fourNoteChords = Array(
+      sortedByNotes: notes,
+      fromChords: containingChords.filterInFourNoteChords()
+    )
+
+    fourNoteChordsWithoutTriads = fourNoteChords.filterInChordsContainingNoChords()
+
+    triads = Array(
+      sortedByNotes: notes,
+      fromChords: containingChords.filterInTriads()
+    )
+
+    notesWithoutChords = notes.filter { note in
+      !triads.contains(note) && !fourNoteChords.contains(note)
+    }
+  }
+
+  mutating func setProperties() {
+    containingChords = chord.containingChords()
+
+    notes = chord.notes
+
     dotNotes = chord.notes.map { $0.getDotNotationName() }.joined(separator: " ")
     dotName = chord.getDotNotationName()
 

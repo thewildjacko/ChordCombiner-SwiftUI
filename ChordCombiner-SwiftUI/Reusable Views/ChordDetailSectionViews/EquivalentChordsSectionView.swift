@@ -17,7 +17,10 @@ struct EquivalentChordsSectionView: View {
           Section(header: Text("Equivalent Chords")) {
             List {
               ForEach(chord.getEquivalentChords()) { chord in
-                TitleView(text: chord.preciseName, font: .headline)
+                SingleChordDetailNavigationView(
+                  chord: chord,
+                  color: .lowerChordHighlight,
+                  labelType: .title)
               }
             }
           }

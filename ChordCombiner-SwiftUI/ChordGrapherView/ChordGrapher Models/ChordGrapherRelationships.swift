@@ -9,7 +9,8 @@ import Foundation
 
 struct ChordGrapherRelationships {
   // MARK: stored properties
-  var parentChord: ChordGrapherParentChord
+  var parentChord: ChordGrapherParentChord = ChordGrapherParentChord(
+    chord: .initial)
 
   /// returns an appropriate dot-notation string for the initial children, based on `parentChord.elementsContained`
   private var nextLevelDownString: String = ""
@@ -42,6 +43,13 @@ struct ChordGrapherRelationships {
   /// an array of rankSame strings for 4-note chords, triads and notes, including only those items that aren't empty.
   var rankSameStrings: [String] = []
 
+  // MARK: Computed properties
+  var rowElementsMax: Int {
+    let rowCounts = [parentChord.fourNoteChords.count, parentChord.triads.count, parentChord.notes.count]
+
+    return rowCounts.max() ?? 0
+  }
+
   // MARK: Initializer
   init(parentChord: ChordGrapherParentChord) {
     self.parentChord = parentChord
@@ -54,7 +62,9 @@ struct ChordGrapherRelationships {
 
     fourNoteChordsWithoutTriadsByNote = parentChord.notes
       .chordsContainNote(chords: parentChord.fourNoteChordsWithoutTriads)
+
     triadsByNote = parentChord.notes.chordsContainNote(chords: parentChord.triads)
+
     noteToChordsStrings = getNoteToChordsStrings()
 
     rankSameStrings = getRankSameStrings()
@@ -105,11 +115,17 @@ struct ChordGrapherRelationships {
   private func getNoteToChordsStrings() -> [String] {
     var noteToChordsStrings: [String] = []
 
+//    print("FNCWT: \(parentChord.fourNoteChordsWithoutTriads.preciseNames())")
+
     for index in (0..<parentChord.notes.count) {
       var chords = fourNoteChordsWithoutTriadsByNote[index] + triadsByNote[index]
+//      print("FNC: \(chords.preciseNames())")
+//      print("triads: \(triadsByNote[index].preciseNames())")
+//      print("chord: \(chords.preciseNames())")
 
       if !parentChord.notesWithoutChords.isEmpty &&
-          parentChord.notesWithoutChords.contains(parentChord.notes[index]) {
+          parentChord.notesWithoutChords.contains(parentChord.notes[index]) &&
+          !chords.contains(parentChord.chord) {
         chords.append(parentChord.chord)
       }
 
@@ -119,6 +135,7 @@ struct ChordGrapherRelationships {
 
       let noteString = parentChord.notes[index].getDotNotationName()
 
+//      print(chordsString.pointingTo(noteString))
       noteToChordsStrings.append(chordsString.pointingTo(noteString))
     }
 
@@ -139,11 +156,11 @@ struct ChordGrapherRelationships {
 
   /// build the ``rankSameStrings``
   private func getRankSameStrings() -> [String] {
-    let notes: [String] = parentChord.notes.map { $0.noteName }
+    let notes: [String] = parentChord.notes.noteNames()
     let fourNoteChords: [String]? = !parentChord.fourNoteChords.isEmpty ?
-    parentChord.fourNoteChords.map { $0.preciseName } : nil
+    parentChord.fourNoteChords.preciseNames() : nil
     let triads: [String]? = !parentChord.triads.isEmpty ?
-    parentChord.triads.map { $0.preciseName } : nil
+    parentChord.triads.preciseNames() : nil
 
     let rankSameOptionalStrings: [[String]?] = [notes, fourNoteChords, triads]
     let rankSameStringsCompacted = rankSameOptionalStrings.compacted()

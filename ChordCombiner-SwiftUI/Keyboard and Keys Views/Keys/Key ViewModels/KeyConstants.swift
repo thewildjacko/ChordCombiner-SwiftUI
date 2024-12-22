@@ -28,7 +28,7 @@ enum KeyConstants {
     static func getAddend(_ keyType: KeyType) -> CGFloat {
       switch keyType {
       case .c:
-        return Width.whiteKeyCEGA.rawValue + 10
+        return Width.whiteKeyCEGA.rawValue/* + 10*/
       case .dB, .d:
         return keyType == .dB
         ? AddendModifier.Db.rawValue // D shifts right by 5
@@ -75,7 +75,7 @@ enum KeyConstants {
   /// Adjusts the height of the black keys based on their width (which is determined first)
   public static let blackKeyHeightToWidthRatio: CGFloat = Height.blackKey.rawValue/Width.blackKey.rawValue
 
-  public static let blackToWhiteKeyWidthRatio: CGFloat = Width.blackKey.rawValue/Width.blackKey.rawValue
+  public static let blackToWhiteKeyHeightRatio: CGFloat = Height.blackKey.rawValue/Height.whiteKey.rawValue
 
   /// Angles used to construct the corners of the keys
   enum ArcAngle {

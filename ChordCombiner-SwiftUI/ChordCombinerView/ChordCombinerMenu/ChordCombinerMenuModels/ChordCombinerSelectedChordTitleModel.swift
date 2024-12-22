@@ -9,15 +9,13 @@ import SwiftUI
 
 struct ChordCombinerSelectedChordTitleModel {
   static let initial = ChordCombinerSelectedChordTitleModel(
-    chordCombinerViewModel: ChordCombinerViewModel(),
-    chordProperties: ChordProperties())
+    chordProperties: ChordProperties(),
+    isLowerChordMenu: true
+  )
 
-  let chordCombinerViewModel: ChordCombinerViewModel
+  let chordCombinerViewModel = ChordCombinerViewModel.singleton()
   let chordProperties: ChordProperties
-
-  var isLowerChordMenu: Bool {
-    chordProperties == chordCombinerViewModel.lowerChordProperties ? true : false
-  }
+  var isLowerChordMenu: Bool
 
   var promptText: String {
     isLowerChordMenu ? "Select Lower Chord" : "Select Upper Chord"

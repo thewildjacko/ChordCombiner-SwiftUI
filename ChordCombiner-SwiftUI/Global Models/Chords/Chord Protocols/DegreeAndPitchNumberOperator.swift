@@ -13,7 +13,7 @@ protocol DegreeNumbers {
 }
 
 extension DegreeNumbers {
-  var degreeNumberSet: Set<Int> { Set(degreeNumbers) }
+  var degreeNumberSet: Set<Int> { degreeNumbers.toSet() }
 }
 
 protocol StartingOctave {

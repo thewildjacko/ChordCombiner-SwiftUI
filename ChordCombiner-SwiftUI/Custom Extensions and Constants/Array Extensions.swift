@@ -12,21 +12,61 @@ import Algorithms
 extension Chord {
   /// Returns a set of the combined elements of two Chord degreeNumber arrays
   func combineSetFilter(_ otherChord: Chord) -> Set<Int> {
-    return Set(self.degreeNumbers).union(otherChord.degreeNumbers)
+    return degreeNumbers.toSet().union(otherChord.degreeNumbers)
+  }
+}
+
+extension Array {
+  func calculateBatch() -> Int {
+    return self.count <= 5 ? self.count : 5
+  }
+
+  func calculateStartPoint(batch: Int, iteration: Int, elementsInBatch: Int) -> Int {
+    guard !self.isEmpty && self.count != 0 else {
+      return 0
+    }
+
+    let count = self.count
+    let endPoint = count - 1
+
+    var startPoint = iteration * elementsInBatch
+    startPoint = startPoint <= endPoint ? startPoint : endPoint
+
+    return startPoint
+  }
+
+  func calculateEndPoint(startPoint: Int, elementsInBatch: Int) -> Int {
+    guard !self.isEmpty && self.count != 0 else {
+      return 0
+    }
+
+    let count = self.count
+    let arrayEnd = count - 1
+
+    var endPoint = startPoint + elementsInBatch
+    endPoint = endPoint <= arrayEnd ? endPoint : arrayEnd
+
+    return endPoint
+  }
+
+  func elementsInBatch(batch: Double) -> Int {
+    let elementsDouble = Double(Double(self.count) / batch).rounded(.up)
+    return Int(elementsDouble)
   }
 }
 
 extension Array where Element == Int {
   // MARK: Set operations
 
-  /// Combines two Integer arrays into another array with no duplicate values, sorted in ascending order
-  func combineSetFilterSort(_ otherArray: [Int]) -> [Int] {
-    return Set(self).union(otherArray).sorted()
-  }
-
   /// Returns a set of the combined elements of two Integer arrays
   func combineSetFilter(_ otherArray: [Int]) -> Set<Int> {
-    return Set(self).union(otherArray)
+    return self.toSet().union(otherArray)
+  }
+
+  /// Combines two Integer arrays into another array with no duplicate values, sorted in ascending order
+  func combineSetFilterSort(_ otherArray: [Int]) -> [Int] {
+    return self.combineSetFilter(otherArray).sorted()
+//    return self.toSet().union(otherArray).sorted()
   }
 
   /// Returns an array of the elements in an array not contained in the supplied `otherArray` parameter
@@ -126,7 +166,7 @@ extension Array where Element == Int {
       var tempMinPitch = minPitch
 
       while tempMinPitch < startingPitch {
-//        print(minPitch, startingPitch)
+        //        print(minPitch, startingPitch)
         lowerTones.raiseAllBy(12)
         upperTones.raiseAllBy(12)
         commonTones.raiseAllBy(12)
@@ -182,9 +222,7 @@ extension Array where Element == Int {
 
 extension Array where Element: Hashable {
   /// returns a set from a given array
-  func toSet() -> Set<Element> {
-    Set(self)
-  }
+  func toSet() -> Set<Element> { Set(self) }
 }
 
 extension Array where Element == Key {
@@ -226,6 +264,9 @@ extension Array where Element == Note {
   func toPitchesByNote(pitches: [Int]) -> PitchesByNote {
     return Dictionary(uniqueKeysWithValues: zip(self, pitches))
   }
+
+  func noteNames() -> [String] { self.map { $0.noteName } }
+  func degreeNumbers() -> [Int] { self.map { $0.noteNumber.rawValue } }
 }
 
 extension Array where Element == ChordType {
@@ -259,6 +300,14 @@ extension Array where Element == Chord {
     self = result
   }
 
+  func preciseNames() -> [String] {
+    self.map { $0.preciseName }
+  }
+
+  func getCommonNames() -> [String] {
+    self.map { $0.commonName }
+  }
+
   func filterInFourNoteChords() -> [Chord] {
     self.filter { $0.isFourNoteSimpleChord() }
   }
@@ -272,7 +321,39 @@ extension Array where Element == Chord {
   }
 
   func filterInChordsContainingNoChords() -> [Chord] {
-    self.filter { $0.containingChords().isEmpty }
+    guard !self.isEmpty else {
+      return []
+    }
+
+    let batch = self.calculateBatch()
+    let chordsInBatch = self.elementsInBatch(batch: Double(batch))
+    var tempChords: [Chord] = []
+
+    var lock = os_unfair_lock()
+
+    DispatchQueue.concurrentPerform(iterations: batch) { iteration in
+      let startPoint = self.calculateStartPoint(
+        batch: batch,
+        iteration: iteration,
+        elementsInBatch: chordsInBatch)
+      let endPoint = self.calculateEndPoint(
+        startPoint: startPoint,
+        elementsInBatch: chordsInBatch)
+      let subChordArray = Array(self[startPoint..<endPoint])
+
+      var chordMatches: [Chord] = []
+
+      for chord in subChordArray
+      where chord.containingChordsConcurrent().isEmpty {
+        chordMatches.append(chord)
+      }
+
+      os_unfair_lock_lock(&lock)
+      tempChords += chordMatches
+      os_unfair_lock_unlock(&lock)
+    }
+
+    return tempChords
   }
 
   func filterInChordsContainingNote(_ note: Note) -> [Chord] {

@@ -24,7 +24,7 @@ struct ChordCombinerVoicingCalculator: SettableNotesByNoteNumber {
 
   private(set) var resultChordDegreesInOctaveSorted: [Int] = []
 
-  var resultChordNoteNames: [Note] {
+  var resultChordNotes: [Note] {
     var notes: [Note] = []
 
     for degreeNumber in resultChordDegreesInOctaveSorted {

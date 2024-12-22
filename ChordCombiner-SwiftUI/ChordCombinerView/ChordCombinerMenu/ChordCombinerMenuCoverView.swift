@@ -8,56 +8,56 @@
 import SwiftUI
 
 struct ChordCombinerMenuCoverView: View {
-  var chordCombinerViewModel: ChordCombinerViewModel {
+  var chordCombinerViewModel = ChordCombinerViewModel.singleton() {
     didSet { setChordCombinerSelectedChordTitleModel() }
   }
 
   @Binding var keyboard: Keyboard
   @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
-
+  let isLowerChordMenu: Bool
   var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
 
   init(
-    chordCombinerViewModel: ChordCombinerViewModel,
     keyboard: Binding<Keyboard>,
     combinedKeyboard: Binding<Keyboard>,
-    chordProperties: Binding<ChordProperties>) {
-    self.chordCombinerViewModel = chordCombinerViewModel
-    self._keyboard = keyboard
-    self._combinedKeyboard = combinedKeyboard
-    self._chordProperties = chordProperties
-
-    setChordCombinerSelectedChordTitleModel()
-  }
+    chordProperties: Binding<ChordProperties>,
+    islowerChordMenu: Bool) {
+      self._keyboard = keyboard
+      self._combinedKeyboard = combinedKeyboard
+      self._chordProperties = chordProperties
+      self.isLowerChordMenu = islowerChordMenu
+      setChordCombinerSelectedChordTitleModel()
+    }
 
   mutating func setChordCombinerSelectedChordTitleModel() {
     chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
-      chordCombinerViewModel: chordCombinerViewModel,
-      chordProperties: chordProperties
+      chordProperties: chordProperties,
+      isLowerChordMenu: isLowerChordMenu
     )
   }
 
   var body: some View {
-    VStack {
-      TitleView(
-        text: chordCombinerSelectedChordTitleModel.promptText,
-        font: .headline,
-        weight: .heavy,
-        isMenuTitle: false)
+      VStack {
+        TitleView(
+          text: chordCombinerSelectedChordTitleModel.promptText,
+          font: .headline,
+          weight: .heavy,
+          isMenuTitle: false)
 
-      NavigationLink(
-        destination:
-          ChordCombinerChordSelectionMenu(
-            chordCombinerViewModel: chordCombinerViewModel,
-            selectedKeyboard: $keyboard,
-            combinedKeyboard: $combinedKeyboard,
-            chordProperties: $chordProperties
-          )
-          .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
-          .navigationBarTitleDisplayMode(.inline)
-      ) {
-        VStack(spacing: 15) {
+        NavigationLink(
+          destination:
+            ChordCombinerChordSelectionMenu(
+              selectedKeyboard: $keyboard,
+              combinedKeyboard: $combinedKeyboard,
+              chordProperties: $chordProperties,
+              islowerChordMenu: isLowerChordMenu
+            )
+            .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
+            .navigationBarTitleDisplayMode(.inline)
+        ) {
+
+          VStack(spacing: 15) {
             TitleView(
               text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
               font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
@@ -65,17 +65,17 @@ struct ChordCombinerMenuCoverView: View {
               color: .button
             )
 
-          keyboard
+            keyboard
+          }
         }
       }
-    }
   }
 }
 
 #Preview {
   ChordCombinerMenuCoverView(
-    chordCombinerViewModel: ChordCombinerViewModel(),
     keyboard: .constant(Keyboard.initialSingleChordKeyboard),
     combinedKeyboard: .constant(Keyboard.initialDualChordKeyboard),
-    chordProperties: .constant(ChordProperties.initial))
+    chordProperties: .constant(ChordProperties.initial),
+    islowerChordMenu: true)
 }

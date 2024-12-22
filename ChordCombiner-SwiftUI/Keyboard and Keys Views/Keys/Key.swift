@@ -22,7 +22,7 @@ struct Key: View, KeyProtocol, Identifiable {
 
   var fill: Color { didSet { setKeyShapeGroup() } }
   var stroke: Color = .black
-  var lineWidth: CGFloat = 1
+  var lineWidth: CGFloat = 0.5
 
   var initialKey: Bool = false
   var finalKey: Bool = false
@@ -57,7 +57,7 @@ struct Key: View, KeyProtocol, Identifiable {
        keyPosition: CGFloat = 0,
        fill: Color = .white,
        stroke: Color = .black,
-       lineWidth: CGFloat = 1,
+       lineWidth: CGFloat = 0.5,
        initialKey: Bool = false,
        finalKey: Bool = false,
        lettersOn: Bool = false,
@@ -130,7 +130,7 @@ struct Key: View, KeyProtocol, Identifiable {
   mutating func setWidthMultiplier() { widthMultiplier = baseWidth / widthDivisor }
 
   mutating func setPosition() {
-    position = baseWidth.getKeyPosition(position: keyPosition, widthDivisor: widthDivisor)
+    position = baseWidth.getKeyPosition(keyType: keyType, position: keyPosition, widthDivisor: widthDivisor)
   }
 
   mutating func setKeyShapeGroup() {
@@ -177,7 +177,9 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 
   func radius() -> CGFloat { keyType.baseRadius * widthMultiplier }
-  func width() -> CGFloat { keyType.baseWidth * widthMultiplier }
+  func width() -> CGFloat {
+    return keyType.baseWidth * widthMultiplier
+  }
   func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
 
   var body: some View {

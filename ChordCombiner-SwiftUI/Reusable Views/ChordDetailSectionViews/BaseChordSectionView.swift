@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BaseChordSectionView: View {
-  var chord: Chord
-  var baseChord: Chord { chord.getBaseChord() }
+  var chord: Chord?
+  var baseChord: Chord { chord?.getBaseChord() ?? .initial }
 
   @ViewBuilder
     var body: some View {

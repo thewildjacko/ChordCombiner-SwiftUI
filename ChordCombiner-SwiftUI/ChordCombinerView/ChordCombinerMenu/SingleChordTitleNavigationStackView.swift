@@ -21,7 +21,7 @@ struct SingleChordTitleNavigationStackView: View {
           weight: .heavy,
           isMenuTitle: false
         )
-        SingleChordDetailNavigationLinkView(
+        SingleChordDetailNavigationView(
           chord: chordCombinerSelectedChordTitleModel.selectedChord,
           color: chordCombinerSelectedChordTitleModel.selectedChordColor)
       }

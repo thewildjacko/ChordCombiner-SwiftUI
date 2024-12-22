@@ -9,19 +9,33 @@ import SwiftUI
 import Observation
 
 @Observable
-final class ChordCombinerViewModel: ObservableObject {
+class ChordCombinerViewModel: ObservableObject {
+  // MARK: Shared static singleton
+  private static var shared: ChordCombinerViewModel?
+
+  var initial: Bool = true
+
   // MARK: Instance properties
-  var lowerChordProperties: ChordProperties = ChordProperties.initial
-  var upperChordProperties: ChordProperties = ChordProperties.initial
+  var chordPropertyData = ChordPropertyData(
+    lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+    upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
+  ) {
+    didSet {
+      saveChordsJSON()
+    }
+  }
+
+  let chordsJSONURL = URL(fileURLWithPath: "chords", relativeTo: FileManager.documentsDirectoryURL)
+    .appendingPathExtension("json")
 
   var lowerKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard
   var upperKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard
   var combinedKeyboard: Keyboard = Keyboard.initialDualChordKeyboard
 
   var lowerChord: Chord? {
-    guard let letter = lowerChordProperties.letter,
-          let accidental = lowerChordProperties.accidental,
-          let chordType = lowerChordProperties.chordType else {
+    guard let letter = chordPropertyData.lowerChordProperties.letter,
+          let accidental = chordPropertyData.lowerChordProperties.accidental,
+          let chordType = chordPropertyData.lowerChordProperties.chordType else {
       return nil
     }
 
@@ -29,9 +43,9 @@ final class ChordCombinerViewModel: ObservableObject {
   }
 
   var upperChord: Chord? {
-    guard let letter = upperChordProperties.letter,
-          let accidental = upperChordProperties.accidental,
-          let chordType = upperChordProperties.chordType else {
+    guard let letter = chordPropertyData.upperChordProperties.letter,
+          let accidental = chordPropertyData.upperChordProperties.accidental,
+          let chordType = chordPropertyData.upperChordProperties.chordType else {
       return nil
     }
 
@@ -59,215 +73,82 @@ final class ChordCombinerViewModel: ObservableObject {
   }
 
   // MARK: Initializer
-  init(
-    lowerChordProperties: ChordProperties = ChordProperties.initial,
-    upperChordProperties: ChordProperties = ChordProperties.initial,
-    lowerKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard,
-    upperKeyboard: Keyboard = Keyboard.initialSingleChordKeyboard,
-    combinedKeyboard: Keyboard = Keyboard.initialDualChordKeyboard
+  private init(
+    lowerChordProperties: ChordProperties = ChordProperties(
+      letter: nil,
+      accidental: .natural,
+      chordType: nil),
+    upperChordProperties: ChordProperties = ChordProperties(
+      letter: nil,
+      accidental: .natural,
+      chordType: nil),
+    lowerKeyboard: Keyboard = Keyboard(
+      baseWidth: 351,
+      initialKeyType: .c,
+      startingOctave: 4, octaves: 2),
+    upperKeyboard: Keyboard = Keyboard(
+      baseWidth: 351,
+      initialKeyType: .c,
+      startingOctave: 4, octaves: 2),
+    combinedKeyboard: Keyboard = Keyboard(
+      baseWidth: 351,
+      initialKeyType: .c,
+      startingOctave: 4, octaves: 3)
   ) {
-    self.lowerChordProperties = lowerChordProperties
-    self.upperChordProperties = upperChordProperties
+    chordPropertyData = loadChordsJSON()
+
     self.lowerKeyboard = lowerKeyboard
     self.upperKeyboard = upperKeyboard
     self.combinedKeyboard = combinedKeyboard
   }
-}
 
-// MARK: Equatable
-extension ChordCombinerViewModel: Equatable {
-  static func == (lhs: ChordCombinerViewModel, rhs: ChordCombinerViewModel) -> Bool {
-    return lhs.lowerChord == rhs.lowerChord && lhs.upperChord == rhs.upperChord && lhs.resultChord == rhs.resultChord
-  }
-}
-
-// MARK: ChordSelectionStatus
-extension ChordCombinerViewModel {
-  enum ChordSelectionStatus {
-    case neitherChordIsSelected
-    case lowerChordIsSelected
-    case upperChordIsSelected
-    case bothChordsAreSelected
-  }
-
-  var chordSelectionStatus: ChordSelectionStatus {
-    switch (lowerChord != nil, upperChord != nil) {
-    case (false, false):
-        .neitherChordIsSelected
-    case (true, false):
-        .lowerChordIsSelected
-    case (false, true):
-        .upperChordIsSelected
-    case (true, true):
-        .bothChordsAreSelected
+  // MARK: Singleton function
+  public class func singleton() -> ChordCombinerViewModel {
+    if shared == nil {
+      shared = ChordCombinerViewModel()
     }
-  }
-}
-
-// MARK: ResultChordStatus
-extension ChordCombinerViewModel {
-  enum ResultChordStatus {
-    case combinedChord, slashChord, notFound
+    return shared!
   }
 
-  var resultChordStatus: ResultChordStatus {
-    guard let lowerChord = lowerChord,
-          let resultChord = resultChord else {
-      return .notFound
-    }
+  func loadChordsJSON() -> ChordPropertyData {
 
-    return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
-  }
-}
+    guard Bundle.main.url(forResource: "chords", withExtension: "json") != nil else {
 
-extension ChordCombinerViewModel {
-  func getPitchesToHighlight(
-    startingPitch: Int,
-    lowerTones: [Int],
-    upperTones: [Int],
-    commonTones: [Int])
-  -> CombinedChordHighlightPitches {
-      var pitchesToHighlight = CombinedChordHighlightPitches(
-        startingPitch: startingPitch,
-        lower: lowerTones,
-        upper: upperTones,
-        common: commonTones)
+      let decoder = JSONDecoder()
 
-      if let resultChord = resultChord {
-        if let slashChordBassNote = resultChord.slashChordBassNote,
-           let degree = resultChord.notes.first(where: { note in
-             note.noteNumber.rawValue.isSameNote(
-              as: slashChordBassNote.keyName.noteNumber.rawValue)
-           })?.degree {
-          let slashChordBassNoteBasePitch = slashChordBassNote.keyName.noteNumber.rawValue
+      do {
+        let data = try Data(contentsOf: chordsJSONURL)
+        chordPropertyData = try decoder.decode(ChordPropertyData.self, from: data)
 
-          let basePitch = resultChord.root.rootNumber.rawValue
+      } catch let error {
+        print("decoding error!")
+        print(error)
 
-          if let slashChordBassNoteRaisedPitch = pitchesToHighlight.combined.first(
-            where: { pitch in
-              pitch.isSameNote(as: slashChordBassNoteBasePitch)
-            }),
-             let rootRaisedPitch = pitchesToHighlight.combined.first(where: { pitch in
-               pitch.isSameNote(as: basePitch) }) {
-
-            pitchesToHighlight.pivotCombinedPitchesAround(
-              degreeSize: degree.size,
-              slashChordBassNoteRaisedPitch: slashChordBassNoteRaisedPitch,
-              rootRaisedPitch: rootRaisedPitch)
-
-            pitchesToHighlight.raiseAbove()
-          }
-        }
+        return ChordPropertyData(
+          lowerChordProperties: ChordProperties(
+            letter: nil,
+            accidental: .natural,
+            chordType: nil),
+          upperChordProperties: ChordProperties(
+            letter: nil,
+            accidental: .natural,
+            chordType: nil))
       }
-
-      return pitchesToHighlight
+      return chordPropertyData
+    }
+    return chordPropertyData
   }
 
-  func getPitchesByNote(combinedTones: [Int]) -> PitchesByNote {
-    guard let resultChord = resultChord else { return [:] }
+  private func saveChordsJSON() {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
 
-    var pitchesByNote: PitchesByNote = [:]
-    pitchesByNote.reserveCapacity(12)
-    pitchesByNote = resultChord.voicingCalculator.stackedPitchesByNote
-
-    var combinedNotes: [Note] = []
-
-    for pitch in combinedTones {
-      if let note = resultChord.notes.first(where: { note in
-        note.noteNumber.rawValue.isSameNote(as: pitch)
-      }) {
-        combinedNotes.append(note)
-      }
+    do {
+      let data = try encoder.encode(chordPropertyData)
+      try data.write(to: chordsJSONURL, options: .atomicWrite)
+    } catch let error {
+      print("encoding error")
+      print(error)
     }
-
-    pitchesByNote = combinedNotes.toPitchesByNote(pitches: combinedTones)
-
-    return pitchesByNote
-  }
-}
-
-// MARK: DetailType & displayDetails
-extension ChordCombinerViewModel {
-  enum DetailType {
-    case commonName,
-         preciseName,
-         lowerChordName,
-         upperChordName,
-         noteNames,
-         degreeNames
-  }
-
-  func displayDetailsSplit(
-    lowerChord: Chord,
-    upperChord: Chord,
-    detailType: DetailType)
-  -> String {
-    switch detailType {
-    case .commonName:
-      return "\(upperChord.commonName)/\(lowerChord.commonName)"
-    case .preciseName:
-      return "\(upperChord.preciseName)/\(lowerChord.preciseName)"
-    case .lowerChordName:
-      return lowerChord.preciseName
-    case .upperChordName:
-      return upperChord.preciseName
-    case .noteNames:
-      return (lowerChord.noteNames + upperChord.noteNames)
-        .joined(separator: ", ")
-    case .degreeNames:
-      guard let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
-        return (lowerChord.degreeNames.numeric + upperChord.degreeNames.numeric)
-          .joined(separator: ", ")
-      }
-
-      return (lowerChord.degreeNames.numeric + chordCombinerVoicingCalculator.upperDegreeNamesInLowerKey)
-        .joined(separator: ", ")
-    }
-  }
-
-  func displayDetailsCombined(
-    lowerChord: Chord,
-    upperChord: Chord,
-    resultChord: Chord,
-    chordCombinerVoicingCalculator: ChordCombinerVoicingCalculator,
-    detailType: DetailType)
-  -> String {
-    switch detailType {
-    case .commonName:
-      return resultChord.commonName
-    case .preciseName:
-      return resultChord.preciseName
-    case .lowerChordName:
-      return lowerChord.preciseName
-    case .upperChordName:
-      return upperChord.preciseName
-    case .noteNames:
-      return chordCombinerVoicingCalculator.resultChordNoteNames.map { $0.noteName }
-        .joined(separator: ", ")
-    case .degreeNames:
-      return chordCombinerVoicingCalculator.resultChordDegreeNames.joined(separator: ", ")
-    }
-  }
-
-  func displayDetails(detailType: DetailType) -> String {
-    guard let lowerChord = lowerChord,
-          let upperChord = upperChord else {
-      return "please select upper and lower chords"
-    }
-
-    guard let resultChord = resultChord,
-          let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
-      return displayDetailsSplit(
-        lowerChord: lowerChord,
-        upperChord: upperChord,
-        detailType: detailType)
-    }
-
-    return displayDetailsCombined(
-      lowerChord: lowerChord,
-      upperChord: upperChord,
-      resultChord: resultChord,
-      chordCombinerVoicingCalculator: chordCombinerVoicingCalculator,
-      detailType: detailType)
   }
 }

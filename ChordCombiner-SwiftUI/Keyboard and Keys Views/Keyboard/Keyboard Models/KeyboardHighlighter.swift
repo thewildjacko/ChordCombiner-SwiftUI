@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct KeyboardHighlighter {
+  let chordCombinerViewModel = ChordCombinerViewModel.singleton()
+
   func highlightSelectedChord(
     selectedChord: Chord?,
     selectedKeyboard: inout Keyboard,
@@ -15,6 +17,8 @@ struct KeyboardHighlighter {
     guard let selectedChord = selectedChord else { return }
     // Clear previously highlighted chord
     selectedKeyboard.clearHighlightedKeys()
+
+//      print(selectedChordColor.description)
 
     // Highlight new chord and turn letters on
     selectedKeyboard.highlightKeys_LettersOn(
@@ -47,7 +51,6 @@ struct KeyboardHighlighter {
   func highlightCombinedChord(
     selectedChord: Chord?,
     chordToMatch: Chord?,
-    chordCombinerViewModel: ChordCombinerViewModel,
     combinedKeyboard: inout Keyboard) {
     guard selectedChord != nil,
           chordToMatch != nil,
@@ -89,7 +92,6 @@ struct KeyboardHighlighter {
   func highlightSplitChord(
     selectedChord: Chord?,
     chordToMatch: Chord?,
-    chordCombinerViewModel: ChordCombinerViewModel,
     combinedKeyboard: inout Keyboard) {
     guard selectedChord != nil,
           chordToMatch != nil,
@@ -133,8 +135,6 @@ struct KeyboardHighlighter {
   func highlightKeyboards(
     selectedChord: Chord?,
     chordToMatch: Chord?,
-    chordCombinerViewModel: ChordCombinerViewModel,
-    selectedChordColor: Color,
     combinedKeyboard: inout Keyboard) {
 
     // resultChord is a combined or slash chord
@@ -142,7 +142,6 @@ struct KeyboardHighlighter {
       highlightCombinedChord(
         selectedChord: selectedChord,
         chordToMatch: chordToMatch,
-        chordCombinerViewModel: chordCombinerViewModel,
         combinedKeyboard: &combinedKeyboard
       )
     } else { // combineChords returns a polychord or one or both lower/upper chords aren't selected yet
@@ -161,7 +160,7 @@ struct KeyboardHighlighter {
       default: // combineChords returns a polychord
         highlightSplitChord(
           selectedChord: selectedChord,
-          chordToMatch: chordToMatch, chordCombinerViewModel: chordCombinerViewModel,
+          chordToMatch: chordToMatch,
           combinedKeyboard: &combinedKeyboard
         )
       }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DualChordKeyboardChordTitleModel {
-  let chordCombinerViewModel: ChordCombinerViewModel
+  let chordCombinerViewModel = ChordCombinerViewModel.singleton()
 
   var resultChordSymbol: String {
     guard let resultChord = chordCombinerViewModel.resultChord,
@@ -18,6 +18,19 @@ struct DualChordKeyboardChordTitleModel {
       .combinedChord ?
     resultChord.commonName :
     "\(resultChord.commonName)/\(lowerChord.root.noteName)"
+  }
+
+  var titleFont: Font {
+    if chordCombinerViewModel.resultChord != nil {
+      return .title
+    } else {
+      switch chordCombinerViewModel.chordSelectionStatus {
+      case .lowerChordIsSelected, .upperChordIsSelected:
+        return .title
+      default:
+        return .headline
+      }
+    }
   }
 
   var chordSymbolText: String {
