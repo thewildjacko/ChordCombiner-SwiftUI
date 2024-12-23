@@ -166,7 +166,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
   func variantCombinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, chordToMatch: Chord) -> Bool {
     var newChord: Chord = Chord.initial
-//    print("chordProperty: \(chordProperty.rawValue)")
+
     switch chordProperty {
     case is Letter:
       if let letter = chordProperty as? Letter {
@@ -181,7 +181,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
         newChord = Chord(RootKeyNote(letter, accidental), chordType)
       }
     default:
-//      print("Incompatible chord property!")
       return false
     }
 

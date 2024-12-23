@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Observation
+import OSLog
 
 @Observable
 class ChordCombinerViewModel: ObservableObject {
@@ -127,8 +128,8 @@ class ChordCombinerViewModel: ObservableObject {
         chordPropertyData = try decoder.decode(ChordPropertyData.self, from: data)
 
       } catch let error {
-        print("decoding error!")
-        print(error)
+        Logger.main.error("Decoding error! Couldn't load ChordPropertyData; setting to defaults.")
+        Logger.main.error("\(error)")
 
         return ChordPropertyData(
           lowerChordProperties: ChordProperties(
@@ -153,8 +154,8 @@ class ChordCombinerViewModel: ObservableObject {
       let data = try encoder.encode(chordPropertyData)
       try data.write(to: chordsJSONURL, options: .atomicWrite)
     } catch let error {
-      print("encoding error")
-      print(error)
+      Logger.main.error("Encoding error!")
+      Logger.main.error("\(error)")
     }
   }
 }

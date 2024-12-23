@@ -165,13 +165,11 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 
   mutating func highlight(color: Color) {
-    //    print("highlighting key \(pitch)!")
     fill = fill == keyType.defaultFillColor ? color : fill
     highlighted = true
   }
 
   mutating func clearHighlight() {
-    //    print("clearing key \(pitch)!")
     highlighted = false
     fill = keyType.defaultFillColor
   }

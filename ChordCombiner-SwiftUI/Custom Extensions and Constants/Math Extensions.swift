@@ -100,25 +100,25 @@ extension Int: Mathable {
   func raiseAbove(pitch: Int, degreeNumbers: [Int]?) -> Int {
     if let degreeNumbers = degreeNumbers {
       if self < pitch && !degreeNumbers.contains(self) {
-        // print("self < pitch and not in degreeNumbers")
+        // self < pitch and not in degreeNumbers
         return self + 12
       } else {
-        // print("self < pitch and is in degreeNumbers")
+        // self < pitch and is in degreeNumbers
         return self
       }
     } else {
-      // print("no degreeNumbers")
+      // no degreeNumbers
       if self >= pitch {
-        // print("self >= pitch")
+        // self >= pitch
         return self
       } else {
-        // print("pitch > self")
+        // pitch > self
         var raisedPitch = self
 
         while raisedPitch < pitch {
-          // print("\(raisedPitch) < \(pitch)")
+          // \(raisedPitch) < \(pitch)
           raisedPitch += 12
-          // print("raised pitch is \(raisedPitch)")
+          // raised pitch is \(raisedPitch)
         }
 
         return raisedPitch

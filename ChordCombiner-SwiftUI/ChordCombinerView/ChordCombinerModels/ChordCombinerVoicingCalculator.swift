@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 struct ChordCombinerVoicingCalculator: SettableNotesByNoteNumber {
   var lowerChordVoicingCalculator: VoicingCalculator
@@ -117,7 +118,7 @@ struct ChordCombinerVoicingCalculator: SettableNotesByNoteNumber {
   }
 
   func stackedSplit(lowerPitches: [Int], upperPitches: [Int]) -> (lowerPitches: [Int], upperPitches: [Int]) {
-    //    print("Highlighting split\n--------")
+    Logger.main.info("Highlighting split\n--------")
     // set initial 2nd chord stacked degreeNumbers
     var secondChordPitches = upperPitches
 

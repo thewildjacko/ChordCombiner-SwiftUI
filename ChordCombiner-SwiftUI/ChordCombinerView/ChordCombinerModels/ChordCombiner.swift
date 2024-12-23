@@ -5,6 +5,7 @@
 //  Created by Jake Smolowe on 11/22/24.
 //
 import Foundation
+import OSLog
 
 struct ChordCombiner {
   /// Combines the **`degreeNumbers`** of two ``Chord``s to check to see what type of result they produce
@@ -52,19 +53,22 @@ struct ChordCombiner {
     // 2. Assign chord from matching chordType to resultChord
     if let chordType = ChordType(fromDegreeNumbersToMatch: combinedDegreesInC) {
       resultChord = Chord(
-        //        RootKeyNote(firstChord.root.rootKeyName),
         lowerRootKeyNote,
         chordType,
         isSlashChord: false,
         slashChordBassNote: nil
       )
     } else {
-      //      print("No match for initial root")
+      Logger.main.info("No match for initial root")
       outerloop: while combinedRootKeyNotes.count >= 1 {
         for rootKeyNote in combinedRootKeyNotes {
-          //          print("Trying \(rootKeyNote.keyName.rawValue)")
+
+          Logger.main.info("Trying \(rootKeyNote.keyName.rawValue)")
+
           if let chordType = ChordType(fromDegreeNumbers: combinedDegrees, transposedTo: rootKeyNote) {
-            //            print("Found a match for \(rootKeyNote.keyName.rawValue)!")
+
+            Logger.main.info("Found a match for \(rootKeyNote.keyName.rawValue)!")
+
             resultChord = Chord(
               rootKeyNote,
               chordType,
@@ -72,7 +76,7 @@ struct ChordCombiner {
               slashChordBassNote: lowerRootKeyNote
             )
 
-            //            print(resultChord!.preciseName)
+            Logger.main.info("\(resultChord!.preciseName)")
 
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
             break outerloop

@@ -166,7 +166,6 @@ extension Array where Element == Int {
       var tempMinPitch = minPitch
 
       while tempMinPitch < startingPitch {
-        //        print(minPitch, startingPitch)
         lowerTones.raiseAllBy(12)
         upperTones.raiseAllBy(12)
         commonTones.raiseAllBy(12)

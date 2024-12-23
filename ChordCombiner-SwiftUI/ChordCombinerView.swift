@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import OSLog
 
 struct ChordCombinerView: View {
   @State var size = CGSize()
@@ -126,7 +127,7 @@ struct ChordCombinerView: View {
           highlightKeyboards()
           chordCombinerViewModel.initial = false
 
-          print(FileManager.documentsDirectoryURL)
+          Logger.main.info("\(FileManager.documentsDirectoryURL)")
         }
         .background(.primaryBackground)
       }

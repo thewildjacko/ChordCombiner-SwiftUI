@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 struct ChordGrapher {
   enum ElementsContained {
@@ -36,7 +37,7 @@ struct ChordGrapher {
     }
 
     let task = Task { return ChordGrapher(chord: chord) }
-    print(await task.value.chord.preciseName)
+
     return await task.value
   }
 }
@@ -102,7 +103,7 @@ extension ChordGrapher {
 
     mapComponents.queryItems = [queryItemChl, queryItemChs, queryItemCht, queryItemChof]
 
-//    print(chlItemsString)
+    Logger.main.info("\(chlItemsString)")
 
     let mapURL = mapComponents.url
 

@@ -115,13 +115,8 @@ struct ChordGrapherRelationships {
   private func getNoteToChordsStrings() -> [String] {
     var noteToChordsStrings: [String] = []
 
-//    print("FNCWT: \(parentChord.fourNoteChordsWithoutTriads.preciseNames())")
-
     for index in (0..<parentChord.notes.count) {
       var chords = fourNoteChordsWithoutTriadsByNote[index] + triadsByNote[index]
-//      print("FNC: \(chords.preciseNames())")
-//      print("triads: \(triadsByNote[index].preciseNames())")
-//      print("chord: \(chords.preciseNames())")
 
       if !parentChord.notesWithoutChords.isEmpty &&
           parentChord.notesWithoutChords.contains(parentChord.notes[index]) &&
@@ -135,7 +130,6 @@ struct ChordGrapherRelationships {
 
       let noteString = parentChord.notes[index].getDotNotationName()
 
-//      print(chordsString.pointingTo(noteString))
       noteToChordsStrings.append(chordsString.pointingTo(noteString))
     }
 
