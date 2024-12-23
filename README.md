@@ -16,7 +16,7 @@ Upon loading, the app presents the `ChordCombinerView`, which displays a column 
 - A 2-octave **Upper Keyboard** (`ChordCombinerMenuCoverView`)
   - Initial title: "Select Upper Chord"
   - Navigation link: "Please select a chord"  + the Keyboard itself
-- A 3-octave **Combined keyboard** 
+- A 3-octave **Combined keyboard** `DualChordKeyboardView`
   - Initial title: "waiting for chord selection..."
 
 The user can tap the navigation links to 
