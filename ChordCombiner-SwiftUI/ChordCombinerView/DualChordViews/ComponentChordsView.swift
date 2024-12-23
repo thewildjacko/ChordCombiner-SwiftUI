@@ -16,12 +16,14 @@ struct ComponentChordsView: View {
     if isDualChordDetailView {
       Section(header: Text("Component Chords")) {
         SingleChordDetailNavigationView(
+          keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
           chord: chordCombinerViewModel.lowerChord,
           color: .lowerChordHighlight,
           detailTitle: "Lower Chord",
           labelType: .detailRow)
 
         SingleChordDetailNavigationView(
+          keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
           chord: chordCombinerViewModel.upperChord,
           color: .lowerChordHighlight,
           detailTitle: "Upper Chord",

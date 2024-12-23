@@ -18,6 +18,7 @@ struct CombinedOrSingleChordTitleView: View {
         titleFont: titleFont,
         showCaption: false,
         showTitle: true)
+
       DualChordDetailNavigationLinkView(
         showCaption: true)
     }

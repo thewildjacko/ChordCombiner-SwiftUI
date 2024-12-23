@@ -28,6 +28,7 @@ struct RoundRectTagViewModifier: ViewModifier {
 struct HighlightableTagViewModifier: ViewModifier {
   var highlightCondition: Bool
   var highlightColor: Color = .tagBackgroundHighlighted
+  var backgroundColor: Color = .tagBackground
   var font: Font = .title3
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
@@ -38,6 +39,7 @@ struct HighlightableTagViewModifier: ViewModifier {
   init(
     highlightCondition: Bool,
     highlightColor: Color = .tagBackgroundHighlighted,
+    backgroundColor: Color = .tagBackground,
     font: Font,
     horizontalPadding: CGFloat,
     verticalPadding: CGFloat,
@@ -46,6 +48,7 @@ struct HighlightableTagViewModifier: ViewModifier {
     glowRadius: CGFloat) {
       self.highlightCondition = highlightCondition
       self.highlightColor = highlightColor
+      self.backgroundColor = backgroundColor
       self.font = font
       self.horizontalPadding = horizontalPadding
       self.verticalPadding = verticalPadding
@@ -59,7 +62,7 @@ struct HighlightableTagViewModifier: ViewModifier {
       .font(font)
       .padding(.horizontal, horizontalPadding)
       .padding(.vertical, verticalPadding)
-      .background(highlightCondition ? highlightColor : .tagBackground)
+      .background(highlightCondition ? highlightColor : backgroundColor)
       .foregroundStyle(highlightCondition ? .tagTextHighlighted : .tagText)
       .fontWeight(.bold)
       .clipShape(
@@ -92,25 +95,18 @@ struct TitleColorOverlay: ViewModifier {
 }
 
 struct Glow: ViewModifier {
-  @State private var pulse = false
-
   var color: Color = .title
   var radius: CGFloat = 10
 
-  var pulseRadius: CGFloat {
-    pulse ? radius * 1.25 : radius
-  }
-
-  init(pulse: Bool = false, color: Color, radius: CGFloat) {
-    self.pulse = pulse
+  init(color: Color, radius: CGFloat) {
     self.color = color
     self.radius = radius
   }
 
   func body(content: Content) -> some View {
     content
-      .shadow(color: color, radius: pulseRadius)
-      .shadow(color: color, radius: pulseRadius)
+      .shadow(color: color, radius: radius)
+      .shadow(color: color, radius: radius)
   }
 }
 
@@ -144,6 +140,7 @@ extension View {
   func highlightableTagView(
     highlightCondition: Bool,
     highlightColor: Color = .tagBackgroundHighlighted,
+    backgroundColor: Color = .tagBackground,
     font: Font = .title3,
     horizontalPadding: CGFloat = 9,
     verticalPadding: CGFloat = 5,
@@ -155,6 +152,7 @@ extension View {
       HighlightableTagViewModifier(
         highlightCondition: highlightCondition,
         highlightColor: highlightColor,
+        backgroundColor: backgroundColor,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

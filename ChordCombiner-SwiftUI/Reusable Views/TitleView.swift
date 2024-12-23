@@ -15,7 +15,6 @@ struct TitleView: View, Equatable {
   var isMenuTitle: Bool = false
 
   var body: some View {
-//    print("Title \(text) computed!")
     return Text(text)
       .titleFormat(
         font: font,

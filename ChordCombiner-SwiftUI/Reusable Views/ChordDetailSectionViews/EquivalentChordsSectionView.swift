@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EquivalentChordsSectionView: View {
+  var keyboardWidth: CGFloat = 351
   let chord: Chord?
 
   @ViewBuilder
@@ -18,6 +19,7 @@ struct EquivalentChordsSectionView: View {
             List {
               ForEach(chord.getEquivalentChords()) { chord in
                 SingleChordDetailNavigationView(
+                  keyboardWidth: keyboardWidth,
                   chord: chord,
                   color: .lowerChordHighlight,
                   labelType: .title)

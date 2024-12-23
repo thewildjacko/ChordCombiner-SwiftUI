@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ChordCombinerView: View {
+  @State var size = CGSize()
+  @State var initial: Bool = true
+
   let keyboardHighlighter = KeyboardHighlighter()
 
   // MARK: @State and instance variables
@@ -39,51 +42,94 @@ struct ChordCombinerView: View {
   }
 
   var body: some View {
-    NavigationStack {
-      VStack {
-        Spacer()
+    GeometryReader { proxy in
+      NavigationStack {
+        VStack {
+          Spacer()
 
-        ChordCombinerMenuCoverView(
-          keyboard: $chordCombinerViewModel.lowerKeyboard,
-          combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
-          chordProperties: $chordCombinerViewModel.chordPropertyData.lowerChordProperties,
-          islowerChordMenu: true
-        )
+          HStack {
+            Spacer()
+            ChordCombinerMenuCoverView(
+              keyboard: $chordCombinerViewModel.lowerKeyboard,
+              combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
+              chordProperties: $chordCombinerViewModel.chordPropertyData.lowerChordProperties,
+              islowerChordMenu: true
+            )
+            Spacer()
+          }
+          .frame(width: proxy.size.width)
 
-        Spacer()
+          Spacer()
 
-        TitleView(text: "+", font: .largeTitle, weight: .heavy)
-          .zIndex(1.0)
+          TitleView(text: "+", font: .largeTitle, weight: .heavy)
+            .zIndex(1.0)
 
-        Spacer()
+          Spacer()
 
-        ChordCombinerMenuCoverView(
-          keyboard: $chordCombinerViewModel.upperKeyboard,
-          combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
-          chordProperties: $chordCombinerViewModel.chordPropertyData.upperChordProperties,
-          islowerChordMenu: false
-        )
+          HStack {
+            Spacer()
+            ChordCombinerMenuCoverView(
+              keyboard: $chordCombinerViewModel.upperKeyboard,
+              combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
+              chordProperties: $chordCombinerViewModel.chordPropertyData.upperChordProperties,
+              islowerChordMenu: false
+            )
+            Spacer()
+          }
+          .frame(width: proxy.size.width)
 
-        Spacer()
+          Spacer()
 
-        TitleView(text: "=", font: .largeTitle, weight: .heavy)
+          TitleView(text: "=", font: .largeTitle, weight: .heavy)
 
-        Spacer()
+          Spacer()
 
-        DualChordKeyboardView(keyboard: $chordCombinerViewModel.combinedKeyboard)
+          HStack {
+            Spacer()
+            DualChordKeyboardView(keyboard: $chordCombinerViewModel.combinedKeyboard)
+            Spacer()
+          }
+          .frame(width: proxy.size.width)
 
-        Spacer()
+          Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .navigationTitle("Chord Combiner")
+        .onAppear {
+          if initial {
+            size = proxy.size
+            chordCombinerViewModel.lowerKeyboard = Keyboard(
+              width: size.width * 0.9,
+              initialKeyType: .c,
+              startingOctave: 4,
+              octaves: 2,
+              letterPadding: true)
+
+            chordCombinerViewModel.upperKeyboard = Keyboard(
+              width: size.width * 0.9,
+              initialKeyType: .c,
+              startingOctave: 4,
+              octaves: 2,
+              letterPadding: true)
+
+            chordCombinerViewModel.combinedKeyboard = Keyboard(
+              width: size.width * 0.9,
+              initialKeyType: .c,
+              startingOctave: 4,
+              octaves: 3,
+              letterPadding: true)
+          }
+
+          initial = false
+          
+          highlightKeyboards()
+          chordCombinerViewModel.initial = false
+
+          print(FileManager.documentsDirectoryURL)
+        }
+        .background(.primaryBackground)
       }
-      .frame(maxWidth: .infinity)
-      .padding()
-      .navigationTitle("Chord Combiner")
-      .onAppear {
-        highlightKeyboards()
-        chordCombinerViewModel.initial = false
-
-        print(FileManager.documentsDirectoryURL)
-      }
-      .background(.primaryBackground)
     }
   }
 }

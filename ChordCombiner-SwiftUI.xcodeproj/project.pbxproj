@@ -191,6 +191,8 @@
 		1DF2D7542D17A8760018B161 /* NotesAndDegreesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */; };
 		1DF2D7562D17ADA00018B161 /* ChordDetailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */; };
 		1DF2D7572D17ADA00018B161 /* ChordDetailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */; };
+		1DF2D7592D18BAAF0018B161 /* ExtendedNotesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */; };
+		1DF2D75A2D18BAAF0018B161 /* ExtendedNotesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */; };
 		1DF4EA782CE9454300CB2821 /* DualChordKeyboardChordTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EA772CE9454300CB2821 /* DualChordKeyboardChordTitleModel.swift */; };
 		1DF4EA7A2CE9478E00CB2821 /* SingleChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EA792CE9478E00CB2821 /* SingleChordDetailView.swift */; };
 		1DF4EA7C2CEA662400CB2821 /* EquivalentChordsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EA7B2CEA662400CB2821 /* EquivalentChordsSectionView.swift */; };
@@ -307,6 +309,7 @@
 		1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "ChordType addition scratchpad.md"; sourceTree = "<group>"; };
 		1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAndDegreesSectionView.swift; sourceTree = "<group>"; };
 		1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDetailForm.swift; sourceTree = "<group>"; };
+		1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedNotesSectionView.swift; sourceTree = "<group>"; };
 		1DF4EA772CE9454300CB2821 /* DualChordKeyboardChordTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordKeyboardChordTitleModel.swift; sourceTree = "<group>"; };
 		1DF4EA792CE9478E00CB2821 /* SingleChordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChordDetailView.swift; sourceTree = "<group>"; };
 		1DF4EA7B2CEA662400CB2821 /* EquivalentChordsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquivalentChordsSectionView.swift; sourceTree = "<group>"; };
@@ -675,6 +678,7 @@
 				1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */,
 				1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */,
 				1DA11FCB2CEC1CA300DF255C /* BaseChordSectionView.swift */,
+				1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */,
 				1DF4EA7B2CEA662400CB2821 /* EquivalentChordsSectionView.swift */,
 			);
 			path = ChordDetailSectionViews;
@@ -927,6 +931,7 @@
 				1DD8370B2CFFD54E00ED2DF2 /* ChordCombinerKeyboardScrollView.swift in Sources */,
 				1DD8370C2CFFD54E00ED2DF2 /* TitleView.swift in Sources */,
 				1DD8370E2CFFD54E00ED2DF2 /* KeyConstants.swift in Sources */,
+				1DF2D75A2D18BAAF0018B161 /* ExtendedNotesSectionView.swift in Sources */,
 				1DD8370F2CFFD54E00ED2DF2 /* InfoLinkImageView.swift in Sources */,
 				1D59025F2D15195C00C5D35D /* ChordGrapherNavigationView.swift in Sources */,
 				1DD837102CFFD54E00ED2DF2 /* Chord.swift in Sources */,
@@ -973,6 +978,7 @@
 				1D8F4E1F2C8B768F000DEF30 /* Root.swift in Sources */,
 				1DBD10002CFFCBFB009136B4 /* ChordGrapher.swift in Sources */,
 				1D73AFFB2C6FD64400308356 /* Key.swift in Sources */,
+				1DF2D7592D18BAAF0018B161 /* ExtendedNotesSectionView.swift in Sources */,
 				1D30F2552CC9840900D40625 /* EquivalentChordFinder.swift in Sources */,
 				1DABBE142CB58A930039F325 /* KeyShape.swift in Sources */,
 				1D20A5DE2D0A16D200C4FD9F /* SingleChordTitleNavigationStackView.swift in Sources */,
@@ -1250,8 +1256,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1280,8 +1286,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

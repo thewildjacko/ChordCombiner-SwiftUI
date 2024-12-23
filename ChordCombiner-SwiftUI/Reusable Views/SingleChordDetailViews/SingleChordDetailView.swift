@@ -48,8 +48,11 @@ struct SingleChordDetailView: View {
       ChordDetailForm(
         notesText: chord.displayDetails(detailType: .noteNames),
         degreesText: chord.displayDetails(detailType: .degreeNames),
+        chord: chord,
+        isDualChordDetailView: false,
         chordGrapher: $chordGrapher,
-        chordGrapherNavigationView: $chordGrapherNavigationView)
+        chordGrapherNavigationView: $chordGrapherNavigationView
+      )
         .onAppear {
           Task {
             await chordGrapher = ChordGrapher.getChordGrapher(

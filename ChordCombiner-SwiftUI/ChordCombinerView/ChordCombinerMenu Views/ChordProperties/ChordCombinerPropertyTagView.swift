@@ -24,6 +24,7 @@ struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
         text: property.rawValue,
         highlightCondition: selectedProperty == property,
         highlightColor: highlightColor,
+        backgroundColor: matchingProperties.contains(property) ? .tagBackgroundMatch : .tagBackground,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

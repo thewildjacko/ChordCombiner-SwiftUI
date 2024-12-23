@@ -36,7 +36,10 @@ struct DualChordDetailNavigationLinkView: View {
             InfoLinkImageView()
           }
     } else {
-      SingleChordDetailNavigationView(chord: chord, color: color)
+      SingleChordDetailNavigationView(
+        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
+        chord: chord,
+        color: color)
     }
   }
 }

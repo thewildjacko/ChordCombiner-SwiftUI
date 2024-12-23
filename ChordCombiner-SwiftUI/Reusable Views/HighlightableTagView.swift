@@ -11,6 +11,7 @@ struct HighlightableTagView: View, Equatable {
   let text: String
   var highlightCondition: Bool
   var highlightColor: Color = .tagBackgroundHighlighted
+  var backgroundColor: Color = .tagBackground
   var font: Font = .caption
   var horizontalPadding: CGFloat = 9
   var verticalPadding: CGFloat = 5
@@ -22,21 +23,23 @@ struct HighlightableTagView: View, Equatable {
     text: String,
     highlightCondition: Bool,
     highlightColor: Color = .tagBackgroundHighlighted,
+    backgroundColor: Color = .tagBackground,
     font: Font = .caption,
     horizontalPadding: CGFloat = 9,
     verticalPadding: CGFloat = 5,
     cornerRadius: CGFloat = 8,
     glowColor: Color = .clear,
     glowRadius: CGFloat = 0) {
-    self.text = text
-    self.highlightCondition = highlightCondition
-    self.highlightColor = highlightColor
-    self.font = font
-    self.horizontalPadding = horizontalPadding
-    self.verticalPadding = verticalPadding
-    self.cornerRadius = cornerRadius
-    self.glowColor = glowColor
-    self.glowRadius = glowRadius
+      self.text = text
+      self.highlightCondition = highlightCondition
+      self.highlightColor = highlightColor
+      self.backgroundColor = backgroundColor
+      self.font = font
+      self.horizontalPadding = horizontalPadding
+      self.verticalPadding = verticalPadding
+      self.cornerRadius = cornerRadius
+      self.glowColor = glowColor
+      self.glowRadius = glowRadius
   }
 
   var body: some View {
@@ -44,6 +47,7 @@ struct HighlightableTagView: View, Equatable {
       .highlightableTagView(
         highlightCondition: highlightCondition,
         highlightColor: highlightColor,
+        backgroundColor: backgroundColor,
         font: font,
         horizontalPadding: horizontalPadding,
         verticalPadding: verticalPadding,

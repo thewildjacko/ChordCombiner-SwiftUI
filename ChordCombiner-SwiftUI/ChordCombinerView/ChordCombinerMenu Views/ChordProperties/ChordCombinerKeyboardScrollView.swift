@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChordCombinerKeyboardScrollView: View {
+  var keyboardWidth: CGFloat = 150
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
 
@@ -28,6 +29,7 @@ struct ChordCombinerKeyboardScrollView: View {
             let chord = Chord(rootKeyNote, chordType)
 
             CustomChordMenuKeyboardDisplayRow(
+              keyboardWidth: keyboardWidth,
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,
               chordType: chordType,
@@ -35,13 +37,14 @@ struct ChordCombinerKeyboardScrollView: View {
               titleColor: chordType == selectedChordType ?
                 .tagTitleHighlighted :
                 matchingChordTypes.contains(chordType) ? .glowText : .title,
-              glowColor: matchingChordTypes.contains(chordType) ? .glow : .clear,
-              glowRadius: matchingChordTypes.contains(chordType) ? 5 : 0,
+              glowColor: .glow/*matchingChordTypes.contains(chordType) ? .glow : .clear*/,
+              glowRadius: 5/*matchingChordTypes.contains(chordType) ? 5 : 0*/,
               chord: chord,
               keyboardColor: color
             )
           } else {
             CustomChordMenuKeyboardDisplayRow(
+              keyboardWidth: keyboardWidth,
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,
               chordType: chordType,
@@ -56,6 +59,7 @@ struct ChordCombinerKeyboardScrollView: View {
             )
           }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
           if let selectedChordType = selectedChordType {
             proxy.scrollTo(selectedChordType, anchor: .center)
@@ -63,7 +67,8 @@ struct ChordCombinerKeyboardScrollView: View {
         }
       }
       .listStyle(.plain)
-      .frame(maxHeight: .infinity)
+      .listRowInsets(.init(.zero))
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
       .padding(.horizontal)
     }
   }

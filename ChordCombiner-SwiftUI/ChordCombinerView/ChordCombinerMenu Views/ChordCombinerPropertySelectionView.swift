@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChordCombinerPropertySelectionView: View {
+  var keyboardWidth: CGFloat = 150
   @Binding var chordProperties: ChordProperties
   @Binding var matchingLetters: Set<Letter>
   @Binding var matchingAccidentals: Set<RootAccidental>
@@ -26,6 +27,7 @@ struct ChordCombinerPropertySelectionView: View {
 
   var chordCombinerKeyboardScrollView: ChordCombinerKeyboardScrollView {
     ChordCombinerKeyboardScrollView(
+      keyboardWidth: keyboardWidth,
       selectedChordType: $chordProperties.chordType,
       matchingChordTypes: $matchingChordTypes,
       chordTypes: ChordType.allSimpleChordTypes,
@@ -74,18 +76,12 @@ struct ChordCombinerPropertySelectionView: View {
           highlightColor: .tagBackgroundHighlighted
         )
       }
+
+      TitleColorDivider()
+
+      chordCombinerKeyboardScrollView
     }
-
-    TitleColorDivider()
-
-    chordCombinerKeyboardScrollView
-//    ChordCombinerKeyboardScrollView(
-//      selectedChordType: $chordProperties.chordType,
-//      matchingChordTypes: $matchingChordTypes,
-//      chordTypes: ChordType.allSimpleChordTypes,
-//      rootKeyNote: rootKeyNote,
-//      color: chordCombinerSelectedChordTitleModel.selectedChordColor
-//    )
+    .background(.primaryBackground)
 
     TitleColorDivider()
   }

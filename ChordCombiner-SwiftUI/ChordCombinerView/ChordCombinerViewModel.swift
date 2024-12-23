@@ -85,15 +85,21 @@ class ChordCombinerViewModel: ObservableObject {
     lowerKeyboard: Keyboard = Keyboard(
       width: 351,
       initialKeyType: .c,
-      startingOctave: 4, octaves: 2),
+      startingOctave: 4,
+      octaves: 2,
+      letterPadding: true),
     upperKeyboard: Keyboard = Keyboard(
       width: 351,
       initialKeyType: .c,
-      startingOctave: 4, octaves: 2),
+      startingOctave: 4,
+      octaves: 2,
+      letterPadding: true),
     combinedKeyboard: Keyboard = Keyboard(
       width: 351,
       initialKeyType: .c,
-      startingOctave: 4, octaves: 3)
+      startingOctave: 4,
+      octaves: 3,
+      letterPadding: true)
   ) {
     chordPropertyData = loadChordsJSON()
 

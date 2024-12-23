@@ -31,6 +31,9 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var preciseName: String { root.noteName + chordType.preciseName }
 
   var notes: [Note] = [] { didSet { setNoteProperties() } }
+
+  var extensions: [Note] = []
+
   var rootKeyNotes: [RootKeyNote] = []
   var noteNumbers: [NoteNumber] = []
   var notesByNoteNumber: NotesByNoteNumber = [:]
@@ -42,6 +45,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var noteNames: [String] = []
 
   var degreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
+//  var extensionDegreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
 
   var voicingCalculator: VoicingCalculator = VoicingCalculator(
     degreeNumbers: [],
@@ -116,6 +120,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
 
   mutating func setNoteProperties() {
+//    extensions = notes.filter { !getBaseChord().notes.contains($0) }
     setNotesByNoteNumber(notes.keyed { $0.noteNumber })
     rootKeyNotes = notes.map { RootKeyNote($0.keyName) }
     noteNames = notes.noteNames()
@@ -128,6 +133,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       numeric: notes.map { $0.degreeName.numeric },
       long: notes.map { $0.degreeName.long }
     )
+
+//    extensionDegreeNames = DegreeNameGroup(
+//      names: extensions.map { $0.degreeName.name },
+//      numeric: extensions.map { $0.degreeName.numeric },
+//      long: extensions.map { $0.degreeName.long }
+//    )
   }
 
   // MARK: instance methods
@@ -141,6 +152,16 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
   func getBaseChord() -> Chord {
     return Chord(rootKeyNote, chordType.baseChordType)
+  }
+
+  func getExtensions() -> [Note] { notes.filter { !getBaseChord().notes.contains($0) } }
+
+  func getExtensionDegreeNames() -> DegreeNameGroup {
+    DegreeNameGroup(
+      names: getExtensions().map { $0.degreeName.name },
+      numeric: getExtensions().map { $0.degreeName.numeric },
+      long: getExtensions().map { $0.degreeName.long }
+    )
   }
 
   func variantCombinesWith<T: ChordAndScaleProperty>(chordFrom chordProperty: T, chordToMatch: Chord) -> Bool {

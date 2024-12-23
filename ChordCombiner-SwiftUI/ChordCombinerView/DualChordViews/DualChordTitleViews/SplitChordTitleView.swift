@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct SplitChordTitleView: View {
+  var keyboardWidth: CGFloat = 351
   var lowerChord: Chord
   var upperChord: Chord
   let titleFont: Font
@@ -19,6 +20,7 @@ struct SplitChordTitleView: View {
         weight: .heavy
       )
       SingleChordDetailNavigationView(
+        keyboardWidth: keyboardWidth,
         chord: lowerChord,
         color: .lowerChordHighlight,
         infoFont: .caption)
@@ -31,6 +33,7 @@ struct SplitChordTitleView: View {
         weight: .heavy
       )
       SingleChordDetailNavigationView(
+        keyboardWidth: keyboardWidth,
         chord: upperChord,
         color: .upperChordHighlight,
         infoFont: .caption)

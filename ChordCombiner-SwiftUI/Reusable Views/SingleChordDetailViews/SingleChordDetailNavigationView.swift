@@ -12,6 +12,8 @@ struct SingleChordDetailNavigationView: View {
     case icon, title, detailRow
   }
 
+  var keyboardWidth: CGFloat = 351
+
   var chord: Chord?
   var color: Color
   var infoFont: Font? = .title3
@@ -27,13 +29,14 @@ struct SingleChordDetailNavigationView: View {
             chord: chord,
             keyboard:
               Keyboard(
-                width: 351,
+                width: keyboardWidth,
                 initialKeyType: .c,
                 startingOctave: 4,
                 octaves: 3,
                 chord: chord,
                 color: color,
-                lettersOn: true
+                lettersOn: true,
+                letterPadding: true
               )
           )
       ) {

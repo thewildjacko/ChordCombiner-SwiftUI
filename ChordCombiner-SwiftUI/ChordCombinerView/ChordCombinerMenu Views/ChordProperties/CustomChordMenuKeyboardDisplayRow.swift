@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomChordMenuKeyboardDisplayRow: View {
+  var keyboardWidth: CGFloat = 150
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
 
@@ -22,7 +23,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   var keyboard: Keyboard {
     if let chord = chord, let keyboardColor = keyboardColor {
       Keyboard(
-        width: 150,
+        width: keyboardWidth,
         initialKeyType: .c,
         startingOctave: 4,
         octaves: 2,
@@ -33,7 +34,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
       )
     } else {
       Keyboard(
-        width: 150,
+        width: keyboardWidth,
         initialKeyType: .c,
         startingOctave: 4,
         octaves: 2
@@ -42,8 +43,6 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   }
 
   var body: some View {
-//    print("keyboard \(chordType.preciseName) computed!")
-
     return HStack(alignment: .firstTextBaseline) {
       VStack(alignment: .leading, spacing: 10) {
         TitleView(
@@ -54,6 +53,7 @@ struct CustomChordMenuKeyboardDisplayRow: View {
 
         keyboard
       }
+      .offset(x: 10)
       .onTapGesture { selectedChordType = chordType }
 
       Spacer()
@@ -62,6 +62,10 @@ struct CustomChordMenuKeyboardDisplayRow: View {
         TitleView(text: "match found!", font: .caption, weight: .bold, color: .glowText)
       }
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .padding(.vertical, 10)
+    .listRowInsets(.init(.zero))
+    .background(.primaryBackground)
   }
 }
 

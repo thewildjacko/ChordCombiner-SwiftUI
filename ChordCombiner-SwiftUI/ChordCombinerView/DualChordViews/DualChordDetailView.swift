@@ -56,6 +56,7 @@ struct DualChordDetailView: View {
           detailType: .noteNames),
         degreesText: chordCombinerViewModel.displayDetails(
           detailType: .degreeNames),
+        chord: chordCombinerViewModel.resultChord,
         chordGrapher: $chordGrapher,
         chordGrapherNavigationView: $chordGrapherNavigationView)
       .onAppear {

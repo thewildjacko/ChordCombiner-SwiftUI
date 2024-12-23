@@ -29,19 +29,21 @@ struct DualChordTitleViewBuilder: View {
 
   @ViewBuilder
   var body: some View {
-    if chordCombinerViewModel.resultChord != nil ||
-        (chordCombinerViewModel.lowerChord == nil ||
-         chordCombinerViewModel.upperChord == nil) {
-      CombinedOrSingleChordTitleView(
-        titleText: dualChordKeyboardChordTitleModel.chordSymbolText,
-        titleFont: titleFont)
-    } else {
-      if let lowerChord = chordCombinerViewModel.lowerChord,
-         let upperChord = chordCombinerViewModel.upperChord {
-        SplitChordTitleView(
-          lowerChord: lowerChord,
-          upperChord: upperChord,
+    Group {
+      if chordCombinerViewModel.resultChord != nil ||
+          (chordCombinerViewModel.lowerChord == nil ||
+           chordCombinerViewModel.upperChord == nil) {
+        CombinedOrSingleChordTitleView(
+          titleText: dualChordKeyboardChordTitleModel.chordSymbolText,
           titleFont: titleFont)
+      } else {
+        if let lowerChord = chordCombinerViewModel.lowerChord,
+           let upperChord = chordCombinerViewModel.upperChord {
+          SplitChordTitleView(
+            lowerChord: lowerChord,
+            upperChord: upperChord,
+            titleFont: titleFont)
+        }
       }
     }
   }

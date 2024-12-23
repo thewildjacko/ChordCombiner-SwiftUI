@@ -92,6 +92,7 @@ struct KeyShapeGroup: View, KeyShapeGroupProtocol {
       axis: (x: 0.0, y: 1.0, z: 0.0))
     .frame(width: width, height: height)
     .zIndex(zIndex)
+//    .position(x: position, y: height/2 + 10 * widthMultiplier)
     .position(x: position, y: height/2)
   }
 }

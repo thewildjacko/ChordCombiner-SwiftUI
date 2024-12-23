@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ChordCombinerMenuCoverView: View {
+  @State var size = CGSize()
+  @State var initial: Bool = true
+
   var chordCombinerViewModel = ChordCombinerViewModel.singleton() {
     didSet { setChordCombinerSelectedChordTitleModel() }
   }
@@ -67,6 +70,9 @@ struct ChordCombinerMenuCoverView: View {
           keyboard
         }
       }
+      .buttonStyle(.plain)
+      .tint(.primaryBackground)
+      .background(.primaryBackground)
     }
   }
 }

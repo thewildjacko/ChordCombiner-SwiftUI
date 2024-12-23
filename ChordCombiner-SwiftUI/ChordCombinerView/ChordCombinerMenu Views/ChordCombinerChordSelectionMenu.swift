@@ -90,11 +90,13 @@ struct ChordCombinerChordSelectionMenu: View {
     VStack {
       VStack(spacing: 8) {
         SingleChordTitleNavigationStackView(
+          keyboardWidth: selectedKeyboard.width,
           selectedKeyboard: $selectedKeyboard,
           chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
         )
 
         ChordCombinerPropertySelectionView(
+          keyboardWidth: chordCombinerViewModel.lowerKeyboard.width * 0.42,
           chordProperties: $chordProperties,
           matchingLetters: $matchingLetters,
           matchingAccidentals: $matchingAccidentals,

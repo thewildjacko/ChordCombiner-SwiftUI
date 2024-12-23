@@ -183,12 +183,11 @@ struct Key: View, KeyProtocol, Identifiable {
   func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
 
   var body: some View {
-    //    print("key \(pitch) computed!")
     return ZStack {
       keyShapeGroup
 
       keyLetterView
-        .position(x: position, y: -10)
+        .position(x: position, y: 0 - 10 * widthMultiplier)
         .zIndex(2)
 
       keyCirclesView

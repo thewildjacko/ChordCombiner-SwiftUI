@@ -57,6 +57,35 @@ struct GraphImagePlacerView: View {
   }
 }
 
+struct GraphImagePlacerPyramidView: View {
+  let pianoKeysImage = Image(systemName: "pianokeys")
+  let musicNoteImage = Image(systemName: "music.note")
+  @Binding var progress: Double
+
+  @ViewBuilder
+  var body: some View {
+    VStack {
+      Spacer()
+
+      VStack(spacing: 10) {
+        pianoKeysImage
+        GraphImagePlacerView(image: pianoKeysImage, columns: 3)
+        GraphImagePlacerView(image: pianoKeysImage, columns: 5)
+        GraphImagePlacerView(image: musicNoteImage, columns: 7, spacing: 20)
+        Spacer()
+        ProgressView(value: progress)
+
+      }
+      .frame(maxHeight: 80)
+      .padding()
+
+      Spacer()
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(.primaryBackground)
+  }
+}
+
 struct ChordGraphImageView: View {
   @State private var zoomScale: CGFloat = 1
   @State private var previousZoomScale: CGFloat = 1
@@ -64,9 +93,6 @@ struct ChordGraphImageView: View {
   private let maxZoomScale: CGFloat = 5
 
   var chordGrapher: ChordGrapher = ChordGrapher(chord: Chord(.c, .ma9))
-
-  let pianoKeysImage = Image(systemName: "pianokeys")
-  let musicNoteImage = Image(systemName: "music.note")
 
   @State private var imageService = ImageService()
 
@@ -97,6 +123,8 @@ struct ChordGraphImageView: View {
           color: .title)
         chordGraphView
       }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .background(.primaryBackground)
     } else {
       if imageService.progress == 0 {
         VStack(spacing: 10) {
@@ -106,24 +134,16 @@ struct ChordGraphImageView: View {
             font: .body,
             weight: .regular)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.primaryBackground)
       } else if imageService.progress < 1 {
-        Spacer()
-        VStack(spacing: 10) {
-          pianoKeysImage
-          GraphImagePlacerView(image: pianoKeysImage, columns: 3)
-          GraphImagePlacerView(image: pianoKeysImage, columns: 5)
-          GraphImagePlacerView(image: musicNoteImage, columns: 7, spacing: 20)
-          Spacer()
-          ProgressView(value: imageService.progress)
-
-        }
-        .frame(maxHeight: 80)
-        .padding()
-        Spacer()
+        GraphImagePlacerPyramidView(progress: $imageService.progress)
       } else {
         VStack {
           Image(systemName: "pianokeys")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.primaryBackground)
       }
     }
   }

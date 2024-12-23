@@ -13,6 +13,7 @@ struct ChordDetailForm: View {
   var notesText: String
   var degreesText: String
   var chord: Chord?
+  var isDualChordDetailView: Bool = true
 
   @Binding var chordGrapher: ChordGrapher?
   @Binding var chordGrapherNavigationView: ChordGrapherNavigationView
@@ -26,11 +27,16 @@ struct ChordDetailForm: View {
           detailType: .degreeNames),
         chordGrapherNavigationView: $chordGrapherNavigationView)
 
-      ComponentChordsView()
+      ComponentChordsView(isDualChordDetailView: isDualChordDetailView)
 
-      BaseChordSectionView(chord: chordCombinerViewModel.resultChord)
+      BaseChordSectionView(chord: chord)
+      ExtendedNotesSectionView(chord: chord)
 
-      EquivalentChordsSectionView(chord: chordCombinerViewModel.resultChord)
+      EquivalentChordsSectionView(
+        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
+        chord: chord)
     }
+    .scrollContentBackground(.hidden)
+    .background(.primaryBackground)
   }
 }

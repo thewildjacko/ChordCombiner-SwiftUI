@@ -29,10 +29,23 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     octaves: 3)
 
   // MARK: @State properties
-  @State var width: CGFloat {
+  var width: CGFloat {
     mutating didSet {
       setWidthAndHeight()
-      addKeys()
+      for index in keys.indices {
+        let previousKey = keys[index]
+
+        keys[index] = Key(
+          pitch: previousKey.pitch,
+          keyType: previousKey.keyType,
+          baseWidth: width,
+          widthDivisor: previousKey.widthDivisor,
+          keyPosition: previousKey.keyType.initialKeyPosition,
+          initialKey: previousKey.initialKey,
+          finalKey: previousKey.finalKey,
+          lettersOn: previousKey.lettersOn,
+          circlesOn: previousKey.circlesOn)
+      }
     }
   }
 
@@ -55,6 +68,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
   var glowRadius: CGFloat = 0
   var lettersOn: Bool = false
   var circlesOn: Bool = false
+  var letterPadding: Bool = false
 
   // MARK: initializers
   init(width: CGFloat,
@@ -65,7 +79,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
        glowColor: Color = .clear,
        glowRadius: CGFloat = 0,
        lettersOn: Bool = false,
-       circlesOn: Bool = false) {
+       circlesOn: Bool = false,
+       letterPadding: Bool = false) {
     self.width = width
     self.keyCount = keyCount
     self.startingOctave = startingOctave
@@ -78,6 +93,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
     self.glowRadius = glowRadius
     self.lettersOn = lettersOn
     self.circlesOn = circlesOn
+    self.letterPadding = letterPadding
 
     keyTypesByCount()
     setWidthAndHeight()
@@ -96,7 +112,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
        chord: Chord,
        color: Color,
        lettersOn: Bool = false,
-       circlesOn: Bool = false) {
+       circlesOn: Bool = false,
+       letterPadding: Bool = false) {
     self.init(
       width: width,
       keyCount: keyCount,
@@ -106,7 +123,8 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
       glowColor: glowColor,
       glowRadius: glowRadius,
       lettersOn: lettersOn,
-      circlesOn: circlesOn
+      circlesOn: circlesOn,
+      letterPadding: letterPadding
     )
 
     highlightKeys(pitches: chord.voicingCalculator.stackedPitches, color: color)
@@ -114,8 +132,6 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
 
   // MARK: body
   var body: some View {
-    //    print("keyboard \(id) computed!")
-
     return ZStack(alignment: .topLeading) {
       VStack(alignment: .center) {
         ZStack {
@@ -130,6 +146,7 @@ struct Keyboard: View, Identifiable, OctaveAndPitch {
         .frame(width: width, height: height)
       }
     }
+    .padding(.top, letterPadding ? 10 * widthMultiplier : 0)
   }
 }
 
@@ -330,12 +347,26 @@ extension Keyboard: Equatable {
 }
 
 #Preview {
-  let keyboard = Keyboard.initialSingleGlowKeyboard
-  VStack {
-    keyboard
-      .position(x: 200, y: 400)
-      .onAppear {
-        print(keyboard.glowColor, keyboard.glowRadius)
-      }
+  @Previewable @State var size = CGSize()
+  @Previewable @State var keyboard = Keyboard(
+    width: 351,
+    initialKeyType: .c,
+    startingOctave: 4,
+    octaves: 2)
+
+  GeometryReader { proxy in
+    VStack {
+      keyboard
+        .border(.red)
+    }
+    .onAppear {
+      size = proxy.size
+
+      keyboard = Keyboard(
+        width: size.width * 0.7,
+        initialKeyType: .c,
+        startingOctave: 4,
+        octaves: 2)
+    }
   }
 }
