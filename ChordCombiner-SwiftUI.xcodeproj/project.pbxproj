@@ -38,6 +38,10 @@
 		1D2B448B2D090F6F0067266F /* SettableNotesByNoteNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B44892D090F6F0067266F /* SettableNotesByNoteNumber.swift */; };
 		1D30F2552CC9840900D40625 /* EquivalentChordFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30F2542CC9840900D40625 /* EquivalentChordFinder.swift */; };
 		1D33D9492CEC2CB700E04B39 /* SingleChordDetailNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D33D9482CEC2CB700E04B39 /* SingleChordDetailNavigationView.swift */; };
+		1D34C3E92D19F8A200253C50 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34C3E82D19F8A200253C50 /* SplashScreen.swift */; };
+		1D34C3EA2D19F8A200253C50 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34C3E82D19F8A200253C50 /* SplashScreen.swift */; };
+		1D34C3EC2D19F8C500253C50 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34C3EB2D19F8C500253C50 /* ViewCoordinator.swift */; };
+		1D34C3ED2D19F8C500253C50 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D34C3EB2D19F8C500253C50 /* ViewCoordinator.swift */; };
 		1D350EF82C779358007D8F85 /* ChordCombinerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D350EF72C779358007D8F85 /* ChordCombinerViewModel.swift */; };
 		1D3EA8A82C93644700A6430C /* VoicingCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EA8A72C93644700A6430C /* VoicingCalculator.swift */; };
 		1D46C92B2C77B7400014D00B /* ChordCombinerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D46C92A2C77B7400014D00B /* ChordCombinerView.swift */; };
@@ -235,6 +239,8 @@
 		1D2B44892D090F6F0067266F /* SettableNotesByNoteNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettableNotesByNoteNumber.swift; sourceTree = "<group>"; };
 		1D30F2542CC9840900D40625 /* EquivalentChordFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquivalentChordFinder.swift; sourceTree = "<group>"; };
 		1D33D9482CEC2CB700E04B39 /* SingleChordDetailNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChordDetailNavigationView.swift; sourceTree = "<group>"; };
+		1D34C3E82D19F8A200253C50 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		1D34C3EB2D19F8C500253C50 /* ViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
 		1D350EF72C779358007D8F85 /* ChordCombinerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordCombinerViewModel.swift; sourceTree = "<group>"; };
 		1D3D653D2CCBEFF50045AD8D /* ChordCombiner-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ChordCombiner-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3EA8A72C93644700A6430C /* VoicingCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicingCalculator.swift; sourceTree = "<group>"; };
@@ -430,8 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				1D2B44832D08BB090067266F /* KeyLetterView.swift */,
-				1D2B44862D08BB2A0067266F /* KeyCircle.swift */,
 				1D99832E2CEE9872002CCA34 /* KeyCirclesView.swift */,
+				1D2B44862D08BB2A0067266F /* KeyCircle.swift */,
 			);
 			path = "KeySymbols Views";
 			sourceTree = "<group>";
@@ -471,6 +477,8 @@
 			isa = PBXGroup;
 			children = (
 				1D5F69D92C2481E600193B58 /* AppMain.swift */,
+				1D34C3E82D19F8A200253C50 /* SplashScreen.swift */,
+				1D34C3EB2D19F8C500253C50 /* ViewCoordinator.swift */,
 				1D46C92A2C77B7400014D00B /* ChordCombinerView.swift */,
 				1D6523A52CF1091500BDD60C /* ChordCombinerView */,
 				1DBD0FFE2CFFCBEA009136B4 /* ChordGrapherView */,
@@ -888,9 +896,11 @@
 				1DD836EA2CFFD54E00ED2DF2 /* KeyProtocol.swift in Sources */,
 				1DD836EB2CFFD54E00ED2DF2 /* VoicingCalculator.swift in Sources */,
 				1DD831EA2D14D60F00EC817F /* ComponentChordsView.swift in Sources */,
+				1D34C3EA2D19F8A200253C50 /* SplashScreen.swift in Sources */,
 				1D25250A2D121B0A005ADEB9 /* KeyName+DegreeMaps.swift in Sources */,
 				1DD836EC2CFFD54E00ED2DF2 /* RootNote.swift in Sources */,
 				1DD831E42D14CE8E00EC817F /* CombinedOrSingleChordTitleView.swift in Sources */,
+				1D34C3EC2D19F8C500253C50 /* ViewCoordinator.swift in Sources */,
 				1DD836ED2CFFD54E00ED2DF2 /* ChordGrapher.swift in Sources */,
 				1DD836EE2CFFD54E00ED2DF2 /* KeyShapeGroup.swift in Sources */,
 				1D2B44872D08BB2A0067266F /* KeyCircle.swift in Sources */,
@@ -991,6 +1001,7 @@
 				1D73AFEA2C6FD64400308356 /* KeyShapeProtocol.swift in Sources */,
 				1D2B44882D08BB2A0067266F /* KeyCircle.swift in Sources */,
 				1D73AFEB2C6FD64400308356 /* KeyShapeGroupProtocol.swift in Sources */,
+				1D34C3E92D19F8A200253C50 /* SplashScreen.swift in Sources */,
 				1D25250B2D121B0A005ADEB9 /* KeyName+DegreeMaps.swift in Sources */,
 				1DBE1C2F2C25D3C8008DCBDF /* FileManager.swift in Sources */,
 				1DD831EB2D14D60F00EC817F /* ComponentChordsView.swift in Sources */,
@@ -1040,6 +1051,7 @@
 				1DA11FC32CEBCAD400DF255C /* ChordSymbolCaptionView.swift in Sources */,
 				1D73AFD02C6FD63300308356 /* KeyType.swift in Sources */,
 				1DA11FC92CEC0AFC00DF255C /* InfoLinkImageView.swift in Sources */,
+				1D34C3ED2D19F8C500253C50 /* ViewCoordinator.swift in Sources */,
 				1D7281F52CBADC2300C6DBE3 /* ChordCombinerChordSelectionMenu.swift in Sources */,
 				1D5F6A912C24829500193B58 /* Degree.swift in Sources */,
 				1DFBB11E2D039AED002ACF7B /* ChordGrapherAttributes.swift in Sources */,
@@ -1252,7 +1264,7 @@
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = HarmonyBrain;
+				INFOPLIST_KEY_CFBundleDisplayName = ChordCombiner;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1282,7 +1294,7 @@
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = HarmonyBrain;
+				INFOPLIST_KEY_CFBundleDisplayName = ChordCombiner;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

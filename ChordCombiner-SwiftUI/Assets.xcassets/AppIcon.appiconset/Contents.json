@@ -1,6 +1,31 @@
 {
   "images" : [
     {
+      "filename" : "ChordCombiner Light Mode Icon large-keyboards +=.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ChordCombiner Dark Mode Icon large-keyboards +=.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "tinted"
+        }
+      ],
+      "filename" : "ChordCombiner Tinted Icon large-keyboards +=.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

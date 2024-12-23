@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum PropertyStatus {
+  case selected, matches, selectedAndMatches, neither
+}
+
 protocol ChordAndScaleProperty: CaseIterable,
                                 Identifiable,
                                   Codable,

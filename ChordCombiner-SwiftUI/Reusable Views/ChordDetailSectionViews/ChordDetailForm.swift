@@ -29,7 +29,9 @@ struct ChordDetailForm: View {
 
       ComponentChordsView(isDualChordDetailView: isDualChordDetailView)
 
-      BaseChordSectionView(chord: chord)
+      BaseChordSectionView(
+        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
+        chord: chord)
       ExtendedNotesSectionView(chord: chord)
 
       EquivalentChordsSectionView(

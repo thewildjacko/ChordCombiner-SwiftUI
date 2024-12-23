@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BaseChordSectionView: View {
+  var keyboardWidth: CGFloat = 351
   var chord: Chord?
   var baseChord: Chord { chord?.getBaseChord() ?? .initial }
 
@@ -15,7 +16,11 @@ struct BaseChordSectionView: View {
     var body: some View {
       if chord != baseChord {
         Section(header: Text("Base Chord")) {
-          DetailRow(title: "Name", text: baseChord.displayDetails(detailType: .commonName))
+          SingleChordDetailNavigationView(
+            keyboardWidth: keyboardWidth,
+            chord: baseChord,
+            color: .lowerChordHighlight,
+            labelType: .title)
           if baseChord.preciseName != baseChord.commonName {
             DetailRow(title: "Precise Name", text: baseChord.displayDetails(detailType: .preciseName))
           }

@@ -122,7 +122,7 @@ struct ChordCombinerView: View {
           }
 
           initial = false
-          
+
           highlightKeyboards()
           chordCombinerViewModel.initial = false
 

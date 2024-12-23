@@ -12,7 +12,7 @@ import OSLog
 struct AppMain: App {
     var body: some Scene {
         WindowGroup {
-          ChordCombinerView()
+          ViewCoordinator()
         }
     }
 }
