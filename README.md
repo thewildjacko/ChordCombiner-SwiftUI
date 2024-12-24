@@ -78,8 +78,8 @@ Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboa
   ChordType `Keyboards` light up similarly, with the following differences:
     - Only the chord symbol changes color, and does not glow (for readability purposes)
       - Instead, the `Keyboard` displays a **purple glow** if it matches
-    - The chord symbol is **blue-green** if selected, **purple** if it matches, and **white** if it's unselected and doesn't match.
-    - Additionally, a _purple text label_ stating **"match found!"** appears to the right of the keyboard tag if a `ChordType` matches.
+      - The chord symbol is **blue-green** if selected, **purple** if it matches, and **white** if it's unselected and doesn't match.
+    Additionally, a _purple text label_ stating **"match found!"** appears to the right of the keyboard tag if a `ChordType` matches.
     
 
   #### Example:
