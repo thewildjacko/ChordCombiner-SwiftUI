@@ -28,7 +28,7 @@ struct ChordCombinerKeyboardScrollView: View {
           if let rootKeyNote = rootKeyNote {
             let chord = Chord(rootKeyNote, chordType)
 
-            CustomChordMenuKeyboardDisplayRow(
+            ChordCombinerMenuKeyboardDisplayRow(
               keyboardWidth: keyboardWidth,
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,
@@ -43,7 +43,7 @@ struct ChordCombinerKeyboardScrollView: View {
               keyboardColor: color
             )
           } else {
-            CustomChordMenuKeyboardDisplayRow(
+            ChordCombinerMenuKeyboardDisplayRow(
               keyboardWidth: keyboardWidth,
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,

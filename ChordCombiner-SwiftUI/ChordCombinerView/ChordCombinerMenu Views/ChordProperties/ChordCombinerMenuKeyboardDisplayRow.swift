@@ -1,5 +1,5 @@
 //
-//  CustomChordMenuKeyboardDisplayRow.swift
+//  ChordCombinerMenuKeyboardDisplayRow.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 10/20/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomChordMenuKeyboardDisplayRow: View {
+struct ChordCombinerMenuKeyboardDisplayRow: View {
   var keyboardWidth: CGFloat = 150
   @Binding var selectedChordType: ChordType?
   @Binding var matchingChordTypes: Set<ChordType>
@@ -69,8 +69,8 @@ struct CustomChordMenuKeyboardDisplayRow: View {
   }
 }
 
-extension CustomChordMenuKeyboardDisplayRow: Equatable {
-  static func == (lhs: CustomChordMenuKeyboardDisplayRow, rhs: CustomChordMenuKeyboardDisplayRow) -> Bool {
+extension ChordCombinerMenuKeyboardDisplayRow: Equatable {
+  static func == (lhs: ChordCombinerMenuKeyboardDisplayRow, rhs: ChordCombinerMenuKeyboardDisplayRow) -> Bool {
     lhs.selectedChordType == rhs.selectedChordType &&
     lhs.matchingChordTypes == rhs.matchingChordTypes &&
     lhs.chord == rhs.chord &&
@@ -85,7 +85,7 @@ extension CustomChordMenuKeyboardDisplayRow: Equatable {
 }
 
 #Preview {
-  CustomChordMenuKeyboardDisplayRow(
+  ChordCombinerMenuKeyboardDisplayRow(
     selectedChordType: .constant(.ma7),
     matchingChordTypes: .constant([.ma, .mi, .aug, .ma7]),
     chordType: .ma7,
