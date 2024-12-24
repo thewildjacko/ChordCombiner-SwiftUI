@@ -16,25 +16,13 @@ The user can tap either the upper or lower keyboards or their titles, displayed 
 
 After users have selected lower and/or upper keyboards, they can return to [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift) to see a visual overview of their selections. The below screenshots show the different outcomes for `ChordCombinerView`:
 
-#### Lower chord selected
+#### Lower chord selected / Upper Chord selected
 
-![ChordCombinerView - Lower chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.jpeg)
+![ChordCombinerView - Lower chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.jpeg) ![ChordCombinerView - Upper chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG)
 
-#### Upper chord selected
+#### Both chords selected - Combined, slash and split chord results
 
-![ChordCombinerView - Upper chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG)
-
-#### Both chords selected - Combined chord result
-
-![ChordCombinerView - Both chords selected, combined chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG)
-
-#### Both chords selected - Slash chord result
-
-![ChordCombinerView - Both chords selected, slash chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG)
-
-#### Both chords selected - Split chord result
-
-![ChordCombinerView - Both chords selected, split chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG)
+![ChordCombinerView - Both chords selected, combined chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG) ![ChordCombinerView - Both chords selected, slash chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG) ![ChordCombinerView - Both chords selected, split chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG)
 
 The `ChordCombinerKeyboards` are managed by an `@Observable` and `@Bindable` **[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c7c78c4e8dcec283ece306f90bde7dbb2dc14aa5/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** singleton, which also contains 3 optional `Chord` objects:
 
@@ -49,29 +37,13 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 
 ### Data Persistance
 
-`ChordCombinerViewModel` uses JSON to store and load the ChordPropertyData selections (a struct containing optional `Letter`, ``RootAccidental` and `ChordType` properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all ChordPropertyData properties to `nil` and the app presents the intial launch state.
+`ChordCombinerViewModel` uses JSON to store and load the [ChordPropertyData](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordProperties/ChordPropertiesModels/ChordPropertyData.swift) selections (a struct containing optional [Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift), [RootAccidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift) and [ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift) properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all `ChordPropertyData` properties to `nil` and the app presents the intial launch state.
 
 ## [User Interaction - ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
+#### Initial Screen (upper and lower chords):
 
-
-
-
-#### Initial Functionality
-
-The user can tap either `ChordCombinerMenuCoverView` navigation link to navigate to the **`ChordCombinerChordSelectionMenu`**, the main interactive section of the app.
-
-Once an **Upper Chord** or **Lower Chord** is selected for either CoverView, the titles update to reflect the Chord symbol, and the keyboards highlight the keys of that chord appropriately _(blue for Lower, yellow for Upper)_.
-
-An info navigation link also appears next to the chord symbol, which the user can tap to go to a `SingleChordDetailView` providing more information about the chord. These elements also appear above the **Combined Keyboard** before both chords are selected.
-
-Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboard** `ChordCombinerChordSelectionMenu` initially displays the following:
-
-### `SingleChordTitleNavigationStackView`
-   - _"Select Lower/Upper Chord"_ 
-   - _"Please select a chord"_ (changes to chord symbol once the `Chord` is selected)
-   - A 2-octave **Upper or Lower Keyboard**
-   - _"Select upper and lower chords to show matches"_ (this disappears once both chords are selected)
+![Lower chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20initial%20screen.PNG) ![Upper chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20initial%20screen.PNG)
 
 ### User Interaction: `ChordCombinerPropertySelectionView`
 
