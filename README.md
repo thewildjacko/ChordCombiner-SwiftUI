@@ -85,12 +85,15 @@ Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboa
 
   The user is in the **Lower Chord** `ChordCombinerChordSelectionMenu`. **Cma7** is already selected, and **Dma** is selected for the upper chord. The following ``ChordAndScaleProperty`` tags will light up based on matches to the _upper chord_, **Dma**, as follows:
 
-  - The **C** tag will light up with a **blue-green background** and a **purple glow**, because **C** is selected and **Cma** also matches as an _upper chord_ for **Cma7**.
-  - **D, G and A** light up in **purple** because they match, but are not selected.
-  - The **natural** sign also displays a **blue-green background** and a **purple glow**, because it's selected and matches
-  - The **Cma, Cmi, C+ and C**˚ keyboards (among others) glow in purple, their chord symbols change to purple, and the **match found** label displays, because all 4 chords match as upper chords to **Cma7**.
-  - The **Csus4 and Csus2**˚ keyboards (among others) do not glow, their chord symbols stay white, and the **match found** label does not display, because neither chord match as upper chords to **Cma7**.
-  - The **Cma7**˚ keyboard glows in purple, its chord symbols displays in blue-green, and the **match found** label displays, because it is selected and it matches as an upper chord to **Cma7**.
+  - **Letter Tags**
+    - The **C** tag will light up with a **blue-green background** and a **purple glow**, because **C** is selected and **Cma** also matches as an _upper chord_ for **Cma7**.
+    - **D, G and A** light up in **purple** because they match, but are not selected.
+  - Accidental Tags
+    - The **natural** sign displays a **blue-green background** and a **purple glow**, because it's selected and matches
+  - ChordType Keyboard Tags
+    - The **Cma, Cmi, C+ and C**˚ keyboards (among others) glow in purple, their chord symbols change to purple, and the **match found** label displays, because all 4 chords match as upper chords to **Cma7**.
+    - The **Csus4 and Csus2**˚ keyboards (among others) do not glow, their chord symbols stay white, and the **match found** label does not display, because neither chord match as upper chords to **Cma7**.
+    - The **Cma7**˚ keyboard glows in purple, its chord symbols displays in blue-green, and the **match found** label displays, because it is selected and it matches as an upper chord to **Cma7**.
 
 
    
