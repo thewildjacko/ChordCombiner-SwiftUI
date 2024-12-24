@@ -45,6 +45,12 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 
 ![Lower chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20initial%20screen.PNG) ![Upper chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20initial%20screen.PNG)
 
+#### Lower chord menu, letter & accidental selected; Cma7 selected; Upper chord menu, Dma selected
+
+![lower chord menu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20letter%20and%20natural%20selected.PNG) ![Cma7 selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20-%20Cma7%20selected.PNG) ![Upper chord menu, Dma selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dma%20selected%20no%20lower%20chord.PNG)
+
+#### 
+
 ### User Interaction: `ChordCombinerPropertySelectionView`
 
   - A horizontal row with custom `Letter` and Accidental (`RootAccidental`) pickers (`ChordCombinerTagsView`).
