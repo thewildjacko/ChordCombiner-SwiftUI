@@ -480,7 +480,7 @@
 				1D6523A82CF11A2D00BDD60C /* DualChordViews */,
 				1D26DD842CF12A9D00C45D48 /* SingleChordViews */,
 				1DA11FCA2CEC1C5E00DF255C /* ChordDetailSectionViews */,
-				1DBD0FFE2CFFCBEA009136B4 /* ChordGrapherView */,
+				1DBD0FFE2CFFCBEA009136B4 /* ChordGrapher Views */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard and Keys Views */,
 				1DA5E4182CDE6D1800DDB704 /* Reusable Views */,
 				1D5F6AA52C2483E700193B58 /* Global Models */,
@@ -717,14 +717,14 @@
 			path = "Keyboard and Keys Views";
 			sourceTree = "<group>";
 		};
-		1DBD0FFE2CFFCBEA009136B4 /* ChordGrapherView */ = {
+		1DBD0FFE2CFFCBEA009136B4 /* ChordGrapher Views */ = {
 			isa = PBXGroup;
 			children = (
 				1D59025E2D15195C00C5D35D /* ChordGrapherNavigationView.swift */,
 				1D59025B2D14F75C00C5D35D /* ChordGraphImageView.swift */,
 				1D362D3E2D01035200C4EF82 /* ChordGrapher Models */,
 			);
-			path = ChordGrapherView;
+			path = "ChordGrapher Views";
 			sourceTree = "<group>";
 		};
 		1DD831E82D14D43300EC817F /* DualChordTitleViews */ = {
