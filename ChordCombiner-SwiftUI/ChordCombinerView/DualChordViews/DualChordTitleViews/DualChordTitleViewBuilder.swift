@@ -40,7 +40,7 @@ struct DualChordTitleViewBuilder: View {
         if let lowerChord = chordCombinerViewModel.lowerChord,
            let upperChord = chordCombinerViewModel.upperChord {
           SplitChordTitleView(
-            lowerChord: lowerChord,
+            keyboardWidth: chordCombinerViewModel.lowerKeyboard.width, lowerChord: lowerChord,
             upperChord: upperChord,
             titleFont: titleFont)
         }
