@@ -1,10 +1,10 @@
 # Chord Combiner
 
-![ChordCombiner Light Mode Icon large-keyboards += 128px.jpg](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner%20Light%20Mode%20Icon%20large-keyboards%20%2B%3D%20128px.jpg)
+![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg)
 
 Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator.
 
-[View Navigation Map](https://bra.in/5jMZEP)
+[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/b317b021-f918-4cb2-a72f-7da1aa422953)
 
 ## Initial Screen: ChordCombinerView
 
