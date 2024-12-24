@@ -10,6 +10,7 @@ import SwiftUI
 struct DualChordKeyboardView: View {
   var chordCombinerViewModel = ChordCombinerViewModel.singleton()
   @Binding var keyboard: Keyboard
+  var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel?
 
   var body: some View {
     VStack(spacing: 20) {
@@ -21,5 +22,6 @@ struct DualChordKeyboardView: View {
 }
 
 #Preview() {
-  DualChordKeyboardView(keyboard: .constant(Keyboard.initialDualChordKeyboard))
+  DualChordKeyboardView(
+    keyboard: .constant(Keyboard.initialDualChordKeyboard))
 }

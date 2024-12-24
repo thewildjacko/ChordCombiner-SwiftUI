@@ -104,7 +104,9 @@ struct ChordCombinerChordSelectionMenu: View {
           chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
         )
 
-        DualChordKeyboardView(keyboard: $combinedKeyboard)
+        DualChordKeyboardView(
+          keyboard: $combinedKeyboard,
+          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel)
 
         Spacer()
       }
