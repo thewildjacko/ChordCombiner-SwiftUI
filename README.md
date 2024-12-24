@@ -41,7 +41,56 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 
 ## [User Interaction - ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
-#### Initial Screen (upper and lower chords):
+### Functionality
+  
+  The user can tap on any letter, accidental or ChordType in [ChordCombinerPropertySelectionView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/cc31ea3f73093f07bfde58a7834a33fa93a48536/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerPropertySelectionView.swift) to select it; that chord property will then become highlighted in a **blue-green color**.
+
+  - Once the user has selected all 3 chord properties (Letter, Accidental & ChordType), the keyboards in the ChordType list highlight with chords in the selected `RootKeyNote`, and the keyboard titles update to match.
+  - Once the user selects both a **Lower** and an **Upper** chord, the `ChordAndScaleProperty` tags light up in **purple, and/or with a purple glow**, based on matches to the chord not currently being selected.
+
+The highlighting works as follows:
+  - A **blue-green background** if the tag is _currently selected_
+  - A **purple glow and background** if the tag is NOT _currently selected_, but _matches_ the chord currently being selected
+  - A **blue-green background** AND a **purple glow** if the tag is both _currently selected_ and _matches_ the chord current;y being selected.
+  - A **gray background with no glow** if the tag is _unselected and also does not match_
+
+ChordType `Keyboards` light up similarly, with the following differences:
+  - Only the chord symbol changes color, and does not glow (for readability purposes)
+  - Instead, the `Keyboard` displays a **purple glow** if it matches
+  - The chord symbol is **blue-green** if selected, **purple** if it matches, and **white** if it's unselected and doesn't match.
+  - Additionally, a _purple text label_ stating **"match found!"** appears to the right of the keyboard tag if a `ChordType` matches.
+
+#### Example:
+
+  The user is in the **Lower Chord** `ChordCombinerChordSelectionMenu`. **Cma7** is already selected, and **Dma** is selected for the upper chord. The following ``ChordAndScaleProperty`` tags will light up based on matches to the _upper chord_, **Dma**, as follows:
+
+  - **Letter Tags**
+    - The **C** tag will light up with a **blue-green background** and a **purple glow**, because **C** is selected and **Cma** also matches as an _upper chord_ for **Cma7**.
+    - **D, G and A** light up in **purple** because they match, but are not selected.
+  - Accidental Tags
+    - The **natural** sign displays a **blue-green background** and a **purple glow**, because it's selected and matches
+  - ChordType Keyboard Tags
+    - The **Cma, Cmi, C+ and C**˚ keyboards (among others) glow in purple, their chord symbols change to purple, and the **match found** label displays, because all 4 chords match as upper chords to **Cma7**.
+    - The **Csus4 and Csus2**˚ keyboards (among others) do not glow, their chord symbols stay white, and the **match found** label does not display, because neither chord match as upper chords to **Cma7**.
+    - The **Cma7**˚ keyboard glows in purple, its chord symbols displays in blue-green, and the **match found** label displays, because it is selected and it matches as an upper chord to **Cma7**.
+    - 
+#### `ChordCombinerPropertySelectionView`
+  - A horizontal row with custom `Letter` and Accidental (`RootAccidental`) pickers (`ChordCombinerTagsView`).
+    - in the Accidental picker, the &#x266E; sign is pre-selected for convience
+  - A vertical List with keyboards for every triad and simple 4-note `ChordType`, initially displaying the title of the `ChordType` with no Letter or Accidental prefix
+    - once a ChordType is selected, the List automatically scrolls to that `ChordType` position if the user leaves the selection screen and comes back later.
+  
+  ##### Protocol Oriented Programming
+  - `Letter`, `RootAccidental` and `ChordType` conform to the **`ChordAndScaleProperty`** protocol
+    - This allows for a single reusable `ChordCombinerTagsView` for both the `Letter` and `RootAccidental` pickers.
+    - `ChordAndScaleProperty` is also used in `ChordCombinerPropertyMatcher` to highlight the `Letter`, `RootAccidental` and `ChordType` picker items to show matching properties.
+  
+  ##### Data Persistence
+  Every time the user selects a new property, the `chordPropertyData` property of `ChordCombinerViewModel` is updated and the `saveJSON` method stores the data.
+
+### ChordCombinerSelectionMenu Screenshots
+
+#### Initial screens for upper and lower chords:
 
 ![Lower chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20initial%20screen.PNG) ![Upper chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20initial%20screen.PNG)
 
@@ -55,60 +104,3 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 
 #### Upper chord menu - both chords selected: Dma / Dmi / Daug
 ![Dma](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dma%20selected.PNG) ![Dmi](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dmi%20selected.PNG) ![Daug](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Daug%20selected.PNG.PNG)
-
-#### 
-
-### User Interaction: `ChordCombinerPropertySelectionView`
-
-  - A horizontal row with custom `Letter` and Accidental (`RootAccidental`) pickers (`ChordCombinerTagsView`).
-    - in the Accidental picker, the &#x266E; sign is pre-selected for convience
-  - A vertical List with keyboards for every triad and simple 4-note `ChordType`, initially displaying the title of the `ChordType` with no Letter or Accidental prefix
-    - once a ChordType is selected, the List automatically scrolls to that `ChordType` position if the user leaves the selection screen and comes back later.
-  
-  #### Protocol Oriented Programming
-  - `Letter`, `RootAccidental` and `ChordType` conform to the **`ChordAndScaleProperty`** protocol
-    - This allows for a single reusable `ChordCombinerTagsView` for both the `Letter` and `RootAccidental` pickers.
-    - `ChordAndScaleProperty` is also used in `ChordCombinerPropertyMatcher` to highlight the `Letter`, `RootAccidental` and `ChordType` picker items to show matching properties.
-  
-  
-  #### Data Persistence
-  Every time the user selects a new property, the `chordPropertyData` property of `ChordCombinerViewModel` is updated and the `saveJSON` method stores the data.
-
-  #### Functionality
-  
-  The user can tap on any letter, accidental or ChordType to select it; that chord property will then become highlighted in a blue-green color.
-
-  - Once the user has selected all 3 chord properties (Letter, Accidental & ChordType), the keyboards in the ChordType list highlight with chords in the selected `RootKeyNote`, and the keyboard titles update to match.
-  - Once the user selects both a **Lower** and an **Upper** chord, the `ChordAndScaleProperty` tags light up in purple, and/or with a purple glow, based on matches to the chord not currently being selected, as follows:
-    - A **blue-green background** if the tag is _currently selected_
-    - A **purple glow and background** if the tag is NOT _currently selected_, but _matches_ the chord currently being selected
-    - A **blue-green background** AND a **purple glow** if the tag is both _currently selected_ and _matches_ the chord current;y being selected.
-    - A **gray background with no glow** if the tag is _unselected and also does not match_
-  - ChordType `Keyboards` light up similarly, with the following differences:
-    - Only the chord symbol changes color, and does not glow (for readability purposes)
-    - Instead, the `Keyboard` displays a **purple glow** if it matches
-    - The chord symbol is **blue-green** if selected, **purple** if it matches, and **white** if it's unselected and doesn't match.
-    - Additionally, a _purple text label_ stating **"match found!"** appears to the right of the keyboard tag if a `ChordType` matches.
-    
-
-  #### Example:
-
-  The user is in the **Lower Chord** `ChordCombinerChordSelectionMenu`. **Cma7** is already selected, and **Dma** is selected for the upper chord. The following ``ChordAndScaleProperty`` tags will light up based on matches to the _upper chord_, **Dma**, as follows:
-
-  - **Letter Tags**
-    - The **C** tag will light up with a **blue-green background** and a **purple glow**, because **C** is selected and **Cma** also matches as an _upper chord_ for **Cma7**.
-    - **D, G and A** light up in **purple** because they match, but are not selected.
-  - Accidental Tags
-    - The **natural** sign displays a **blue-green background** and a **purple glow**, because it's selected and matches
-  - ChordType Keyboard Tags
-    - The **Cma, Cmi, C+ and C**˚ keyboards (among others) glow in purple, their chord symbols change to purple, and the **match found** label displays, because all 4 chords match as upper chords to **Cma7**.
-    - The **Csus4 and Csus2**˚ keyboards (among others) do not glow, their chord symbols stay white, and the **match found** label does not display, because neither chord match as upper chords to **Cma7**.
-    - The **Cma7**˚ keyboard glows in purple, its chord symbols displays in blue-green, and the **match found** label displays, because it is selected and it matches as an upper chord to **Cma7**.
-
-
-   
-- A 2-octave **Upper Keyboard** (`ChordCombinerMenuCoverView`)
-  - Initial title: "Select Upper Chord"
-  - Navigation link: "Please select a chord"  + the Keyboard itself
-- A 3-octave **Combined keyboard** `DualChordKeyboardView`
-  - Initial title: "waiting for chord selection..."
