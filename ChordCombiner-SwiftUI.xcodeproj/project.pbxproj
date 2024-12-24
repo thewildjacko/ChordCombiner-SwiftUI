@@ -190,7 +190,6 @@
 		1DD837282CFFD75400ED2DF2 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD837262CFFD75400ED2DF2 /* String Extensions.swift */; };
 		1DE006172CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE006162CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift */; };
 		1DE006192CE5263D00C27EE3 /* KeyboardHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE006182CE5263D00C27EE3 /* KeyboardHighlighter.swift */; };
-		1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */ = {isa = PBXBuildFile; fileRef = 1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */; };
 		1DF2D7532D17A8760018B161 /* NotesAndDegreesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */; };
 		1DF2D7542D17A8760018B161 /* NotesAndDegreesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */; };
 		1DF2D7562D17ADA00018B161 /* ChordDetailForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */; };
@@ -312,7 +311,6 @@
 		1DD837262CFFD75400ED2DF2 /* String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Extensions.swift"; sourceTree = "<group>"; };
 		1DE006162CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombinerPropertyMatcher.swift; sourceTree = "<group>"; };
 		1DE006182CE5263D00C27EE3 /* KeyboardHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHighlighter.swift; sourceTree = "<group>"; };
-		1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "ChordType addition scratchpad.md"; sourceTree = "<group>"; };
 		1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAndDegreesSectionView.swift; sourceTree = "<group>"; };
 		1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDetailForm.swift; sourceTree = "<group>"; };
 		1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedNotesSectionView.swift; sourceTree = "<group>"; };
@@ -356,16 +354,9 @@
 				1D0DD67C2D10E59800BD5189 /* ChordType+baseChordType.swift */,
 				1D0DD67F2D10E6DE00BD5189 /* ChordType+degreeTypeIDGroups.swift */,
 				1D0DD6792D10E52F00BD5189 /* ChordType+DegreeTags.swift */,
-			);
-			path = ChordType;
-			sourceTree = "<group>";
-		};
-		1D20A5D92D0A02BD00C4FD9F /* ChordTypeSection */ = {
-			isa = PBXGroup;
-			children = (
 				1D20A5DA2D0A031A00C4FD9F /* ChordTypeSection.swift */,
 			);
-			path = ChordTypeSection;
+			path = ChordType;
 			sourceTree = "<group>";
 		};
 		1D26DD802CF127B700C45D48 /* ChordProperties */ = {
@@ -482,12 +473,10 @@
 				1D46C92A2C77B7400014D00B /* ChordCombinerView.swift */,
 				1D6523A52CF1091500BDD60C /* ChordCombinerView */,
 				1DBD0FFE2CFFCBEA009136B4 /* ChordGrapherView */,
-				1D20A5D92D0A02BD00C4FD9F /* ChordTypeSection */,
 				1DB6EC3A2C778FDB008A23BC /* Keyboard and Keys Views */,
 				1DA5E4182CDE6D1800DDB704 /* Reusable Views */,
 				1D5F6AA52C2483E700193B58 /* Global Models */,
 				1D5F6AA12C2482AD00193B58 /* Custom Extensions and Constants */,
-				1DED5E3A2C8FFA0400F6C219 /* ChordType addition scratchpad.md */,
 				1D5F69DD2C2481E700193B58 /* Assets.xcassets */,
 				1D5F69DF2C2481E700193B58 /* Preview Content */,
 			);
@@ -849,7 +838,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D5F69E12C2481E700193B58 /* Preview Assets.xcassets in Resources */,
-				1DED5E3B2C8FFA0400F6C219 /* ChordType addition scratchpad.md in Resources */,
 				1D5F69DE2C2481E700193B58 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
