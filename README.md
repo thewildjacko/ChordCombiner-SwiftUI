@@ -8,18 +8,15 @@ Piano-focused music theory & harmony app designed to help musicians learn about 
 
 ## Initial Screen: ChordCombinerView
 
-![Initial Screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/f52c23927bdacc1775e5a08305ec3590d63ce8cd/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG)
+![Initial Screen](ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG)
 
-Upon loading, the app presents the `ChordCombinerView`, which displays a column of 3 `Keyboard` views, initially with no keys highlighted:
+This is the main view of the app. It displays 3 `Keyboard` views, initially with no keys highlighted.
 
-- A 2-octave **Lower Keyboard** (`ChordCombinerMenuCoverView`)
-  - Initial title: _"Select Lower Chord"_
-  - Navigation link: _"Please select a chord"_ + the Keyboard itself
-- A 2-octave **Upper Keyboard** (`ChordCombinerMenuCoverView`)
-  - Initial title: _"Select Upper Chord"_
-  - Navigation link: _"Please select a chord"_ + the Keyboard itself
-- A 3-octave **Combined keyboard** `DualChordKeyboardView`
-  - Initial title: _"waiting for chord selection..."_
+The user can tap either the upper or lower keyboards or their titles to move on to the next screen, [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift).
+
+After users have selected lower and/or upper keyboards, they can return to 
+
+## [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
 These three keyboards are managed by an `@Observable` and `@Bindable` **`ChordCombinerViewModel`** singleton, which also contains 3 optional `Chord` objects:
 
