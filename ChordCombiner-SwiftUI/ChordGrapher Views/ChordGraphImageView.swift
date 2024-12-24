@@ -40,52 +40,6 @@
 
 import SwiftUI
 
-struct GraphImagePlacerView: View {
-  var image: Image
-  var columns: UInt
-  var spacing: CGFloat = 10
-
-  @ViewBuilder
-  var body: some View {
-    if columns > 0 {
-      HStack(spacing: spacing) {
-        ForEach((1...columns), id: \.self) { _ in
-          image
-        }
-      }
-    }
-  }
-}
-
-struct GraphImagePlacerPyramidView: View {
-  let pianoKeysImage = Image(systemName: "pianokeys")
-  let musicNoteImage = Image(systemName: "music.note")
-  @Binding var progress: Double
-
-  @ViewBuilder
-  var body: some View {
-    VStack {
-      Spacer()
-
-      VStack(spacing: 10) {
-        pianoKeysImage
-        GraphImagePlacerView(image: pianoKeysImage, columns: 3)
-        GraphImagePlacerView(image: pianoKeysImage, columns: 5)
-        GraphImagePlacerView(image: musicNoteImage, columns: 7, spacing: 20)
-        Spacer()
-        ProgressView(value: progress)
-
-      }
-      .frame(maxHeight: 80)
-      .padding()
-
-      Spacer()
-    }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(.primaryBackground)
-  }
-}
-
 struct ChordGraphImageView: View {
   @State private var zoomScale: CGFloat = 1
   @State private var previousZoomScale: CGFloat = 1
