@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ChordCombiner Light Mode Splash Icon large-keyboards += 1.png",
+      "filename" : "ChordCombiner Dark Mode Splash Icon large-keyboards += v3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,7 @@
           "value" : "light"
         }
       ],
-      "filename" : "ChordCombiner Light Mode Splash Icon large-keyboards +=.png",
+      "filename" : "ChordCombiner Dark Mode Splash Icon large-keyboards += v3 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,7 +23,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ChordCombiner Dark Mode Icon large-keyboards +=.png",
+      "filename" : "ChordCombiner Dark Mode Icon large-keyboards += v3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

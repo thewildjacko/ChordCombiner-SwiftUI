@@ -13,7 +13,7 @@ struct SplashScreen: View {
       var body: some View {
           VStack {
               VStack {
-                Image(.chordCombinerDarkModeIconLargeKeyboards)
+                Image(.chordCombinerSplashIconLargeKeyboards)
                   .resizable()
                   .frame(width: 150, height: 150)
 
