@@ -40,9 +40,7 @@ Once an **Upper Chord** or **Lower Chord** is selected for either CoverView, the
 
 An info navigation link also appears next to the chord symbol, which the user can tap to go to a `SingleChordDetailView` providing more information about the chord. These elements also appear above the **Combined Keyboard** before both chords are selected.
 
-Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboard** 
-
-## `ChordCombinerChordSelectionMenu` initially displays the following:
+Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboard** `ChordCombinerChordSelectionMenu` initially displays the following:
 
 ### `SingleChordTitleNavigationStackView`
    - _"Select Lower/Upper Chord"_ 
