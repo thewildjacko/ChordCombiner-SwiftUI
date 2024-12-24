@@ -625,7 +625,6 @@
 				1D46C9322C77EB950014D00B /* DualChordKeyboardView.swift */,
 				1DD831E82D14D43300EC817F /* DualChordTitleViews */,
 				1DD297C62C9902B6001984EF /* DualChordDetailView.swift */,
-				1DD831E92D14D60F00EC817F /* ComponentChordsView.swift */,
 				1D6523A92CF11AF500BDD60C /* DualChordModels */,
 			);
 			path = DualChordViews;
@@ -687,6 +686,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF2D7552D17ADA00018B161 /* ChordDetailForm.swift */,
+				1DD831E92D14D60F00EC817F /* ComponentChordsView.swift */,
 				1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */,
 				1DA11FCB2CEC1CA300DF255C /* BaseChordSectionView.swift */,
 				1DF2D7582D18BAAF0018B161 /* ExtendedNotesSectionView.swift */,
