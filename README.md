@@ -6,18 +6,37 @@ Piano-focused music theory & harmony app designed to help musicians learn about 
 
 [View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/b317b021-f918-4cb2-a72f-7da1aa422953)
 
-## Initial Screen: ChordCombinerView
+## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
-Upon loading, the app presents the `ChordCombinerView`, which displays a column of 3 `Keyboard` views, initially with no keys highlighted:
+![Initial Screen](ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG)
 
-- A 2-octave **Lower Keyboard** (`ChordCombinerMenuCoverView`)
-  - Initial title: _"Select Lower Chord"_
-  - Navigation link: _"Please select a chord"_ + the Keyboard itself
-- A 2-octave **Upper Keyboard** (`ChordCombinerMenuCoverView`)
-  - Initial title: _"Select Upper Chord"_
-  - Navigation link: _"Please select a chord"_ + the Keyboard itself
-- A 3-octave **Combined keyboard** `DualChordKeyboardView`
-  - Initial title: _"waiting for chord selection..."_
+This is the main view of the app. It displays 3 `Keyboard` views, initially with no keys highlighted.
+
+The user can tap either the upper or lower keyboards or their titles to move on to the next screen, [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift).
+
+After users have selected lower and/or upper keyboards, they can return to [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift) to see a visual overview of their selections. See below for screenshots of the different outcomes for `ChordCombinerView`:
+
+#### Lower chord selected
+
+![ChordCombinerView - Lower chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.jpeg)
+
+#### Upper chord selected
+
+![ChordCombinerView - Upper chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG)
+
+#### Both chords selected - Combined chord result
+
+![ChordCombinerView - Both chords selected, combined chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG)
+
+#### Both chords selected - Slash chord result
+
+![ChordCombinerView - Both chords selected, slash chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG)
+
+#### Both chords selected - Split chord result
+
+![ChordCombinerView - Both chords selected, split chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG)
+
+## [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
 These three keyboards are managed by an `@Observable` and `@Bindable` **`ChordCombinerViewModel`** singleton, which also contains 3 optional `Chord` objects:
 
