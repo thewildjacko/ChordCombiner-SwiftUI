@@ -656,28 +656,36 @@
 			path = "ChordCombinerMenu Views";
 			sourceTree = "<group>";
 		};
-		1D73AFD52C6FD64400308356 /* Key Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				1D73AFD22C6FD64400308356 /* KeyProtocol.swift */,
-				1D73AFD32C6FD64400308356 /* KeyShapeProtocol.swift */,
-				1D73AFD42C6FD64400308356 /* KeyShapeGroupProtocol.swift */,
-			);
-			path = "Key Protocols";
-			sourceTree = "<group>";
-		};
 		1D73AFE82C6FD64400308356 /* Keys */ = {
 			isa = PBXGroup;
 			children = (
 				1D26DD8A2CF12BC500C45D48 /* Key ViewModels */,
 				1D73AFE72C6FD64400308356 /* Key.swift */,
+				1D73AFD22C6FD64400308356 /* KeyProtocol.swift */,
+				1D9BFCC52D1B34D900A4C985 /* KeyShape */,
+				1D2B447F2D08BAC20067266F /* KeySymbols Views */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
+		1D9BFCC52D1B34D900A4C985 /* KeyShape */ = {
+			isa = PBXGroup;
+			children = (
 				1D0967F42CB59CC700600325 /* KeyShapeGroup.swift */,
 				1DABBE132CB58A930039F325 /* KeyShape.swift */,
 				1D7A4C492CDD84C6004B16BA /* KeyShapePath.swift */,
-				1D2B447F2D08BAC20067266F /* KeySymbols Views */,
-				1D73AFD52C6FD64400308356 /* Key Protocols */,
+				1D9BFCC62D1B34F500A4C985 /* KeyShape Protocols */,
 			);
-			path = Keys;
+			path = KeyShape;
+			sourceTree = "<group>";
+		};
+		1D9BFCC62D1B34F500A4C985 /* KeyShape Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1D73AFD32C6FD64400308356 /* KeyShapeProtocol.swift */,
+				1D73AFD42C6FD64400308356 /* KeyShapeGroupProtocol.swift */,
+			);
+			path = "KeyShape Protocols";
 			sourceTree = "<group>";
 		};
 		1DA11FCA2CEC1C5E00DF255C /* ChordDetailSectionViews */ = {
