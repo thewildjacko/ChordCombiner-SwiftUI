@@ -91,6 +91,8 @@
 		1D9BFCCC2D1B519D00A4C985 /* GraphImagePlacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BFCCA2D1B519D00A4C985 /* GraphImagePlacerView.swift */; };
 		1D9BFCCE2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BFCCD2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift */; };
 		1D9BFCCF2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BFCCD2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift */; };
+		1D9BFCD12D1B6DD500A4C985 /* ChordPropertyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BFCD02D1B6DD500A4C985 /* ChordPropertyData.swift */; };
+		1D9BFCD22D1B6DD500A4C985 /* ChordPropertyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BFCD02D1B6DD500A4C985 /* ChordPropertyData.swift */; };
 		1DA11FC32CEBCAD400DF255C /* ChordSymbolCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FC22CEBCAD400DF255C /* ChordSymbolCaptionView.swift */; };
 		1DA11FC52CEBEE0D00DF255C /* DualChordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FC42CEBEE0D00DF255C /* DualChordTitleView.swift */; };
 		1DA11FC72CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FC62CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift */; };
@@ -290,6 +292,7 @@
 		1D9BFCC72D1B409200A4C985 /* SingleChordDetailNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChordDetailNavigationTitleView.swift; sourceTree = "<group>"; };
 		1D9BFCCA2D1B519D00A4C985 /* GraphImagePlacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphImagePlacerView.swift; sourceTree = "<group>"; };
 		1D9BFCCD2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphImagePlacerPyramidView.swift; sourceTree = "<group>"; };
+		1D9BFCD02D1B6DD500A4C985 /* ChordPropertyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPropertyData.swift; sourceTree = "<group>"; };
 		1DA11FC22CEBCAD400DF255C /* ChordSymbolCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordSymbolCaptionView.swift; sourceTree = "<group>"; };
 		1DA11FC42CEBEE0D00DF255C /* DualChordTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordTitleView.swift; sourceTree = "<group>"; };
 		1DA11FC62CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordDetailNavigationLinkView.swift; sourceTree = "<group>"; };
@@ -384,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				1DC9DAAB2CC8081000776417 /* ChordProperties.swift */,
+				1D9BFCD02D1B6DD500A4C985 /* ChordPropertyData.swift */,
 			);
 			path = ChordPropertiesModels;
 			sourceTree = "<group>";
@@ -910,6 +914,7 @@
 				1D25250A2D121B0A005ADEB9 /* KeyName+DegreeMaps.swift in Sources */,
 				1DD836EC2CFFD54E00ED2DF2 /* RootNote.swift in Sources */,
 				1DD831E42D14CE8E00EC817F /* CombinedOrSingleChordTitleView.swift in Sources */,
+				1D9BFCD22D1B6DD500A4C985 /* ChordPropertyData.swift in Sources */,
 				1D34C3EC2D19F8C500253C50 /* ViewCoordinator.swift in Sources */,
 				1DD836ED2CFFD54E00ED2DF2 /* ChordGrapher.swift in Sources */,
 				1DD836EE2CFFD54E00ED2DF2 /* KeyShapeGroup.swift in Sources */,
@@ -990,6 +995,7 @@
 			files = (
 				1D0D63012C949E9300910CBF /* DegreeAndPitchNumberOperator.swift in Sources */,
 				1DA11FCC2CEC1CA300DF255C /* BaseChordSectionView.swift in Sources */,
+				1D9BFCD12D1B6DD500A4C985 /* ChordPropertyData.swift in Sources */,
 				1D5F6A782C24829500193B58 /* Array Extensions.swift in Sources */,
 				1D350EF82C779358007D8F85 /* ChordCombinerViewModel.swift in Sources */,
 				1DF4EA7C2CEA662400CB2821 /* EquivalentChordsSectionView.swift in Sources */,
