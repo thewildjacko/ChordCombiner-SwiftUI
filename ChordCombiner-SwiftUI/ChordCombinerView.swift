@@ -11,7 +11,7 @@ import OSLog
 
 struct ChordCombinerView: View {
   @State var size = CGSize()
-  @State var initial: Bool = true
+//  @State var initial: Bool = true
 
   let keyboardHighlighter = KeyboardHighlighter()
 
@@ -98,7 +98,7 @@ struct ChordCombinerView: View {
         .padding()
         .navigationTitle("Chord Combiner")
         .onAppear {
-          if initial {
+          if chordCombinerViewModel.initial {
             size = proxy.size
             chordCombinerViewModel.lowerKeyboard = Keyboard(
               width: size.width * 0.9,
@@ -122,7 +122,7 @@ struct ChordCombinerView: View {
               letterPadding: true)
           }
 
-          initial = false
+          chordCombinerViewModel.initial = false
 
           highlightKeyboards()
           chordCombinerViewModel.initial = false

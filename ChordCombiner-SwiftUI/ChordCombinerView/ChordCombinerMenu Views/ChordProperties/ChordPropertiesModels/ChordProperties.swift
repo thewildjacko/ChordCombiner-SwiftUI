@@ -57,9 +57,10 @@ extension ChordProperties: Decodable {
 struct ChordPropertyData: Encodable {
   var lowerChordProperties: ChordProperties
   var upperChordProperties: ChordProperties
+  var initial: Bool = true
 
   enum CodingKeys: String, CodingKey {
-     case lowerChordProperties, upperChordProperties
+     case lowerChordProperties, upperChordProperties, initial
    }
 
   enum PropertiesKeys: CodingKey {
@@ -71,6 +72,7 @@ struct ChordPropertyData: Encodable {
 
      try container.encode(lowerChordProperties, forKey: .lowerChordProperties)
      try container.encode(upperChordProperties, forKey: .upperChordProperties)
+     try container.encode(initial, forKey: .initial)
 
      var lowerChordPropertiesContainer = container.nestedContainer(
       keyedBy: PropertiesKeys.self,
@@ -96,6 +98,7 @@ extension ChordPropertyData: Decodable {
 
     lowerChordProperties = try container.decode(ChordProperties.self, forKey: .lowerChordProperties)
     upperChordProperties = try container.decode(ChordProperties.self, forKey: .upperChordProperties)
+    initial = try container.decode(Bool.self, forKey: .initial)
 
     let lowerChordPropertiesContainer = try container.nestedContainer(
       keyedBy: PropertiesKeys.self,
