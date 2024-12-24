@@ -8,6 +8,8 @@ Piano-focused music theory & harmony app designed to help musicians learn about 
 
 ## Initial Screen: ChordCombinerView
 
+![Initial Screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/f52c23927bdacc1775e5a08305ec3590d63ce8cd/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG)
+
 Upon loading, the app presents the `ChordCombinerView`, which displays a column of 3 `Keyboard` views, initially with no keys highlighted:
 
 - A 2-octave **Lower Keyboard** (`ChordCombinerMenuCoverView`)
