@@ -21,10 +21,8 @@ struct ChordDetailForm: View {
   var body: some View {
     Form {
       NotesAndDegreesSectionView(
-        notesText: chordCombinerViewModel.displayDetails(
-          detailType: .noteNames),
-        degreesText: chordCombinerViewModel.displayDetails(
-          detailType: .degreeNames),
+        notesText: notesText,
+        degreesText: degreesText,
         chordGrapherNavigationView: $chordGrapherNavigationView)
 
       ComponentChordsView(isDualChordDetailView: isDualChordDetailView)

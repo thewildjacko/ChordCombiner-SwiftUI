@@ -24,7 +24,7 @@ struct SingleChordTitleNavigationStackView: View {
         )
         SingleChordDetailNavigationView(
           keyboardWidth: keyboardWidth,
-          chord: chordCombinerSelectedChordTitleModel.selectedChord,
+          chord: Chord.initial/*chordCombinerSelectedChordTitleModel.selectedChord*/,
           color: chordCombinerSelectedChordTitleModel.selectedChordColor)
       }
 
