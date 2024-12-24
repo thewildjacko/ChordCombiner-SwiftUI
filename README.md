@@ -12,9 +12,9 @@ Piano-focused music theory & harmony app designed to help musicians learn about 
 
 This is the main view of the app. It displays 3 `Keyboard` views, initially with no keys highlighted.
 
-The user can tap either the upper or lower keyboards or their titles to move on to the next screen, [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift).
+The user can tap either the upper or lower keyboards or their titles, displayed with [ChordCombinerMenuCoverView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/86f06c6e1e2b459d056f4d0d313565524b2905dc/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerMenuCoverView.swift), to move on to the next screen, [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift).
 
-After users have selected lower and/or upper keyboards, they can return to [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift) to see a visual overview of their selections. See below for screenshots of the different outcomes for `ChordCombinerView`:
+After users have selected lower and/or upper keyboards, they can return to [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift) to see a visual overview of their selections. The below screenshots show the different outcomes for `ChordCombinerView`:
 
 #### Lower chord selected
 
@@ -36,9 +36,7 @@ After users have selected lower and/or upper keyboards, they can return to [Chor
 
 ![ChordCombinerView - Both chords selected, split chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG)
 
-## [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
-
-These three keyboards are managed by an `@Observable` and `@Bindable` **`ChordCombinerViewModel`** singleton, which also contains 3 optional `Chord` objects:
+The `ChordCombinerKeyboards` are managed by an `@Observable` and `@Bindable` **[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c7c78c4e8dcec283ece306f90bde7dbb2dc14aa5/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** singleton, which also contains 3 optional `Chord` objects:
 
 - `lowerChord`
   - displays on `lowerKeyboard`, and also on `combinedKeyboard` if only `lowerChord` is selected
@@ -47,9 +45,17 @@ These three keyboards are managed by an `@Observable` and `@Bindable` **`ChordCo
 - `resultChord`
   - displays on `combinedKeyboard`, if a `Chord` match exists, once both `lowerChord` and `upperChord` are selected.
 
+These three Chord objects control what notes are highlighted on each of the 3 main keyboards, and also which data to display for [DualChordDetailView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c7c78c4e8dcec283ece306f90bde7dbb2dc14aa5/ChordCombiner-SwiftUI/DualChordViews/DualChordDetailView.swift).
+
 ### Data Persistance
 
-`ChordCombinerViewModel` uses JSON to store and load the `ChordPropertyData` selections (a struct containing optional `Letter`, ``RootAccidental` and `ChordType` properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all ChordPropertyData properties to `nil` and the app presents the intial launch state.
+`ChordCombinerViewModel` uses JSON to store and load the ChordPropertyData selections (a struct containing optional `Letter`, ``RootAccidental` and `ChordType` properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all ChordPropertyData properties to `nil` and the app presents the intial launch state.
+
+## [User Interaction - ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
+
+
+
+
 
 #### Initial Functionality
 
