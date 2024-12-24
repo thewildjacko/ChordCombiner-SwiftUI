@@ -45,9 +45,13 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 
 ![Lower chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20initial%20screen.PNG) ![Upper chord menu initial screen](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20initial%20screen.PNG)
 
-#### Lower chord menu, letter & accidental selected; Cma7 selected; Upper chord menu, Dma selected
+#### Lower chord menu, letter & accidental selected; Cma7 selected
 
-![lower chord menu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20letter%20and%20natural%20selected.PNG) ![Cma7 selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20-%20Cma7%20selected.PNG) ![Upper chord menu, Dma selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dma%20selected%20no%20lower%20chord.PNG)
+![lower chord menu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20letter%20and%20natural%20selected.PNG) ![Cma7 selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20-%20Cma7%20selected.PNG)
+
+#### Upper chord menu - Dma selected / only lower chord selected
+
+![Upper chord menu, Dma selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/bfb6292a790aef55189fcad3458ca8ba4ca880fe/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dma%20selected%20no%20lower%20chord.PNG) ![only lower chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/9bc2b2a15c9db4342af901a179480c18b427e60c/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20lower%20chord%20selected.PNG)
 
 #### Upper chord menu - both chords selected: Dma / Dmi / Daug
 ![Dma](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dma%20selected.PNG) ![Dmi](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Dmi%20selected.PNG) ![Daug](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/aac9891b84722af02ad6d2ce904a172009de7b72/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20-%20Daug%20selected.PNG.PNG)
