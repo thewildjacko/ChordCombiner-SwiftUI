@@ -75,7 +75,7 @@ Once both **Upper** and **Lower** chords are selected, the app **Combined Keyboa
     - A **blue-green background** AND a **purple glow** if the tag is both _currently selected_ and _matches_ the chord current;y being selected.
     - A **gray background with no glow** if the tag is _unselected and also does not match_
 
-  ChordType `Keyboards light up similarly, with the following differences:
+  ChordType `Keyboards` light up similarly, with the following differences:
     - Only the chord symbol changes color, and does not glow (for readability purposes)
       - Instead, the `Keyboard` displays a **purple glow** if it matches
     - The chord symbol is **blue-green** if selected, **purple** if it matches, and **white** if it's unselected and doesn't match.
