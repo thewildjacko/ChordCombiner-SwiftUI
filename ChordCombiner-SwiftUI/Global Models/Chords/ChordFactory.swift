@@ -65,5 +65,6 @@ struct ChordFactory {
       if combo.contains(0) && !ChordType.allChordDegreeNumbers.contains(combo) {
       }
     }
+    print(comboCount)
   }
 }
