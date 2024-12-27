@@ -53,4 +53,3 @@ extension ChordProperties: Decodable {
     self.chordType = try container.decodeIfPresent(ChordType.self, forKey: .chordType)
   }
 }
-

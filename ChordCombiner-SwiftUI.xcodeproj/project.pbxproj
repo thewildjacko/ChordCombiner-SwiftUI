@@ -539,7 +539,6 @@
 				1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */,
 				1D30F2542CC9840900D40625 /* EquivalentChordFinder.swift */,
 				1D0DD6782D10E49B00BD5189 /* ChordType */,
-				1D5F6AAD2C24847600193B58 /* Degree Enum */,
 				1D5F6AAC2C24846700193B58 /* Chord Protocols */,
 			);
 			path = Chords;
@@ -551,6 +550,7 @@
 				1D8F4E1E2C8B768F000DEF30 /* Root.swift */,
 				1DD836D42CFFD40B00ED2DF2 /* Note.swift */,
 				1D5F6ABF2C2488C600193B58 /* Note Protocols and Helpers */,
+				1D5F6AAD2C24847600193B58 /* Degree Enum */,
 				1D5F6AC12C2488DF00193B58 /* Note Enums */,
 			);
 			path = Notes;

@@ -26,14 +26,14 @@ struct SplashScreen: View {
               .background(.clear)
               .scaleEffect(scale)
               .onAppear {
-                  withAnimation(.easeIn(duration: 0.7)) {
+                withAnimation(.easeIn(duration: 0.35)) {
                     self.scale = 1.5
                   }
               }
           }
           .ignoresSafeArea()
           .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
               withAnimation {
                       self.isActive = true
                   }

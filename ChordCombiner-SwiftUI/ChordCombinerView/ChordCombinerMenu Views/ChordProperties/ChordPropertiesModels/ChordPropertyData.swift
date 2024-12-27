@@ -11,9 +11,10 @@ struct ChordPropertyData: Encodable {
   var lowerChordProperties: ChordProperties
   var upperChordProperties: ChordProperties
   var initial: Bool = true
+  var width: CGFloat = 351
 
   enum CodingKeys: String, CodingKey {
-     case lowerChordProperties, upperChordProperties, initial
+     case lowerChordProperties, upperChordProperties, initial, width
    }
 
   enum PropertiesKeys: CodingKey {
@@ -26,6 +27,7 @@ struct ChordPropertyData: Encodable {
      try container.encode(lowerChordProperties, forKey: .lowerChordProperties)
      try container.encode(upperChordProperties, forKey: .upperChordProperties)
      try container.encode(initial, forKey: .initial)
+     try container.encode(width, forKey: .width)
 
      var lowerChordPropertiesContainer = container.nestedContainer(
       keyedBy: PropertiesKeys.self,
@@ -52,6 +54,7 @@ extension ChordPropertyData: Decodable {
     lowerChordProperties = try container.decode(ChordProperties.self, forKey: .lowerChordProperties)
     upperChordProperties = try container.decode(ChordProperties.self, forKey: .upperChordProperties)
     initial = try container.decode(Bool.self, forKey: .initial)
+    width = try container.decode(CGFloat.self, forKey: .width)
 
     let lowerChordPropertiesContainer = try container.nestedContainer(
       keyedBy: PropertiesKeys.self,

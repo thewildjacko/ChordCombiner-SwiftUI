@@ -11,7 +11,7 @@ import OSLog
 
 struct ChordCombinerView: View {
   @State var size = CGSize()
-//  @State var initial: Bool = true
+  @State var initial: Bool = true
 
   let keyboardHighlighter = KeyboardHighlighter()
 
@@ -19,7 +19,7 @@ struct ChordCombinerView: View {
   @Bindable var chordCombinerViewModel: ChordCombinerViewModel = ChordCombinerViewModel.singleton()
 
   func highlightKeyboards() {
-    if chordCombinerViewModel.initial {
+    if initial {
       if let lowerChord = chordCombinerViewModel.lowerChord {
         keyboardHighlighter.highlightSelectedChord(
           selectedChord: lowerChord,
@@ -98,8 +98,10 @@ struct ChordCombinerView: View {
         .padding()
         .navigationTitle("Chord Combiner")
         .onAppear {
-          if chordCombinerViewModel.initial {
+          if chordCombinerViewModel.chordPropertyData.initial {
             size = proxy.size
+            chordCombinerViewModel.chordPropertyData.width = size.width
+
             chordCombinerViewModel.lowerKeyboard = Keyboard(
               width: size.width * 0.9,
               initialKeyType: .c,
@@ -122,10 +124,10 @@ struct ChordCombinerView: View {
               letterPadding: true)
           }
 
-          chordCombinerViewModel.initial = false
+          chordCombinerViewModel.chordPropertyData.initial = false
 
           highlightKeyboards()
-          chordCombinerViewModel.initial = false
+          initial = false
 
           Logger.main.info("\(FileManager.documentsDirectoryURL)")
         }

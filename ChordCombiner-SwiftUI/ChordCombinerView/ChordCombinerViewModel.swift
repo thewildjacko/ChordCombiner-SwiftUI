@@ -14,12 +14,12 @@ class ChordCombinerViewModel: ObservableObject {
   // MARK: Shared static singleton
   private static var shared: ChordCombinerViewModel?
 
-  var initial: Bool = true
-
   // MARK: Instance properties
   var chordPropertyData = ChordPropertyData(
     lowerChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
-    upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil)
+    upperChordProperties: ChordProperties(letter: nil, accidental: nil, chordType: nil),
+    initial: true,
+    width: 351
   ) {
     didSet {
       saveChordsJSON()
@@ -104,9 +104,26 @@ class ChordCombinerViewModel: ObservableObject {
   ) {
     chordPropertyData = loadChordsJSON()
 
-    self.lowerKeyboard = lowerKeyboard
-    self.upperKeyboard = upperKeyboard
-    self.combinedKeyboard = combinedKeyboard
+    print(chordPropertyData.width)
+
+    self.lowerKeyboard = Keyboard(
+      width: chordPropertyData.width * 0.9,
+      initialKeyType: .c,
+      startingOctave: 4,
+      octaves: 2,
+      letterPadding: true)
+    self.upperKeyboard = Keyboard(
+      width: chordPropertyData.width * 0.9,
+      initialKeyType: .c,
+      startingOctave: 4,
+      octaves: 2,
+      letterPadding: true)
+    self.combinedKeyboard = Keyboard(
+      width: chordPropertyData.width * 0.9,
+      initialKeyType: .c,
+      startingOctave: 4,
+      octaves: 3,
+      letterPadding: true)
   }
 
   // MARK: Singleton function
@@ -139,14 +156,16 @@ class ChordCombinerViewModel: ObservableObject {
           upperChordProperties: ChordProperties(
             letter: nil,
             accidental: .natural,
-            chordType: nil))
+            chordType: nil),
+          initial: true
+        )
       }
       return chordPropertyData
     }
     return chordPropertyData
   }
 
-  private func saveChordsJSON() {
+  func saveChordsJSON() {
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
 
