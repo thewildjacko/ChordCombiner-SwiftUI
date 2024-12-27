@@ -1,10 +1,38 @@
-# Chord Combiner
+ # Chord Combiner
 
 ![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg)
 
-Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator.
+Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator that combines the numeric degrees of two user-selected chords—a lower chord and an upper chord—and returns one of 3 results:
 
+1. A **unified chord** *(single chord symbol with no alternate bass)*
+2. A **slash chord** *(single chord symbol over an alternate bass)*
+3. A **polychord** *(two chord symbols, one over the other)*
+
+After selecting lower and upper chords, the user can view each chord's notes highlighted on separate piano keyboards, stacked in order of chord degree size, with the names of the notes displayed above the keyboard. They can also view the combined result on a 3rd keyboard, with each chords' notes highlighted in different colors. Glyphs are also displayed on the notes to show which chord each note belongs to.
+
+After viewing the chords on the main page, the user can then navigate to detail pages with more information about the resulting chord or chords. Possible information displayed includes:
+
+ - notes
+ - degrees
+ - component chords (lower & upper)
+ - base chord, notes and degrees
+ - extended notes
+ - equivalent chords
+
+For any chord listed in a detail view, the user can navigate further to another detail view in order to view information about that chord.
+
+Finally, the user can tap a link in the detail page to view a mind map-style graph of all four-note chords, triads, and notes contained in the currently displayed chord. This graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
+   
 [View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/b317b021-f918-4cb2-a72f-7da1aa422953)
+
+## Concepts Used
+
+### Protocols
+
+The app uses protocols throughout to enforce conformance for custom types, and for composition. In one specific case, the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming])(#protocol-oriented-programming).
+
+## JSON Data Persistence
+The app uses JSON to store essential data. See [Data Persistence](#data-persistence) and [Save On Select](#save-on-select)
 
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
@@ -35,7 +63,7 @@ The `ChordCombinerKeyboards` are managed by an `@Observable` and `@Bindable` **[
 
 These three Chord objects control what notes are highlighted on each of the 3 main keyboards, and also which data to display for [DualChordDetailView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c7c78c4e8dcec283ece306f90bde7dbb2dc14aa5/ChordCombiner-SwiftUI/DualChordViews/DualChordDetailView.swift).
 
-### Data Persistance
+### Data Persistence
 
 `ChordCombinerViewModel` uses JSON to store and load the [ChordPropertyData](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordProperties/ChordPropertiesModels/ChordPropertyData.swift) selections (a struct containing optional [Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift), [RootAccidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift) and [ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift) properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all `ChordPropertyData` properties to `nil` and the app presents the intial launch state.
 
@@ -85,7 +113,7 @@ ChordType `Keyboards` light up similarly, with the following differences:
     - This allows for a single reusable `ChordCombinerTagsView` for both the `Letter` and `RootAccidental` pickers.
     - `ChordAndScaleProperty` is also used in `ChordCombinerPropertyMatcher` to highlight the `Letter`, `RootAccidental` and `ChordType` picker items to show matching properties.
   
-  ##### Data Persistence
+  ##### Save On Select
   Every time the user selects a new property, the `chordPropertyData` property of `ChordCombinerViewModel` is updated and the `saveJSON` method stores the data.
 
 ### ChordCombinerSelectionMenu Screenshots
