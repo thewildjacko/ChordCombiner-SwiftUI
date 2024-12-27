@@ -2,8 +2,27 @@
 
 ![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg)
 
-Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator.
+Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator that combines the numeric degrees of two user-selected chords—a lower chord and an upper chord—and returns one of 3 results:
 
+1. A **unified chord** *(single chord symbol with no alternate bass)*
+2. A **slash chord** *(single chord symbol over an alternate bass)*
+3. A **polychord** *(two chord symbols, one over the other)*
+
+After selecting lower and upper chords, the user can view each chord's notes highlighted on separate piano keyboards, stacked in order of chord degree size, with the names of the notes displayed above the keyboard. They can also view the combined result on a 3rd keyboard, with each chords' notes highlighted in different colors. Glyphs are also displayed on the notes to show which chord each note belongs to.
+
+After viewing the chords on the main page, the user can then navigate to detail pages with more information about the resulting chord or chords. Possible information displayed includes:
+
+ - notes
+ - degrees
+ - component chords (lower & upper)
+ - base chord, notes and degrees
+ - extended notes
+ - equivalent chords
+
+For any chord listed in a detail view, the user can navigate further to another detail view in order to view information about that chord.
+
+Finally, the user can tap a link in the detail page to view a mind map-style graph of all four-note chords, triads, and notes contained in the currently displayed chord. This graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
+   
 [View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/b317b021-f918-4cb2-a72f-7da1aa422953)
 
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
