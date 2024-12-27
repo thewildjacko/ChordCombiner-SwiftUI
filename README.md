@@ -29,7 +29,7 @@ Finally, the user can tap a link in the detail page to view a mind map-style gra
 
 ### Protocols
 
-The app uses protocols throughout to enforce conformance for custom types, and for composition. In one specific case, the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming](#protocol-oriented-programming).
+The app uses protocols throughout to enforce conformance for custom types, and for composition. In one specific case, the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming])(#protocol-oriented-programming).
 
 ## JSON Data Persistence
 The app uses JSON to store essential data. See [Data Persistence](#data-persistence) and [Save On Select](#save-on-select)
