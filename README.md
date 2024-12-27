@@ -32,7 +32,7 @@ Finally, the user can tap a link in the detail page to view a mind map-style gra
 The app uses protocols throughout to enforce conformance for custom types, and for composition. In one specific case, the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming](#protocol-oriented-programming).
 
 ## JSON Data Persistance
-The app uses JSON to store essential data. See [Data Persistence](#datapersistence) and [Save On Select](#save-on-select)
+The app uses JSON to store essential data. See [Data Persistence](#data-persistence) and [Save On Select](#save-on-select)
 
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
