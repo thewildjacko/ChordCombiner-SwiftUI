@@ -25,7 +25,5 @@ extension ChordAndScaleProperty {
     if let property = self as? T {
       matchingProperties.insert(property)
     }
-
-//    matchingProperties.insert(self as! T)
   }
 }
