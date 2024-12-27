@@ -31,6 +31,9 @@ Finally, the user can tap a link in the detail page to view a mind map-style gra
 
 The app uses protocols throughout to enforce conformance for custom types, and for composition. In one specific case, the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming](#protocol-oriented-programming).
 
+## JSON Data Persistance
+The app uses JSON to store essential data. See [Data Persistence](#datapersistence) and [Save On Select](#save-on-select)
+
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
 ![Initial Screen](ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG)
@@ -110,7 +113,7 @@ ChordType `Keyboards` light up similarly, with the following differences:
     - This allows for a single reusable `ChordCombinerTagsView` for both the `Letter` and `RootAccidental` pickers.
     - `ChordAndScaleProperty` is also used in `ChordCombinerPropertyMatcher` to highlight the `Letter`, `RootAccidental` and `ChordType` picker items to show matching properties.
   
-  ##### Data Persistence
+  ##### Save On Select
   Every time the user selects a new property, the `chordPropertyData` property of `ChordCombinerViewModel` is updated and the `saveJSON` method stores the data.
 
 ### ChordCombinerSelectionMenu Screenshots
