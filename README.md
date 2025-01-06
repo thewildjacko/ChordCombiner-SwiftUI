@@ -1,6 +1,6 @@
  # Chord Combiner
 
-![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg)
+![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg =341x694.5)
 
 Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator that combines the numeric degrees of two user-selected chords—a lower chord and an upper chord—and returns one of 3 results:
 
@@ -36,7 +36,7 @@ The app uses JSON to store essential data. See [Data Persistence](#data-persiste
 
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
-![Initial Screen](ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG)
+<img src="ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG" alt="Initial Screen" width="341" height="694.5">
 
 This is the main view of the app. It displays 3 `Keyboard` views, initially with no keys highlighted.
 
@@ -45,12 +45,11 @@ The user can tap either the upper or lower keyboards or their titles, displayed 
 After users have selected lower and/or upper keyboards, they can return to [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift) to see a visual overview of their selections. The below screenshots show the different outcomes for `ChordCombinerView`:
 
 #### Lower chord selected / Upper Chord selected
-
-![ChordCombinerView - Lower chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.jpeg) ![ChordCombinerView - Upper chord selected](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG)
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.PNG" alt="ChordCombinerView - Lower chord selected" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG" alt="ChordCombinerView - Upper chord selected" width="341" height="694.5">
 
 #### Both chords selected - Combined, slash and split chord results
-
-![ChordCombinerView - Both chords selected, combined chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG) ![ChordCombinerView - Both chords selected, slash chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG) ![ChordCombinerView - Both chords selected, split chord](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG)
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, combined chord" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, slash chord" width="341" height="694.5"> 
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, split chord" width="341" height="694.5">
 
 The `ChordCombinerKeyboards` are managed by an `@Observable` and `@Bindable` **[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c7c78c4e8dcec283ece306f90bde7dbb2dc14aa5/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** singleton, which also contains 3 optional `Chord` objects:
 
