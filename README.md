@@ -1,6 +1,6 @@
  # Chord Combiner
 
-![Chord Combiner Light Mode 128px](ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3%20128px.jpg =341x694.5)
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/4c9f94b899bda454ddde198239e05e48797a76ad/ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3.png" alt="Chord Combiner Light Mode" width="128" height="128">
 
 Piano-focused music theory & harmony app designed to help musicians learn about the connections between different chords. The core functionality is a chord calculator that combines the numeric degrees of two user-selected chords—a lower chord and an upper chord—and returns one of 3 results:
 
