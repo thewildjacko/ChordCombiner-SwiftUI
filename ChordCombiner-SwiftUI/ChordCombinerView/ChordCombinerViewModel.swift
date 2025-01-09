@@ -104,8 +104,6 @@ class ChordCombinerViewModel: ObservableObject {
   ) {
     chordPropertyData = loadChordsJSON()
 
-    print(chordPropertyData.width)
-
     self.lowerKeyboard = Keyboard(
       width: chordPropertyData.width * 0.9,
       initialKeyType: .c,

@@ -349,7 +349,6 @@ extension ChordType {
     let optionalDegreeTags = [hasRoot,
                               hasMajor2nd,
                               hasMinor3rd,
-
                               hasMajor3rd,
                               hasPerfect4th,
                               hasSharp4th,

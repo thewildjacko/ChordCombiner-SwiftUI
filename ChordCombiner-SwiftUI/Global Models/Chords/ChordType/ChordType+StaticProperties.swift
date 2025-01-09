@@ -187,3 +187,10 @@ extension ChordType {
   static let allChordTypesSorted: [ChordType] = allChordTypeArrays.flatMap { $0 }
   static let allChordTypesMinusOmitsSorted: [ChordType] = allChordTypesMinusOmits.flatMap { $0 }
 }
+
+extension ChordType {
+  static let helpViewPickerDemoTypes: Set<ChordType> = [
+    .ma, .mi, .dim, .sus4, .add4, .minorAdd4, .dominant7,
+    .dominant7sus4, .mi7, .mi7b13, .mi7b5, .ma6, .mi6
+  ]
+}

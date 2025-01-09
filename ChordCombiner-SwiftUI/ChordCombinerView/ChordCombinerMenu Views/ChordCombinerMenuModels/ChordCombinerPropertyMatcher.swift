@@ -66,13 +66,13 @@ struct ChordCombinerPropertyMatcher {
     matchByChordType()
   }
 
-  func renewChordMatches(propertyChanged: ChordProperties.ChordPropertyChanged) {
+  func renewChordMatches(propertyChanged: ChordPropertyType) {
     if propertyChanged == .accidental || propertyChanged == .chordType { matchByLetter() }
     if propertyChanged == .letter || propertyChanged == .chordType { matchByAccidental() }
     if propertyChanged == .letter || propertyChanged == .accidental { matchByChordType() }
   }
 
-  func clearAndMatchChords(propertyChanged: ChordProperties.ChordPropertyChanged) {
+  func clearAndMatchChords(propertyChanged: ChordPropertyType) {
     renewChordMatches(propertyChanged: propertyChanged)
   }
 }

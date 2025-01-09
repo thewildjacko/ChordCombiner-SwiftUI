@@ -75,6 +75,26 @@ extension KeyCircle {
       }
     }
 
+    var helpColor: Color {
+      switch self {
+      case .lower:
+          .lowerChordHighlight
+      case .upper, .common:
+          .upperChordHighlight
+      }
+    }
+
+    var helpText: String {
+      switch self {
+      case .lower:
+          "Lower Chord Note"
+      case .upper:
+          "Upper Chord Note"
+      case .common:
+          "Common Tone"
+      }
+    }
+
     var strokeColor: Color {
       switch self {
       case .common:

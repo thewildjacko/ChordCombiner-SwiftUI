@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+typealias ChordPropertyType = ChordProperties.ChordPropertyType
+
 struct ChordProperties: Equatable, Identifiable {
   static let initial: ChordProperties = ChordProperties(letter: nil, accidental: .natural, chordType: nil)
 
-  enum ChordPropertyChanged {
+  enum ChordPropertyType {
     case letter, accidental, chordType
   }
 

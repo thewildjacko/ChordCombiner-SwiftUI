@@ -41,6 +41,7 @@
 import SwiftUI
 
 struct ChordGraphImageView: View {
+  @State private var shouldPresentGraphHelpView = false
   @State private var zoomScale: CGFloat = 1
   @State private var previousZoomScale: CGFloat = 1
   private let minZoomScale: CGFloat = 1
@@ -55,6 +56,19 @@ struct ChordGraphImageView: View {
       .padding()
       .background(.primaryBackground)
       .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.preciseName)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button {
+            shouldPresentGraphHelpView.toggle()
+          } label: {
+            Image(systemName: "questionmark.circle")
+          }
+          .sheet(isPresented: $shouldPresentGraphHelpView) {
+              GraphHelpView()
+              .presentationDetents([.fraction(0.8)])
+          }
+        }
+      }
       .task {
         try? await imageService.downloadImage(url: chordGrapher.makeURL())
       }

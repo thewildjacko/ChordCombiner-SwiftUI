@@ -2,7 +2,19 @@
 
 <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/4c9f94b899bda454ddde198239e05e48797a76ad/ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3.png" alt="Chord Combiner Light Mode" width="128" height="128">
 
-Jazz piano-focused music theory & harmony app designed to help musicians recall and apply complex chords by breaking them down into smaller components. The core functionality is a chord calculator that combines the numeric degrees of two user-selected chords—a lower chord and an upper chord—and returns one of 3 results:
+## Central App Concept
+
+Jazz piano-focused music theory & harmony app designed to help musicians recall and apply complex chords by breaking them down into smaller components. 
+
+## Musical/Harmonic Background & Context
+
+Chord theory and nomenclature can be a difficult concept for musicians to master, especially in a jazz context. The musician has to learn not only the names and locations of each note, but also their possible functions—known as **degrees**—in various chords, in every key. There are 12 unique pitches in Western music; 21 common note spellings—known as **keys**—for those 12 pitches (plus 14 more relative uncommon spellings, and still more rarely used spellings); and 21 different chord degree functions that each note can adopt in a chord, depending on the chord type and parent key. All of these elements result in a vast number of possible chord symbols, several of which involve as many as 6, 7, and in rare cases, 8 different notes, all with separate functions.
+
+Because of the aforementioned complexity, remembering all the individual notes and degrees that make up a chord can be quite challenging; often, it can be easier to think of larger chords as a combination of smaller, simpler 3- and 4-note chords.
+
+## Core Functionality
+
+A chord calculator that combines the numeric degrees of two user-selected 3- or 4-note chords—a lower chord and an upper chord—and returns one of 3 results:
 
 1. A **unified chord** *(single chord symbol with no alternate bass)*
 2. A **slash chord** *(single chord symbol over an alternate bass)*
@@ -23,13 +35,14 @@ For any chord listed in a detail view, the user can navigate further to another 
 
 Finally, the user can tap a link in the detail page to view a mind map-style graph of all four-note chords, triads, and notes contained in the currently displayed chord. This graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
    
-[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/b317b021-f918-4cb2-a72f-7da1aa422953)
+[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/117c0ab5-bee2-4c79-8e1c-c4258b81b3e9)
 
-## Concepts Used
+
+## iOS & Swift Concepts Used
 
 ### Protocols
 
-The app uses protocols throughout to enforce conformance for custom types, and for composition. In [ChordCombinerPropertySelectionView](ChordCombinerPropertySelectionView.swift), the app uses protocols and generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming])(#protocol-oriented-programming).
+The app uses protocols throughout to enforce conformance for custom types, to allow for easy addition of future functionalities, and for composition. The app uses the [ChordAndScaleProperty](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/ChordAndScaleProperty.swift) protocol combined with generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming])(#protocol-oriented-programming).
 
 ## JSON Data Persistence
 The app uses JSON to store essential data. See [Data Persistence](#data-persistence) and [Save On Select](#save-on-select)
@@ -69,11 +82,10 @@ These three Chord objects control what notes are highlighted on each of the 3 ma
 ## [User Interaction - ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
 ### Functionality
-  
-  The user can tap on any letter, accidental or ChordType in [ChordCombinerPropertySelectionView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/cc31ea3f73093f07bfde58a7834a33fa93a48536/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerPropertySelectionView.swift) to select it; that chord property will then become highlighted in a **blue-green color**.
+The user can tap on any letter, accidental or ChordType in [ChordCombinerPropertySelectionView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/cc31ea3f73093f07bfde58a7834a33fa93a48536/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerPropertySelectionView.swift) to select it; that chord property will then become highlighted in a **blue-green color**.
 
-  - Once the user has selected all 3 chord properties (Letter, Accidental & ChordType), the keyboards in the ChordType list highlight with chords in the selected `RootKeyNote`, and the keyboard titles update to match.
-  - Once the user selects both a **Lower** and an **Upper** chord, the `ChordAndScaleProperty` tags light up in **purple, and/or with a purple glow**, based on matches to the chord not currently being selected.
+- Once the user has selected all 3 chord properties (Letter, Accidental & ChordType), the keyboards in the ChordType list highlight with chords in the selected `RootKeyNote`, and the keyboard titles update to match.
+- Once the user selects both a **Lower** and an **Upper** chord, the `ChordAndScaleProperty` tags light up in **purple, and/or with a purple glow**, based on matches to the chord not currently being selected.
 
 The highlighting works as follows:
   - A **blue-green background** if the tag is _currently selected_

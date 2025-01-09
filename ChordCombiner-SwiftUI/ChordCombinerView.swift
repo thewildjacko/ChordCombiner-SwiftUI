@@ -10,14 +10,16 @@ import SwiftData
 import OSLog
 
 struct ChordCombinerView: View {
-  @State var size = CGSize()
+  // MARK: @State and instance variables
+  @Binding var size: CGSize
   @State var initial: Bool = true
+  @State var shouldPresentInitialHelpView = false
 
   let keyboardHighlighter = KeyboardHighlighter()
 
-  // MARK: @State and instance variables
   @Bindable var chordCombinerViewModel: ChordCombinerViewModel = ChordCombinerViewModel.singleton()
 
+  // MARK: Instance methods
   func highlightKeyboards() {
     if initial {
       if let lowerChord = chordCombinerViewModel.lowerChord {
@@ -42,6 +44,7 @@ struct ChordCombinerView: View {
     }
   }
 
+  // MARK: BODY
   var body: some View {
     GeometryReader { proxy in
       NavigationStack {
@@ -97,9 +100,24 @@ struct ChordCombinerView: View {
         .frame(maxWidth: .infinity)
         .padding()
         .navigationTitle("Chord Combiner")
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button {
+              shouldPresentInitialHelpView.toggle()
+            } label: {
+              Image(systemName: "questionmark.circle")
+            }
+            .sheet(isPresented: $shouldPresentInitialHelpView) {
+              InitialHelpView()
+                .presentationDetents([.fraction(0.8)])
+                .presentationBackground(.thinMaterial)
+            }
+          }
+        }
         .onAppear {
           if chordCombinerViewModel.chordPropertyData.initial {
             size = proxy.size
+
             chordCombinerViewModel.chordPropertyData.width = size.width
 
             chordCombinerViewModel.lowerKeyboard = Keyboard(
@@ -138,5 +156,5 @@ struct ChordCombinerView: View {
 }
 
 #Preview {
-  ChordCombinerView()
+  ChordCombinerView(size: .constant(CGSize()))
 }

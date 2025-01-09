@@ -109,76 +109,76 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 
   // MARK: Initializer helper methods
-  mutating func setKeyLetterView() {
-    keyLetterView = KeyLetterView(
-      width: letterWidth,
-      sizeMultiplier: letterSizeMultiplier,
-      textColor: letterTextColor,
-      note: note,
-      lettersOn: lettersOn)
-  }
+    mutating func setKeyLetterView() {
+      keyLetterView = KeyLetterView(
+        width: letterWidth,
+        sizeMultiplier: letterSizeMultiplier,
+        textColor: letterTextColor,
+        note: note,
+        lettersOn: lettersOn)
+    }
 
-  mutating func setKeyCirclesView() {
-    keyCirclesView = KeyCirclesView(
-      width: width(),
-      sizeMultiplier: circleSizeMultiplier,
-      circlesOn: circlesOn,
-      circleType: circleType,
-      lineWidth: circleLineWidth)
-  }
+    mutating func setKeyCirclesView() {
+      keyCirclesView = KeyCirclesView(
+        width: width(),
+        sizeMultiplier: circleSizeMultiplier,
+        circlesOn: circlesOn,
+        circleType: circleType,
+        lineWidth: circleLineWidth)
+    }
 
-  mutating func setWidthMultiplier() { widthMultiplier = baseWidth / widthDivisor }
+    mutating func setWidthMultiplier() { widthMultiplier = baseWidth / widthDivisor }
 
-  mutating func setPosition() {
-    position = baseWidth.getKeyPosition(keyType: keyType, position: keyPosition, widthDivisor: widthDivisor)
-  }
+    mutating func setPosition() {
+      position = baseWidth.getKeyPosition(keyType: keyType, position: keyPosition, widthDivisor: widthDivisor)
+    }
 
-  mutating func setKeyShapeGroup() {
-    setWidthMultiplier()
-    setPosition()
+    mutating func setKeyShapeGroup() {
+      setWidthMultiplier()
+      setPosition()
 
-    keyShapeGroup = KeyShapeGroup(
-      finalKey: finalKey,
-      width: width(),
-      height: height(),
-      radius: radius(),
-      widthMultiplier: widthMultiplier,
-      position: position,
-      fill: fill,
-      stroke: stroke,
-      lineWidth: lineWidth,
-      zIndex: keyType.zIndex,
-      keyShapePath: keyType.keyShapePath
-    )
-  }
+      keyShapeGroup = KeyShapeGroup(
+        finalKey: finalKey,
+        width: width(),
+        height: height(),
+        radius: radius(),
+        widthMultiplier: widthMultiplier,
+        position: position,
+        fill: fill,
+        stroke: stroke,
+        lineWidth: lineWidth,
+        zIndex: keyType.zIndex,
+        keyShapePath: keyType.keyShapePath
+      )
+    }
 
-  mutating func setKeyShapeProperties() {
-    setKeyLetterView()
-    setKeyCirclesView()
-    setKeyShapeGroup()
-  }
+    mutating func setKeyShapeProperties() {
+      setKeyLetterView()
+      setKeyCirclesView()
+      setKeyShapeGroup()
+    }
 
-  // MARK: instance methods
-  mutating func toggleHighlight(color: Color) {
-    fill = fill == keyType.defaultFillColor ? color : keyType.defaultFillColor
-    highlighted.toggle()
-  }
+    // MARK: instance methods
+    mutating func toggleHighlight(color: Color) {
+      fill = fill == keyType.defaultFillColor ? color : keyType.defaultFillColor
+      highlighted.toggle()
+    }
 
-  mutating func highlight(color: Color) {
-    fill = fill == keyType.defaultFillColor ? color : fill
-    highlighted = true
-  }
+    mutating func highlight(color: Color) {
+      fill = fill == keyType.defaultFillColor ? color : fill
+      highlighted = true
+    }
 
-  mutating func clearHighlight() {
-    highlighted = false
-    fill = keyType.defaultFillColor
-  }
+    mutating func clearHighlight() {
+      highlighted = false
+      fill = keyType.defaultFillColor
+    }
 
-  func radius() -> CGFloat { keyType.baseRadius * widthMultiplier }
-  func width() -> CGFloat {
-    return keyType.baseWidth * widthMultiplier
-  }
-  func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
+    func radius() -> CGFloat { keyType.baseRadius * widthMultiplier }
+    func width() -> CGFloat {
+      return keyType.baseWidth * widthMultiplier
+    }
+    func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
 
   var body: some View {
     return ZStack {

@@ -9,9 +9,16 @@ import SwiftUI
 
 struct ViewCoordinator: View {
   @State private var isActive = false
+  @State private var size = CGSize()
+
   var body: some View {
       if isActive {
-        ChordCombinerView()
+        GeometryReader { proxy in
+          ChordCombinerView(size: $size)
+            .onAppear {
+              size = proxy.size
+            }
+        }
       } else {
           SplashScreen(isActive: $isActive)
       }

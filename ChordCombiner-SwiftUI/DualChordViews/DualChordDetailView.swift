@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DualChordDetailView: View {
+  @State var shouldPresentDualKeyboardHelpView = false
   @State var chordGrapher: ChordGrapher? {
     didSet {
       grapherLoaded = false
@@ -43,11 +44,17 @@ struct DualChordDetailView: View {
 
   var body: some View {
     VStack(spacing: 20) {
+      ZStack {
+        DualChordTitleHelpViewBuilder(
+          shouldPresentDualKeyboardHelpView: $shouldPresentDualKeyboardHelpView,
+          keyboard: chordCombinerViewModel.combinedKeyboard)
+
       DualChordTitleView(
         titleText: titleText,
         titleFont: titleFont,
         showCaption: showCaption,
         showTitle: true)
+      }
 
       chordCombinerViewModel.combinedKeyboard
 

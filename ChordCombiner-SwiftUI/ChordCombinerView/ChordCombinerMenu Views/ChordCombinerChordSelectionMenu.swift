@@ -25,6 +25,7 @@ struct ChordCombinerChordSelectionMenu: View {
   @State var matchingLetters: Set<Letter> = []
   @State var matchingAccidentals: Set<RootAccidental> = []
   @State var matchingChordTypes: Set<ChordType> = []
+  @State var shouldPresentSelectionHelpView = false
 
   var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
 
@@ -41,6 +42,7 @@ struct ChordCombinerChordSelectionMenu: View {
     )
   }
 
+  // MARK: Initializer
   init(
     selectedKeyboard: Binding<Keyboard>,
     combinedKeyboard: Binding<Keyboard>,
@@ -55,6 +57,7 @@ struct ChordCombinerChordSelectionMenu: View {
       setRootKeyNote()
     }
 
+  // MARK: Initializer helper methods
   mutating func setChordCombinerSelectedChordTitleModel() {
     chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
       chordProperties: chordProperties,
@@ -71,6 +74,7 @@ struct ChordCombinerChordSelectionMenu: View {
     }
   }
 
+  // MARK: Instance methods
   func highlightKeyboardsOnSelect() {
     if chordCombinerSelectedChordTitleModel.selectedChord != nil {
       keyboardHighlighter.highlightSelectedChord(
@@ -86,54 +90,66 @@ struct ChordCombinerChordSelectionMenu: View {
     }
   }
 
+  // MARK: Body
   var body: some View {
-    VStack {
-      VStack(spacing: 8) {
-        SingleChordTitleNavigationStackView(
-          keyboardWidth: selectedKeyboard.width,
-          selectedKeyboard: $selectedKeyboard,
-          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
-        )
+    VStack(spacing: 8) {
+      SingleChordTitleNavigationStackView(
+        keyboardWidth: selectedKeyboard.width,
+        selectedKeyboard: $selectedKeyboard,
+        chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
+      )
 
-        ChordCombinerPropertySelectionView(
-          keyboardWidth: chordCombinerViewModel.lowerKeyboard.width * 0.42,
-          chordProperties: $chordProperties,
-          matchingLetters: $matchingLetters,
-          matchingAccidentals: $matchingAccidentals,
-          matchingChordTypes: $matchingChordTypes,
-          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
-        )
+      ChordCombinerPropertySelectionView(
+        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width * 0.42,
+        chordProperties: $chordProperties,
+        matchingLetters: $matchingLetters,
+        matchingAccidentals: $matchingAccidentals,
+        matchingChordTypes: $matchingChordTypes,
+        chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
+      )
 
-        DualChordKeyboardView(
-          keyboard: $combinedKeyboard,
-          chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel)
+      DualChordKeyboardView(
+        keyboard: $combinedKeyboard,
+        chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel)
 
-        Spacer()
-      }
-      .padding()
-      .background(.primaryBackground)
-      .onAppear(perform: {
-        if chordCombinerViewModel.lowerChord != nil,
-           chordCombinerViewModel.upperChord != nil {
-          chordCombinerPropertyMatcher.matchChords()
-        }
-      })
-      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter) {
-        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
-
-        highlightKeyboardsOnSelect()
-      }
-      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, { oldValue, _ in
-        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
-
-        if oldValue != nil { highlightKeyboardsOnSelect() }
-      })
-      .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, { oldValue, _ in
-        chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
-
-        if oldValue != nil { highlightKeyboardsOnSelect() }
-      })
+      Spacer()
     }
+    .padding()
+    .background(.primaryBackground)
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button {
+          shouldPresentSelectionHelpView.toggle()
+        } label: {
+          Image(systemName: "questionmark.circle")
+        }
+        .sheet(isPresented: $shouldPresentSelectionHelpView) {
+            SelectionMenuHelpView()
+            .presentationBackground(.ultraThinMaterial)
+        }
+      }
+    }
+    .onAppear(perform: {
+      if chordCombinerViewModel.lowerChord != nil,
+         chordCombinerViewModel.upperChord != nil {
+        chordCombinerPropertyMatcher.matchChords()
+      }
+    })
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.letter) {
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .letter)
+
+      highlightKeyboardsOnSelect()
+    }
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.accidental, { oldValue, _ in
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .accidental)
+
+      if oldValue != nil { highlightKeyboardsOnSelect() }
+    })
+    .onChange(of: chordCombinerSelectedChordTitleModel.selectedChord?.chordType, { oldValue, _ in
+      chordCombinerPropertyMatcher.clearAndMatchChords(propertyChanged: .chordType)
+
+      if oldValue != nil { highlightKeyboardsOnSelect() }
+    })
   }
 }
 
