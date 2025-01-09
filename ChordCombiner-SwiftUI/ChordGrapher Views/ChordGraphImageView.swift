@@ -52,26 +52,28 @@ struct ChordGraphImageView: View {
   @State private var imageService = ImageService()
 
   var body: some View {
-    innerView()
-      .padding()
-      .background(.primaryBackground)
-      .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.preciseName)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button {
-            shouldPresentGraphHelpView.toggle()
-          } label: {
-            Image(systemName: "questionmark.circle")
-          }
-          .sheet(isPresented: $shouldPresentGraphHelpView) {
-              GraphHelpView()
-              .presentationDetents([.fraction(0.8)])
-          }
+    VStack {
+      innerView()
+        .padding()
+        .background(.primaryBackground)
+        .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.preciseName)
+        .task {
+          try? await imageService.downloadImage(url: chordGrapher.makeURL())
+        }
+    }
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button {
+          shouldPresentGraphHelpView.toggle()
+        } label: {
+          Image(systemName: "questionmark.circle")
+        }
+        .sheet(isPresented: $shouldPresentGraphHelpView) {
+          GraphHelpView()
+            .presentationDetents([.fraction(0.8)])
         }
       }
-      .task {
-        try? await imageService.downloadImage(url: chordGrapher.makeURL())
-      }
+    }
   }
 
   @MainActor
