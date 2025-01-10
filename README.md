@@ -33,19 +33,172 @@ After viewing the chords on the main page, the user can then navigate to detail 
 
 For any chord listed in a detail view, the user can navigate further to another detail view in order to view information about that chord.
 
-Finally, the user can tap a link in the detail page to view a mind map-style graph of all four-note chords, triads, and notes contained in the currently displayed chord. This graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
-   
-[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/117c0ab5-bee2-4c79-8e1c-c4258b81b3e9)
+Finally, the user can tap a link in the detail page to view a mind map-style graph of all four-note chords, triads, and notes contained in the currently displayed chord.
 
+There are Help links on every page in case the user is unclear on how to use the app.
+
+[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/117c0ab5-bee2-4c79-8e1c-c4258b81b3e9)
 
 ## iOS & Swift Concepts Used
 
-### Protocols
+### Intro to Swift
+The app uses many of the foundational elements of Swift from the **Introduction to Swift** & **Programming in Swift: Fundamentals** modules:
+
+- Primitive data types
+  - `Int`
+  - `Double`
+  - `String`
+  - `Bool`
+- Primary collection types
+  - `Array`
+  - `Set`
+  - `Dictionary`
+- Other Data Types, Objects & Concepts from Foundation
+  - `Optionals`
+  - `Logical Operators`
+  - `UUID`
+  - `CGFloat`
+  - `CGSize`
+  - `CGPoint`
+  - `UIImage`
+  - `closed and half-open ranges`
+  - `closure`
+  - `typealias  `
+
+- Custom Named data types
+  - `Struct`
+  - `Class`
+  - `Enum`
+
+The app utilizes the built-in methods of these basic types, as well as **extensions** on basic and custom data types whenever possible, to allow for code reuse.
+
+Most of the internal logic of the app is based on `switch` statements iterating over `enum` cases; `Array`, `Set` & `Dictionary` operations on various collections; and failable initializers in the `Chord` struct and `ChordType` enum.
+
+#### Primary structs & methods
+
+**[Chords](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/Chord.swift)** contain groups of **[Notes](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note.swift)**. Each `Note` has a specific **[Degree](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Degree%20Enum/Degree.swift)** relative to its `Chord`, depending on the **[Root](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.RootKeyNote.swift)** and **[ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift)** of the chord.
+
+Every `Note`, including **Roots** (`RootKeyNote`), has a **[KeyName](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.swift)** that consists of a **[Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift)**, **[Accidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift)** (`RootAccidental`) and **[NoteNumber](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/NoteNumber.swift)**. These elements make up the identity of the `Note`.
+
+**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel that keeps track of the app's data.
+
+**[Chord Combiner](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombiner.swift)** is the struct that determines the results of the primary chord calculator function of the app.
+
+**[Voicing Calculator](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/VoicingCalculator.swift)** & **[ChordCombinerVoicingCalculator.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombinerVoicingCalculator.swift)** determine which notes to display on the main display keyboards.
+
+**[KeyboardHighlighter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard%20Models/KeyboardHighlighter.swift)** contains all the methods to highlight the notes that the voicing calculators select.
+
+**[Keyboards](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard.swift)** are the main graphic display elements of the app; they consist of **[Keys]()**
+
+### SwiftUI
+
+The app uses many elements from the **Getting Started with SwiftUI** modules, as well as applicable modifiers:
+
+- `View`
+- `ViewBuilder`
+- `ViewModifier`
+- `HStack, VStack, ZStack`
+- `Group`
+- `Divider`
+- `Spacer`
+- `Button`
+- `Text`
+- `TabView`
+- `ToolBar`
+- `ToolbarItem`
+- `Sheet`
+- `Form`
+- `Section`
+- `List`
+- `ForEach`
+- `Color`
+- `Image`
+- `Font`
+- `Shape`
+  - `Circle`
+  - `Rectangle`
+  - `RoundedRectangle`
+- `ShapeStyle`
+- `Path`
+- `GeometryReader`
+- `NavigationStack`
+- `NavigationLink`
+- `ScrollView`
+- `ScrollViewReader`
+- `ProgressView`
+
+The app uses composition and reusable views and view modifiers wherever possible to avoid unnecessary code duplication.
+
+### Flow Control & Functions
+
+The app uses the following methods of flow control:
+
+- `if-else`
+- `if-else-if-else`
+- `if-let`
+- `case let`
+- `guard` & `guard-let`
+- `for-in`
+- `while`
+- `switch`
+- `ternary operator`
+- `enumerated()`
+
+`where`, `is` and `as?` clauses are used when necessary to specify additional conditions
+
+### Data Passing _(Sharing & State Management in SwiftUI; Passing Data in SwiftUI)_
+
+The app uses `@State`, @`Binding`, `@Bindable`, `@Observable` & `@Environment` to pass data around, as well as standard `let` and `var` properties when 2-way communication isn't necessary.
+
+Most custom objects in the app primarily use stored properties with property observers rather than computed properties to minimize unnecessary recalculations of heavily used properties, but computed variables are used 
+
+### Layout
+
+The app mostly uses standard layout methods like stack views with alignment and spacing parameters; `Spacer()`; and `.position` & ``offset` modifiers.
+
+To accomodate different color schemes, the app uses custom Color Assets and modifiers.
+
+To accommodate different screen sizes, the app uses `GeometryReader` to set the width of the main keyboards to a percentage of the available screen width.
+
+### Navigation _(SwiftUI Navigation)_
+
+The app uses `NavigationStack` and `NavigationLink` for its primary navigation elements.
+
+The Help links use modal views presented with `sheet(isPresented:onDismiss:content:)`, as well as a nested `TabView` in `SelectionMenuHelpView`. 
+
+### Protocols & Generics _(Applying Protocol-Oriented Programming in Development)_
 
 The app uses protocols throughout to enforce conformance for custom types, to allow for easy addition of future functionalities, and for composition. The app uses the [ChordAndScaleProperty](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/ChordAndScaleProperty.swift) protocol combined with generics to facilitate reusuable views and functions for different types of data (see [Protocol Oriented Programming])(#protocol-oriented-programming).
 
-## JSON Data Persistence
-The app uses JSON to store essential data. See [Data Persistence](#data-persistence) and [Save On Select](#save-on-select)
+### Data Persistence _(Data Persistence in SwiftUI)_
+
+`ChordCombinerViewModel` uses **JSON** to store and load the [ChordPropertyData](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordProperties/ChordPropertiesModels/ChordPropertyData.swift) selections (a struct containing optional [Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift), [RootAccidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift) and [ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ef4fe463358016083f9eb82e8d9f1aa809316ed0/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift) properties). This JSON data is loaded when `ChordCombinerView` appears; if no JSON file is found, the `loadJSON` method sets all `ChordPropertyData` properties to `nil` and the app presents the intial launch state.
+
+In `ChordCombinerPropertySelectionView`, every time the user selects a new property, the `chordPropertyData` property of `ChordCombinerViewModel` is updated and the `saveJSON` method stores the data.
+
+### Networking & Concurrency _(Networking & Concurrency in SwiftUI)_
+
+#### Networking
+
+The app uses the following networking concepts:
+
+- `URLSession`
+- `URLComponents`
+- `HTTPURLResponse`
+- `URLQueryItem`
+- `Data`
+- `statusCode`
+- error handling with `guard let` statements
+
+#### Concurrency
+
+The app uses concurrency via `try await` & `for try await` statements in `ChordGraphImageView` & `ImageService`  to ensure that the network calls don't lock up the main UI.
+
+It also uses `DispatchQueue.concurrentPerform(iterations:)` in `Chord`: `containingChords()` and `Array Extensions`: `filterInChordsContainingNoChords()` to speed up those particularly computationally heavy methods. `Task` and `await` are used any time objects that use these methods are created.
+
+### API
+
+The mind-map graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
 
 ## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
@@ -112,7 +265,7 @@ ChordType `Keyboards` light up similarly, with the following differences:
     - The **Cma, Cmi, C+ and C**˚ keyboards (among others) glow in purple, their chord symbols change to purple, and the **match found** label displays, because all 4 chords match as upper chords to **Cma7**.
     - The **Csus4 and Csus2**˚ keyboards (among others) do not glow, their chord symbols stay white, and the **match found** label does not display, because neither chord match as upper chords to **Cma7**.
     - The **Cma7**˚ keyboard glows in purple, its chord symbols displays in blue-green, and the **match found** label displays, because it is selected and it matches as an upper chord to **Cma7**.
-    - 
+
 #### `ChordCombinerPropertySelectionView`
   - A horizontal row with custom `Letter` and Accidental (`RootAccidental`) pickers (`ChordCombinerTagsView`).
     - in the Accidental picker, the &#x266E; sign is pre-selected for convience

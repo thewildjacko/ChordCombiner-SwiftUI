@@ -45,7 +45,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var noteNames: [String] = []
 
   var degreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
-//  var extensionDegreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
 
   var voicingCalculator: VoicingCalculator = VoicingCalculator(
     degreeNumbers: [],
@@ -120,7 +119,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
 
   mutating func setNoteProperties() {
-//    extensions = notes.filter { !getBaseChord().notes.contains($0) }
     setNotesByNoteNumber(notes.keyed { $0.noteNumber })
     rootKeyNotes = notes.map { RootKeyNote($0.keyName) }
     noteNames = notes.noteNames()
@@ -133,12 +131,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       numeric: notes.map { $0.degreeName.numeric },
       long: notes.map { $0.degreeName.long }
     )
-
-//    extensionDegreeNames = DegreeNameGroup(
-//      names: extensions.map { $0.degreeName.name },
-//      numeric: extensions.map { $0.degreeName.numeric },
-//      long: extensions.map { $0.degreeName.long }
-//    )
   }
 
   // MARK: instance methods

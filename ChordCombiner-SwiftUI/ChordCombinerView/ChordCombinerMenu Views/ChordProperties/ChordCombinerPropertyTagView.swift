@@ -56,10 +56,6 @@ struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
     case .neither:
       0
     }
-
-//    let glowStatus: [PropertyStatus] = [.selected, .matches, .selectedAndMatches]
-//
-//    return glowStatus.contains(propertyStatus) ? 3 : 0
   }
 
   var body: some View {
@@ -75,10 +71,8 @@ struct ChordCombinerPropertyTagView<T: ChordAndScaleProperty>: View {
         cornerRadius: cornerRadius,
         glowColor: glowColor(
           propertyStatus: propertyStatus(property: property)),
-        //        glowColor: matchingProperties.contains(property) ? .glow : .clear,
         glowRadius: glowRadius(
           propertyStatus: propertyStatus(property: property))
-        //        glowRadius: matchingProperties.contains(property) ? 3 : 0
       )
       .onTapGesture {
         selectedProperty = property

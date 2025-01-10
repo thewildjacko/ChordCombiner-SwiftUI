@@ -16,11 +16,6 @@ struct ChordCombinerKeyboardScrollView: View {
   var rootKeyNote: RootKeyNote?
   var color: Color
 
-  let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
-
   var body: some View {
     ScrollViewReader { proxy in
       List {

@@ -477,7 +477,6 @@
 				1DFBB1172D039AB1002ACF7B /* ChordGrapherParentChord.swift */,
 				1DFBB11A2D039ACF002ACF7B /* ChordGrapherRelationships.swift */,
 				1DFBB11D2D039AED002ACF7B /* ChordGrapherAttributes.swift */,
-				1D5902582D14EF2600C5D35D /* ImageService.swift */,
 			);
 			path = "ChordGrapher Models";
 			sourceTree = "<group>";
@@ -707,6 +706,14 @@
 			path = Keys;
 			sourceTree = "<group>";
 		};
+		1D8F5C782D309AB400819A6D /* ChordGrapher Network Model */ = {
+			isa = PBXGroup;
+			children = (
+				1D5902582D14EF2600C5D35D /* ImageService.swift */,
+			);
+			path = "ChordGrapher Network Model";
+			sourceTree = "<group>";
+		};
 		1D9BFCC52D1B34D900A4C985 /* KeyShape */ = {
 			isa = PBXGroup;
 			children = (
@@ -770,6 +777,7 @@
 				1D59025B2D14F75C00C5D35D /* ChordGraphImageView.swift */,
 				1D9BFCCD2D1B51B100A4C985 /* GraphImagePlacerPyramidView.swift */,
 				1D9BFCCA2D1B519D00A4C985 /* GraphImagePlacerView.swift */,
+				1D8F5C782D309AB400819A6D /* ChordGrapher Network Model */,
 				1D362D3E2D01035200C4EF82 /* ChordGrapher Models */,
 			);
 			path = "ChordGrapher Views";

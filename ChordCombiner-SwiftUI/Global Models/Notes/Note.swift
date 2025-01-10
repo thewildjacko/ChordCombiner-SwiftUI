@@ -37,7 +37,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
   /// the ``NoteNumber`` of the ``Note`` itself
   private(set) var noteNumber: NoteNumber
 
-  /// tuplet containing textual descriptions of the ``Degree`` of the ``Chord`` or scale
+  /// struct containing textual descriptions of the ``Degree`` of the ``Chord`` or scale
   private(set) var degreeName: DegreeName
 
   /// returns a `KeySwitch` set to sharp or flat
