@@ -72,7 +72,7 @@ struct ChordGrapherAttributes {
 
   func graphPrefix(edgeColor: String) -> String {
     let edge = edge(color: edgeColor)
-    
+
     return "ordering=out concentrate=true nodesep=0.1 ranksep=\(rankSep) \(edge) \(charSet) \(fontSize)"
   }
 }
