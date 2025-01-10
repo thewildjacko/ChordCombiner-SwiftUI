@@ -51,7 +51,11 @@ The `Degree` of the `Note` can change the `KeyName`. For example, two note notes
 
 **[Keyboards](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard.swift)** are the main graphic display elements of the app; they consist of sets of **[Keys]()**. The **[KeyType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/Key%20ViewModels/KeyType.swift)** enum controls the shape (**[KeyShapeGroup](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeyShape/KeyShapeGroup.swift)**, **[KeyShape](ChordCombiner-SwiftUI/Keyboard and Keys Views/Keys/KeyShape/KeyShape.swift)**, **[KeyShapePath](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeyShape/KeyShapePath.swift)**), color and position of each `Key` within the `Keyboard`. **[KeyLetterView.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeySymbols%20Views/KeyLetterView.swift)** and **[KeyCirclesView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeySymbols%20Views/KeyCirclesView.swift)** are responsible for displaying the letters above the notes & the circle glyphs on the notes themselves, respectively.
 
-**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel that keeps track of the app's data.
+##### Primary Models
+
+**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel for the app.
+
+Data for other views is managed by the views themselves, if simple enough, or by separate view models for those specific views.
 
 **[Chord Combiner](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombiner.swift)** is the struct that determines the results of the primary chord calculator function of the app.
 
@@ -204,7 +208,9 @@ It also uses `DispatchQueue.concurrentPerform(iterations:)` in `Chord`: `contain
 
 The mind-map graph uses data from the [image-charts](http://image-charts.com) API, using [graphviz dot language](https://graphviz.org/doc/info/lang.html) to build the URL.
 
-## Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
+## Screenshots
+
+### Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
 <img src="ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG" alt="Initial Screen" width="341" height="694.5">
 

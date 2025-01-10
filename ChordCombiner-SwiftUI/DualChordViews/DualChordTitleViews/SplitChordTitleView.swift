@@ -16,20 +16,20 @@ struct SplitChordTitleView: View {
     HStack(spacing: 5) {
       SingleChordDetailNavigationTitleView(
         keyboardWidth: keyboardWidth,
-        titleText: lowerChord.displayDetails(detailType: .commonName),
+        titleText: upperChord.displayDetails(detailType: .preciseName),
         titleFont: titleFont,
         infoFont: .caption,
-        chord: lowerChord)
+        chord: upperChord,
+        color: .upperChordHighlight)
 
       TitleView(text: "/", font: .largeTitle, weight: .heavy)
 
       SingleChordDetailNavigationTitleView(
         keyboardWidth: keyboardWidth,
-        titleText: upperChord.displayDetails(detailType: .commonName),
+        titleText: lowerChord.displayDetails(detailType: .preciseName),
         titleFont: titleFont,
         infoFont: .caption,
-        chord: upperChord,
-        color: .upperChordHighlight)
+        chord: lowerChord)
     }
   }
 }
