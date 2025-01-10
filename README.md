@@ -20,7 +20,7 @@ A chord calculator that combines the numeric degrees of two user-selected 3- or 
 2. A **slash chord** *(single chord symbol over an alternate bass)*
 3. A **polychord** *(two chord symbols, one over the other)*
 
-After selecting lower and upper chords, the user can view each chord's notes highlighted on separate piano keyboards, stacked in order of chord degree size, with the names of the notes displayed above the keyboard. They can also view the combined result on a 3rd keyboard, with each chords' notes highlighted in different colors. Glyphs are also displayed on the notes to show which chord each note belongs to.
+After selecting lower and upper chords, the user can view each chord's notes highlighted on separate piano keyboards, stacked in order of chord degree size, with the names of the notes displayed above the keyboard. They can also view the combined result on a 3rd keyboard, with each chords' notes highlighted in different colors. Circle glyphs are also displayed on the notes to show which chord each note belongs to.
 
 After viewing the chords on the main page, the user can then navigate to detail pages with more information about the resulting chord or chords. Possible information displayed includes:
 
@@ -38,6 +38,26 @@ Finally, the user can tap a link in the detail page to view a mind map-style gra
 There are Help links on every page in case the user is unclear on how to use the app.
 
 [View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/117c0ab5-bee2-4c79-8e1c-c4258b81b3e9)
+
+### Primary structs & methods
+
+#### Musical Building Blocks
+
+**[Chords](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/Chord.swift)** contain groups of **[Notes](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note.swift)**. Each `Note` has a specific **[Degree](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Degree%20Enum/Degree.swift)** relative to its `Chord`, depending on the **[Root](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.RootKeyNote.swift)** and **[ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift)** of the chord. The `Root` & `ChordType` make up the chord symbol that displays.
+
+Every `Note`, including **Roots** (`RootKeyNote`), has a **[KeyName](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.swift)** that consists of a **[Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift)**, **[Accidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift)** (`RootAccidental`) and **[NoteNumber](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/NoteNumber.swift)**. These elements make up the identity of the `Note`.
+
+The `Degree` of the `Note` can change the `KeyName`. For example, two note notes could share the same `NoteNumber` of **3**, but one has a `Degree` of **`.minor3rd`** and the other has a `Degree` of **`.sharp9th`**. The first note will display as **"E♭"**, while the second will display as **"D♯"**
+
+**[Keyboards](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard.swift)** are the main graphic display elements of the app; they consist of sets of **[Keys]()**. The **[KeyType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/Key%20ViewModels/KeyType.swift)** enum controls the shape (**[KeyShapeGroup](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeyShape/KeyShapeGroup.swift)**, **[KeyShape](ChordCombiner-SwiftUI/Keyboard and Keys Views/Keys/KeyShape/KeyShape.swift)**, **[KeyShapePath](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeyShape/KeyShapePath.swift)**), color and position of each `Key` within the `Keyboard`. **[KeyLetterView.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeySymbols%20Views/KeyLetterView.swift)** and **[KeyCirclesView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keys/KeySymbols%20Views/KeyCirclesView.swift)** are responsible for displaying the letters above the notes & the circle glyphs on the notes themselves, respectively.
+
+**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel that keeps track of the app's data.
+
+**[Chord Combiner](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombiner.swift)** is the struct that determines the results of the primary chord calculator function of the app.
+
+**[Voicing Calculator](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/VoicingCalculator.swift)** & **[ChordCombinerVoicingCalculator.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombinerVoicingCalculator.swift)** determine which notes to display on the main display keyboards.
+
+**[KeyboardHighlighter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard%20Models/KeyboardHighlighter.swift)** contains all the methods to highlight the notes that the voicing calculators select.
 
 ## iOS & Swift Concepts Used
 
@@ -73,22 +93,6 @@ The app uses many of the foundational elements of Swift from the **Introduction 
 The app utilizes the built-in methods of these basic types, as well as **extensions** on basic and custom data types whenever possible, to allow for code reuse.
 
 Most of the internal logic of the app is based on `switch` statements iterating over `enum` cases; `Array`, `Set` & `Dictionary` operations on various collections; and failable initializers in the `Chord` struct and `ChordType` enum.
-
-#### Primary structs & methods
-
-**[Chords](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/Chord.swift)** contain groups of **[Notes](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note.swift)**. Each `Note` has a specific **[Degree](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Degree%20Enum/Degree.swift)** relative to its `Chord`, depending on the **[Root](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.RootKeyNote.swift)** and **[ChordType](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/ChordType/ChordType.swift)** of the chord.
-
-Every `Note`, including **Roots** (`RootKeyNote`), has a **[KeyName](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Protocols%20and%20Helpers/KeyName.swift)** that consists of a **[Letter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Letter.swift)**, **[Accidental](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/Accidental.swift)** (`RootAccidental`) and **[NoteNumber](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/60de77215f376a95ee82a36af0f19e68d2a7fe00/ChordCombiner-SwiftUI/Global%20Models/Notes/Note%20Enums/NoteNumber.swift)**. These elements make up the identity of the `Note`.
-
-**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel that keeps track of the app's data.
-
-**[Chord Combiner](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombiner.swift)** is the struct that determines the results of the primary chord calculator function of the app.
-
-**[Voicing Calculator](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/VoicingCalculator.swift)** & **[ChordCombinerVoicingCalculator.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombinerVoicingCalculator.swift)** determine which notes to display on the main display keyboards.
-
-**[KeyboardHighlighter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard%20Models/KeyboardHighlighter.swift)** contains all the methods to highlight the notes that the voicing calculators select.
-
-**[Keyboards](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard.swift)** are the main graphic display elements of the app; they consist of **[Keys]()**
 
 ### SwiftUI
 
