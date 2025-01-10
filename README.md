@@ -289,6 +289,10 @@ ChordType `Keyboards` light up similarly, with the following differences:
 
 <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma9.png" alt="Graph Cma9" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma7.png" alt="Graph Cma7" width="341" height="694.5">
 
+#### GraphView - Cma7(♭5) / Cma
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma7_b5.png" alt="Graph Cma7(♭5)" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma.png" alt="Graph Cma" width="341" height="694.5">
+
 ### HelpView Screenshots
 
 #### HelpView - InitialHelpView
