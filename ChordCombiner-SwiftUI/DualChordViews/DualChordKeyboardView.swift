@@ -39,9 +39,11 @@ struct DualChordKeyboardView: View {
   var body: some View {
     VStack(spacing: 20) {
       ZStack {
-        DualChordTitleHelpViewBuilder(
-          shouldPresentDualKeyboardHelpView: $shouldPresentDualKeyboardHelpView,
-          keyboard: keyboard)
+        if chordCombinerViewModel.lowerChord != nil && chordCombinerViewModel.upperChord != nil {
+          DualChordTitleHelpViewBuilder(
+            shouldPresentDualKeyboardHelpView: $shouldPresentDualKeyboardHelpView,
+            keyboard: keyboard)
+        }
 
         DualChordTitleViewBuilder()
       }
