@@ -216,16 +216,18 @@ The mind-map graph uses data from the [image-charts](http://image-charts.com) AP
 
 ### Initial Screen: [ChordCombinerView](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/e72cc3202da023e8beeb25876318e258caf6e540/ChordCombiner-SwiftUI/ChordCombinerView.swift)
 
-<img src="ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20initial%20screen.PNG" alt="Initial Screen" width="341" height="694.5">
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/Initial_View.png" alt="Initial Screen" width="341" height="694.5">
 
 The below screenshots show the different outcomes for `ChordCombinerView`:
 
 #### Lower chord selected / Upper Chord selected
-<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20lower%20chord%20selected.PNG" alt="ChordCombinerView - Lower chord selected" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20upper%20chord%20selected.PNG" alt="ChordCombinerView - Upper chord selected" width="341" height="694.5">
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_LowerChordSelected.png" alt="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_LowerChordSelected.png" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_UpperChordSelected.png" alt="ChordCombinerView - Upper chord selected" width="341" height="694.5">
 
-#### Both chords selected - Combined, slash and split chord results
-<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20combined%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, combined chord" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20slash%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, slash chord" width="341" height="694.5"> 
-<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/42f834db6546605a994ba4fc1a3fdd8f42b7dce4/ChordCombiner-SwiftUI/Screenshots/ChordCombinerView%20-%20split%20chord%20view.PNG" alt="ChordCombinerView - Both chords selected, split chord" width="341" height="694.5">
+#### Both chords selected - Combined, slash and polychord results
+<img src="" alt="" width="341" height="694.5">
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_Cma13_sh11.png" alt="ChordCombinerView - Both chords selected, combined chord" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_SlashChord.png" alt="ChordCombinerView - Both chords selected, slash chord" width="341" height="694.5"> 
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/ChordCombinerView_Polychord.png" alt="ChordCombinerView - Both chords selected, polychord" width="341" height="694.5">
 
 ## [ChordCombinerChordSelectionMenu](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/c050522459a11841f6656c9561bd946cb27c83b6/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerMenu%20Views/ChordCombinerChordSelectionMenu.swift)
 
@@ -250,6 +252,7 @@ ChordType `Keyboards` light up similarly, with the following differences:
 ### ChordCombinerSelectionMenu Screenshots
 
 #### Initial screens for upper and lower chords:
+  
 <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ee3c133c94c35d3b8f5ba4548654e6398e07aeee/ChordCombiner-SwiftUI/Screenshots/lower%20chord%20menu%20initial%20screen.PNG" alt="Lower chord menu initial screen" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/ee3c133c94c35d3b8f5ba4548654e6398e07aeee/ChordCombiner-SwiftUI/Screenshots/upper%20chord%20menu%20initial%20screen.PNG" alt="Upper chord menu initial screen" width="341" height="694.5">
 
 #### Lower chord menu, letter & accidental selected; Cma7 selected
