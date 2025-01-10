@@ -53,13 +53,15 @@ The `Degree` of the `Note` can change the `KeyName`. For example, two notes can 
 
 **[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel for the app.
 
-Data for other views is managed by the views themselves, if simple enough, or by separate view models for those specific views.
+Data for other views is managed by the views themselves, if simple enough, or by separate models and/or view models for those specific views.
 
 **[Chord Combiner](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombiner.swift)** is the struct that determines the results of the primary chord calculator function of the app.
 
 **[Voicing Calculator](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Global%20Models/Chords/VoicingCalculator.swift)** & **[ChordCombinerVoicingCalculator.swift](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerModels/ChordCombinerVoicingCalculator.swift)** determine which notes to display on the main display keyboards.
 
 **[KeyboardHighlighter](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/Keyboard%20and%20Keys%20Views/Keyboard/Keyboard%20Models/KeyboardHighlighter.swift)** contains all the methods to highlight the notes that the voicing calculators select.
+
+**[ImageService](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/b4d15388973c6f9c718785649940f6990e162207/ChordCombiner-SwiftUI/ChordGrapher%20Views/ChordGrapher%20Network%20Model/ImageService.swift)** manages the network call to the image-charts.com API to produce the chord graphs. **[ChordGrapher](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/b4d15388973c6f9c718785649940f6990e162207/ChordCombiner-SwiftUI/ChordGrapher%20Views/ChordGrapher%20Models/ChordGrapher.swift)** is the main model for the chord graphs themselves, and also produces the `URL` to send to `ImageService`.
 
 ## iOS & Swift Concepts Used
 
