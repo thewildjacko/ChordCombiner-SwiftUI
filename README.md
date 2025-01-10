@@ -264,3 +264,46 @@ ChordType `Keyboards` light up similarly, with the following differences:
 
 #### Upper chord menu - both chords selected: Dma / Dmi / Daug
 <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/UpperChordMenu_Cma13_sh11.png" alt="Dma" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/UpperChordMenu_SlashChord.png" alt="Dmi" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/UpperChordMenu_Polychord.png" alt="Daug" width="341" height="694.5">
+
+### DetailView Screenshots
+
+#### DualChordDetailView - Cma13(♯11) page 1 / page 2
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/DetailView_Cma13_sh11_p1.png" alt="Detail Cma13(♯11) page 1" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/DetailView_Cma13_sh11_p2.png" alt="Detail Cma13(♯11) page 2" width="341" height="694.5">
+
+#### DualChordDetailView - Cma9
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/DetailView_Cma9.png" alt="Detail Cma9" width="341" height="694.5">
+
+#### SingleChordDetailView - Cma7 / Emi(♭6)
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/DetailView_Cma7.png" alt="Detail Cma7" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/DetailView_Emi_b6.png" alt="Detail Emi(♭6)" width="341" height="694.5">
+
+### GraphView Screenshots
+
+#### GraphView - Cma13(♯11) wide / zoomed
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma13_sh11_wide.png" alt="Graph Cma13(♯11) wide" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma13_sh11_zoomed.png" alt="Graph Cma13(♯11) zoomed" width="341" height="694.5">
+
+#### GraphView - Cma9 / Cma7
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma9.png" alt="Graph Cma9" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/GraphView_Cma7.png" alt="Graph Cma7" width="341" height="694.5">
+
+### HelpView Screenshots
+
+#### HelpView - InitialHelpView
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_Initial.png" alt="HelpView Initial" width="341" height="694.5">
+
+#### HelpView - DualChordHelpView
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_%20DualChordSymbolsLegend.png" alt="HelpView Dual" width="341" height="694.5">
+
+#### HelpView - SelectionMenuHelpView - Letter / Accidental / ChordType Pickers
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_LetterPicker.png" alt="HelpView Letter" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_AccidentalPicker.png" alt="HelpView Accidental" width="341" height="694.5"> <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_ChordTypePicker.png" alt="HelpView ChordType" width="341" height="694.5">
+
+#### HelpView - GraphViewHelpView
+
+<img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/main/ChordCombiner-SwiftUI/Screenshots/New/HelpView_GraphView.png" alt="HelpView GraphView" width="341" height="694.5">
+
