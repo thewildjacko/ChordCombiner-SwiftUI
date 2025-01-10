@@ -37,7 +37,7 @@ struct SelectionMenuHelpTabContentView: View {
     case .letter:
       "Cma7"
     case .accidental:
-      "B♭ma7"
+      "Bma7"
     case .chordType:
       "Cmi"
     }
@@ -59,7 +59,7 @@ struct SelectionMenuHelpTabContentView: View {
     case .letter:
       "C is selected and matches"
     case .accidental:
-      "\"♭\" is selected but doesn't match"
+      "\"♮\" is selected but doesn't match"
     case .chordType:
       "Dma is selected and matches"
     }
@@ -70,7 +70,7 @@ struct SelectionMenuHelpTabContentView: View {
     case .letter:
       "D, G & A also match"
     case .accidental:
-      "\"♮\" matches"
+      "\"♭\" matches"
     case .chordType:
       "Dmi also matches"
     }
@@ -132,7 +132,7 @@ struct SelectionMenuHelpTabContentView: View {
             verticalPadding: 1.5,
             cornerRadius: 5,
             spacing: 8,
-            highlightColor: .green
+            highlightColor: .tagBackgroundHighlighted
           )
         case .accidental:
           ChordCombinerTagsView(
@@ -145,7 +145,7 @@ struct SelectionMenuHelpTabContentView: View {
             verticalPadding: 1.5,
             cornerRadius: 5,
             spacing: 8,
-            highlightColor: .green
+            highlightColor: .tagBackgroundHighlighted
           )
         case .chordType:
           ChordCombinerKeyboardScrollView(
@@ -154,7 +154,7 @@ struct SelectionMenuHelpTabContentView: View {
             matchingChordTypes: .constant(ChordType.helpViewPickerDemoTypes),
             chordTypes: ChordType.allSimpleChordTypes,
             rootKeyNote: RootKeyNote.d,
-            color: .yellow
+            color: .lowerChordHighlight
           )
         }
 
