@@ -37,8 +37,6 @@ Finally, the user can tap a link in the detail page to view a mind map-style gra
 
 There are Help links on every page in case the user is unclear on how to use the app.
 
-[View Navigation Map](https://app.thebrain.com/brain/2386d191-7ecd-4581-8c39-9b8a5e16722f/117c0ab5-bee2-4c79-8e1c-c4258b81b3e9)
-
 ### Primary structs & methods
 
 #### Musical Building Blocks
