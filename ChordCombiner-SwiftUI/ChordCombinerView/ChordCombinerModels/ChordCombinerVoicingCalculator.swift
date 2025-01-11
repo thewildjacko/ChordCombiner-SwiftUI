@@ -41,8 +41,8 @@ struct ChordCombinerVoicingCalculator: SettableNotesByNoteNumber {
     var degreeNames: [String] = []
 
     for degreeNumber in resultChordDegreesInOctaveSorted {
-      if let degreeName = resultChordVoicingCalculator?.notesByNoteNumber[NoteNumber(degreeNumber)] {
-        degreeNames.append(degreeName.degreeName.numeric)
+      if let note = resultChordVoicingCalculator?.notesByNoteNumber[NoteNumber(degreeNumber)] {
+        degreeNames.append(note.degreeName.numeric)
       }
     }
 

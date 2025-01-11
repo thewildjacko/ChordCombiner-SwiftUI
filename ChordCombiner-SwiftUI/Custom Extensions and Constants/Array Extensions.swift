@@ -264,7 +264,12 @@ extension Array where Element == Note {
     return Dictionary(uniqueKeysWithValues: zip(self, pitches))
   }
 
+  func toNotesByNoteNumber() -> NotesByNoteNumber {
+    return Dictionary(uniqueKeysWithValues: zip(self.map { $0.noteNumber }, self))
+  }
+
   func noteNames() -> [String] { self.map { $0.noteName } }
+  func noteNumbers() -> [NoteNumber] { self.map { $0.noteNumber } }
   func degreeNumbers() -> [Int] { self.map { $0.noteNumber.rawValue } }
 }
 
