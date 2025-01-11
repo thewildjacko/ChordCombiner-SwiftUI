@@ -1,6 +1,15 @@
 {
-  "originHash" : "186daf12a4a7696609d191f74fa16ea4a621fe0c6f1ced56f862f7393920f1fe",
+  "originHash" : "b477d4f9f24dbadbf112db478e7203cb3b21e2c24a4ec552bfaf7e855185b854",
   "pins" : [
+    {
+      "identity" : "showtouches",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Cyberbeni/ShowTouches",
+      "state" : {
+        "branch" : "master",
+        "revision" : "ca11972f297a23a152a459dabe4821f314cc9c75"
+      }
+    },
     {
       "identity" : "swift-algorithms",
       "kind" : "remoteSourceControl",

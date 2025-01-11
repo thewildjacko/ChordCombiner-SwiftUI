@@ -131,6 +131,7 @@
 		1DD297C72C9902B6001984EF /* DualChordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD297C62C9902B6001984EF /* DualChordDetailView.swift */; };
 		1DD507562CB97D080085288B /* HighlightableTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD507552CB97D080085288B /* HighlightableTagView.swift */; };
 		1DD507582CB981EB0085288B /* TitleColorDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD507572CB981EB0085288B /* TitleColorDivider.swift */; };
+		1DD6E8C52D3306FA0035A78D /* ShowTouches in Frameworks */ = {isa = PBXBuildFile; productRef = 1DD6E8C42D3306FA0035A78D /* ShowTouches */; };
 		1DD831DE2D14CBCB00EC817F /* DualChordTitleViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD831DD2D14CBCB00EC817F /* DualChordTitleViewBuilder.swift */; };
 		1DD831DF2D14CBCB00EC817F /* DualChordTitleViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD831DD2D14CBCB00EC817F /* DualChordTitleViewBuilder.swift */; };
 		1DD831E12D14CD9D00EC817F /* SplitChordTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD831E02D14CD9D00EC817F /* SplitChordTitleView.swift */; };
@@ -373,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */,
+				1DD6E8C52D3306FA0035A78D /* ShowTouches in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,6 +874,7 @@
 			packageReferences = (
 				1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				1D74268E2D0BB583009ABF2A /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1DD6E8C32D3306FA0035A78D /* XCRemoteSwiftPackageReference "ShowTouches" */,
 			);
 			productRefGroup = 1D5F69D72C2481E600193B58 /* Products */;
 			projectDirPath = "";
@@ -1440,6 +1443,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		1DD6E8C32D3306FA0035A78D /* XCRemoteSwiftPackageReference "ShowTouches" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cyberbeni/ShowTouches";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1457,6 +1468,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
+		};
+		1DD6E8C42D3306FA0035A78D /* ShowTouches */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DD6E8C32D3306FA0035A78D /* XCRemoteSwiftPackageReference "ShowTouches" */;
+			productName = ShowTouches;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

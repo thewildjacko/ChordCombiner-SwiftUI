@@ -7,12 +7,16 @@
 
 import SwiftUI
 import OSLog
+import ShowTouches
 
 @main
 struct AppMain: App {
     var body: some Scene {
         WindowGroup {
           ViewCoordinator()
+            .onAppear {
+              UIWindow.showTouches()
+            }
         }
     }
 }
