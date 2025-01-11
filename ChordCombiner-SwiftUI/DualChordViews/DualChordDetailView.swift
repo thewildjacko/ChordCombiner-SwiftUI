@@ -103,8 +103,8 @@ struct DualChordDetailView: View {
       chordCombinerViewModel.combinedKeyboard
 
       ChordDetailForm(
-        notesText: resultChordNotesAndDegrees.notes /*chordCombinerViewModel.displayDetails(detailType: .noteNames)*/,
-        degreesText: resultChordNotesAndDegrees.degrees /*chordCombinerViewModel.displayDetails(detailType: .degreeNames)*/,
+        notesText: resultChordNotesAndDegrees.notes,
+        degreesText: resultChordNotesAndDegrees.degrees,
         chord: chordCombinerViewModel.resultChord,
         chordGrapher: $chordGrapher,
         chordGrapherNavigationView: $chordGrapherNavigationView)
