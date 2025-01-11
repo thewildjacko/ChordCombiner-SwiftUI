@@ -21,7 +21,7 @@ struct DualChordTitleHelpViewBuilder: View {
           .padding(.trailing, 10)
       }
       .sheet(isPresented: $shouldPresentDualKeyboardHelpView) {
-        DualKeyboardHelpView(keyboard: keyboard)
+        CombinedKeyboardHelpView(keyboard: keyboard)
           .presentationDetents([.fraction(0.25)])
           .presentationBackground(.thinMaterial)
       }

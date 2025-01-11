@@ -1,5 +1,5 @@
 //
-//  DualKeyboardHelpView.swift
+//  CombinedKeyboardHelpView.swift
 //  ChordCombiner-SwiftUI
 //
 //  Created by Jake Smolowe on 1/8/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DualKeyboardHelpCircle: View {
+struct CombinedKeyboardHelpCircle: View {
   var circleType: KeyCircleType = .lower
 
   var body: some View {
@@ -39,7 +39,7 @@ struct DualKeyboardHelpCircle: View {
   }
 }
 
-struct DualKeyboardHelpView: View {
+struct CombinedKeyboardHelpView: View {
   @Environment(\.dismiss) private var dismiss
 
   var keyboard: Keyboard
@@ -64,9 +64,9 @@ struct DualKeyboardHelpView: View {
           font: .headline,
           weight: .regular)
 
-        DualKeyboardHelpCircle(circleType: .lower)
-        DualKeyboardHelpCircle(circleType: .upper)
-        DualKeyboardHelpCircle(circleType: .common)
+        CombinedKeyboardHelpCircle(circleType: .lower)
+        CombinedKeyboardHelpCircle(circleType: .upper)
+        CombinedKeyboardHelpCircle(circleType: .common)
       }
 
       Spacer()
