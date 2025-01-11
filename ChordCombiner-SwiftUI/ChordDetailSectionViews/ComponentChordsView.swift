@@ -25,7 +25,7 @@ struct ComponentChordsView: View {
         SingleChordDetailNavigationView(
           keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
           chord: chordCombinerViewModel.upperChord,
-          color: .lowerChordHighlight,
+          color: .upperChordHighlight,
           detailTitle: "Upper Chord",
           labelType: .detailRow)
       }
