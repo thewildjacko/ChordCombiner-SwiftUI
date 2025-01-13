@@ -53,7 +53,7 @@ Another example: two `Note` objects both have a **`NoteNumber`** of **`.ten`** a
 
 #### Primary Models
 
-**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** is the main ViewModel for the app.
+**[ChordCombinerViewModel](https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/fc43a22380e6dd5e64bddc1f146b23cebee8d6a1/ChordCombiner-SwiftUI/ChordCombinerView/ChordCombinerViewModel.swift)** a **Singleton** class, is the main ViewModel for the app.
 
 Data for other views is managed by the views themselves, if simple enough, or by separate models and/or view models for those specific views.
 
