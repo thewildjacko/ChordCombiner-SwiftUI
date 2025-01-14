@@ -12,14 +12,13 @@ struct ChordCombinerChordSelectionMenu: View {
 
   var chordCombinerViewModel = ChordCombinerViewModel.singleton()
 
-  @Binding var selectedKeyboard: Keyboard
-  @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties {
     mutating didSet {
       setChordCombinerSelectedChordTitleModel()
       setRootKeyNote()
     }
   }
+
   let isLowerChordMenu: Bool
 
   @State var matchingLetters: Set<Letter> = []
@@ -35,7 +34,7 @@ struct ChordCombinerChordSelectionMenu: View {
     ChordCombinerPropertyMatcher(
       lowerChord: chordCombinerViewModel.lowerChord,
       upperChord: chordCombinerViewModel.upperChord,
-      isLowerChordMenu: chordCombinerSelectedChordTitleModel.isLowerChordMenu,
+      isLowerChordMenu: isLowerChordMenu,
       matchingLetters: $matchingLetters,
       matchingAccidentals: $matchingAccidentals,
       matchingChordTypes: $matchingChordTypes
@@ -44,12 +43,8 @@ struct ChordCombinerChordSelectionMenu: View {
 
   // MARK: Initializer
   init(
-    selectedKeyboard: Binding<Keyboard>,
-    combinedKeyboard: Binding<Keyboard>,
     chordProperties: Binding<ChordProperties>,
     islowerChordMenu: Bool) {
-      self._selectedKeyboard = selectedKeyboard
-      self._combinedKeyboard = combinedKeyboard
       self._chordProperties = chordProperties
       self.isLowerChordMenu = islowerChordMenu
 
@@ -59,10 +54,7 @@ struct ChordCombinerChordSelectionMenu: View {
 
   // MARK: Initializer helper methods
   mutating func setChordCombinerSelectedChordTitleModel() {
-    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
-      chordProperties: chordProperties,
-      isLowerChordMenu: isLowerChordMenu
-    )
+    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(isLowerChordMenu: isLowerChordMenu)
   }
 
   mutating func setRootKeyNote() {
@@ -77,15 +69,22 @@ struct ChordCombinerChordSelectionMenu: View {
   // MARK: Instance methods
   func highlightKeyboardsOnSelect() {
     if chordCombinerSelectedChordTitleModel.selectedChord != nil {
-      keyboardHighlighter.highlightSelectedChord(
-        selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
-        selectedKeyboard: &selectedKeyboard,
-        selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor)
+      if isLowerChordMenu {
+        keyboardHighlighter.highlightSelectedChord(
+          selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+          selectedKeyboard: &chordCombinerViewModel.lowerKeyboard,
+          selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor)
+      } else {
+        keyboardHighlighter.highlightSelectedChord(
+          selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
+          selectedKeyboard: &chordCombinerViewModel.upperKeyboard,
+          selectedChordColor: chordCombinerSelectedChordTitleModel.selectedChordColor)
+      }
 
       keyboardHighlighter.highlightKeyboards(
         selectedChord: chordCombinerSelectedChordTitleModel.selectedChord,
         chordToMatch: chordCombinerSelectedChordTitleModel.chordToMatch,
-        combinedKeyboard: &combinedKeyboard
+        combinedKeyboard: &chordCombinerViewModel.combinedKeyboard
       )
     }
   }
@@ -94,8 +93,10 @@ struct ChordCombinerChordSelectionMenu: View {
   var body: some View {
     VStack(spacing: 8) {
       SingleChordTitleNavigationStackView(
-        keyboardWidth: selectedKeyboard.width,
-        selectedKeyboard: $selectedKeyboard,
+        keyboardWidth: chordCombinerViewModel.upperKeyboard.width,
+        selectedKeyboard: isLowerChordMenu
+        ? chordCombinerViewModel.lowerKeyboard
+        : chordCombinerViewModel.upperKeyboard,
         chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
       )
 
@@ -108,9 +109,7 @@ struct ChordCombinerChordSelectionMenu: View {
         chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel
       )
 
-      DualChordKeyboardView(
-        keyboard: $combinedKeyboard,
-        chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel)
+      DualChordKeyboardView(chordCombinerSelectedChordTitleModel: chordCombinerSelectedChordTitleModel)
 
       Spacer()
     }
@@ -154,10 +153,5 @@ struct ChordCombinerChordSelectionMenu: View {
 }
 
 #Preview {
-  ChordCombinerChordSelectionMenu(
-    selectedKeyboard: .constant(Keyboard.initialSingleChordKeyboard),
-    combinedKeyboard: .constant(Keyboard.initialDualChordKeyboard),
-    chordProperties: .constant(ChordProperties.initial),
-    islowerChordMenu: true
-  )
+  ChordCombinerChordSelectionMenu(chordProperties: .constant(ChordProperties.initial), islowerChordMenu: true)
 }

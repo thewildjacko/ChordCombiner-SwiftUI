@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct ChordCombinerSelectedChordTitleModel {
-  static let initial = ChordCombinerSelectedChordTitleModel(
-    chordProperties: ChordProperties(),
-    isLowerChordMenu: true
-  )
+  static let initial = ChordCombinerSelectedChordTitleModel(isLowerChordMenu: true)
 
   let chordCombinerViewModel = ChordCombinerViewModel.singleton()
-  let chordProperties: ChordProperties
   var isLowerChordMenu: Bool
 
   var promptText: String {

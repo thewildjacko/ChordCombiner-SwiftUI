@@ -54,8 +54,6 @@ struct ChordCombinerView: View {
           HStack {
             Spacer()
             ChordCombinerMenuCoverView(
-              keyboard: $chordCombinerViewModel.lowerKeyboard,
-              combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
               chordProperties: $chordCombinerViewModel.chordPropertyData.lowerChordProperties,
               islowerChordMenu: true
             )
@@ -73,8 +71,6 @@ struct ChordCombinerView: View {
           HStack {
             Spacer()
             ChordCombinerMenuCoverView(
-              keyboard: $chordCombinerViewModel.upperKeyboard,
-              combinedKeyboard: $chordCombinerViewModel.combinedKeyboard,
               chordProperties: $chordCombinerViewModel.chordPropertyData.upperChordProperties,
               islowerChordMenu: false
             )
@@ -90,7 +86,7 @@ struct ChordCombinerView: View {
 
           HStack {
             Spacer()
-            DualChordKeyboardView(keyboard: $chordCombinerViewModel.combinedKeyboard)
+            DualChordKeyboardView()
             Spacer()
           }
           .frame(width: proxy.size.width)

@@ -1,4 +1,4 @@
- # Chord Combiner
+ # ChordCombiner
 
 <img src="https://github.com/thewildjacko/ChordCombiner-SwiftUI/blob/4c9f94b899bda454ddde198239e05e48797a76ad/ChordCombiner%20Light%20Mode%20Splash%20Icon%20large-keyboards%20%2B%3D%20v3.png" alt="Chord Combiner Light Mode" width="128" height="128">
 

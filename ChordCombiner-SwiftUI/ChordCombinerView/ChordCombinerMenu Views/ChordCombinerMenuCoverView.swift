@@ -12,31 +12,23 @@ struct ChordCombinerMenuCoverView: View {
     didSet { setChordCombinerSelectedChordTitleModel() }
   }
 
-  @Binding var keyboard: Keyboard
-  @Binding var combinedKeyboard: Keyboard
   @Binding var chordProperties: ChordProperties
   let isLowerChordMenu: Bool
   var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
 
   init(
-    keyboard: Binding<Keyboard>,
-    combinedKeyboard: Binding<Keyboard>,
     chordProperties: Binding<ChordProperties>,
     islowerChordMenu: Bool) {
-      self._keyboard = keyboard
-      self._combinedKeyboard = combinedKeyboard
       self._chordProperties = chordProperties
       self.isLowerChordMenu = islowerChordMenu
       setChordCombinerSelectedChordTitleModel()
     }
 
   mutating func setChordCombinerSelectedChordTitleModel() {
-    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(
-      chordProperties: chordProperties,
-      isLowerChordMenu: isLowerChordMenu
-    )
+    chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel(isLowerChordMenu: isLowerChordMenu)
   }
 
+  @ViewBuilder
   var body: some View {
     VStack {
       TitleView(
@@ -48,8 +40,6 @@ struct ChordCombinerMenuCoverView: View {
       NavigationLink(
         destination:
           ChordCombinerChordSelectionMenu(
-            selectedKeyboard: $keyboard,
-            combinedKeyboard: $combinedKeyboard,
             chordProperties: $chordProperties,
             islowerChordMenu: isLowerChordMenu
           )
@@ -64,7 +54,7 @@ struct ChordCombinerMenuCoverView: View {
             color: .button
           )
 
-          keyboard
+          isLowerChordMenu ? chordCombinerViewModel.lowerKeyboard : chordCombinerViewModel.upperKeyboard
         }
       }
       .buttonStyle(.plain)
@@ -75,9 +65,5 @@ struct ChordCombinerMenuCoverView: View {
 }
 
 #Preview {
-  ChordCombinerMenuCoverView(
-    keyboard: .constant(Keyboard.initialSingleChordKeyboard),
-    combinedKeyboard: .constant(Keyboard.initialDualChordKeyboard),
-    chordProperties: .constant(ChordProperties.initial),
-    islowerChordMenu: true)
+  ChordCombinerMenuCoverView(chordProperties: .constant(ChordProperties.initial), islowerChordMenu: true)
 }

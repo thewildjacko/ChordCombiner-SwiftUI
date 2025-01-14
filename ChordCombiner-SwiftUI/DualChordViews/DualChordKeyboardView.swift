@@ -32,7 +32,6 @@ struct DualChordTitleHelpViewBuilder: View {
 struct DualChordKeyboardView: View {
   @State var shouldPresentDualKeyboardHelpView = false
   var chordCombinerViewModel = ChordCombinerViewModel.singleton()
-  @Binding var keyboard: Keyboard
   var chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel?
 
   @ViewBuilder
@@ -42,18 +41,17 @@ struct DualChordKeyboardView: View {
         if chordCombinerViewModel.lowerChord != nil && chordCombinerViewModel.upperChord != nil {
           DualChordTitleHelpViewBuilder(
             shouldPresentDualKeyboardHelpView: $shouldPresentDualKeyboardHelpView,
-            keyboard: keyboard)
+            keyboard: chordCombinerViewModel.combinedKeyboard)
         }
 
         DualChordTitleViewBuilder()
       }
 
-      keyboard
+      chordCombinerViewModel.combinedKeyboard
     }
   }
 }
 
 #Preview() {
-  DualChordKeyboardView(
-    keyboard: .constant(Keyboard.initialDualChordKeyboard))
+  DualChordKeyboardView()
 }

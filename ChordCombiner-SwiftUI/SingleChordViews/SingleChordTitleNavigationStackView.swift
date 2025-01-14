@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SingleChordTitleNavigationStackView: View {
   var keyboardWidth: CGFloat = 351
-  @Binding var selectedKeyboard: Keyboard
+  var selectedKeyboard: Keyboard
 
   let chordCombinerSelectedChordTitleModel: ChordCombinerSelectedChordTitleModel
 
