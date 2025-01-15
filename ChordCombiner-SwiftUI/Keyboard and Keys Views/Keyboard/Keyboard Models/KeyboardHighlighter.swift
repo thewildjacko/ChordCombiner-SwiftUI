@@ -58,7 +58,7 @@ struct KeyboardHighlighter {
         return
       }
 
-      Logger.main.info("combining!")
+//      Logger.main.info("combining!")
 
       // Clear previously highlighted chord
       combinedKeyboard.clearHighlightedKeys()
@@ -97,7 +97,7 @@ struct KeyboardHighlighter {
         chordCombinerVoicingCalculator.upperChordVoicingCalculator
       )
 
-      Logger.main.info("splitting!")
+//      Logger.main.info("splitting!")
 
       let (lowerSplitPitches, upperSplitPitches) = chordCombinerVoicingCalculator.stackedSplit(
         lowerPitches: lowerChordVoicingCalculator.stackedPitches,

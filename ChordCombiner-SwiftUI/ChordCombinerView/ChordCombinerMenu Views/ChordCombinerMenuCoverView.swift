@@ -46,7 +46,7 @@ struct ChordCombinerMenuCoverView: View {
           .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
           .navigationBarTitleDisplayMode(.inline)
       ) {
-        VStack(spacing: 15) {
+        VStack(spacing: 25) {
           TitleView(
             text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
             font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,

@@ -109,6 +109,12 @@ extension Array where Element == Int {
     return result
   }
 
+  func containsAdjacentPitch(to pitch: Int) -> Bool {
+    let pitchBelow = pitch - 1
+    let pitchAbove = pitch + 1
+    return !self.toSet().isDisjoint(with: [pitchBelow, pitchAbove])
+  }
+
   /// raises every ``Int`` in a pitch array by an octave except the indicated pitch
   mutating func raiseAllExceptPitch(_ pitch: Int) {
     self = self.map { pitchToRaise in

@@ -77,6 +77,8 @@ struct VoicingCalculator: GettableKeyName {
   }
 
   var stackedPitchesByNote: PitchesByNote {
+//    print(notes.noteNames())
+
     return notes.toPitchesByNote(pitches: stackedPitches)
     //    Dictionary(uniqueKeysWithValues: zip(notes, stackedPitches))
   }

@@ -11,6 +11,9 @@ struct Key: View, KeyProtocol, Identifiable {
   var id: UUID = UUID()
   var pitch: Int = 0
   var keyType: KeyType
+  var isBlackKeyColliding: Bool = false
+  var blackKeyCollisionOffset: CGFloat = 0
+
   var note: Note? { didSet { setKeyLetterView() } }
 
   var baseWidth: CGFloat { didSet { setWidthMultiplier() } }
@@ -109,83 +112,93 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 
   // MARK: Initializer helper methods
-    mutating func setKeyLetterView() {
-      keyLetterView = KeyLetterView(
-        width: letterWidth,
-        sizeMultiplier: letterSizeMultiplier,
-        textColor: letterTextColor,
-        note: note,
-        lettersOn: lettersOn)
+  mutating func setKeyLetterView() {
+    keyLetterView = KeyLetterView(
+      width: letterWidth,
+      sizeMultiplier: letterSizeMultiplier,
+      textColor: letterTextColor,
+      note: note,
+      lettersOn: lettersOn)
+  }
+
+  mutating func setKeyCirclesView() {
+    keyCirclesView = KeyCirclesView(
+      width: width(),
+      sizeMultiplier: circleSizeMultiplier,
+      circlesOn: circlesOn,
+      circleType: circleType,
+      lineWidth: circleLineWidth)
+  }
+
+  mutating func setWidthMultiplier() { widthMultiplier = baseWidth / widthDivisor }
+
+  mutating func setPosition() {
+    position = baseWidth.getKeyPosition(keyType: keyType, position: keyPosition, widthDivisor: widthDivisor)
+  }
+
+  mutating func setKeyShapeGroup() {
+    setWidthMultiplier()
+    setPosition()
+
+    keyShapeGroup = KeyShapeGroup(
+      finalKey: finalKey,
+      width: width(),
+      height: height(),
+      radius: radius(),
+      widthMultiplier: widthMultiplier,
+      position: position,
+      fill: fill,
+      stroke: stroke,
+      lineWidth: lineWidth,
+      zIndex: keyType.zIndex,
+      keyShapePath: keyType.keyShapePath
+    )
+  }
+
+  mutating func setKeyShapeProperties() {
+    setKeyLetterView()
+    setKeyCirclesView()
+    setKeyShapeGroup()
+  }
+
+  // MARK: instance methods
+  mutating func toggleHighlight(color: Color) {
+    fill = fill == keyType.defaultFillColor ? color : keyType.defaultFillColor
+    highlighted.toggle()
+  }
+
+  mutating func highlight(color: Color) {
+    fill = fill == keyType.defaultFillColor ? color : fill
+    highlighted = true
+  }
+
+  mutating func clearHighlight() {
+    highlighted = false
+    fill = keyType.defaultFillColor
+  }
+
+  mutating func setBlackKeyCollisionOffset(pitches: [Int], pitch: Int) {
+    print(keyType, pitches, pitch)
+    if keyType.isBlackKey && pitches.containsAdjacentPitch(to: pitch) {
+      isBlackKeyColliding = true
+    } else {
+      isBlackKeyColliding = false
     }
+    blackKeyCollisionOffset = isBlackKeyColliding ? 15 : 0
+  }
 
-    mutating func setKeyCirclesView() {
-      keyCirclesView = KeyCirclesView(
-        width: width(),
-        sizeMultiplier: circleSizeMultiplier,
-        circlesOn: circlesOn,
-        circleType: circleType,
-        lineWidth: circleLineWidth)
-    }
-
-    mutating func setWidthMultiplier() { widthMultiplier = baseWidth / widthDivisor }
-
-    mutating func setPosition() {
-      position = baseWidth.getKeyPosition(keyType: keyType, position: keyPosition, widthDivisor: widthDivisor)
-    }
-
-    mutating func setKeyShapeGroup() {
-      setWidthMultiplier()
-      setPosition()
-
-      keyShapeGroup = KeyShapeGroup(
-        finalKey: finalKey,
-        width: width(),
-        height: height(),
-        radius: radius(),
-        widthMultiplier: widthMultiplier,
-        position: position,
-        fill: fill,
-        stroke: stroke,
-        lineWidth: lineWidth,
-        zIndex: keyType.zIndex,
-        keyShapePath: keyType.keyShapePath
-      )
-    }
-
-    mutating func setKeyShapeProperties() {
-      setKeyLetterView()
-      setKeyCirclesView()
-      setKeyShapeGroup()
-    }
-
-    // MARK: instance methods
-    mutating func toggleHighlight(color: Color) {
-      fill = fill == keyType.defaultFillColor ? color : keyType.defaultFillColor
-      highlighted.toggle()
-    }
-
-    mutating func highlight(color: Color) {
-      fill = fill == keyType.defaultFillColor ? color : fill
-      highlighted = true
-    }
-
-    mutating func clearHighlight() {
-      highlighted = false
-      fill = keyType.defaultFillColor
-    }
-
-    func radius() -> CGFloat { keyType.baseRadius * widthMultiplier }
-    func width() -> CGFloat {
-      return keyType.baseWidth * widthMultiplier
-    }
-    func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
+  func radius() -> CGFloat { keyType.baseRadius * widthMultiplier }
+  func width() -> CGFloat {
+    return keyType.baseWidth * widthMultiplier
+  }
+  func height() -> CGFloat { keyType.baseHeight * widthMultiplier }
 
   var body: some View {
     return ZStack {
       keyShapeGroup
 
       keyLetterView
-        .position(x: position, y: 0 - 10 * widthMultiplier)
+        .position(x: position, y: -(10 + blackKeyCollisionOffset) * widthMultiplier)
         .zIndex(2)
 
       keyCirclesView
@@ -203,7 +216,8 @@ extension Key: Equatable {
     lhs.fill == rhs.fill &&
     lhs.circlesOn == rhs.circlesOn &&
     lhs.circleType == rhs.circleType &&
-    lhs.highlighted == rhs.highlighted
+    lhs.highlighted == rhs.highlighted &&
+    lhs.isBlackKeyColliding == rhs.isBlackKeyColliding
   }
 }
 

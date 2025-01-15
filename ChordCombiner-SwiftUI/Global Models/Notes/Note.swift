@@ -128,7 +128,9 @@ extension Note {
 
 extension Note: Equatable {
   static func == (lhs: Note, rhs: Note) -> Bool {
-    return lhs.noteNumber == rhs.noteNumber
+    return lhs.noteNumber == rhs.noteNumber &&
+    lhs.degree == rhs.degree &&
+    lhs.enharmonic == rhs.enharmonic
   }
 }
 

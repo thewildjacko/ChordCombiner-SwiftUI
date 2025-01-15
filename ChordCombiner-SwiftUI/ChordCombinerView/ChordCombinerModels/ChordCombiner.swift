@@ -59,15 +59,15 @@ struct ChordCombiner {
         slashChordBassNote: nil
       )
     } else {
-      Logger.main.info("No match for initial root")
+//      Logger.main.info("No match for initial root")
       outerloop: while combinedRootKeyNotes.count >= 1 {
         for rootKeyNote in combinedRootKeyNotes {
 
-          Logger.main.info("Trying \(rootKeyNote.keyName.rawValue)")
+//          Logger.main.info("Trying \(rootKeyNote.keyName.rawValue)")
 
           if let chordType = ChordType(fromDegreeNumbers: combinedDegrees, transposedTo: rootKeyNote) {
 
-            Logger.main.info("Found a match for \(rootKeyNote.keyName.rawValue)!")
+//            Logger.main.info("Found a match for \(rootKeyNote.keyName.rawValue)!")
 
             resultChord = Chord(
               rootKeyNote,
@@ -76,7 +76,7 @@ struct ChordCombiner {
               slashChordBassNote: lowerRootKeyNote
             )
 
-            Logger.main.info("\(resultChord!.preciseName)")
+//            Logger.main.info("\(resultChord!.preciseName)")
 
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
             break outerloop

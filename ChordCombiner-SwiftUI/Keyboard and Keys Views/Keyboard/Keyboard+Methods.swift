@@ -130,6 +130,7 @@ extension Keyboard {
     for (note, pitch) in pitchesByNote {
       if let index = keys.firstIndex(where: { $0.pitch == pitch }) {
         keys[index].note = note
+        keys[index].setBlackKeyCollisionOffset(pitches: pitchesByNote.map { $0.value }, pitch: pitch)
       }
     }
   }
@@ -138,6 +139,7 @@ extension Keyboard {
     for notesIndex in (0..<notes.count) {
       if let index = keys.firstIndex(where: { $0.pitch == pitches[notesIndex] }) {
         keys[index].note = notes[notesIndex]
+        keys[index].setBlackKeyCollisionOffset(pitches: pitches, pitch: pitches[notesIndex])
       }
     }
   }
