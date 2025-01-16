@@ -178,7 +178,7 @@ struct Key: View, KeyProtocol, Identifiable {
   }
 
   mutating func setBlackKeyCollisionOffset(pitches: [Int], pitch: Int) {
-    print(keyType, pitches, pitch)
+//    print(keyType, pitches, pitch)
     if keyType.isBlackKey && pitches.containsAdjacentPitch(to: pitch) {
       isBlackKeyColliding = true
     } else {
