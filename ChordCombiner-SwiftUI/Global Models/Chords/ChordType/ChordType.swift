@@ -37,10 +37,12 @@ enum ChordType: String, ChordAndScaleProperty {
   case ma13sh11omit9 = "ma13(♯11 omit9)"   // [0, 4, 6, 7, 9, 11]
 
   // MARK: Altered Major 7th Chords
+  // ma7(♭5)
   case ma7b5 = "ma7(♭5)"                            // [0, 4, 6, 11]
   case ma9b5 = "ma9(♭5)"                            // [0, 4, 6, 11]
   case ma13b5 = "ma13(♭5)"                          // [0, 2, 4, 6, 9, 11]
   case ma13b5omit9 = "ma13(♭5 omit9)"              // [0, 4, 6, 9, 11]
+  // ma7(♯5)
   case ma7sh5 = "ma7(♯5)"                           // [0, 4, 8, 11]
   case ma9sh5 = "ma9(♯5)"                           // [0, 2, 4, 8, 11]
   case ma13sh5 = "ma13(♯5)"                         // [0, 2, 4, 8, 9, 11]
@@ -49,6 +51,16 @@ enum ChordType: String, ChordAndScaleProperty {
   case ma9sh5sh11 = "ma9(♯5♯11)"                   // [0, 4, 6, 8, 11]
   case ma13sh5sh11 = "ma13(♯5♯11)"                 // [0, 2, 4, 6, 8, 9, 11]
   case ma13sh5sh11omit9 = "ma13(♯5♯11 omit9)"     // [0, 4, 6, 8, 9, 11]
+
+  // MARK: Ma7(sus4) Chords
+  case ma7sus4 = "ma7sus4"                    // [0, 5, 7, 11]
+  case ma9sus4 = "ma9sus4"                    // [0, 2, 5, 7, 11]
+  case ma13sus4 = "ma13sus4"                   // [0, 2, 5, 7, 9, 11]
+  case ma13sus4omit9 = "ma13sus4(omit9)"        // [0, 5, 7, 9, 11]
+
+  // MARK: Altered Ma7(sus4) Chords
+  case ma7sus4sh5 = "ma7sus4(♯5)"                // [0, 5, 8, 11]
+  case ma9sus4sh5 = "ma9sus4(♯5)"                // [0, 2, 5, 8, 11]
 
   // MARK: Dominant 7th Chords
   // 7th chords
@@ -62,13 +74,16 @@ enum ChordType: String, ChordAndScaleProperty {
   case dominant7b9sh5 = "7(♭9♯5)"                      // [0, 1, 4, 8, 10]
   case dominant7b9sh9 = "7(♭9♯9)"                      // [0, 1, 3, 4, 7, 10]
   case dominant7b9sh11 = "7(♭9♯11)"                    // [0, 1, 4, 6, 7, 10]
-  case dominant7altb9sh9sh11 = "7alt(♭9♯9♯11)"       // [0, 1, 3, 4, 6, 7, 10]
-  case dominant7altb9sh9b5 = "7alt(♭9♯9♭5)"          // [0, 1, 3, 4, 6, 10]
+  case dominant7altb9sh9sh11 = "7alt(♭9♯9♯11)"         // [0, 1, 3, 4, 6, 7, 10]
+  case dominant7altb9sh9b5 = "7alt(♭9♯9♭5)"            // [0, 1, 3, 4, 6, 10]
+  case dominant7altb9sh5sh11 = "7alt(♭9♯5♯11)"         // [0, 1, 4, 6, 8, 10]
+  case dominant7altb9sh9sh5sh11 = "7alt(♭9♯9♯5♯11)"    // [0, 1, 3, 4, 6, 8, 10]
   // ♯9
   case dominant7sh9 = "7(♯9)"                           // [0, 3, 4, 7, 10]
   case dominant7sh9b5 = "7(♯9♭5)"                      // [0, 3, 4, 6, 10]
   case dominant7sh9sh5 = "7(♯9♯5)"                     // [0, 3, 4, 8, 10]
   case dominant7sh9sh11 = "7(♯9♯11)"                   // [0, 3, 4, 6, 7, 10]
+  case dominant7altsh9sh5sh11 = "7alt(♯9♯5♯11)"         // [0, 3, 4, 6, 8, 10]
   // ♯11
   case dominant7sh11 = "7(♯11)"                         // [0, 4, 6, 7, 10]
   case dominant9sh11 = "9(♯11)"                         // [0, 2, 4, 6, 7, 10]
@@ -89,6 +104,10 @@ enum ChordType: String, ChordAndScaleProperty {
   case dominant9sus4 = "9sus4"                              // [0, 2, 5, 7, 10]
   case dominant13sus4 = "13sus4"                            // [0, 2, 5, 7, 9, 10]
   case dominant13sus4omit9 = "13sus4(omit9)"               // [0, 5, 7, 9, 10]
+
+  // MARK: 7sus4(♭9)
+  case dominant7sus4b9 = "7sus4(♭9)"                        // [0, 1, 5, 7, 10]
+  case dominant13sus4b9 = "13sus4(♭9)"                      // [0, 1, 5, 7, 9, 10]
 
   // MARK: 7sus2
   case dominant7sus2 = "7sus2"                              // [0, 2, 7, 10]
@@ -151,6 +170,15 @@ enum ChordType: String, ChordAndScaleProperty {
   case dim11b13addMa7 = "˚11(♭13add∆7)"              // [0, 2, 3, 5, 6, 8, 9, 11]
   case dim11b13addMa7omit9 = "˚11(♭13add∆7 omit9)"  // [0, 3, 5, 6, 8, 9, 11]
 
+  // MARK: Diminished Ma7 Chords
+  case dimMa7 = "˚ma7"                        // [0, 3, 6, 11]
+  case dimMa9 = "˚ma9"                        // [0, 2, 3, 6, 11]
+  case dimMa11 = "˚ma11"                      // [0, 2, 3, 5, 6, 11]
+  case dimMa7b13 = "˚ma7(♭13)"                // [0, 3, 6, 8, 11]
+  case dimMa9b13 = "˚ma9(♭13)"                // [0, 2, 3, 6, 8, 11]
+  case dimMa11b13 = "˚ma11(♭13)"              // [0, 2, 3, 5, 6, 8, 11]
+  case dimMa11b13omit9 = "˚ma11(♭13 omit9)"   // [0, 3, 5, 6, 8, 11]
+
   // MARK: Major 6
   case ma6 = "6"                           // [0, 4, 7, 9]
   case ma6sh9 = "6(♯9)"                   // [0, 3, 4, 7, 9]
@@ -181,16 +209,27 @@ enum ChordType: String, ChordAndScaleProperty {
     switch self {
     case .ma13omit9:
       return "ma13"
+    case .ma13b5omit9:
+      return "ma13(♭5)"
     case .ma13sh11omit9:
       return "ma13(♯11)"
+    case .ma13sh5omit9:
+      return "ma13(♯5)"
+    case .ma13sh5sh11omit9:
+      return "ma13(♯5♯11)"
+    case .ma13sus4omit9:
+      return "ma13sus4"
     case .dominant13omit9:
       return "13"
-    case .dominant7altb9sh9sh11:
+    case .dominant7altb9sh9sh11, .dominant7altb9sh9b5, .dominant7altb9sh5sh11,
+        .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11:
       return "7alt"
     case .dominant13sh11omit9:
       return "13(♯11)"
     case .dominant13b5omit9:
       return "13(♭5)"
+    case .dominant13sus4omit9:
+      return "13sus4"
     case .mi11omit9:
       return "mi11"
     case .mi13omit9, .mi13omit11:
@@ -205,6 +244,12 @@ enum ChordType: String, ChordAndScaleProperty {
       return "˚11(add∆7)"
     case .dim11b13addMa7omit9:
       return "˚11(♭13 add∆7)"
+    case .dimMa11b13omit9:
+      return "˚ma11(♭13)"
+    case .miMa11omit9:
+      return "mi(∆11)"
+    case .miMa13omit9:
+      return "mi(∆13)"
     default:
       return rawValue
     }

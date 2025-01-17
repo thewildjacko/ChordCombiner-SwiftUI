@@ -19,13 +19,19 @@ extension ChordType {
     case .ma7, .ma9, .ma13, .ma13omit9, .ma7sh11, .ma9sh11, .ma13sh11, .ma13sh11omit9:
       return .ma7
       // MARK: Altered Major 7th Chords
-      // ma7(♭5)
+      // MARK: ma7(♭5)
     case .ma7b5, .ma9b5, .ma13b5, .ma13b5omit9:
       return .ma7b5
       // MARK: ma7(♯5)
     case .ma7sh5, .ma9sh5, .ma13sh5, .ma13sh5omit9, .ma7sh5sh11,
         .ma9sh5sh11, .ma13sh5sh11, .ma13sh5sh11omit9:
       return .ma7sh5
+      // MARK: Ma7(sus4) Chords
+    case .ma7sus4, .ma9sus4, .ma13sus4, .ma13sus4omit9:
+      return .ma7sus4
+      // MARK: Altered Ma7(sus4) Chords
+    case .ma7sus4sh5, .ma9sus4sh5:
+      return .ma7sus4sh5
       // MARK: Dominant 7th Chords
       // MARK: unaltered
     case .dominant7,
@@ -60,10 +66,14 @@ extension ChordType {
         .dominant7sh5sh11,
         .dominant9sh5,
         .dominant7b9sh5,
-        .dominant7sh9sh5:
+        .dominant7sh9sh5,
+        .dominant7altb9sh5sh11,
+        .dominant7altb9sh9sh5sh11,
+        .dominant7altsh9sh5sh11:
       return .dominant7sh5
       // MARK: 7sus4, 7sus2
-    case .dominant7sus4, .dominant9sus4, .dominant13sus4, .dominant13sus4omit9:
+    case .dominant7sus4, .dominant9sus4, .dominant13sus4, .dominant13sus4omit9,
+        .dominant7sus4b9, .dominant13sus4b9:
       return .dominant7sus4
     case .dominant7sus2, .dominant13sus2:
       return .dominant7sus2
@@ -81,6 +91,9 @@ extension ChordType {
         .dim9b13, .dim9b13addMa7, .dim11, .dim11b13, .dim11addMa7, .dim11b13addMa7,
         .dim7add11, .dim11b13omit9, .dim11addMa7omit9, .dim11b13addMa7omit9:
       return .dim7
+      // MARK: Diminished Ma7 Chords
+    case .dimMa7, .dimMa9, .dimMa11, .dimMa7b13, .dimMa9b13, .dimMa11b13, .dimMa11b13omit9:
+      return .dimMa7
       // MARK: Major 6th chords
     case .ma6, .ma6sh9, .ma6b9, .ma6sh9sh11, .ma6b9sh11, .ma6sh11, .ma69, .ma69sh11:
       return .ma6

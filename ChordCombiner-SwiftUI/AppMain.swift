@@ -10,11 +10,14 @@ import OSLog
 
 @main
 struct AppMain: App {
-    var body: some Scene {
-        WindowGroup {
-          ViewCoordinator()
-        }
+  @StateObject var conductor = InstrumentEXSConductor()
+
+  var body: some Scene {
+    WindowGroup {
+      ViewCoordinator()
+        .environmentObject(conductor)
     }
+  }
 }
 
 extension Logger {

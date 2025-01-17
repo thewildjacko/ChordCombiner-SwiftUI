@@ -6,8 +6,18 @@
 //
 
 import SwiftUI
+import AudioKit
+import AudioKitEX
+import AudioKitUI
+import AVFoundation
+import Keyboard
+import SoundpipeAudioKit
+import Tonic
 
 struct SingleChordTitleNavigationStackView: View {
+  @EnvironmentObject var conductor: InstrumentEXSConductor
+  @State private var isPlaying: Bool = false
+
   var keyboardWidth: CGFloat = 351
   var selectedKeyboard: Keyboard
 

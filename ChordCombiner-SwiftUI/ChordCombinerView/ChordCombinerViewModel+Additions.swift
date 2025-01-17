@@ -118,6 +118,37 @@ extension ChordCombinerViewModel {
 
     return pitchesByNote
   }
+
+  var resultChordNotesAndDegrees: (notes: String, degrees: String) {
+    if let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator {
+
+      let pitchesToHighlight = getPitchesToHighlight(
+        startingPitch: combinedKeyboard.startingPitch,
+        lowerTones: chordCombinerVoicingCalculator.lowerTonesToHighlight,
+        upperTones: chordCombinerVoicingCalculator.upperTonesToHighlight,
+        commonTones: chordCombinerVoicingCalculator.commonTonesToHighlight)
+
+      let combinedPitches = pitchesToHighlight.combinedSorted
+      let resultChordNotes = chordCombinerVoicingCalculator.resultChordNotes
+
+      var notes: [Note] = []
+      var degreeNames: [String] = []
+
+      for pitch in combinedPitches {
+        if let index = resultChordNotes.firstIndex(where: { note in
+            pitch.isSameNote(as: note.noteNumber.rawValue)}) {
+          let resultNote = resultChordNotes[index]
+          notes.append(resultNote)
+          degreeNames.append(resultNote.degreeName.numeric)
+        }
+      }
+
+      return (notes.noteNames().joined(separator: ", "),
+              degreeNames.joined(separator: ", "))
+    } else {
+      return ("", "")
+    }
+  }
 }
 
 // MARK: DetailType & displayDetails

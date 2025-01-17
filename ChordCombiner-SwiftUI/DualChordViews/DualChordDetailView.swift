@@ -64,19 +64,6 @@ struct DualChordDetailView: View {
         }
       }
 
-//      let noteNumbers = notes.noteNumbers()
-//      let notesByNoteNumber = notes.toNotesByNoteNumber()
-//
-//      let resultChordDegreesInOctaveSorted = chordCombinerVoicingCalculator.resultChordDegreesInOctaveSorted
-//
-//      for degreeNumber in resultChordDegreesInOctaveSorted {
-//        if let note = notesByNoteNumber[NoteNumber(degreeNumber)] {
-//          degreeNames.append(note.degreeName.numeric)
-//        }
-//      }
-//
-//      print("degree names:", degreeNames)
-
       return (notes.noteNames().joined(separator: ", "),
               degreeNames.joined(separator: ", "))
     } else {
@@ -103,8 +90,8 @@ struct DualChordDetailView: View {
       chordCombinerViewModel.combinedKeyboard
 
       ChordDetailForm(
-        notesText: resultChordNotesAndDegrees.notes,
-        degreesText: resultChordNotesAndDegrees.degrees,
+        notesText: chordCombinerViewModel.resultChordNotesAndDegrees.notes,
+        degreesText: chordCombinerViewModel.resultChordNotesAndDegrees.degrees,
         chord: chordCombinerViewModel.resultChord,
         chordGrapher: $chordGrapher,
         chordGrapherNavigationView: $chordGrapherNavigationView)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DualChordDetailNavigationLinkView: View {
+  @EnvironmentObject var conductor: InstrumentEXSConductor
+  @State private var isPlaying: Bool = false
   let chordCombinerViewModel = ChordCombinerViewModel.singleton()
   let showCaption: Bool
 
@@ -27,19 +29,43 @@ struct DualChordDetailNavigationLinkView: View {
       .upperChordHighlight
   }
 
+  var pitches: [Int] {
+    if chordCombinerViewModel.resultChord != nil,
+       let chordCombinerVoicingCalculator = chordCombinerViewModel.chordCombinerVoicingCalculator {
+      return chordCombinerViewModel.getPitchesToHighlight(
+        startingPitch: chordCombinerViewModel.combinedKeyboard.startingPitch,
+        lowerTones: chordCombinerVoicingCalculator.lowerTonesToHighlight,
+        upperTones: chordCombinerVoicingCalculator.upperTonesToHighlight,
+        commonTones: chordCombinerVoicingCalculator.commonTonesToHighlight).combinedSorted
+    } else {
+      return chord?.voicingCalculator.stackedPitches ?? []
+    }
+  }
+
   @ViewBuilder
   var body: some View {
-    if chordCombinerViewModel.resultChord != nil {
-      NavigationLink(
-        destination: DualChordDetailView(
-          showCaption: showCaption)) {
+    HStack {
+      if chordCombinerViewModel.resultChord != nil {
+        NavigationLink(
+          destination: DualChordDetailView(showCaption: showCaption)) {
             InfoLinkImageView()
           }
-    } else {
-      SingleChordDetailNavigationView(
-        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
-        chord: chord,
-        color: color)
+          .simultaneousGesture(TapGesture().onEnded {
+            if isPlaying {
+              conductor.notesOff(pitchNumbers: pitches)
+              isPlaying.toggle()
+            }
+          })
+      } else {
+        SingleChordDetailNavigationView(
+          keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
+          chord: chord,
+          color: color)
+      }
+
+      PlayButton(
+        isPlaying: $isPlaying,
+        pitches: pitches)
     }
   }
 }

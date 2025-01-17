@@ -14,6 +14,7 @@ struct SingleChordDetailNavigationTitleView: View {
   var infoFont: Font = .title3
   let chord: Chord?
   var color: Color = .lowerChordHighlight
+  @State private var isPlaying: Bool = false
 
   var body: some View {
     HStack {
@@ -28,6 +29,10 @@ struct SingleChordDetailNavigationTitleView: View {
         chord: chord,
         color: color,
         infoFont: infoFont)
+
+      PlayButton(
+        isPlaying: $isPlaying,
+        pitches: chord?.voicingCalculator.stackedPitches ?? [])
     }
   }
 }

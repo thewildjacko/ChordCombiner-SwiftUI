@@ -35,7 +35,8 @@ extension ChordType {
   // MARK: hasMinor3rd
   var hasMinor3rd: Degree? {
     switch baseChordType {
-    case .mi, .dim, .mib6, .mi7, .mi7b5, .dim7, .miMa7, .mi6, .minorAdd4, .minorAdd2:
+    case .mi, .dim, .mib6, .mi7, .mi7b5, .dim7, .miMa7,
+        .mi6, .minorAdd4, .minorAdd2, .dimMa7:
       return .minor3rd
     default:
       return nil
@@ -59,6 +60,8 @@ extension ChordType {
     case .sus4,
       // modified triads
         .add4, .minorAdd4,
+      // ma7sus4 + alterations
+        .ma7sus4, .ma7sus4sh5,
       // 7sus4
         .dominant7sus4:
       return .perfect4th
@@ -78,7 +81,7 @@ extension ChordType {
   // MARK: hasDim5th
   var hasDim5th: Degree? {
     switch baseChordType {
-    case .dim, .mi7b5, .dim7, .dominant7b5, .ma7b5:
+    case .dim, .mi7b5, .dim7, .dominant7b5, .ma7b5, .dimMa7:
       return .diminished5th
     default:
       return nil
@@ -103,8 +106,11 @@ extension ChordType {
     case .aug,
       // ma7(♯5)
         .ma7sh5, .ma9sh5, .ma13sh5, .ma13sh5omit9, .ma7sh5sh11, .ma9sh5sh11, .ma13sh5sh11, .ma13sh5sh11omit9,
+      // ma7sus4(♯5)
+        .ma7sus4sh5, .ma9sus4sh5,
       // 7(♯5)
-        .dominant7sh5, .dominant7b9sh5, .dominant7sh9sh5, .dominant7sh5sh11, .dominant9sh5:
+        .dominant7sh5, .dominant7b9sh5, .dominant7sh9sh5, .dominant7sh5sh11, .dominant9sh5,
+        .dominant7altb9sh5sh11, .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11:
       return .sharp5th
     default:
       return nil
@@ -160,7 +166,7 @@ extension ChordType {
     switch baseChordType {
     case let chordType where chordType.hasMinor7th != nil || chordType == .ma6:
       return nil
-    case .ma7, .miMa7, .ma7b5, .ma7sh5, .ma7sh5sh11:
+    case .ma7, .miMa7, .ma7b5, .ma7sh5, .ma7sh5sh11, .ma7sus4, .ma7sus4sh5, .dimMa7:
       return .major7th
     case .dim7:
       switch self {
@@ -178,8 +184,12 @@ extension ChordType {
   // MARK: hasMinor9th
   var hasMinor9th: Degree? {
     switch self {
+      // dom7
     case .dominant7b9, .dominant7b9sh11, .dominant7b9sh9, .dominant7b9b5,
         .dominant7b9sh5, .dominant7altb9sh9sh11, .dominant7altb9sh9b5,
+        .dominant7altb9sh5sh11, .dominant7altb9sh9sh5sh11,
+      // 7sus(♭9)
+        .dominant7sus4b9, .dominant13sus4b9,
       // ma6
         .ma6b9, .ma6b9sh11,
       // mi7
@@ -203,6 +213,8 @@ extension ChordType {
       return nil
       // ma7
     case .ma9, .ma13, .ma9sh11, .ma13sh11,
+      // ma7sus4 + alterations
+        .ma9sus4, .ma13sus4, .ma9sus4sh5,
       // ma7(♭5)
         .ma9b5, .ma13b5,
       // ma7(♯5)
@@ -221,6 +233,8 @@ extension ChordType {
       // ˚7
         .dim9, .dim9addMa7, .dim9b13, .dim9b13addMa7,
         .dim11, .dim11b13, .dim11addMa7, .dim11b13addMa7,
+      // ˚ma7
+        .dimMa9, .dimMa11, .dimMa9b13, .dimMa11b13,
       // mi(∆7)
         .miMa9, .miMa11, .miMa13,
       // mi6
@@ -240,7 +254,7 @@ extension ChordType {
     case .ma6sh9, .ma6sh9sh11,
       // dom7
         .dominant7sh9, .dominant7b9sh9, .dominant7sh9sh11, .dominant7sh9b5,
-        .dominant7sh9sh5, .dominant7altb9sh9sh11, .dominant7altb9sh9b5:
+        .dominant7sh9sh5, .dominant7altb9sh9sh11, .dominant7altb9sh9b5, .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11:
       return .sharp9th
     default:
       return nil
@@ -261,6 +275,8 @@ extension ChordType {
       // ˚7
         .dim11, .dim7add11, .dim11b13, .dim11b13omit9, .dim11addMa7,
         .dim11addMa7omit9, .dim11b13addMa7, .dim11b13addMa7omit9,
+      // ˚ma7
+        .dimMa11, .dimMa11b13, .dimMa11b13omit9,
       // mi(∆7)
         .miMa11, .miMa13, .miMa11omit9, .miMa13omit9,
       // mi6
@@ -280,6 +296,7 @@ extension ChordType {
       // dom7(♯11)
         .dominant7sh11, .dominant7b9sh11, .dominant7sh9sh11, .dominant9sh11,
         .dominant13sh11, .dominant13sh11omit9, .dominant7altb9sh9sh11, .dominant7sh5sh11,
+        .dominant7altb9sh5sh11, .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11,
       // ma6(♯11)
         .ma6sh9sh11, .ma6b9sh11, .ma6sh11, .ma69sh11:
       return .sharp11th
@@ -299,7 +316,9 @@ extension ChordType {
         .mi11b5b13, .mi7b5b13, .locrian,
       // ˚7
         .dim7b13, .dim9b13, .dim11b13, .dim11b13omit9, .dim7b13addMa7,
-        .dim9b13addMa7, .dim11b13addMa7, .dim11b13addMa7omit9:
+        .dim9b13addMa7, .dim11b13addMa7, .dim11b13addMa7omit9,
+      // ˚ma7
+        .dimMa7b13, .dimMa9b13, .dimMa11b13, .dimMa11b13omit9:
       return .flat13th
     default:
       return nil
@@ -320,6 +339,8 @@ extension ChordType {
         return nil
         // Extended Major 7th chords
       case .ma13, .ma13omit9, .ma13sh11, .ma13sh11omit9,
+        // ma7sus4
+          .ma13sus4, .ma13sus4omit9,
         // ma7(♭5)
           .ma13b5, .ma13b5omit9,
         // ma7(♯5)
@@ -334,7 +355,7 @@ extension ChordType {
         // mi(∆7)
           .miMa13, .miMa13omit9,
         // 7sus4
-          .dominant13sus4, .dominant13sus4omit9,
+          .dominant13sus4, .dominant13sus4omit9, .dominant13sus4b9,
         // 7sus2
           .dominant13sus2:
         return .major13th

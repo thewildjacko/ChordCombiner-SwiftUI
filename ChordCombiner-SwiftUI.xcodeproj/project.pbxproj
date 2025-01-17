@@ -112,6 +112,9 @@
 		1DA11FC72CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FC62CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift */; };
 		1DA11FC92CEC0AFC00DF255C /* InfoLinkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FC82CEC0AFC00DF255C /* InfoLinkImageView.swift */; };
 		1DA11FCC2CEC1CA300DF255C /* BaseChordSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA11FCB2CEC1CA300DF255C /* BaseChordSectionView.swift */; };
+		1DA77C672D38A90800099F6C /* Keyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 1DA77C662D38A90800099F6C /* Keyboard */; };
+		1DA77C6B2D38D6AA00099F6C /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 1DA77C6A2D38D6AA00099F6C /* Sounds */; };
+		1DA77C6C2D38D6AA00099F6C /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 1DA77C6A2D38D6AA00099F6C /* Sounds */; };
 		1DA965CF2CBECD1D00368651 /* ChordCombinerMenuCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA965CE2CBECD1D00368651 /* ChordCombinerMenuCoverView.swift */; };
 		1DABBE142CB58A930039F325 /* KeyShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DABBE132CB58A930039F325 /* KeyShape.swift */; };
 		1DB357472CBDA49C00A5D6B3 /* ChordCombinerKeyboardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB357462CBDA49C00A5D6B3 /* ChordCombinerKeyboardScrollView.swift */; };
@@ -210,6 +213,14 @@
 		1DD837252CFFD59200ED2DF2 /* ChordProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC9DAAB2CC8081000776417 /* ChordProperties.swift */; };
 		1DD837272CFFD75400ED2DF2 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD837262CFFD75400ED2DF2 /* String Extensions.swift */; };
 		1DD837282CFFD75400ED2DF2 /* String Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD837262CFFD75400ED2DF2 /* String Extensions.swift */; };
+		1DDD8E5B2D3897340011CE2D /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E5A2D3897340011CE2D /* AudioKit */; };
+		1DDD8E5E2D389A700011CE2D /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E5D2D389A700011CE2D /* AudioKit */; };
+		1DDD8E612D389CD90011CE2D /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E602D389CD90011CE2D /* DunneAudioKit */; };
+		1DDD8E642D389F470011CE2D /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E632D389F470011CE2D /* Tonic */; };
+		1DDD8E672D389FA30011CE2D /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E662D389FA30011CE2D /* SoundpipeAudioKit */; };
+		1DDD8E6D2D38A0D00011CE2D /* InstrumentEXS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDD8E6C2D38A0D00011CE2D /* InstrumentEXS.swift */; };
+		1DDD8E6E2D38A0D00011CE2D /* InstrumentEXS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDD8E6C2D38A0D00011CE2D /* InstrumentEXS.swift */; };
+		1DDD8E712D38A8AE0011CE2D /* AudioKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDD8E702D38A8AE0011CE2D /* AudioKitUI */; };
 		1DE006172CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE006162CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift */; };
 		1DE006192CE5263D00C27EE3 /* KeyboardHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE006182CE5263D00C27EE3 /* KeyboardHighlighter.swift */; };
 		1DF2D7532D17A8760018B161 /* NotesAndDegreesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */; };
@@ -319,6 +330,9 @@
 		1DA11FC62CEC01A800DF255C /* DualChordDetailNavigationLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualChordDetailNavigationLinkView.swift; sourceTree = "<group>"; };
 		1DA11FC82CEC0AFC00DF255C /* InfoLinkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLinkImageView.swift; sourceTree = "<group>"; };
 		1DA11FCB2CEC1CA300DF255C /* BaseChordSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChordSectionView.swift; sourceTree = "<group>"; };
+		1DA77C682D38AA1300099F6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1DA77C692D38AA6500099F6C /* ChordCombiner-SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ChordCombiner-SwiftUI.entitlements"; sourceTree = "<group>"; };
+		1DA77C6A2D38D6AA00099F6C /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		1DA965CE2CBECD1D00368651 /* ChordCombinerMenuCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombinerMenuCoverView.swift; sourceTree = "<group>"; };
 		1DABBE132CB58A930039F325 /* KeyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyShape.swift; sourceTree = "<group>"; };
 		1DB357462CBDA49C00A5D6B3 /* ChordCombinerKeyboardScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombinerKeyboardScrollView.swift; sourceTree = "<group>"; };
@@ -342,6 +356,7 @@
 		1DD831E92D14D60F00EC817F /* ComponentChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentChordsView.swift; sourceTree = "<group>"; };
 		1DD836D42CFFD40B00ED2DF2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		1DD837262CFFD75400ED2DF2 /* String Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Extensions.swift"; sourceTree = "<group>"; };
+		1DDD8E6C2D38A0D00011CE2D /* InstrumentEXS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentEXS.swift; sourceTree = "<group>"; };
 		1DE006162CE51EFD00C27EE3 /* ChordCombinerPropertyMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordCombinerPropertyMatcher.swift; sourceTree = "<group>"; };
 		1DE006182CE5263D00C27EE3 /* KeyboardHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHighlighter.swift; sourceTree = "<group>"; };
 		1DF2D7522D17A8760018B161 /* NotesAndDegreesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAndDegreesSectionView.swift; sourceTree = "<group>"; };
@@ -372,6 +387,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDD8E712D38A8AE0011CE2D /* AudioKitUI in Frameworks */,
+				1DA77C672D38A90800099F6C /* Keyboard in Frameworks */,
+				1DDD8E5E2D389A700011CE2D /* AudioKit in Frameworks */,
+				1DDD8E612D389CD90011CE2D /* DunneAudioKit in Frameworks */,
+				1DDD8E672D389FA30011CE2D /* SoundpipeAudioKit in Frameworks */,
+				1DDD8E5B2D3897340011CE2D /* AudioKit in Frameworks */,
+				1DDD8E642D389F470011CE2D /* Tonic in Frameworks */,
 				1DC11F732CA133E400263FF8 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,10 +405,10 @@
 			isa = PBXGroup;
 			children = (
 				1DFD9D4E2C5AA4330006333D /* ChordType.swift */,
-				1D0DD6822D10E7E900BD5189 /* ChordType+StaticProperties.swift */,
 				1D0DD67C2D10E59800BD5189 /* ChordType+baseChordType.swift */,
-				1D0DD67F2D10E6DE00BD5189 /* ChordType+degreeTypeIDGroups.swift */,
 				1D0DD6792D10E52F00BD5189 /* ChordType+DegreeTags.swift */,
+				1D0DD67F2D10E6DE00BD5189 /* ChordType+degreeTypeIDGroups.swift */,
+				1D0DD6822D10E7E900BD5189 /* ChordType+StaticProperties.swift */,
 				1D20A5DA2D0A031A00C4FD9F /* ChordTypeSection.swift */,
 			);
 			path = ChordType;
@@ -503,10 +525,14 @@
 		1D5F69D82C2481E600193B58 /* ChordCombiner-SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1DA77C692D38AA6500099F6C /* ChordCombiner-SwiftUI.entitlements */,
+				1DA77C682D38AA1300099F6C /* Info.plist */,
 				1D5F69D92C2481E600193B58 /* AppMain.swift */,
 				1D34C3E82D19F8A200253C50 /* SplashScreen.swift */,
 				1D34C3EB2D19F8C500253C50 /* ViewCoordinator.swift */,
 				1D46C92A2C77B7400014D00B /* ChordCombinerView.swift */,
+				1DDD8E6C2D38A0D00011CE2D /* InstrumentEXS.swift */,
+				1DA77C6A2D38D6AA00099F6C /* Sounds */,
 				1D6523A52CF1091500BDD60C /* ChordCombinerView */,
 				1D6523A82CF11A2D00BDD60C /* DualChordViews */,
 				1D26DD842CF12A9D00C45D48 /* SingleChordViews */,
@@ -872,6 +898,12 @@
 			packageReferences = (
 				1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				1D74268E2D0BB583009ABF2A /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1DDD8E5C2D389A700011CE2D /* XCRemoteSwiftPackageReference "AudioKit" */,
+				1DDD8E5F2D389CD90011CE2D /* XCRemoteSwiftPackageReference "DunneAudioKit" */,
+				1DDD8E622D389F470011CE2D /* XCRemoteSwiftPackageReference "Tonic" */,
+				1DDD8E652D389FA30011CE2D /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
+				1DDD8E6F2D38A8AE0011CE2D /* XCRemoteSwiftPackageReference "AudioKitUI" */,
+				1DA77C652D38A90800099F6C /* XCRemoteSwiftPackageReference "Keyboard" */,
 			);
 			productRefGroup = 1D5F69D72C2481E600193B58 /* Products */;
 			projectDirPath = "";
@@ -889,6 +921,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DD836D72CFFD54E00ED2DF2 /* Assets.xcassets in Resources */,
+				1DA77C6B2D38D6AA00099F6C /* Sounds in Resources */,
 				1DC272852CCC2C210035032A /* StackedPitchesTest.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -898,6 +931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D5F69E12C2481E700193B58 /* Preview Assets.xcassets in Resources */,
+				1DA77C6C2D38D6AA00099F6C /* Sounds in Resources */,
 				1D5F69DE2C2481E700193B58 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -953,6 +987,7 @@
 				1DD836E72CFFD54E00ED2DF2 /* SingleChordDetailView.swift in Sources */,
 				1D9BFCC82D1B409200A4C985 /* SingleChordDetailNavigationTitleView.swift in Sources */,
 				1DD836E92CFFD54E00ED2DF2 /* Accidental.swift in Sources */,
+				1DDD8E6D2D38A0D00011CE2D /* InstrumentEXS.swift in Sources */,
 				1DD836EA2CFFD54E00ED2DF2 /* KeyProtocol.swift in Sources */,
 				1DD836EB2CFFD54E00ED2DF2 /* VoicingCalculator.swift in Sources */,
 				1DD831EA2D14D60F00EC817F /* ComponentChordsView.swift in Sources */,
@@ -1080,6 +1115,7 @@
 				1DFBB11C2D039ACF002ACF7B /* ChordGrapherRelationships.swift in Sources */,
 				1DD837282CFFD75400ED2DF2 /* String Extensions.swift in Sources */,
 				1D46C92B2C77B7400014D00B /* ChordCombinerView.swift in Sources */,
+				1DDD8E6E2D38A0D00011CE2D /* InstrumentEXS.swift in Sources */,
 				1DA965CF2CBECD1D00368651 /* ChordCombinerMenuCoverView.swift in Sources */,
 				1D28B2762CED69E200FAD96D /* SingleChordKeyboardTitleSelector.swift in Sources */,
 				1D0DD6862D1115B400BD5189 /* CombinedChordHighlightPitches.swift in Sources */,
@@ -1336,12 +1372,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "ChordCombiner-SwiftUI/ChordCombiner-SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChordCombiner-SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ChordCombiner-SwiftUI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ChordCombiner;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1366,12 +1404,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "ChordCombiner-SwiftUI/ChordCombiner-SwiftUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChordCombiner-SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = C359E2V4B3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ChordCombiner-SwiftUI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = ChordCombiner;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1432,12 +1472,68 @@
 				minimumVersion = 0.57.1;
 			};
 		};
+		1DA77C652D38A90800099F6C /* XCRemoteSwiftPackageReference "Keyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/Keyboard";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 		1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.2.0;
+			};
+		};
+		1DDD8E592D3897340011CE2D /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
+			};
+		};
+		1DDD8E5C2D389A700011CE2D /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.4;
+			};
+		};
+		1DDD8E5F2D389CD90011CE2D /* XCRemoteSwiftPackageReference "DunneAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/DunneAudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+		1DDD8E622D389F470011CE2D /* XCRemoteSwiftPackageReference "Tonic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/Tonic";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		1DDD8E652D389FA30011CE2D /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/SoundpipeAudioKit?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+		1DDD8E6F2D38A8AE0011CE2D /* XCRemoteSwiftPackageReference "AudioKitUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKitUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1453,10 +1549,45 @@
 			package = 1D74268E2D0BB583009ABF2A /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
+		1DA77C662D38A90800099F6C /* Keyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DA77C652D38A90800099F6C /* XCRemoteSwiftPackageReference "Keyboard" */;
+			productName = Keyboard;
+		};
 		1DC11F722CA133E400263FF8 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1DC11F712CA133E400263FF8 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
+		};
+		1DDD8E5A2D3897340011CE2D /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E592D3897340011CE2D /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		1DDD8E5D2D389A700011CE2D /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E5C2D389A700011CE2D /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		1DDD8E602D389CD90011CE2D /* DunneAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E5F2D389CD90011CE2D /* XCRemoteSwiftPackageReference "DunneAudioKit" */;
+			productName = DunneAudioKit;
+		};
+		1DDD8E632D389F470011CE2D /* Tonic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E622D389F470011CE2D /* XCRemoteSwiftPackageReference "Tonic" */;
+			productName = Tonic;
+		};
+		1DDD8E662D389FA30011CE2D /* SoundpipeAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E652D389FA30011CE2D /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */;
+			productName = SoundpipeAudioKit;
+		};
+		1DDD8E702D38A8AE0011CE2D /* AudioKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DDD8E6F2D38A8AE0011CE2D /* XCRemoteSwiftPackageReference "AudioKitUI" */;
+			productName = AudioKitUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

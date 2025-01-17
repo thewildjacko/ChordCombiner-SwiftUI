@@ -6,8 +6,17 @@
 //
 
 import SwiftUI
+import AudioKit
+import AudioKitEX
+import AudioKitUI
+import AVFoundation
+import SoundpipeAudioKit
+import Tonic
 
 struct ChordCombinerMenuCoverView: View {
+  @EnvironmentObject var conductor: InstrumentEXSConductor
+  @State private var isPlaying: Bool = false
+
   var chordCombinerViewModel = ChordCombinerViewModel.singleton() {
     didSet { setChordCombinerSelectedChordTitleModel() }
   }
@@ -15,6 +24,13 @@ struct ChordCombinerMenuCoverView: View {
   @Binding var chordProperties: ChordProperties
   let isLowerChordMenu: Bool
   var chordCombinerSelectedChordTitleModel = ChordCombinerSelectedChordTitleModel.initial
+
+  var playButton: PlayButton {
+    return PlayButton(
+      isPlaying: $isPlaying,
+      pitches: chordCombinerSelectedChordTitleModel.selectedChord?.voicingCalculator.stackedPitches ?? []
+      )
+  }
 
   init(
     chordProperties: Binding<ChordProperties>,
@@ -37,29 +53,77 @@ struct ChordCombinerMenuCoverView: View {
         weight: .heavy,
         isMenuTitle: false)
 
-      NavigationLink(
-        destination:
-          ChordCombinerChordSelectionMenu(
-            chordProperties: $chordProperties,
-            islowerChordMenu: isLowerChordMenu
-          )
-          .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
-          .navigationBarTitleDisplayMode(.inline)
-      ) {
-        VStack(spacing: 25) {
-          TitleView(
-            text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
-            font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
-            weight: .heavy,
-            color: .button
-          )
+      VStack(spacing: 25) {
+        HStack {
+          NavigationLink(
+            destination:
+              ChordCombinerChordSelectionMenu(
+                chordProperties: $chordProperties,
+                islowerChordMenu: isLowerChordMenu
+              )
+              .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
+              .navigationBarTitleDisplayMode(.inline)
+          ) {
+            TitleView(
+              text: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
+              font: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
+              weight: .heavy,
+              color: .button
+            )
+          }
+          .simultaneousGesture(TapGesture().onEnded {
+            if isPlaying {
+              if let selectedChord = chordCombinerSelectedChordTitleModel.selectedChord {
+                conductor.notesOff(pitchNumbers: selectedChord.voicingCalculator.stackedPitches)
+                isPlaying.toggle()
+              }
+            }
+          })
 
+          if chordCombinerSelectedChordTitleModel.selectedChord != nil {
+            playButton
+          }
+        }
+
+        NavigationLink(
+          destination:
+            ChordCombinerChordSelectionMenu(
+              chordProperties: $chordProperties,
+              islowerChordMenu: isLowerChordMenu
+            )
+            .navigationTitle(chordCombinerSelectedChordTitleModel.promptText)
+            .navigationBarTitleDisplayMode(.inline)
+        ) {
           isLowerChordMenu ? chordCombinerViewModel.lowerKeyboard : chordCombinerViewModel.upperKeyboard
         }
+        .simultaneousGesture(TapGesture().onEnded {
+          if isPlaying {
+            if let selectedChord = chordCombinerSelectedChordTitleModel.selectedChord {
+              conductor.notesOff(pitchNumbers: selectedChord.voicingCalculator.stackedPitches)
+              isPlaying.toggle()
+            }
+          }
+        })
       }
       .buttonStyle(.plain)
       .tint(.primaryBackground)
       .background(.primaryBackground)
+    }
+    .onAppear {
+      do {
+        if let fileURL = Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2") {
+          try conductor.instrument.loadMelodicSoundFont(url: fileURL, preset: 0)
+        } else {
+          Log("Could not find file")
+        }
+      } catch {
+        Log("Could not load instrument")
+      }
+
+      conductor.start()
+    }
+    .onDisappear {
+//      conductor.stop()
     }
   }
 }
