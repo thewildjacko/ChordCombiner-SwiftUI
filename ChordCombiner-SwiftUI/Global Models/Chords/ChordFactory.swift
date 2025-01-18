@@ -47,6 +47,16 @@ struct ChordFactory {
     return chords
   }
 
+  static func allChords(in root: RootKeyNote) -> [Chord] {
+    var chords: [Chord] = []
+
+    for chordType in ChordType.allCases {
+      chords.append(Chord(root, chordType))
+    }
+
+    return chords
+  }
+
   static var allExtendedChordsInC: [Chord] {
     var chords: [Chord] = []
     let root: RootKeyNote = .c

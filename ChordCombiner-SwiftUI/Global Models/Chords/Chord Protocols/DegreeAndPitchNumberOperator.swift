@@ -28,8 +28,6 @@ protocol OctaveAndPitch: StartingOctave, StartingPitch { }
 
 protocol DegreeAndPitchNumberOperator: RootNote, DegreeNumbers, StartingOctave {
   var noteNumbers: [NoteNumber] { get set }
-  var raisedPitches: [Int] { get set }
   var raisedRoot: Int { get set }
-  var pitchesRaisedAboveRoot: [Int] { get set }
   var stackedPitches: [Int] { get }
 }

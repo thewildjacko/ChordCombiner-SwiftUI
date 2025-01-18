@@ -254,7 +254,8 @@ extension ChordType {
     case .ma6sh9, .ma6sh9sh11,
       // dom7
         .dominant7sh9, .dominant7b9sh9, .dominant7sh9sh11, .dominant7sh9b5,
-        .dominant7sh9sh5, .dominant7altb9sh9sh11, .dominant7altb9sh9b5, .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11:
+        .dominant7sh9sh5, .dominant7altb9sh9sh11, .dominant7altb9sh9b5, .dominant7altb9sh9sh5sh11,
+        .dominant7altsh9sh5sh11:
       return .sharp9th
     default:
       return nil

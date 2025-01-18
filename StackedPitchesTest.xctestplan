@@ -29,7 +29,10 @@
           {
             "name" : "ChordCombinerTests",
             "testFunctions" : [
-              "dictionaryVSSwitch()"
+              "dictionaryVSSwitch()",
+              "notesMatchVoicingCalculatorNotes(_:)",
+              "stackedPitchesByDegreeMatchesStackedPitches(_:)",
+              "stackedPitchesEqualsEasyStackedPitches(_:)"
             ]
           }
         ],
