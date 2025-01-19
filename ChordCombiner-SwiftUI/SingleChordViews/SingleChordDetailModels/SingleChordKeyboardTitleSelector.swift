@@ -17,12 +17,12 @@ struct SingleChordKeyboardTitleSelector {
         return chordPrompt
       }
 
-    return chord.commonName
+    return chord.details.commonName
   }
 
   var chordSymbolCaptionText: String {
     guard let chord = chord else { return "" }
 
-    return "(\(chord.preciseName))"
+    return "(\(chord.details.preciseName))"
   }
 }

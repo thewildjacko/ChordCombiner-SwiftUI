@@ -279,7 +279,8 @@ extension ChordType {
   ///   - Note: *(C is 0 in a range of 0-11)*
   /// - After transposing, sorts the array in ascending order before initializing
   init?(from firstChord: Chord, and secondChord: Chord) {
-    let combinedDegreeSet = firstChord.degreeNumbers.combineSetFilter(secondChord.degreeNumbers)
+    let combinedDegreeSet = firstChord.voicingCalculator.degreeNumbers
+      .combineSetFilter(secondChord.voicingCalculator.degreeNumbers)
 
     let combinedDegreesInC = Array(combinedDegreeSet).transposed(to: firstChord.rootKeyNote)
 

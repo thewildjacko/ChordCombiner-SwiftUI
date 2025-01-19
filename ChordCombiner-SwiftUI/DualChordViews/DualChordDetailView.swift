@@ -40,37 +40,6 @@ struct DualChordDetailView: View {
     chordCombinerViewModel.resultChord != nil ? .largeTitle : .title
   }
 
-  var resultChordNotesAndDegrees: (notes: String, degrees: String) {
-    if let chordCombinerVoicingCalculator = chordCombinerViewModel.chordCombinerVoicingCalculator {
-
-      let pitchesToHighlight = chordCombinerViewModel.getPitchesToHighlight(
-        startingPitch: chordCombinerViewModel.combinedKeyboard.startingPitch,
-        lowerTones: chordCombinerVoicingCalculator.lowerTonesToHighlight,
-        upperTones: chordCombinerVoicingCalculator.upperTonesToHighlight,
-        commonTones: chordCombinerVoicingCalculator.commonTonesToHighlight)
-
-      let combinedPitches = pitchesToHighlight.combinedSorted
-      let resultChordNotes = chordCombinerVoicingCalculator.resultChordNotes
-
-      var notes: [Note] = []
-      var degreeNames: [String] = []
-
-      for pitch in combinedPitches {
-        if let index = resultChordNotes.firstIndex(where: { note in
-            pitch.isSameNote(as: note.noteNumber.rawValue)}) {
-          let resultNote = resultChordNotes[index]
-          notes.append(resultNote)
-          degreeNames.append(resultNote.degreeName.numeric)
-        }
-      }
-
-      return (notes.noteNames().joined(separator: ", "),
-              degreeNames.joined(separator: ", "))
-    } else {
-      return ("", "")
-    }
-  }
-
   var showCaption: Bool
 
   var body: some View {

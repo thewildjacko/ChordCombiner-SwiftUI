@@ -46,10 +46,10 @@ struct SingleChordDetailNavigationView: View {
             InfoLinkImageView(font: infoFont)
           }
         case .title:
-          TitleView(text: chord.preciseName, font: .headline)
+          TitleView(text: chord.details.preciseName, font: .headline)
         case .detailRow:
           if let detailTitle = detailTitle {
-            DetailRow(title: detailTitle, text: chord.preciseName)
+            DetailRow(title: detailTitle, text: chord.details.preciseName)
           }
         }
       }

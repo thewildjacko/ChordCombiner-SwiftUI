@@ -56,7 +56,7 @@ struct ChordGraphImageView: View {
       innerView()
         .padding()
         .background(.primaryBackground)
-        .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.preciseName)
+        .navigationTitle(chordGrapher.chordGrapherRelationships.parentChord.chord.details.preciseName)
         .task {
           try? await imageService.downloadImage(url: chordGrapher.makeURL())
         }

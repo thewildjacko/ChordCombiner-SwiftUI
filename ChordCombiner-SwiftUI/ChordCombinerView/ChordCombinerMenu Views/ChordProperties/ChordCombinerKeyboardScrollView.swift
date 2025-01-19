@@ -28,7 +28,7 @@ struct ChordCombinerKeyboardScrollView: View {
               selectedChordType: $selectedChordType,
               matchingChordTypes: $matchingChordTypes,
               chordType: chordType,
-              titleText: chord.preciseName,
+              titleText: chord.details.preciseName,
               titleColor: chordType == selectedChordType ?
                 .tagTitleHighlighted :
                 matchingChordTypes.contains(chordType) ? .glowText : .title,

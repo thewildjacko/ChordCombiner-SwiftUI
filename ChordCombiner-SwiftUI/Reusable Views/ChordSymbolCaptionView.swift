@@ -19,13 +19,13 @@ struct ChordSymbolCaptionView: View {
     setCaptionText()
   }
 
-  mutating func setCaptionText() { captionText = chord?.preciseName ?? "" }
+  mutating func setCaptionText() { captionText = chord?.details.preciseName ?? "" }
 
   @ViewBuilder
   var body: some View {
     if showCaption {
       if let chord = chord {
-        if chord.commonName != chord.preciseName && chord.chordType != .ma {
+        if chord.hasDifferentCommonName() && chord.chordType != .ma {
           TitleView(
             text: captionText,
             font: .caption

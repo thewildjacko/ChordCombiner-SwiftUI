@@ -33,7 +33,7 @@ struct SingleChordDetailView: View {
   var body: some View {
     VStack(spacing: 20) {
       TitleView(
-        text: chord.displayDetails(detailType: .commonName),
+        text: chord.details.commonName,
         font: .largeTitle,
         weight: .heavy
       )
@@ -46,8 +46,8 @@ struct SingleChordDetailView: View {
         })
 
       ChordDetailForm(
-        notesText: chord.displayDetails(detailType: .noteNames),
-        degreesText: chord.displayDetails(detailType: .degreeNames),
+        notesText: chord.details.noteNames,
+        degreesText: chord.details.degreeNames,
         chord: chord,
         isDualChordDetailView: false,
         chordGrapher: $chordGrapher,

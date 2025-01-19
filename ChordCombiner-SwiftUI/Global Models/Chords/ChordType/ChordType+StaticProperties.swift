@@ -13,7 +13,8 @@ extension ChordType {
 
   static var allExtendedChordTypes = ChordType.allCases.filter { $0.isExtendedChord }
 
-  static var allChordDegreeNumbers: [[Int]] { ChordType.allCases.map { $0.degreeNumbers }}
+  static var allChordDegreeNumbers: [[Int]] {
+    ChordType.allCases.map { $0.degreeNumbers }}
 
   static var typeByDegreeNumbers: [[Int]: ChordType] = Dictionary(
     uniqueKeysWithValues: zip(allChordDegreeNumbers, allCases)

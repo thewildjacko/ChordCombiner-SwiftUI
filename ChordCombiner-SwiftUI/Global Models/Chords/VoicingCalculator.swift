@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct VoicingCalculator: GettableKeyName {
+struct VoicingCalculator: GettableKeyName, DegreeAndPitchNumberOperator, SettableNotesByNoteNumber {
   static let initialVC: VoicingCalculator = VoicingCalculator(
-    degreeNumbers: [],
+    notes: [],
     rootNote: Root(.c),
     chordType: .ma,
     startingOctave: 4,
-    keyName: .c, notesByNoteNumber: [:])
+    keyName: .c,
+    isSlashChord: false,
+    slashChordBassNote: .c)
 
   // MARK: Stored properties
   var rootNote: Root { didSet { setRootProperties() } }
@@ -22,26 +24,19 @@ struct VoicingCalculator: GettableKeyName {
 
   var chordType: ChordType = .ma
   var startingOctave: Int = 4
-  var keyName: KeyName = .c {
-    didSet {
-      startingPitch = keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
-    }
-  }
+  var keyName: KeyName = .c { didSet { setStartingPitch() }}
+  var startingPitch: Int = 60
 
-  var startingPitch: Int = 0
+  var notes: [Note] = [] { didSet { setDegreeNumbers() }}
 
-  var degreeNumbers: [Int] = [] { didSet { setDegreeAndPitchNumberOperatorProperties() }}
-
-  var notesByNoteNumber: NotesByNoteNumber = [:] { didSet { setNotes() }}
+  var notesByNoteNumber: NotesByNoteNumber = [:]
 
   var isSlashChord: Bool = false
   var slashChordBassNote: RootKeyNote?
 
-  var notes: [Note] = []
-
   // MARK: DegreeAndPitchNumberOperator compliance
+  var degreeNumbers: [Int] = [] { didSet { setNoteNumbers() }}
   var noteNumbers: [NoteNumber] = []
-
   var raisedRoot: Int = 60
 
   // MARK: Computed Properties
@@ -67,42 +62,38 @@ struct VoicingCalculator: GettableKeyName {
 
   // MARK: Initializer
   init(
-    degreeNumbers: [Int],
+    notes: [Note],
     rootNote: Root,
     chordType: ChordType,
     startingOctave: Int,
     keyName: KeyName,
-    notesByNoteNumber: NotesByNoteNumber,
     isSlashChord: Bool = false,
     slashChordBassNote: RootKeyNote? = nil) {
-
+      self.notes = notes
       self.rootNote = rootNote
-
       setRootProperties()
 
       self.chordType = chordType
       self.startingOctave = startingOctave
       self.keyName = keyName
-      startingPitch = keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
+      setStartingPitch()
 
-      self.notesByNoteNumber.reserveCapacity(12)
-      self.notesByNoteNumber = notesByNoteNumber
       self.isSlashChord = isSlashChord
       self.slashChordBassNote = slashChordBassNote
 
-      self.degreeNumbers = degreeNumbers
+      setNotesByNoteNumber(notes.keyed { $0.noteNumber })
 
-      setDegreeAndPitchNumberOperatorProperties()
-      setNotes()
+      setDegreeNumbers()
+      setNoteNumbers()
     }
 
   // MARK: Initializer helper methods
-  mutating func setDegreeAndPitchNumberOperatorProperties() {
-    noteNumbers = degreeNumbers.map { NoteNumber($0) }
-  }
+  mutating func setDegreeNumbers() { degreeNumbers = notes.degreeNumbers() }
 
-  mutating func setNotes() {
-    notes = Array(notesByNoteNumber.values).sorted { $0.degree.size < $1.degree.size }
+  mutating func setNoteNumbers() { noteNumbers = degreeNumbers.noteNumbers() }
+
+  mutating func setStartingPitch() {
+    startingPitch = keyName.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
   }
 
   mutating func setRootProperties() {

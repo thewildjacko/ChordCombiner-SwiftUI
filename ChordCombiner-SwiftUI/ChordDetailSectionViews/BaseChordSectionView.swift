@@ -21,11 +21,11 @@ struct BaseChordSectionView: View {
             chord: baseChord,
             color: .lowerChordHighlight,
             labelType: .title)
-          if baseChord.preciseName != baseChord.commonName {
-            DetailRow(title: "Precise Name", text: baseChord.displayDetails(detailType: .preciseName))
+          if baseChord.hasDifferentCommonName() {
+            DetailRow(title: "Precise Name", text: baseChord.details.preciseName)
           }
-          DetailRow(title: "Notes", text: baseChord.displayDetails(detailType: .noteNames))
-          DetailRow(title: "Degrees", text: baseChord.displayDetails(detailType: .degreeNames))
+          DetailRow(title: "Notes", text: baseChord.details.noteNames)
+          DetailRow(title: "Degrees", text: baseChord.details.degreeNames)
         }
       }
     }

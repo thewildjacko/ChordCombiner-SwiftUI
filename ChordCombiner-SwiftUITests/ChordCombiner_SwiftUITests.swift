@@ -65,7 +65,9 @@ struct ChordCombinerTests {
 
   @Test("Chord: degreeNumbers matches degreeNumberSet", arguments: ChordFactory.allChordsInC)
   func degreeNumbersMatchesDegreeNumberSet(_ chord: Chord) async throws {
-    let degreeNumbersMatchesDegreeNumberSet: Bool = chord.degreeNumbers.count == chord.degreeNumberSet.count
+    let degreeNumbersMatchesDegreeNumberSet: Bool =
+    chord.voicingCalculator.degreeNumbers.count ==
+    chord.voicingCalculator.degreeNumberSet.count
 
     #expect(degreeNumbersMatchesDegreeNumberSet, "all Chords should have no duplicate degree numbers")
   }
@@ -77,14 +79,14 @@ struct ChordCombinerTests {
 
     let resultChord = ChordCombiner.combineChords(firstChord: lowerChord, secondChord: upperChord)
 
-    print(resultChord?.preciseName ?? "")
+    print(resultChord?.details.preciseName ?? "")
 
     #expect(
-      resultChord?.preciseName == "Dma9(♯11)",
+      resultChord?.details.preciseName == "Dma9(♯11)",
 """
 ChordCombiner.combineChords should not find
-an initial match for lowerChord \(lowerChord.preciseName)
-and upperChord \(upperChord.preciseName), but should keep searching
+an initial match for lowerChord \(lowerChord.details.preciseName)
+and upperChord \(upperChord.details.preciseName), but should keep searching
 through available roots and eventually land on a match for D.
 """
     )
@@ -96,12 +98,12 @@ through available roots and eventually land on a match for D.
 
     let noteWithoutChordsExists: Bool = !chordGrapher.chordGrapherRelationships.parentChord.notesWithoutChords.isEmpty
 
-    print(chord.preciseName, chordGrapher.chordGrapherRelationships.parentChord.notesWithoutChords)
+    print(chord.details.preciseName, chordGrapher.chordGrapherRelationships.parentChord.notesWithoutChords)
 
     let noteNames = chordGrapher.chordGrapherRelationships.parentChord.notesWithoutChords
       .map { $0.noteName }
 
-    #expect(noteWithoutChordsExists == false, "\(chord.preciseName): \(noteNames)")
+    #expect(noteWithoutChordsExists == false, "\(chord.details.preciseName): \(noteNames)")
   }
 
   @Test("notes match voicingCalculator.notes", arguments: ChordFactory.allChordsInC)
@@ -110,10 +112,10 @@ through available roots and eventually land on a match for D.
     let vcNotes = chord.voicingCalculator.notes
     let doNotesMatchVoicingCalculatorNotes = notes == vcNotes
 
-    print("\(chord.preciseName): \(notes.noteNames()) should equal \(vcNotes.noteNames())")
+    print("\(chord.details.preciseName): \(notes.noteNames()) should equal \(vcNotes.noteNames())")
 
     #expect(
       doNotesMatchVoicingCalculatorNotes,
-      "\(chord.preciseName): \(notes.noteNames()) should equal \(vcNotes.noteNames())")
+      "\(chord.details.preciseName): \(notes.noteNames()) should equal \(vcNotes.noteNames())")
   }
 }

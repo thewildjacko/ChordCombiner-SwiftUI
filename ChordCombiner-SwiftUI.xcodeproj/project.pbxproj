@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1D0967F52CB59CC700600325 /* KeyShapeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0967F42CB59CC700600325 /* KeyShapeGroup.swift */; };
 		1D0D63012C949E9300910CBF /* DegreeAndPitchNumberOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D63002C949E9300910CBF /* DegreeAndPitchNumberOperator.swift */; };
+		1D0D9F5B2D3C5AFE0077BE0A /* ChordDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D9F5A2D3C5AFE0077BE0A /* ChordDetails.swift */; };
+		1D0D9F5C2D3C5AFE0077BE0A /* ChordDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0D9F5A2D3C5AFE0077BE0A /* ChordDetails.swift */; };
 		1D0DD67A2D10E52F00BD5189 /* ChordType+DegreeTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0DD6792D10E52F00BD5189 /* ChordType+DegreeTags.swift */; };
 		1D0DD67B2D10E52F00BD5189 /* ChordType+DegreeTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0DD6792D10E52F00BD5189 /* ChordType+DegreeTags.swift */; };
 		1D0DD67D2D10E59800BD5189 /* ChordType+baseChordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0DD67C2D10E59800BD5189 /* ChordType+baseChordType.swift */; };
@@ -254,6 +256,7 @@
 /* Begin PBXFileReference section */
 		1D0967F42CB59CC700600325 /* KeyShapeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyShapeGroup.swift; sourceTree = "<group>"; };
 		1D0D63002C949E9300910CBF /* DegreeAndPitchNumberOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreeAndPitchNumberOperator.swift; sourceTree = "<group>"; };
+		1D0D9F5A2D3C5AFE0077BE0A /* ChordDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDetails.swift; sourceTree = "<group>"; };
 		1D0DD6792D10E52F00BD5189 /* ChordType+DegreeTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordType+DegreeTags.swift"; sourceTree = "<group>"; };
 		1D0DD67C2D10E59800BD5189 /* ChordType+baseChordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordType+baseChordType.swift"; sourceTree = "<group>"; };
 		1D0DD67F2D10E6DE00BD5189 /* ChordType+degreeTypeIDGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordType+degreeTypeIDGroups.swift"; sourceTree = "<group>"; };
@@ -583,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				1DBD4C5F2C58364A00F4015C /* Chord.swift */,
+				1D0D9F5A2D3C5AFE0077BE0A /* ChordDetails.swift */,
 				1D3EA8A72C93644700A6430C /* VoicingCalculator.swift */,
 				1D65C9622C5BFAA100DB7E3A /* ChordFactory.swift */,
 				1D30F2542CC9840900D40625 /* EquivalentChordFinder.swift */,
@@ -987,6 +991,7 @@
 				1DD836E72CFFD54E00ED2DF2 /* SingleChordDetailView.swift in Sources */,
 				1D9BFCC82D1B409200A4C985 /* SingleChordDetailNavigationTitleView.swift in Sources */,
 				1DD836E92CFFD54E00ED2DF2 /* Accidental.swift in Sources */,
+				1D0D9F5C2D3C5AFE0077BE0A /* ChordDetails.swift in Sources */,
 				1DDD8E6D2D38A0D00011CE2D /* InstrumentEXS.swift in Sources */,
 				1DD836EA2CFFD54E00ED2DF2 /* KeyProtocol.swift in Sources */,
 				1DD836EB2CFFD54E00ED2DF2 /* VoicingCalculator.swift in Sources */,
@@ -1184,6 +1189,7 @@
 				1DFBB1192D039AB1002ACF7B /* ChordGrapherParentChord.swift in Sources */,
 				1D2B448B2D090F6F0067266F /* SettableNotesByNoteNumber.swift in Sources */,
 				1D6002CA2D2F3EA9000D0A5A /* InitialHelpView.swift in Sources */,
+				1D0D9F5B2D3C5AFE0077BE0A /* ChordDetails.swift in Sources */,
 				1D46C9332C77EB950014D00B /* DualChordKeyboardView.swift in Sources */,
 				1D6002C42D2F0FA7000D0A5A /* Keyboard+Methods.swift in Sources */,
 				1D5F6A8F2C24829500193B58 /* RootNote.swift in Sources */,

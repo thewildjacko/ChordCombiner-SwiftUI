@@ -9,6 +9,7 @@ import Foundation
 
 struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   static let initial = Chord(.c, .ma)
+
   // MARK: instance properties
   var id = UUID()
 
@@ -24,42 +25,18 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   var accidental: RootAccidental = .natural { didSet { refresh() } }
   var letter: Letter = .c { didSet { refresh() } }
 
-  var isSlashChord: Bool = false
-  var slashChordBassNote: RootKeyNote?
-
-  var commonName: String { root.noteName + chordType.commonName }
-  var preciseName: String { root.noteName + chordType.preciseName }
-
   var notes: [Note] = [] { didSet { setNoteProperties() } }
 
   var extensions: [Note] = []
 
   var rootKeyNotes: [RootKeyNote] = []
   var noteNumbers: [NoteNumber] = []
-  var notesByNoteNumber: NotesByNoteNumber = [:]
 
-  // DegreeNumbers conformance
-  var degreeNumbers: [Int] = [] { didSet { degreeNumberSet = degreeNumbers.toSet() } }
-  var degreeNumberSet: Set<Int> = []
+  var details: ChordDetails = ChordDetails.initial
 
-  var noteNames: [String] = []
+  var voicingCalculator: VoicingCalculator = VoicingCalculator.initialVC
 
-  var degreeNames: DegreeNameGroup = DegreeNameGroup(names: [], numeric: [], long: [])
-
-  var voicingCalculator: VoicingCalculator = VoicingCalculator(
-    degreeNumbers: [],
-    rootNote: Root(.c),
-    chordType: .ma,
-    startingOctave: 4,
-    keyName: .c,
-    notesByNoteNumber: [:],
-    isSlashChord: false,
-    slashChordBassNote: .c
-  )
-
-  var keySwitcher: KeySwitcher {
-    return KeySwitcher(enharmonic: enharmonic)
-  }
+  var keySwitcher: KeySwitcher { return KeySwitcher(enharmonic: enharmonic) }
 
   // MARK: initializers
   init(rootNumber: NoteNumber = .zero,
@@ -71,8 +48,6 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
      self.chordType = chordType
      self.enharmonic = enharmonic
      self.startingOctave = startingOctave
-     self.isSlashChord = isSlashChord
-     self.slashChordBassNote = slashChordBassNote
 
     rootNote = Root(Note(rootNumber: rootNumber, enharmonic: enharmonic, degree: .root))
     setRootProperties()
@@ -84,13 +59,17 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
     setNoteProperties()
 
+    details = ChordDetails(
+      root: root,
+      chordType: chordType,
+      notes: notes)
+
     voicingCalculator = VoicingCalculator(
-      degreeNumbers: degreeNumbers,
+      notes: notes,
       rootNote: rootNote,
       chordType: chordType,
       startingOctave: startingOctave,
       keyName: root.keyName,
-      notesByNoteNumber: notesByNoteNumber,
       isSlashChord: isSlashChord,
       slashChordBassNote: slashChordBassNote
     )
@@ -119,18 +98,8 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
 
   mutating func setNoteProperties() {
-    setNotesByNoteNumber(notes.keyed { $0.noteNumber })
-    rootKeyNotes = notes.map { RootKeyNote($0.keyName) }
-    noteNames = notes.noteNames()
-    noteNumbers = notes.map { $0.noteNumber }
-    degreeNumbers = notes.degreeNumbers()
-    degreeNumberSet = degreeNumbers.toSet()
-
-    degreeNames = DegreeNameGroup(
-      names: notes.map { $0.degreeName.name },
-      numeric: notes.map { $0.degreeName.numeric },
-      long: notes.map { $0.degreeName.long }
-    )
+    rootKeyNotes = notes.rootKeyNotes()
+    noteNumbers = notes.noteNumbers()
   }
 
   // MARK: instance methods
@@ -138,13 +107,11 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
     self = Chord(
       RootKeyNote(letter, accidental),
       chordType,
-      isSlashChord: isSlashChord,
-      slashChordBassNote: slashChordBassNote)
+      isSlashChord: voicingCalculator.isSlashChord,
+      slashChordBassNote: voicingCalculator.slashChordBassNote)
   }
 
-  func getBaseChord() -> Chord {
-    return Chord(rootKeyNote, chordType.baseChordType)
-  }
+  func getBaseChord() -> Chord { return Chord(rootKeyNote, chordType.baseChordType) }
 
   func getExtensions() -> [Note] { notes.filter { !getBaseChord().notes.contains($0) } }
 
@@ -182,9 +149,9 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
 
   func contains(_ chord: Chord) -> Bool {
-    return chord.preciseName != preciseName &&
-    degreeNumbers.includes(chord.degreeNumbers) &&
-    chord.degreeNumbers.count < degreeNumbers.count
+    return chord.hasDifferentCommonName() &&
+    voicingCalculator.degreeNumbers.includes(chord.voicingCalculator.degreeNumbers) &&
+    chord.voicingCalculator.degreeNumbers.count < voicingCalculator.degreeNumbers.count
   }
 
   func contains(_ note: Note) -> Bool {
@@ -212,7 +179,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       var chordMatches: [Chord] = []
 
       for chord in subChordArray where self.contains(chord) {
-        if let noteNumber = notesByNoteNumber.first(where: {
+        if let noteNumber = voicingCalculator.notesByNoteNumber.first(where: {
           $0.key == chord.root.noteNumber }) {
           chordMatches.append(
             Chord(
@@ -260,31 +227,9 @@ extension Chord {
 
   func getEquivalentChords() -> [Chord] {
     EquivalentChordFinder.checkForEquivalentChords(
-      degreeNumbers: degreeNumbers,
+      degreeNumbers: voicingCalculator.degreeNumbers,
       rootKeyNotes: rootKeyNotes.filter { $0 != rootKeyNote }
     )
-  }
-}
-
-extension Chord {
-  enum DetailType {
-    case commonName,
-         preciseName,
-         noteNames,
-         degreeNames
-  }
-
-  func displayDetails(detailType: DetailType) -> String {
-    switch detailType {
-    case .commonName:
-      return commonName
-    case .preciseName:
-      return preciseName
-    case .noteNames:
-      return noteNames.joined(separator: ", ")
-    case .degreeNames:
-      return degreeNames.numeric.joined(separator: ", ")
-    }
   }
 }
 
@@ -303,7 +248,7 @@ extension Chord: Hashable {
 
 extension Chord {
   func getDotNotationName() -> String {
-    return preciseName.toDotNotation()
+    return details.preciseName.toDotNotation()
   }
 }
 
@@ -314,6 +259,8 @@ extension Chord {
   func isExtended() -> Bool { chordType.isExtendedChord }
 
   func rootMatchesNoteNumber(_ note: Note) -> Bool {
-    self.root.noteNumber == note.noteNumber
+    root.noteNumber == note.noteNumber
   }
+
+  func hasDifferentCommonName() -> Bool { details.preciseName != details.commonName }
 }

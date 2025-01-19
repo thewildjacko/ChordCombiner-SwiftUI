@@ -16,6 +16,8 @@ struct DegreeName {
 }
 
 struct DegreeNameGroup {
+  static let initial = DegreeNameGroup(names: [], numeric: [], long: [])
+
   var names: [String]
   var numeric: [String]
   var long: [String]

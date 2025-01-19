@@ -16,8 +16,8 @@ struct DualChordKeyboardChordTitleModel {
 
     return chordCombinerViewModel.resultChordStatus ==
       .combinedChord ?
-    resultChord.commonName :
-    "\(resultChord.commonName)/\(lowerChord.root.noteName)"
+    resultChord.details.commonName :
+    "\(resultChord.details.commonName)/\(lowerChord.root.noteName)"
   }
 
   var titleFont: Font {
@@ -39,15 +39,11 @@ struct DualChordKeyboardChordTitleModel {
       case .neitherChordIsSelected:
         return "waiting for chord selection..."
       case .lowerChordIsSelected:
-        return chordCombinerViewModel.lowerChord?
-          .displayDetails(detailType: .commonName)
+        return chordCombinerViewModel.lowerChord?.details.commonName
         ?? "Please select a lower chord"
       case .upperChordIsSelected:
-        return chordCombinerViewModel.upperChord?
-          .displayDetails(detailType: .commonName)
+        return chordCombinerViewModel.upperChord?.details.commonName
         ?? "Please select an upper chord"
-      case .bothChordsAreSelected:
-        return chordCombinerViewModel.displayDetails(detailType: .preciseName)
       }
     }
 
@@ -57,6 +53,6 @@ struct DualChordKeyboardChordTitleModel {
   var chordSymbolCaptionText: String {
     guard let resultChord = chordCombinerViewModel.resultChord else { return "" }
 
-    return "(\(resultChord.preciseName))"
+    return "(\(resultChord.details.preciseName))"
   }
 }

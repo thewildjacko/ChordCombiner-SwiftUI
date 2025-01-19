@@ -11,7 +11,6 @@ extension ChordCombinerViewModel: Equatable {
   static func == (lhs: ChordCombinerViewModel, rhs: ChordCombinerViewModel) -> Bool {
     return lhs.chordPropertyData.lowerChordProperties == rhs.chordPropertyData.lowerChordProperties
     && lhs.chordPropertyData.upperChordProperties == rhs.chordPropertyData.upperChordProperties
-    //    && lhs.resultChord == rhs.resultChord
   }
 }
 
@@ -21,7 +20,6 @@ extension ChordCombinerViewModel {
     case neitherChordIsSelected
     case lowerChordIsSelected
     case upperChordIsSelected
-    case bothChordsAreSelected
   }
 
   var chordSelectionStatus: ChordSelectionStatus {
@@ -32,8 +30,8 @@ extension ChordCombinerViewModel {
         .lowerChordIsSelected
     case (false, true):
         .upperChordIsSelected
-    case (true, true):
-        .bothChordsAreSelected
+    default:
+        .neitherChordIsSelected
     }
   }
 }
@@ -45,16 +43,14 @@ extension ChordCombinerViewModel {
   }
 
   var resultChordStatus: ResultChordStatus {
-    guard let lowerChord = lowerChord,
-          let resultChord = resultChord else {
-      return .notFound
-    }
+    guard let resultChord = resultChord else { return .notFound }
 
-    return resultChord.rootKeyNote == lowerChord.rootKeyNote ? .combinedChord : .slashChord
+    return resultChord.voicingCalculator.isSlashChord ? .slashChord : .combinedChord
   }
 }
 
 extension ChordCombinerViewModel {
+  // MARK: getPitchesToHighlight
   func getPitchesToHighlight(
     startingPitch: Int,
     lowerTones: [Int],
@@ -68,7 +64,7 @@ extension ChordCombinerViewModel {
       common: commonTones)
 
     if let resultChord = resultChord {
-      if let slashChordBassNote = resultChord.slashChordBassNote,
+      if let slashChordBassNote = resultChord.voicingCalculator.slashChordBassNote,
          let degree = resultChord.notes.first(where: { note in
            note.noteNumber.rawValue.isSameNote(
             as: slashChordBassNote.keyName.noteNumber.rawValue)
@@ -97,6 +93,7 @@ extension ChordCombinerViewModel {
     return pitchesToHighlight
   }
 
+  // MARK: getPitchesByNote
   func getPitchesByNote(combinedTones: [Int]) -> PitchesByNote {
     guard let resultChord = resultChord else { return [:] }
 
@@ -119,6 +116,7 @@ extension ChordCombinerViewModel {
     return pitchesByNote
   }
 
+  // MARK: resultChordNotesAndDegrees
   var resultChordNotesAndDegrees: (notes: String, degrees: String) {
     if let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator {
 
@@ -148,91 +146,5 @@ extension ChordCombinerViewModel {
     } else {
       return ("", "")
     }
-  }
-}
-
-// MARK: DetailType & displayDetails
-extension ChordCombinerViewModel {
-  enum DetailType {
-    case commonName,
-         preciseName,
-         lowerChordName,
-         upperChordName,
-         noteNames,
-         degreeNames
-  }
-
-  func displayDetailsSplit(
-    lowerChord: Chord,
-    upperChord: Chord,
-    detailType: DetailType)
-  -> String {
-    switch detailType {
-    case .commonName:
-      return "\(upperChord.commonName)/\(lowerChord.commonName)"
-    case .preciseName:
-      return "\(upperChord.preciseName)/\(lowerChord.preciseName)"
-    case .lowerChordName:
-      return lowerChord.preciseName
-    case .upperChordName:
-      return upperChord.preciseName
-    case .noteNames:
-      return (lowerChord.noteNames + upperChord.noteNames)
-        .joined(separator: ", ")
-    case .degreeNames:
-      guard let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
-        return (lowerChord.degreeNames.numeric + upperChord.degreeNames.numeric)
-          .joined(separator: ", ")
-      }
-
-      return (lowerChord.degreeNames.numeric + chordCombinerVoicingCalculator.upperDegreeNamesInLowerKey)
-        .joined(separator: ", ")
-    }
-  }
-
-  func displayDetailsCombined(
-    lowerChord: Chord,
-    upperChord: Chord,
-    resultChord: Chord,
-    chordCombinerVoicingCalculator: ChordCombinerVoicingCalculator,
-    detailType: DetailType)
-  -> String {
-    switch detailType {
-    case .commonName:
-      return resultChord.commonName
-    case .preciseName:
-      return resultChord.preciseName
-    case .lowerChordName:
-      return lowerChord.preciseName
-    case .upperChordName:
-      return upperChord.preciseName
-    case .noteNames:
-      return chordCombinerVoicingCalculator.resultChordNotes.noteNames()
-        .joined(separator: ", ")
-    case .degreeNames:
-      return chordCombinerVoicingCalculator.resultChordDegreeNames.joined(separator: ", ")
-    }
-  }
-
-  func displayDetails(detailType: DetailType) -> String {
-    guard let lowerChord = lowerChord,
-          let upperChord = upperChord else {
-      return "please select upper and lower chords"
-    }
-
-    guard let resultChord = resultChord,
-          let chordCombinerVoicingCalculator = chordCombinerVoicingCalculator else {
-      return displayDetailsSplit(
-        lowerChord: lowerChord,
-        upperChord: upperChord,
-        detailType: detailType)
-    }
-
-    return displayDetailsCombined(
-      lowerChord: lowerChord,
-      upperChord: upperChord,
-      resultChord: resultChord,
-      chordCombinerVoicingCalculator: chordCombinerVoicingCalculator,
-      detailType: detailType)
   }
 }

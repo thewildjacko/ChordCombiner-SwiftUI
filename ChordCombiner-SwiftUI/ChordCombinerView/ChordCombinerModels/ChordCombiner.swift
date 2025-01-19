@@ -41,11 +41,14 @@ struct ChordCombiner {
     let lowerRootKeyNote = firstChord.rootKeyNote
 
     /// combine both `Chord`s' degreeNumber arrays
-    let combinedDegrees = firstChord.degreeNumbers.combineSetFilterSort(secondChord.degreeNumbers)
+    let combinedDegrees = firstChord.voicingCalculator.degreeNumbers
+      .combineSetFilterSort(secondChord.voicingCalculator.degreeNumbers)
 
     /// Tranposes the `degreeNumber` array to the key of C *(**0** in a range of **0-11**)
-    let combinedDegreesInC = firstChord.degreeNumbers
-      .combinedAndTransposed(with: secondChord.degreeNumbers, to: lowerRootKeyNote)
+    let combinedDegreesInC = firstChord.voicingCalculator.degreeNumbers
+      .combinedAndTransposed(
+        with: secondChord.voicingCalculator.degreeNumbers,
+        to: lowerRootKeyNote)
 
     var combinedRootKeyNotes = firstChord.combinedRootKeyNotes(with: secondChord)
 
@@ -76,7 +79,7 @@ struct ChordCombiner {
               slashChordBassNote: lowerRootKeyNote
             )
 
-//            Logger.main.info("\(resultChord!.preciseName)")
+//            Logger.main.info("\(resultChord!.details.preciseName)")
 
             combinedRootKeyNotes.removeAll { $0 == rootKeyNote }
             break outerloop

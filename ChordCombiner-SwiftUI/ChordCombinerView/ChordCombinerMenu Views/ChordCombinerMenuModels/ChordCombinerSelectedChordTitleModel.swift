@@ -44,8 +44,8 @@ struct ChordCombinerSelectedChordTitleModel {
     }
 
     return selectedChord == chordCombinerViewModel.lowerChord ?
-    "(showing matches for upper chord \(upperChord.preciseName))" :
-    "(showing matches for lower chord \(lowerChord.preciseName))"
+    "(showing matches for upper chord \(upperChord.details.preciseName))" :
+    "(showing matches for lower chord \(lowerChord.details.preciseName))"
   }
 
   var chordSymbolTitleFont: Font {

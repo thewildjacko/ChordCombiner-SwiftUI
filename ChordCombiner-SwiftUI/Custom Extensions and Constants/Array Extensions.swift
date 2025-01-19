@@ -12,7 +12,8 @@ import Algorithms
 extension Chord {
   /// Returns a set of the combined elements of two Chord degreeNumber arrays
   func combineSetFilter(_ otherChord: Chord) -> Set<Int> {
-    return degreeNumbers.toSet().union(otherChord.degreeNumbers)
+    return voicingCalculator.degreeNumberSet
+      .union(otherChord.voicingCalculator.degreeNumberSet)
   }
 }
 
@@ -57,7 +58,6 @@ extension Array {
 
 extension Array where Element == Int {
   // MARK: Set operations
-
   /// Returns a set of the combined elements of two Integer arrays
   func combineSetFilter(_ otherArray: [Int]) -> Set<Int> {
     return self.toSet().union(otherArray)
@@ -88,6 +88,8 @@ extension Array where Element == Int {
   func combineAndFilter(_ otherArray: [Int]) -> [Int] {
     return self + otherArray.filter { !self.contains($0) }
   }
+
+  func noteNumbers() -> [NoteNumber] { self.map { NoteNumber($0) } }
 
   /// Compares elements in two Int arrays (raisedPitch & baseDegrees) to see if they match in key
   ///
@@ -274,9 +276,17 @@ extension Array where Element == Note {
     return Dictionary(uniqueKeysWithValues: zip(self.map { $0.noteNumber }, self))
   }
 
+  func rootKeyNotes() -> [RootKeyNote] { self.map { RootKeyNote($0.keyName) } }
   func noteNames() -> [String] { self.map { $0.noteName } }
   func noteNumbers() -> [NoteNumber] { self.map { $0.noteNumber } }
   func degreeNumbers() -> [Int] { self.map { $0.noteNumber.rawValue } }
+  func toDegreeNameGroup() -> DegreeNameGroup {
+    DegreeNameGroup(
+      names: self.map { $0.degreeName.name },
+      numeric: self.map { $0.degreeName.numeric },
+      long: self.map { $0.degreeName.long }
+    )
+  }
 }
 
 extension Array where Element == ChordType {
@@ -311,11 +321,11 @@ extension Array where Element == Chord {
   }
 
   func preciseNames() -> [String] {
-    self.map { $0.preciseName }
+    self.map { $0.details.preciseName }
   }
 
   func getCommonNames() -> [String] {
-    self.map { $0.commonName }
+    self.map { $0.details.commonName }
   }
 
   func filterInFourNoteChords() -> [Chord] {

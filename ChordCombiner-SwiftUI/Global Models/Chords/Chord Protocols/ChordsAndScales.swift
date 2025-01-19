@@ -11,23 +11,9 @@ import Foundation
 /// Protocol to use for both ``Chord`` and Scale objects—essentially any multi-note object.
 ///
 /// - Note: Scale hasn't been implemented yet, beyond the scope of the project
-protocol ChordsAndScales: RootNote, GettableKeyName, EnharmonicID, DegreeNumbers, SettableNotesByNoteNumber {
+protocol ChordsAndScales: RootNote, GettableKeyName, EnharmonicID {
   var rootKeyNote: RootKeyNote { get }
-  var commonName: String { get }
   var notes: [Note] { get set }
   var rootKeyNotes: [RootKeyNote] { get set }
-  var noteNames: [String] { get set }
   var noteNumbers: [NoteNumber] { get set }
-
-  var degreeNames: DegreeNameGroup { get set }
-  func degreeNamesByNoteNumber() -> DegreeNamesByNoteNumberGroup
-}
-
-extension ChordsAndScales {
-  func degreeNamesByNoteNumber() -> DegreeNamesByNoteNumberGroup {
-    return DegreeNamesByNoteNumberGroup(
-      names: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.names)),
-      numeric: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.numeric)),
-      long: Dictionary(uniqueKeysWithValues: zip(noteNumbers, degreeNames.long)))
-  }
 }

@@ -16,7 +16,7 @@ struct SplitChordTitleView: View {
     HStack(spacing: 5) {
       SingleChordDetailNavigationTitleView(
         keyboardWidth: keyboardWidth,
-        titleText: upperChord.displayDetails(detailType: .preciseName),
+        titleText: upperChord.details.preciseName,
         titleFont: titleFont,
         infoFont: .caption,
         chord: upperChord,
@@ -26,7 +26,7 @@ struct SplitChordTitleView: View {
 
       SingleChordDetailNavigationTitleView(
         keyboardWidth: keyboardWidth,
-        titleText: lowerChord.displayDetails(detailType: .preciseName),
+        titleText: lowerChord.details.preciseName,
         titleFont: titleFont,
         infoFont: .caption,
         chord: lowerChord)
