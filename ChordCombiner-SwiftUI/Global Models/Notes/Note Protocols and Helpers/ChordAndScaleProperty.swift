@@ -27,3 +27,7 @@ extension ChordAndScaleProperty {
     }
   }
 }
+
+protocol MusicalBuildingBlock {
+  init?(fromDegreeNumbersToMatch degreeNumbers: [Int])
+}
