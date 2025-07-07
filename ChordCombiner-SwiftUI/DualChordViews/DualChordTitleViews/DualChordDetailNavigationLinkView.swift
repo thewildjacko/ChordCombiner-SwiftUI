@@ -9,17 +9,18 @@ import SwiftUI
 
 struct DualChordDetailNavigationLinkView: View {
   @EnvironmentObject var conductor: InstrumentEXSConductor
+  @EnvironmentObject var seqConductor: SFZSequencerConductor
   @State private var isPlaying: Bool = false
   let chordCombinerViewModel = ChordCombinerViewModel.singleton()
   let showCaption: Bool
 
-  var chord: Chord? {
+  var chord: Chord {
     if let lowerChord = chordCombinerViewModel.lowerChord {
       return lowerChord
     } else if let upperChord = chordCombinerViewModel.upperChord {
       return upperChord
     } else {
-      return nil
+      return Chord.initial
     }
   }
 
@@ -38,7 +39,7 @@ struct DualChordDetailNavigationLinkView: View {
         upperTones: chordCombinerVoicingCalculator.upperTonesToHighlight,
         commonTones: chordCombinerVoicingCalculator.commonTonesToHighlight).combinedSorted
     } else {
-      return chord?.voicingCalculator.stackedPitches ?? []
+      return chord.voicingCalculator.stackedPitches/* ?? []*/
     }
   }
 
@@ -59,7 +60,7 @@ struct DualChordDetailNavigationLinkView: View {
       } else {
         SingleChordDetailNavigationView(
           keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
-          chord: chord,
+          chord: chord/* ?? Chord.initial*/,
           color: color)
       }
 
