@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ExtendedNotesSectionView: View {
-  var chord: Chord?
-  var baseChord: Chord { chord?.getBaseChord() ?? .initial }
+  var chord: Chord
+  var baseChord: Chord { chord.getBaseChord() }
 
   @ViewBuilder
     var body: some View {
-      if let chord = chord, chord != baseChord {
+      if chord != baseChord {
         Section(header: Text("Extensions")) {
           DetailRow(
             title: "Notes",
