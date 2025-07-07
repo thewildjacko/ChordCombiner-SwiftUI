@@ -61,7 +61,7 @@ struct DualChordDetailView: View {
       ChordDetailForm(
         notesText: chordCombinerViewModel.resultChordNotesAndDegrees.notes,
         degreesText: chordCombinerViewModel.resultChordNotesAndDegrees.degrees,
-        chord: chordCombinerViewModel.resultChord,
+        chord: chordCombinerViewModel.resultChord ?? Chord.initial,
         chordGrapher: $chordGrapher,
         chordGrapherNavigationView: $chordGrapherNavigationView)
       .onAppear {
