@@ -34,11 +34,11 @@ extension ChordType {
   }
 
   var has9th: Bool {
-    degreeTags.intersectsWith([.flat9th, .major9th, .sharp9th])
+    degreeTags.intersectsWith([.minor9th, .major9th, .sharp9th])
   }
 
   var is9thChord: Bool {
-    degreeTags.intersectsWith([.flat9th, .major9th, .sharp9th]) &&
+    degreeTags.intersectsWith([.minor9th, .major9th, .sharp9th]) &&
     !(degreeTags.intersectsWith([.perfect11th, .sharp11th]) &&
       degreeTags.intersectsWith([.major13th, .flat13th]))
   }
@@ -81,7 +81,7 @@ extension ChordType {
   var isExtendedChord: Bool {
     degreeTags.intersectsWith(
       [
-        .flat9th,
+        .minor9th,
         .major9th,
         .sharp9th,
         .perfect11th,
