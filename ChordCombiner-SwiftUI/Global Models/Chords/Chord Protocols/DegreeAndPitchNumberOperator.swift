@@ -10,10 +10,17 @@ import Foundation
 protocol DegreeNumbers {
   var degreeNumbers: [Int] { get set }
   var degreeNumberSet: Set<Int> { get }
+  var degreeNumbersSorted: [Int] { get }
+  var degreeNumbersPlusOctave: [Int] { get }
 }
 
 extension DegreeNumbers {
   var degreeNumberSet: Set<Int> { degreeNumbers.toSet() }
+  var degreeNumbersSorted: [Int] { degreeNumbers.sorted() }
+
+  var degreeNumbersPlusOctave: [Int] {
+    degreeNumbersSorted + [degreeNumbers[0] + 12]
+  }
 }
 
 protocol StartingOctave {
