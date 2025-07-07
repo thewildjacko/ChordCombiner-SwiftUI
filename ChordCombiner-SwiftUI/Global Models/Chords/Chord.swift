@@ -36,6 +36,8 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
 
   var voicingCalculator: VoicingCalculator = VoicingCalculator.initialVC
 
+  var tensionCalculator: TensionCalculator = TensionCalculator.initial
+
   var keySwitcher: KeySwitcher { return KeySwitcher(enharmonic: enharmonic) }
 
   // MARK: initializers
@@ -73,6 +75,12 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       isSlashChord: isSlashChord,
       slashChordBassNote: slashChordBassNote
     )
+
+    tensionCalculator = TensionCalculator(
+      chordType: chordType,
+      degrees: details.degrees,
+      degreeNumbers: voicingCalculator.degreeNumbers,
+      pitchNumbers: voicingCalculator.stackedPitches)
   }
 
   init(_ rootKeyNote: RootKeyNote,
@@ -111,7 +119,7 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
       slashChordBassNote: voicingCalculator.slashChordBassNote)
   }
 
-  func getBaseChord() -> Chord { return Chord(rootKeyNote, chordType.baseChordType) }
+  func getBaseChord() -> Chord { return Chord(rootKeyNote, ChordType(chordType.baseChordType)) }
 
   func getExtensions() -> [Note] { notes.filter { !getBaseChord().notes.contains($0) } }
 
@@ -149,9 +157,14 @@ struct Chord: ChordsAndScales, KeySwitch, Identifiable {
   }
 
   func contains(_ chord: Chord) -> Bool {
-    return chord.hasDifferentCommonName() &&
+    return chord.details.preciseName != details.preciseName &&
     voicingCalculator.degreeNumbers.includes(chord.voicingCalculator.degreeNumbers) &&
     chord.voicingCalculator.degreeNumbers.count < voicingCalculator.degreeNumbers.count
+  }
+
+  func contains(_ scale: Scale) -> Bool {
+    return voicingCalculator.degreeNumbers.includes(scale.scalePitchCalculator.degreeNumbers) &&
+    scale.scalePitchCalculator.degreeNumbers.count < voicingCalculator.degreeNumbers.count
   }
 
   func contains(_ note: Note) -> Bool {
@@ -225,11 +238,42 @@ extension Chord {
     return firstChordRemainingRootKeyNotes + secondChordUniqueRootKeyNotes
   }
 
+  /// Returns a set of the combined elements of two Chord degreeNumber arrays
+  func combineSetFilter(_ otherChord: Chord) -> Set<Int> {
+    return voicingCalculator.degreeNumberSet
+      .union(otherChord.voicingCalculator.degreeNumberSet)
+  }
+
   func getEquivalentChords() -> [Chord] {
     EquivalentChordFinder.checkForEquivalentChords(
       degreeNumbers: voicingCalculator.degreeNumbers,
       rootKeyNotes: rootKeyNotes.filter { $0 != rootKeyNote }
     )
+  }
+
+  func getContainingScales() async -> [Scale] {
+    let task = Task {
+      var scales: [Scale] = []
+//      print("getting scales for \(details.preciseName)")
+
+      for scale in ScaleFactory.allScales where scale.contains(self) || self.contains(scale) {
+        let scalesContainsScale = scales.contains(scale)
+        let selfContainsScale = self.contains(scale)
+        let rootIsInScale = scale.notes.containsNoteWithSameName(as: root)
+        let scaleRootIsInChord = notes.containsNoteWithSameName(as: scale.root)
+
+        if ((scale.contains(self) && rootIsInScale) ||
+            (selfContainsScale && scale.scaleType.isParentScaleType && scaleRootIsInChord)) &&
+            !scalesContainsScale {
+//          print(scale.details.name)
+          scales.append(scale)
+        }
+      }
+
+      return scales.sorted { $0.scaleType.parentScaleType < $1.scaleType.parentScaleType }
+    }
+
+    return await task.value
   }
 }
 
