@@ -61,12 +61,21 @@ extension Int: Mathable {
   /// subtracts the supplied `degreeNumber` integer from `self` and returns the converted octave value of the sum.
   func minusDegreeNumber(_ degreeNumber: Int) -> Int { (self - degreeNumber).degreeNumberInOctave }
 
+  func isIntervalUpOrDown(of degree: Degree, from otherDegreeNumber: Int) -> Bool {
+    let firstMinusSecondIsInterval = self.minusDegreeNumber(otherDegreeNumber) == degree.size
+    let secondMinusFirstIsInterval = otherDegreeNumber.minusDegreeNumber(self) == degree.size
+
+    return firstMinusSecondIsInterval || secondMinusFirstIsInterval
+  }
+
   /// Calculates whether the interval distance between two `Ints` is a tritone **(6)**
   ///
   /// - Remark: Calculates in either direction.
   func isTritone(from otherDegreeNumber: Int) -> Bool {
     return abs(otherDegreeNumber - self) == 6 ? true : false
   }
+
+  // [0, 2, 4, 6, 7, 10]
 
   /// Calculates whether the interval distance between two `Ints` is a half step **(1)**
   ///
