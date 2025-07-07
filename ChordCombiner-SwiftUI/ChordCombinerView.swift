@@ -11,6 +11,8 @@ import OSLog
 
 struct ChordCombinerView: View {
   // MARK: @State and instance variables
+  @EnvironmentObject var conductor: InstrumentEXSConductor
+  @EnvironmentObject var seqConductor: SFZSequencerConductor
   @Binding var size: CGSize
   @State var initial: Bool = true
   @State var shouldPresentInitialHelpView = false
@@ -42,6 +44,24 @@ struct ChordCombinerView: View {
         combinedKeyboard: &chordCombinerViewModel.combinedKeyboard
       )
     }
+  }
+
+  func loadInstrument() async {
+    let task = Task {
+      do {
+        if let fileURL = Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2") {
+          try conductor.instrument.loadMelodicSoundFont(url: fileURL, preset: 0)
+        } else {
+          //          Log("Could not find file")
+        }
+      } catch {
+        //        Log("Could not load instrument")
+      }
+
+      conductor.start()
+    }
+
+    return await task.value
   }
 
   // MARK: BODY
@@ -111,6 +131,11 @@ struct ChordCombinerView: View {
           }
         }
         .onAppear {
+          Task {
+            await loadInstrument()
+          }
+          seqConductor.start()
+
           if chordCombinerViewModel.chordPropertyData.initial {
             size = proxy.size
 
