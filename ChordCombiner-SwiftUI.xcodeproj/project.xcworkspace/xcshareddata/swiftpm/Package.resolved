@@ -1,5 +1,5 @@
 {
-  "originHash" : "0e9c82f110efd26c060afff4a6350adebbd8485ccfe3764f989f93e146c44f97",
+  "originHash" : "94076ea808adf1df27a3296b9ce3e41be25e2f07c30807b481d3c9fa69761255",
   "pins" : [
     {
       "identity" : "audiokit",
@@ -62,6 +62,15 @@
       "state" : {
         "revision" : "dd0636e151724b8ba2e0908eba4d99a6ff24d00c",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "showtouches",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Cyberbeni/ShowTouches",
+      "state" : {
+        "branch" : "master",
+        "revision" : "ca11972f297a23a152a459dabe4821f314cc9c75"
       }
     },
     {
