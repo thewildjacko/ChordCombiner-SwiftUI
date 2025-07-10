@@ -15,6 +15,7 @@ import Tonic
 
 struct ChordCombinerMenuCoverView: View {
   @EnvironmentObject var conductor: InstrumentEXSConductor
+  @EnvironmentObject var seqConductor: SFZSequencerConductor
   @State private var isPlaying: Bool = false
 
   var chordCombinerViewModel = ChordCombinerViewModel.singleton() {
@@ -108,22 +109,6 @@ struct ChordCombinerMenuCoverView: View {
       .buttonStyle(.plain)
       .tint(.primaryBackground)
       .background(.primaryBackground)
-    }
-    .onAppear {
-      do {
-        if let fileURL = Bundle.main.url(forResource: "Sounds/YDP-GrandPiano-20160804", withExtension: "sf2") {
-          try conductor.instrument.loadMelodicSoundFont(url: fileURL, preset: 0)
-        } else {
-          Log("Could not find file")
-        }
-      } catch {
-        Log("Could not load instrument")
-      }
-
-      conductor.start()
-    }
-    .onDisappear {
-//      conductor.stop()
     }
   }
 }
