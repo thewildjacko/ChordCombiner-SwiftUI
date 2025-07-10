@@ -12,12 +12,9 @@ struct ChordFactory {
   // MARK: static properties
   static var allChords: [Chord] {
     var chords: [Chord] = []
-    let roots: [RootKeyNote] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
 
-    for root in roots {
-      for chordType in ChordType.allCases {
-        chords.append(Chord(root, chordType))
-      }
+    for (root, chordType) in product(RootKeyNote.allTwelveKeys, ChordType.allCases) {
+      chords.append(Chord(root, chordType))
     }
 
     return chords
@@ -25,12 +22,9 @@ struct ChordFactory {
 
   static var allSimpleChords: [Chord] {
     var chords: [Chord] = []
-    let roots: [RootKeyNote] = [.c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
 
-    for root in roots {
-      for chordType in ChordType.allSimpleChordTypes {
-        chords.append(Chord(root, chordType))
-      }
+    for (root, chordType) in product(RootKeyNote.allTwelveKeys, ChordType.allSimpleChordTypes) {
+      chords.append(Chord(root, chordType))
     }
 
     return chords
