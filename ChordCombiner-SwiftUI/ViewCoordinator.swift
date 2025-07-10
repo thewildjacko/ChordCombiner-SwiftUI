@@ -12,6 +12,7 @@ struct ViewCoordinator: View {
   @State private var size = CGSize()
 
   var body: some View {
+//    SFZSequencerView()
       if isActive {
         GeometryReader { proxy in
           ChordCombinerView(size: $size)
