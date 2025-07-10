@@ -17,14 +17,14 @@ struct ComponentChordsView: View {
       Section(header: Text("Component Chords")) {
         SingleChordDetailNavigationView(
           keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
-          chord: chordCombinerViewModel.lowerChord,
+          chord: chordCombinerViewModel.lowerChord ?? Chord.initial,
           color: .lowerChordHighlight,
           detailTitle: "Lower Chord",
           labelType: .detailRow)
 
         SingleChordDetailNavigationView(
           keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
-          chord: chordCombinerViewModel.upperChord,
+          chord: chordCombinerViewModel.upperChord ?? Chord.initial,
           color: .upperChordHighlight,
           detailTitle: "Upper Chord",
           labelType: .detailRow)
