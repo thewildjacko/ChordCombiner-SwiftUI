@@ -9,26 +9,24 @@ import SwiftUI
 
 struct EquivalentChordsSectionView: View {
   var keyboardWidth: CGFloat = 351
-  let chord: Chord?
+  let chord: Chord
 
   @ViewBuilder
-    var body: some View {
-      if let chord = chord {
-        if !chord.getEquivalentChords().isEmpty {
-          Section(header: Text("Equivalent Chords")) {
-            List {
-              ForEach(chord.getEquivalentChords()) { chord in
-                SingleChordDetailNavigationView(
-                  keyboardWidth: keyboardWidth,
-                  chord: chord,
-                  color: .lowerChordHighlight,
-                  labelType: .title)
-              }
-            }
+  var body: some View {
+    if !chord.getEquivalentChords().isEmpty {
+      Section(header: Text("Equivalent Chords")) {
+        List {
+          ForEach(chord.getEquivalentChords()) { chord in
+            SingleChordDetailNavigationView(
+              keyboardWidth: keyboardWidth,
+              chord: chord,
+              color: .lowerChordHighlight,
+              labelType: .title)
           }
         }
       }
     }
+  }
 }
 
 #Preview {
