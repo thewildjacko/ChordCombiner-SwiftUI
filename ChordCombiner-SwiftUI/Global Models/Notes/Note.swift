@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 typealias PitchesByNote = [Note: Int]
 
@@ -51,10 +52,10 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
     didSet { noteName = keyName.rawValue }
   }
 
-  /// shorthand for the letter name of the ``Note``
+  /// shorthand for the rawValue of the ``KeyName`` 
   private(set) var noteName: String = "C"
 
-  // MARK: Initializer
+  // MARK: Initializers
   init(rootNumber: NoteNumber = .zero, enharmonic: EnharmonicSymbol = .flat, degree: Degree) {
     self.rootNumber = rootNumber
     self.enharmonic = enharmonic
@@ -82,6 +83,14 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
     )
   }
 
+  init(_ degree: Degree, of note: Note) {
+    self.init(
+      rootNumber: note.rootNumber,
+      enharmonic: note.rootKeyName.enharmonic,
+      degree: degree
+    )
+  }
+
   init(_ root: RootKeyNote) {
     self.init(
       rootNumber: root.keyName.noteNumber,
@@ -98,15 +107,7 @@ struct Note: GettableKeyName, Enharmonic, KeySwitch, CustomStringConvertible {
     let pitch = self.noteNumber.rawValue.toPitch(startingOctave: startingOctave)
     let raisedPitch = pitch + 12
 
-    return chordType.baseChordType.degreeTags.contains(degree) ? pitch : raisedPitch
-  }
-
-  func isEnharmonicEquivalent(to note: Note) -> Bool {
-    if self.noteNumber == note.noteNumber && self.noteName != note.noteName {
-      return true
-    } else {
-      return false
-    }
+    return ChordType(chordType.baseChordType).degreeTags.contains(degree) ? pitch : raisedPitch
   }
 }
 
@@ -126,12 +127,39 @@ extension Note {
   }
 }
 
+// MARK: Equatable & other equivalence methods
 extension Note: Equatable {
   static func == (lhs: Note, rhs: Note) -> Bool {
     return lhs.noteNumber == rhs.noteNumber &&
     lhs.degree == rhs.degree &&
     lhs.enharmonic == rhs.enharmonic
   }
+
+  // not necessarily same degree
+  func hasSameName(as note: Note) -> Bool {
+    return self.noteNumber == note.noteNumber && self.noteName == note.noteName
+  }
+
+  // only the same noteNumber
+  func isEnharmonicEquivalent(to note: Note) -> Bool {
+    if self.noteNumber == note.noteNumber && self.noteName != note.noteName {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  // same noteNumber & degree but different spelling
+  func isEnharmonicEquivalentWithSameDegree(to note: Note) -> Bool {
+    if self.noteNumber == note.noteNumber &&
+        self.degree == note.degree &&
+        self.noteName != note.noteName {
+      return true
+    } else {
+      return false
+    }
+  }
+
 }
 
 extension Note: Hashable {
@@ -145,3 +173,19 @@ extension Note {
     return noteName.toDotNotation()
   }
 }
+
+struct NoteTestView: View {
+
+  var body: some View {
+    List {
+      ForEach(Degree.chordTones, id: \.self) { degree in
+        let note = Note(degree, of: .eSh)
+        Text("\(degree.name): \(note.noteName)")
+      }
+    }
+  }
+}
+
+// #Preview {
+//  NoteTestView()
+// }
