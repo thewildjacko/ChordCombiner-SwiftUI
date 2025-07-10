@@ -12,9 +12,10 @@ struct ChordDetailForm: View {
 
   var notesText: String
   var degreesText: String
-  var chord: Chord?
+  var chord: Chord
   var isDualChordDetailView: Bool = true
 
+  @State var containingScales: [Scale] = []
   @Binding var chordGrapher: ChordGrapher?
   @Binding var chordGrapherNavigationView: ChordGrapherNavigationView
 
@@ -25,12 +26,25 @@ struct ChordDetailForm: View {
         degreesText: degreesText,
         chordGrapherNavigationView: $chordGrapherNavigationView)
 
+      ChordTensionScoreView(chord: chord)
+
       ComponentChordsView(isDualChordDetailView: isDualChordDetailView)
 
       BaseChordSectionView(
         keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
         chord: chord)
+
       ExtendedNotesSectionView(chord: chord)
+
+      ContainingScalesSectionView(
+        keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
+        chord: chord,
+        containingScales: $containingScales)
+      .onAppear {
+        Task {
+          await containingScales = chord.getContainingScales()
+        }
+      }
 
       EquivalentChordsSectionView(
         keyboardWidth: chordCombinerViewModel.lowerKeyboard.width,
