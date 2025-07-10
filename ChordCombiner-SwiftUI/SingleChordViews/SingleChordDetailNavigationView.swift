@@ -14,7 +14,7 @@ struct SingleChordDetailNavigationView: View {
 
   var keyboardWidth: CGFloat = 351
 
-  var chord: Chord?
+  var chord: Chord
   var color: Color
   var infoFont: Font? = .title3
   var detailTitle: String?
@@ -22,35 +22,33 @@ struct SingleChordDetailNavigationView: View {
 
   @ViewBuilder
   var body: some View {
-    if let chord = chord {
-      NavigationLink(
-        destination:
-          SingleChordDetailView(
-            chord: chord,
-            keyboard:
-              Keyboard(
-                width: keyboardWidth,
-                initialKeyType: .c,
-                startingOctave: 4,
-                octaves: 3,
-                chord: chord,
-                color: color,
-                lettersOn: true,
-                letterPadding: true
-              )
-          )
-      ) {
-        switch labelType {
-        case .icon:
-          if let infoFont = infoFont {
-            InfoLinkImageView(font: infoFont)
-          }
-        case .title:
-          TitleView(text: chord.details.preciseName, font: .headline)
-        case .detailRow:
-          if let detailTitle = detailTitle {
-            DetailRow(title: detailTitle, text: chord.details.preciseName)
-          }
+    NavigationLink(
+      destination:
+        SingleChordDetailView(
+          chord: chord,
+          keyboard:
+            Keyboard(
+              width: keyboardWidth,
+              initialKeyType: .c,
+              startingOctave: 4,
+              octaves: 3,
+              chord: chord,
+              color: color,
+              lettersOn: true,
+              letterPadding: true
+            )
+        )
+    ) {
+      switch labelType {
+      case .icon:
+        if let infoFont = infoFont {
+          InfoLinkImageView(font: infoFont)
+        }
+      case .title:
+        TitleView(text: chord.details.preciseName, font: .headline)
+      case .detailRow:
+        if let detailTitle = detailTitle {
+          DetailRow(title: detailTitle, text: chord.details.preciseName)
         }
       }
     }

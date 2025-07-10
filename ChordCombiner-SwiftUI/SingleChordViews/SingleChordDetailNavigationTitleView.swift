@@ -12,7 +12,7 @@ struct SingleChordDetailNavigationTitleView: View {
   let titleText: String
   let titleFont: Font
   var infoFont: Font = .title3
-  let chord: Chord?
+  let chord: Chord
   var color: Color = .lowerChordHighlight
   @State private var isPlaying: Bool = false
 
@@ -32,7 +32,7 @@ struct SingleChordDetailNavigationTitleView: View {
 
       PlayButton(
         isPlaying: $isPlaying,
-        pitches: chord?.voicingCalculator.stackedPitches ?? [])
+        pitches: chord.voicingCalculator.stackedPitches/* ?? []*/)
     }
   }
 }
