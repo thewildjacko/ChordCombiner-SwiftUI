@@ -29,6 +29,9 @@ extension KeyName {
     case cSh, dSh, eSh, fSh, gSh, aSh, bSh
     // swiftlint:enable identifier_name
 
+    static let allTwelveKeys: [RootKeyNote] = [
+      .c, .dB, .d, .eB, .e, .f, .gB, .g, .aB, .a, .bB, .b]
+
     static var majorRoots: [RootKeyNote] {
       [.c,
        .f, .bB, .eB, .aB, .dB, .gB, .cB,
