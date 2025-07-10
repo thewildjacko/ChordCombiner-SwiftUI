@@ -7,15 +7,21 @@
 
 import SwiftUI
 import OSLog
+import ShowTouches
 
 @main
 struct AppMain: App {
   @StateObject var conductor = InstrumentEXSConductor()
+  @StateObject var seqConductor = SFZSequencerConductor()
 
   var body: some Scene {
     WindowGroup {
       ViewCoordinator()
         .environmentObject(conductor)
+        .environmentObject(seqConductor)
+        .onAppear {
+          UIWindow.showTouches()
+        }
     }
   }
 }

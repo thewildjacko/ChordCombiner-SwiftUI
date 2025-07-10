@@ -123,51 +123,6 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>0</string>
-					<key>EndingLineNumber</key>
-					<string>61</string>
-					<key>StartingColumnNumber</key>
-					<string>0</string>
-					<key>StartingLineNumber</key>
-					<string>60</string>
-					<key>Timestamp</key>
-					<string>753922656.172567</string>
-				</dict>
-				<key>rebasable-url</key>
-				<dict>
-					<key>base</key>
-					<string>workspace</string>
-					<key>payload</key>
-					<dict>
-						<key>relative-path</key>
-						<string>ChordCombiner-SwiftUI/Models/Keyboard/KeyboardHighlighter.swift</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>text-context</key>
-			<dict>
-				<key>focused</key>
-				<string>    // FIXME: Set notes to display for each highlighted key -&gt; missing setNotesStacked call here
-</string>
-				<key>leading</key>
-				<string>    combinedKeyboard.highlightKeys_LettersAndCirclesOn(pitches: upperSplitPitches, color: .upperChordHighlight, circleType: .upper)
-    
-</string>
-				<key>trailing</key>
-				<string>  }
-  
-  func highlightKeyboards(selectedChord: Chord?, chordToMatch: Chord?, chordCombinerViewModel: ChordCombinerViewModel, selectedKeyboard: inout Keyboard, selectedChordColor: Color, combinedKeyboard: inout Keyboard) {
-</string>
-			</dict>
-			<key>type</key>
-			<string>bookmark</string>
-		</dict>
-		<dict>
-			<key>destination</key>
-			<dict>
-				<key>location-parameters</key>
-				<dict>
-					<key>EndingColumnNumber</key>
 					<string>24</string>
 					<key>EndingLineNumber</key>
 					<string>77</string>
@@ -201,6 +156,139 @@
 				<string> = property
       }
     }
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>9</string>
+					<key>EndingLineNumber</key>
+					<string>53</string>
+					<key>StartingColumnNumber</key>
+					<string>5</string>
+					<key>StartingLineNumber</key>
+					<string>53</string>
+					<key>Timestamp</key>
+					<string>759133376.880747</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Global Models/Chords/ChordType/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>TODO</string>
+				<key>leading</key>
+				<string>  case ma13sh5sh11 = "ma13(♯5♯11)"                 // [0, 2, 4, 6, 8, 9, 11]
+  case ma13sh5sh11omit9 = "ma13(♯5♯11 omit9)"     // [0, 4, 6, 8, 9, 11]
+  // </string>
+				<key>trailing</key>
+				<string>: ma7(♭13)    [0, 2, 4, 5, 7, 8, 11]
+
+  // MARK: Ma7(sus4) Chords
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>216</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>215</string>
+					<key>Timestamp</key>
+					<string>759618021.54603</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Global Models/Chords/ChordType/ChordType.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>  // TODO: mi(∆7 ♭13)
+</string>
+				<key>leading</key>
+				<string>  case miMa13omit9 = "mi(∆13 omit9)"         // [0, 3, 5, 7, 9, 11]
+
+</string>
+				<key>trailing</key>
+				<string>}
+
+// MARK: Initializers
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>9</string>
+					<key>EndingLineNumber</key>
+					<string>284</string>
+					<key>StartingColumnNumber</key>
+					<string>5</string>
+					<key>StartingLineNumber</key>
+					<string>284</string>
+					<key>Timestamp</key>
+					<string>759736274.885896</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>ChordCombiner-SwiftUI/Global Models/Chords/TensionCalculator+PitchIntervalStats.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>TODO</string>
+				<key>leading</key>
+				<string>  }
+
+  // </string>
+				<key>trailing</key>
+				<string>: chordTypeAmbiguityScore
+  func chordTypeAmbiguityScore() -&gt; Double {
+    return 0
 </string>
 			</dict>
 			<key>type</key>
