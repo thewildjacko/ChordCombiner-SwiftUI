@@ -30,9 +30,11 @@
             "name" : "ChordCombinerTests",
             "testFunctions" : [
               "dictionaryVSSwitch()",
+              "melodicMinorScalesAreRecognized()",
               "notesMatchVoicingCalculatorNotes(_:)",
               "stackedPitchesByDegreeMatchesStackedPitches(_:)",
-              "stackedPitchesEqualsEasyStackedPitches(_:)"
+              "stackedPitchesEqualsEasyStackedPitches(_:)",
+              "tensionScores(_:)"
             ]
           }
         ],

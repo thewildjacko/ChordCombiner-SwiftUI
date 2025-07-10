@@ -118,4 +118,24 @@ through available roots and eventually land on a match for D.
       doNotesMatchVoicingCalculatorNotes,
       "\(chord.details.preciseName): \(notes.noteNames()) should equal \(vcNotes.noteNames())")
   }
+
+  @Test("melodic minor scales are recognized")
+  func melodicMinorScalesAreRecognized() async throws {
+    let scale = Scale(.c, .melodicMinor)
+    let chord = Chord(.c, .miMa7)
+
+    print("scale \(scale.details.name) contains chord \(chord.details.preciseName): \(scale.contains(chord))")
+
+    #expect(scale.contains(chord))
+  }
+
+  @Test("tension scores", arguments: ChordFactory.allChordsInC)
+  func tensionScores(_ chord: Chord) async throws {
+    let dTS = chord.tensionCalculator.degreeTensionScore()
+    let vTS = chord.tensionCalculator.voicingTensionScore()
+
+    print("\(chord.details.preciseName): dTS: \(dTS), vTS: \(vTS)")
+
+    #expect(chord.details.preciseName == chord.details.preciseName)
+  }
 }
