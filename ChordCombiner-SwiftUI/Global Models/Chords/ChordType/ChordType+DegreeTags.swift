@@ -9,10 +9,6 @@ import Foundation
 
 // MARK: degreeNumbers, hasDegreeTags & degreeTags
 extension ChordType {
-  var degreeNumbers: [Int] {
-    Degree.degreeNumbersInC(degreeTags: degreeTags)
-  }
-
   // MARK: hasDegreeTags
   // MARK: hasRoot
   var hasRoot: Degree? {
@@ -138,10 +134,7 @@ extension ChordType {
     case .dim7:
       return nil
     default:
-      switch self {
-      default:
-        return nil
-      }
+      return nil
     }
   }
 
@@ -164,7 +157,7 @@ extension ChordType {
   // MARK: hasMajor7th
   var hasMajor7th: Degree? {
     switch baseChordType {
-    case let chordType where chordType.hasMinor7th != nil || chordType == .ma6:
+    case let chordType where ChordType(chordType).hasMinor7th != nil || chordType == .ma6:
       return nil
     case .ma7, .miMa7, .ma7b5, .ma7sh5, .ma7sh5sh11, .ma7sus4, .ma7sus4sh5, .dimMa7:
       return .major7th
@@ -198,7 +191,7 @@ extension ChordType {
         .mi7b9b13, .mi11b9b13,
       // mi7(♭5)
         .mi7b5b9, .mi11b5b9, .locrian:
-      return .flat9th
+      return .minor9th
     default:
       return nil
     }
@@ -391,5 +384,9 @@ extension ChordType {
                               hasMajor13th]
 
     return optionalDegreeTags.compactMap { $0 }
+  }
+
+  var degreeNumbers: [Int] {
+    Degree.degreeNumbersInC(degreeTags: degreeTags)
   }
 }
