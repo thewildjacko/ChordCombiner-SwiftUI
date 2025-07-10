@@ -51,6 +51,7 @@ enum ChordType: String, ChordAndScaleProperty {
   case ma9sh5sh11 = "ma9(♯5♯11)"                   // [0, 4, 6, 8, 11]
   case ma13sh5sh11 = "ma13(♯5♯11)"                 // [0, 2, 4, 6, 8, 9, 11]
   case ma13sh5sh11omit9 = "ma13(♯5♯11 omit9)"     // [0, 4, 6, 8, 9, 11]
+  // TODO: ma7(♭13)    [0, 2, 4, 5, 7, 8, 11]
 
   // MARK: Ma7(sus4) Chords
   case ma7sus4 = "ma7sus4"                    // [0, 5, 7, 11]
@@ -74,6 +75,8 @@ enum ChordType: String, ChordAndScaleProperty {
   case dominant7b9sh5 = "7(♭9♯5)"                      // [0, 1, 4, 8, 10]
   case dominant7b9sh9 = "7(♭9♯9)"                      // [0, 1, 3, 4, 7, 10]
   case dominant7b9sh11 = "7(♭9♯11)"                    // [0, 1, 4, 6, 7, 10]
+  // TODO: 13(♭9)       [0, 1, 4, 7, 9, 10]
+  // TODO: 13(♭9♯11)    [0, 1, 4, 6, 7, 9, 10]
   case dominant7altb9sh9sh11 = "7alt(♭9♯9♯11)"         // [0, 1, 3, 4, 6, 7, 10]
   case dominant7altb9sh9b5 = "7alt(♭9♯9♭5)"            // [0, 1, 3, 4, 6, 10]
   case dominant7altb9sh5sh11 = "7alt(♭9♯5♯11)"         // [0, 1, 4, 6, 8, 10]
@@ -82,8 +85,11 @@ enum ChordType: String, ChordAndScaleProperty {
   case dominant7sh9 = "7(♯9)"                           // [0, 3, 4, 7, 10]
   case dominant7sh9b5 = "7(♯9♭5)"                      // [0, 3, 4, 6, 10]
   case dominant7sh9sh5 = "7(♯9♯5)"                     // [0, 3, 4, 8, 10]
+  // TODO: 13(♯9)       [0, 3, 4, 7, 9, 10]
+  // TODO: 13(♯9♯11)    [0, 3, 4, 6, 7, 9, 10]
   case dominant7sh9sh11 = "7(♯9♯11)"                   // [0, 3, 4, 6, 7, 10]
   case dominant7altsh9sh5sh11 = "7alt(♯9♯5♯11)"         // [0, 3, 4, 6, 8, 10]
+
   // ♯11
   case dominant7sh11 = "7(♯11)"                         // [0, 4, 6, 7, 10]
   case dominant9sh11 = "9(♯11)"                         // [0, 2, 4, 6, 7, 10]
@@ -113,7 +119,8 @@ enum ChordType: String, ChordAndScaleProperty {
   case dominant7sus2 = "7sus2"                              // [0, 2, 7, 10]
   case dominant13sus2 = "13sus2"                            // [0, 2, 7, 9, 10]
 
-  // MARK: Minor Dorian 7th Chords
+  // MARK: Minor 7th Chords
+  // Dorian
   case mi7                                 // [0, 3, 7, 10]
   case mi9                                 // [0, 2, 3, 7, 10]
   case mi11                                // [0, 2, 3, 5, 7, 10]
@@ -123,11 +130,15 @@ enum ChordType: String, ChordAndScaleProperty {
   case mi13omit11 = "mi13(omit11)"        // [0, 2, 3, 7, 9, 10]
   case mi7add13 = "mi7(add13)"            // [0, 3, 7, 9, 10]
 
-  // MARK: Phrygian
+  // Phrygian
   case mi7b9 = "mi7(♭9)"                  // [0, 1, 3, 7, 10]
   case mi7b9b13  = "mi7(♭9♭13)"           // [0, 1, 3, 7, 8, 10]
-  case mi11b9 = "mi11(♭9)"                // [0, 1, 3, 5, 7, 10]
   case mi11b9b13 = "mi11(♭9♭13)"          // [0, 1, 3, 5, 7, 8, 10]
+
+  // Phrygian or Dorian (♭2)
+  case mi11b9 = "mi11(♭9)"                // [0, 1, 3, 5, 7, 10]
+
+  // Dorian ♭2
   case mi13b9 = "mi13(♭9)"                // [0, 1, 3, 5, 7, 9, 10]
 
   // MARK: Min(♭13)
@@ -140,7 +151,7 @@ enum ChordType: String, ChordAndScaleProperty {
   // MARK: mi7(♭5)
   case mi7b5 = "mi7(♭5)"                  // [0, 3, 6, 10]
   case mi9b5 = "mi9(♭5)"                  // [0, 2, 3, 6, 10]
-  case mi7b5add11 = "mi7(♭5add11)"        // [0, 3, 5, 6, 10]
+  case mi7b5add11 = "mi7(♭5 add11)"        // [0, 3, 5, 6, 10]
   case mi11b5 = "mi11(♭5)"                // [0, 2, 3, 5, 6, 10]
   case mi11b5b13 = "mi11(♭5♭13)"          // [0, 2, 3, 5, 6, 8, 10] (locrian ♯2)
   case mi7b5b9 = "mi7(♭5♭9)"              // [0, 1, 3, 6, 10]
@@ -202,62 +213,78 @@ enum ChordType: String, ChordAndScaleProperty {
   case miMa13 = "mi(∆13)"                     // [0, 2, 3, 5, 7, 9, 11]
   case miMa13omit9 = "mi(∆13 omit9)"         // [0, 3, 5, 7, 9, 11]
 
-  var preciseName: String { self == .ma ? "ma" : self.rawValue }
-
-  // MARK: commonName
-  var commonName: String {
-    switch self {
-    case .ma13omit9:
-      return "ma13"
-    case .ma13b5omit9:
-      return "ma13(♭5)"
-    case .ma13sh11omit9:
-      return "ma13(♯11)"
-    case .ma13sh5omit9:
-      return "ma13(♯5)"
-    case .ma13sh5sh11omit9:
-      return "ma13(♯5♯11)"
-    case .ma13sus4omit9:
-      return "ma13sus4"
-    case .dominant13omit9:
-      return "13"
-    case .dominant7altb9sh9sh11, .dominant7altb9sh9b5, .dominant7altb9sh5sh11,
-        .dominant7altb9sh9sh5sh11, .dominant7altsh9sh5sh11:
-      return "7alt"
-    case .dominant13sh11omit9:
-      return "13(♯11)"
-    case .dominant13b5omit9:
-      return "13(♭5)"
-    case .dominant13sus4omit9:
-      return "13sus4"
-    case .mi11omit9:
-      return "mi11"
-    case .mi13omit9, .mi13omit11:
-      return "mi13"
-    case .mi11b13omit9:
-      return "mi11(♭13)"
-    case .mi13b5omit9, .mi13b5omit11:
-      return "mi13(♭5)"
-    case .dim11b13omit9:
-      return "˚11(♭13)"
-    case .dim11addMa7omit9:
-      return "˚11(add∆7)"
-    case .dim11b13addMa7omit9:
-      return "˚11(♭13 add∆7)"
-    case .dimMa11b13omit9:
-      return "˚ma11(♭13)"
-    case .miMa11omit9:
-      return "mi(∆11)"
-    case .miMa13omit9:
-      return "mi(∆13)"
-    default:
-      return rawValue
-    }
-  }
+  // TODO: mi(∆7 ♭13)
 }
 
 // MARK: Initializers
-extension ChordType {
+extension ChordType: MusicalBuildingBlock {
+
+  // swiftlint:disable function_body_length
+  // swiftlint:disable:next cyclomatic_complexity
+  init(_ baseChordType: BaseChordType) {
+    switch baseChordType {
+    case .ma:
+      self = .ma
+    case .mi:
+      self = .mi
+    case .aug:
+      self = .aug
+    case .dim:
+      self = .dim
+    case .sus4:
+      self = .sus4
+    case .sus2:
+      self = .sus2
+    case .add4:
+      self = .add4
+    case .add2:
+      self = .add2
+    case .mib6:
+      self = .mib6
+    case .minorAdd4:
+      self = .minorAdd4
+    case .minorAdd2:
+      self = .minorAdd2
+    case .ma7:
+      self = .ma7
+    case .ma7b5:
+      self = .ma7b5
+    case .ma7sh5:
+      self = .ma7sh5
+    case .ma7sus4:
+      self = .ma7sus4
+    case .ma7sus4sh5:
+      self = .ma7sus4sh5
+    case .ma7sh5sh11:
+      self = .ma7sh5sh11
+    case .dominant7:
+      self = .dominant7
+    case .dominant7b5:
+      self = .dominant7b5
+    case .dominant7sh5:
+      self = .dominant7sh5
+    case .dominant7sus4:
+      self = .dominant7sus4
+    case .dominant7sus2:
+      self = .dominant7sus2
+    case .mi7:
+      self = .mi7
+    case .mi7b5:
+      self = .mi7b5
+    case .dim7:
+      self = .dim7
+    case .dimMa7:
+      self = .dimMa7
+    case .ma6:
+      self = .ma6
+    case .mi6:
+      self = .mi6
+    case .miMa7:
+      self = .miMa7
+    }
+  }
+  // swiftlint:enable function_body_length
+
   /// Failable initializer from a set of degreeNumbers.
   ///
   /// Compares `degreeNumbers` against an array of ``ChordType`` enum cases
