@@ -16,6 +16,7 @@ import Tonic
 
 struct SingleChordTitleNavigationStackView: View {
   @EnvironmentObject var conductor: InstrumentEXSConductor
+  @EnvironmentObject var seqConductor: SFZSequencerConductor
   @State private var isPlaying: Bool = false
 
   var keyboardWidth: CGFloat = 351
@@ -29,7 +30,7 @@ struct SingleChordTitleNavigationStackView: View {
         keyboardWidth: keyboardWidth,
         titleText: chordCombinerSelectedChordTitleModel.singleChordKeyboardTitleSelector.chordTitle,
         titleFont: chordCombinerSelectedChordTitleModel.chordSymbolTitleFont,
-        chord: chordCombinerSelectedChordTitleModel.selectedChord,
+        chord: chordCombinerSelectedChordTitleModel.selectedChord ?? Chord.initial,
         color: chordCombinerSelectedChordTitleModel.selectedChordColor)
 
       selectedKeyboard
