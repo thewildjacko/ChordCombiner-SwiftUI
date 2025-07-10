@@ -20,8 +20,10 @@ struct ChordDetails {
   var noteNamesArray: [String] = []
   var noteNames: String { noteNamesArray.joined(separator: ", ") }
 
+  var degrees: [Degree] = []
   var degreeNameGroup: DegreeNameGroup = DegreeNameGroup.initial
   var degreeNames: String { degreeNameGroup.numeric.joined(separator: ", ") }
+  var otherDegreeNames: String { notes.map { $0.degreeName.numeric }.joined(separator: ", ") }
 
   var commonName: String { root.noteName + chordType.commonName }
   var preciseName: String { root.noteName + chordType.preciseName }
@@ -36,6 +38,7 @@ struct ChordDetails {
 
   mutating func setNoteProperties() {
     noteNamesArray = notes.noteNames()
+    degrees = notes.toDegrees()
     degreeNameGroup = notes.toDegreeNameGroup()
   }
 
