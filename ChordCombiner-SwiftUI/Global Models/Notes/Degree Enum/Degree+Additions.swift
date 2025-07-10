@@ -36,7 +36,7 @@ extension Degree {
     switch self {
     case .root, .octave, .perfect15th:
       keySwitcher.root(rootNumber: rootNumber)
-    case .minor2nd, .flat9th:
+    case .minor2nd, .minor9th:
       keySwitcher.minor9th(rootNumber: rootNumber)
     case .major2nd, .major9th:
       keySwitcher.major9th(rootNumber: rootNumber)
@@ -46,11 +46,13 @@ extension Degree {
       keySwitcher.minor3rd(rootNumber: rootNumber)
     case .major3rd, .major10th:
       keySwitcher.major3rd(rootNumber: rootNumber)
+    case .flat4th, .flat11th:
+      keySwitcher.dim4th(rootNumber: rootNumber)
     case .perfect4th, .perfect11th:
       keySwitcher.perfect4th(rootNumber: rootNumber)
     case .sharp4th, .sharp11th:
       keySwitcher.sharp4th(rootNumber: rootNumber)
-    case .diminished5th, .flat12th:
+    case .diminished5th, .diminished12th:
       keySwitcher.dim5th(rootNumber: rootNumber)
     case .perfect5th, .perfect12th:
       keySwitcher.perfect5th(rootNumber: rootNumber)
@@ -71,6 +73,34 @@ extension Degree {
   // swiftlint:enable cyclomatic_complexity
 }
 
+// MARK: Static properties
+extension Degree {
+  static let chordTones: [Degree] = [
+    .root,
+    .major2nd,
+    .minor3rd,
+    .major3rd,
+    .perfect4th,
+    .sharp4th,
+    .diminished5th,
+    .perfect5th,
+    .sharp5th,
+    .minor6th,
+    .major6th,
+    .diminished7th,
+    .minor7th,
+    .major7th,
+    .minor9th,
+    .major9th,
+    .sharp9th,
+    .perfect11th,
+    .sharp11th,
+    .flat13th,
+    .major13th
+  ]
+
+}
+
 // MARK: Static functions
 extension Degree {
   // MARK: allNotesInKey
@@ -80,29 +110,6 @@ extension Degree {
 
   // MARK: allChordNotesInKey
   static func allChordNotesInKey(rootKeyNote: RootKeyNote) -> [Note] {
-    let chordTones: [Degree] = [
-      .root,
-      .major2nd,
-      .minor3rd,
-      .major3rd,
-      .perfect4th,
-      .sharp4th,
-      .diminished5th,
-      .perfect5th,
-      .sharp5th,
-      .minor6th,
-      .major6th,
-      .diminished7th,
-      .minor7th,
-      .major7th,
-      .flat9th,
-      .major9th,
-      .sharp9th,
-      .perfect11th,
-      .sharp11th,
-      .flat13th,
-      .major13th
-    ]
 
     return chordTones.map { Note($0, of: rootKeyNote)}
   }
