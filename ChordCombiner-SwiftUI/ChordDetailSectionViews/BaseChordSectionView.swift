@@ -9,8 +9,8 @@ import SwiftUI
 
 struct BaseChordSectionView: View {
   var keyboardWidth: CGFloat = 351
-  var chord: Chord?
-  var baseChord: Chord { chord?.getBaseChord() ?? .initial }
+  var chord: Chord
+  var baseChord: Chord { chord.getBaseChord() }
 
   @ViewBuilder
     var body: some View {
