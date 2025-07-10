@@ -46,7 +46,7 @@ struct VoicingCalculator: GettableKeyName, DegreeAndPitchNumberOperator, Settabl
 
     for note in notes {
       var stackedPitch = raisedRoot + note.degree.size
-      if chordType.baseChordType == .dim7 && note.degree == .major7th {
+      if ChordType(chordType.baseChordType) == .dim7 && note.degree == .major7th {
         stackedPitch += 12
       }
 
@@ -104,7 +104,7 @@ struct VoicingCalculator: GettableKeyName, DegreeAndPitchNumberOperator, Settabl
 
   // MARK: Instance methods
   func baseChord() -> Chord {
-    return Chord(rootKeyNote, chordType.baseChordType)
+    return Chord(rootKeyNote, ChordType(chordType.baseChordType))
   }
 
   func allChordNotesInKeyFiltered() -> [Note] {
