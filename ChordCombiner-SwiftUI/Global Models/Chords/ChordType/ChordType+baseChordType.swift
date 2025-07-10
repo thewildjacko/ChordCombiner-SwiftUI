@@ -7,14 +7,74 @@
 
 import Foundation
 
+typealias BaseChordType = ChordType.BaseChordType
+
 extension ChordType {
-  var baseChordType: ChordType {
+  // swiftlint:disable identifier_name
+  enum BaseChordType {
+    case ma
+    case mi
+    case aug
+    case dim
+    case sus4
+    case sus2
+
+    case add4
+    case add2
+    case mib6
+    case minorAdd4
+    case minorAdd2
+
+    case ma7
+    case ma7b5
+    case ma7sh5
+    case ma7sh5sh11
+    case ma7sus4
+    case ma7sus4sh5
+
+    case dominant7
+    case dominant7b5
+    case dominant7sh5
+
+    case dominant7sus4
+    case dominant7sus2
+
+    case mi7
+    case mi7b5
+    case dim7
+    case dimMa7
+    case ma6
+    case mi6
+    case miMa7
+  }
+  // swiftlint:enable identifier_name
+
+  var baseChordType: BaseChordType {
     switch self {
       // MARK: Triads
-    case .ma, .mi, .aug, .dim, .sus4, .sus2,
+    case .ma:
+      return .ma
+    case .mi:
+      return .mi
+    case .aug:
+      return .aug
+    case .dim:
+      return .dim
+    case .sus4:
+      return .sus4
+    case .sus2:
+      return .sus2
       // MARK: Modified triads
-        .add4, .add2, .mib6, .minorAdd4, .minorAdd2:
-      return self
+    case .add4:
+      return .add4
+    case .add2:
+      return .add2
+    case .mib6:
+      return .mib6
+    case .minorAdd4:
+      return .minorAdd4
+    case .minorAdd2:
+      return .minorAdd2
       // MARK: Major 7th chords
     case .ma7, .ma9, .ma13, .ma13omit9, .ma7sh11, .ma9sh11, .ma13sh11, .ma13sh11omit9:
       return .ma7
@@ -78,9 +138,16 @@ extension ChordType {
     case .dominant7sus2, .dominant13sus2:
       return .dominant7sus2
       // MARK: Minor 7th chords
-    case .mi7, .mi9, .mi11, .mi11omit9, .mi13, .mi13omit9,
-        .mi13omit11, .mi7add13, .mi7b13, .mi9b13, .mi11b13,
-        .mi11b13omit9, .mi7b9, .mi7b9b13, .mi11b9, .mi11b9b13, .mi13b9:
+      // Dorian
+    case .mi7, .mi9, .mi11, .mi11omit9, .mi13, .mi13omit9, .mi13omit11, .mi7add13,
+      // Natural minor
+        .mi7b13, .mi9b13, .mi11b13, .mi11b13omit9,
+      // Phrygian
+        .mi7b9, .mi7b9b13, .mi11b9b13,
+      // Phrygian or Dorian ♭2
+        .mi11b9,
+      // Dorian ♭2
+        .mi13b9:
       return .mi7
       // MARK: Min7(♭5) chords
     case .mi7b5, .mi9b5, .mi7b5add11, .mi11b5, .mi11b5b13, .mi7b5b9, .mi11b5b9,
