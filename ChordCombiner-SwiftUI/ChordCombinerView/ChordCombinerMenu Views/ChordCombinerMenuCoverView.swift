@@ -115,4 +115,5 @@ struct ChordCombinerMenuCoverView: View {
 
 #Preview {
   ChordCombinerMenuCoverView(chordProperties: .constant(ChordProperties.initial), islowerChordMenu: true)
+    .environmentObject(SFZSequencerConductor())
 }

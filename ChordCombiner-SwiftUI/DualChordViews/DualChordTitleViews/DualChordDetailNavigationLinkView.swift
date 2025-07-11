@@ -73,4 +73,5 @@ struct DualChordDetailNavigationLinkView: View {
 
 #Preview {
   DualChordDetailNavigationLinkView(showCaption: true)
+    .environmentObject(SFZSequencerConductor())
 }

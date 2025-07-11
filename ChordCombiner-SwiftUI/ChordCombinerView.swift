@@ -178,4 +178,6 @@ struct ChordCombinerView: View {
 
 #Preview {
   ChordCombinerView(size: .constant(CGSize()))
+    .environmentObject(SFZSequencerConductor())
+    .environmentObject(InstrumentEXSConductor())
 }
